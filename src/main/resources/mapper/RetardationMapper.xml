@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dbsy.student.mapper.RetardationMapper">
+  <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Retardation">
+    <constructor>
+      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="old_department_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="old_major_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="old_clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="new_department_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="new_major_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="new_clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="save_date" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="is_pass" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="result" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="remarks" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.dbsy.student.pojo.Retardation">
+    insert into retardation (id, student_id, old_department_id, 
+      old_major_id, old_clazz_id, new_department_id, 
+      new_major_id, new_clazz_id, save_date, 
+      is_pass, result, remarks)
+    values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{oldDepartmentId,jdbcType=INTEGER}, 
+      #{oldMajorId,jdbcType=INTEGER}, #{oldClazzId,jdbcType=INTEGER}, #{newDepartmentId,jdbcType=INTEGER}, 
+      #{newMajorId,jdbcType=INTEGER}, #{newClazzId,jdbcType=INTEGER}, #{saveDate,jdbcType=DATE}, 
+      #{isPass,jdbcType=BIT}, #{result,jdbcType=BIT}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Retardation">
+    insert into retardation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="oldDepartmentId != null">
+        old_department_id,
+      </if>
+      <if test="oldMajorId != null">
+        old_major_id,
+      </if>
+      <if test="oldClazzId != null">
+        old_clazz_id,
+      </if>
+      <if test="newDepartmentId != null">
+        new_department_id,
+      </if>
+      <if test="newMajorId != null">
+        new_major_id,
+      </if>
+      <if test="newClazzId != null">
+        new_clazz_id,
+      </if>
+      <if test="saveDate != null">
+        save_date,
+      </if>
+      <if test="isPass != null">
+        is_pass,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="oldDepartmentId != null">
+        #{oldDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="oldMajorId != null">
+        #{oldMajorId,jdbcType=INTEGER},
+      </if>
+      <if test="oldClazzId != null">
+        #{oldClazzId,jdbcType=INTEGER},
+      </if>
+      <if test="newDepartmentId != null">
+        #{newDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="newMajorId != null">
+        #{newMajorId,jdbcType=INTEGER},
+      </if>
+      <if test="newClazzId != null">
+        #{newClazzId,jdbcType=INTEGER},
+      </if>
+      <if test="saveDate != null">
+        #{saveDate,jdbcType=DATE},
+      </if>
+      <if test="isPass != null">
+        #{isPass,jdbcType=BIT},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=BIT},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

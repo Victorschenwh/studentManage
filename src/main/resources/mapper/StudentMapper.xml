@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dbsy.student.mapper.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Student">
+    <constructor>
+      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="number" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="gender" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="phone_number" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="id_card" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="native_place" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="photo" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="admission_date" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="birthday" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="score" javaType="java.lang.Float" jdbcType="REAL" />
+      <arg column="clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="major_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="department_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="grade" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="age" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="nation" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.dbsy.student.pojo.Student">
+    insert into student (id, number, name, 
+      gender, phone_number, email, 
+      id_card, native_place, photo, 
+      admission_date, birthday, password, 
+      score, clazz_id, major_id, 
+      department_id, grade, age, 
+      nation)
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=BIT}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{idCard,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
+      #{admissionDate,jdbcType=DATE}, #{birthday,jdbcType=DATE}, #{password,jdbcType=VARCHAR}, 
+      #{score,jdbcType=REAL}, #{clazzId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, 
+      #{departmentId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
+      #{nation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Student">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="nativePlace != null">
+        native_place,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="admissionDate != null">
+        admission_date,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="clazzId != null">
+        clazz_id,
+      </if>
+      <if test="majorId != null">
+        major_id,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="nation != null">
+        nation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=BIT},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null">
+        #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="admissionDate != null">
+        #{admissionDate,jdbcType=DATE},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=REAL},
+      </if>
+      <if test="clazzId != null">
+        #{clazzId,jdbcType=INTEGER},
+      </if>
+      <if test="majorId != null">
+        #{majorId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="nation != null">
+        #{nation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
