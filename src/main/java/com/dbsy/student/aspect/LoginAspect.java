@@ -13,6 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Component
 @Aspect
@@ -30,6 +31,8 @@ public class LoginAspect {
 
         String username = request.getParameter("username");
         String email = request.getParameter("email");
+        HttpSession session = request.getSession();
+        session.setAttribute("sessionUsername",username);
 
 
         String ip = request.getRemoteAddr();

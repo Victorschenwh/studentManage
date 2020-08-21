@@ -94,4 +94,9 @@ public class TeacherServiceImp implements TeacherService {
     public Teacher selectByEmail(String email) {
         return teacherMapper.selectByEmail(email);
     }
+
+    @Override
+    public int changePWByUsername(Teacher teacher) {
+        return this.teacherMapper.changePWByUsername(teacher);
+    }
 }

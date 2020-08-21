@@ -9,13 +9,20 @@ public class Clazz {
 
     private Integer majorId;
 
+    private Integer teacherId;
 
+    private Integer grade;
 
-    public Clazz(Integer id, String name, String introduce, Integer majorId) {
+    private Integer departmentId;
+
+    public Clazz(Integer id, String name, String introduce, Integer majorId, Integer teacherId, Integer grade, Integer departmentId) {
         this.id = id;
         this.name = name;
         this.introduce = introduce;
         this.majorId = majorId;
+        this.teacherId = teacherId;
+        this.grade = grade;
+        this.departmentId = departmentId;
     }
 
     public Clazz() {
@@ -52,5 +59,29 @@ public class Clazz {
 
     public void setMajorId(Integer majorId) {
         this.majorId = majorId;
+    }
+
+    public Integer getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Integer teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 }

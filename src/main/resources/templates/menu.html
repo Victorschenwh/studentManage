@@ -14,33 +14,59 @@
                     首页 <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a onclick="goto('/teacher')" href="#teacher" target="frame" class="nav-link">教师信息</a>
+            <li class="nav nav-list">
+                <a class="nav-link" data-toggle="collapse" href="#collapseMenu"  role="button">
+                    学生信息
+                </a>
+
+                <div id="collapseMenu" class="collapse navbar-collapse" aria-expanded="false">
+                    <ul class="nav flex-column" >
+                        <li class="nav-item">
+                            <a onclick="goto('/student')" href="#student" class="nav-link"><kbd>基本信息</kbd></a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="goto('/preWarning')" href="#preWarning" class="nav-link"><kbd>学业预警</kbd></a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="goto('/retardation')" href="#retardation" class="nav-link"><kbd>留级试读</kbd></a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="goto('/suspension')" href="#suspension" class="nav-link"><kbd>休学退学</kbd></a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="goto('/transfer')" href="#transfer" class="nav-link"><kbd>转专业</kbd></a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="goto('/monitoring')" href="#monitoring" class="nav-link"><kbd>学业监控</kbd></a>
+                        </li>
+                    </ul>
+                </div>
+
+
+
             </li>
             <li class="nav-item">
-                <a onclick="goto('/major')" href="#major"
-                   class="nav-link">专业基本信息</a>
+                <a onclick="goto('/score')" href="#score"
+                   class="nav-link">成绩管理</a>
             </li>
 
             <li class="nav-item">
-                <a onclick="goto('/course')" href="#course"
-                   class="nav-link">课程基本信息</a>
+                <a onclick="goto('/reward')" href="#reward"
+                   class="nav-link">奖助贷惩</a>
             </li>
 
             <li class="nav-item">
-                <a onclick="goto('/clazz')" href="#clazz"
-                   class="nav-link">班级基本信息</a>
+                <a onclick="goto('/employment')" href="#employment"
+                   class="nav-link">就业情况</a>
             </li>
 
             <li class="nav-item">
-                <a onclick="goto('/department')" href="#department"
-                   class="nav-link">院系基本信息</a>
-            </li>
-
-            <li class="nav-item">
-                <a onclick="goto('/title')" href="#title" class="nav-link">职称信息</a>
+                <a onclick="goto('/office')" href="#office"
+                   class="nav-link">办公机构</a>
             </li>
 
         </ul>
     </div>
 </nav>
+
+<!--office-->

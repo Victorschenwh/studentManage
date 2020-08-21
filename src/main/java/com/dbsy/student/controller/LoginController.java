@@ -20,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -27,6 +28,8 @@ import java.util.concurrent.TimeUnit;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
+
+    Map<String,Object> UserInfoMap=new HashMap<String, Object>();
 
     @Autowired
     @Qualifier("teacherServiceImp")
@@ -65,10 +68,23 @@ public class LoginController {
     @RequestMapping("/teacher")
     @Login
     @ResponseBody
-    public Map teacher(String username, String password, HttpSession httpSession) {
+    public Map teacher(String username, String password, String NewPassword,HttpSession httpSession) {
 
+        Teacher teacher=new Teacher();
+        httpSession.setAttribute("role","teacher");
 
-        Teacher teacher = teacherService.selectByUsernameAndPassword(username, password);
+        if (username != null){
+            teacher = teacherService.selectByUsernameAndPassword(username, password);
+        }
+
+        if(teacher.getUsername() !=null  ){
+
+            UserInfoMap.put("teacher",teacher);
+        }
+        else if(NewPassword != null) {
+            teacher= (Teacher) UserInfoMap.get("teacher");
+            teacher.setPassword(NewPassword);
+        }
 
         if (teacher == null) {
             this.limit(username);
@@ -77,6 +93,7 @@ public class LoginController {
 
         if (!teacher.getIsLock()) {
             httpSession.setAttribute(Role.Teacher + "", teacher);
+            teacherService.changePWByUsername(teacher);
             return News.success();
         } else {
             return News.fail("操作过于频繁,被锁定,请联系管理员!");
@@ -88,9 +105,22 @@ public class LoginController {
     @RequestMapping("/admin")
     @Login
     @ResponseBody
-    public Map admin(String username, String password, HttpSession httpSession) {
+    public Map admin(String username, String password, String NewPassword, HttpSession httpSession) {
 
-        Admin admin = adminService.selectByUsernameAndPassword(username, password);
+        Admin admin=new Admin();
+        httpSession.setAttribute("role","admin");
+
+        if (username != null) {
+            admin = adminService.selectByUsernameAndPassword(username, password);
+        }
+        if(admin.getUsername() !=null  ){
+
+            UserInfoMap.put("admin",admin);
+        }
+        else if(NewPassword != null) {
+            admin= (Admin) UserInfoMap.get("admin");
+            admin.setPassword(NewPassword);
+        }
 
         if (admin == null) {
             this.limit(username);
@@ -99,6 +129,7 @@ public class LoginController {
 
         if (!admin.getIsLock()) {
             httpSession.setAttribute(Role.Admin + "", admin);
+            adminService.changePWByUsername(admin);
             return News.success();
         } else {
             return News.fail("操作过于频繁,被锁定,请联系管理员!");

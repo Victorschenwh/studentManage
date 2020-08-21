@@ -5,15 +5,15 @@
 <body>
 <div class="container-fluid">
 
-        <div id="toolbar" class="btn-group">
-            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加
-            </button>
+<!--        <div id="toolbar" class="btn-group">-->
+<!--            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">-->
+<!--                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加-->
+<!--            </button>-->
 
-            <button id="btn_delete" type="button" class="btn btn-danger" onclick="batchRemove()">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>批量删除
-            </button>
-        </div>
+<!--            <button id="btn_delete" type="button" class="btn btn-danger" onclick="batchRemove()">-->
+<!--                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>批量删除-->
+<!--            </button>-->
+<!--        </div>-->
 
         <table id="table_clazz" data-mobile-responsive="true">
         </table>
@@ -156,7 +156,7 @@
         });
 
 
-        //获取学院数据
+        //获取专业数据
         $.ajax({
             //cache: true,
             type: "POST",
@@ -175,6 +175,36 @@
                         }
                     }*/
                     $("select[name='majorId']").each(function () {
+                        //$(this).text()
+                        for (var i = 0; i < list.length; i++) {
+                            var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                            $(this).append(option);
+                        }
+                    });
+                }
+            }
+        });
+
+
+        //获取学院数据
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/department/getAll",
+            data: {},
+            success: function (data) {
+                if (data.code == 1) {
+                    var list = [];
+                    list = list.concat(data.data);
+                    /*for (var j = 0; j < $("select[name='departmentId']").length; j++) {
+                        var name = $("select[name='departmentId']").get(j);
+                        name.empty();
+                        for (var i = 0; i < list.length; i++) {
+                            var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                            name.append(option);
+                        }
+                    }*/
+                    $("select[name='departmentId']").each(function () {
                         //$(this).text()
                         for (var i = 0; i < list.length; i++) {
                             var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
@@ -266,7 +296,32 @@
                             }
                             return major !=null ? major.name : "";
                         }
-                    }, {
+                    },
+                    {
+                        field: 'departmentId',
+                        title: '所属院系',
+                        formatter: function (value, row, index) {
+                            var department = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/department/get/" + value,
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            department = data.data;
+                                        }
+                                    }
+                                });
+                            }
+                            return department !=null ? department.name : "";
+                        }
+                    },
+
+
+                    {
                         title: '操作',
                         field: 'id',
                         align: 'center',

@@ -30,6 +30,10 @@ public interface TeacherMapper {
             " where id=#{id}")
     int update(Teacher teacher);
 
+    @Update("update teacher set password=#{password} where username=#{username}")
+    int changePWByUsername(Teacher teacher);
+
+
     int batchRemove(int[] ids);
 
     @Select("select * from teacher")

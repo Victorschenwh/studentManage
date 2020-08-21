@@ -11,6 +11,7 @@ import java.util.Map;
 
 @Mapper
 public interface ClazzMapper {
+
     int insert(Clazz record);
 
     int insertSelective(Clazz record);
@@ -25,7 +26,7 @@ public interface ClazzMapper {
     @Delete("delete from clazz where id = #{id}")
     int delete(int id);
 
-    @Update("update clazz set name=#{name},introduce=#{introduce},major_id=#{majorId} where id=#{id}")
+    @Update("update clazz set name=#{name},introduce=#{introduce},major_id=#{majorId},department_id=#{departmentId} where id=#{id}")
     int update(Clazz clazz);
 
     int batchRemove(int[] ids);
@@ -35,4 +36,6 @@ public interface ClazzMapper {
 
     @Select("select * from clazz where major_id=#{majorId}")
     List<Clazz> getClazzByMajorId(int majorId);
+
+
 }
