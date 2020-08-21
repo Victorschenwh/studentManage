@@ -85,4 +85,33 @@
       </if>
     </trim>
   </insert>
+
+  <select id="list" resultType="com.dbsy.student.pojo.Family">
+    select * from family
+    <where>
+      <if test="name != null">
+        or name like concat('%',#{name},'%')
+      </if>
+    </where>
+    <if test="page!=null and pageSize != null">
+      limit (#{page}-1)* #{pageSize},#{pageSize}
+    </if>
+  </select>
+
+  <select id="listCount" resultType="int">
+    select family(*) from family
+    <where>
+      <if test="name != null">
+        or name like concat('%',#{name},'%')
+      </if>
+    </where>
+  </select>
+
+
+  <delete id="batchRemove">
+    delete from family where id in
+    <foreach item="id" collection="array" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
 </mapper>

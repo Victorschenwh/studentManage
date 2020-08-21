@@ -33,8 +33,6 @@
   </select>
 
 
-
-
   <delete id="batchRemove">
     delete from course where id in
     <foreach item="id" collection="array" open="(" separator="," close=")">
