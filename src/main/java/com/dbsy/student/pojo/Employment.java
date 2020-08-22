@@ -1,12 +1,18 @@
 package com.dbsy.student.pojo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+
 public class Employment {
+    @ExcelIgnore
     private Integer id;
 
+    @ExcelProperty("学生id")
     private Integer studentId;
 
     private Boolean isSign;
 
+    @ExcelProperty("单位名称")
     private String company;
 
     private Integer phoneNumber;
