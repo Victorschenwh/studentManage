@@ -43,27 +43,27 @@ public class SuspensionServiceImp implements SuspensionService {
 
     @Override
     public List<Suspension> list(Map map) {
-        return this.list(map);
+        return this.suspensionMapper.list(map);
     }
 
     @Override
     @Cacheable(key = "#id", unless = "#result == null")
     public Suspension get(int id) {
-        return this.get(id);
+        return this.suspensionMapper.get(id);
     }
 
     @Override
     @Transactional
     @CacheEvict(key = "#id")
     public int delete(int id) {
-        return this.delete(id);
+        return this.suspensionMapper.delete(id);
     }
 
     @Override
     @Transactional
     @CachePut(key = "#suspension.id", unless = "#suspension == null")
     public int update(Suspension suspension) {
-        return this.update(suspension);
+        return this.suspensionMapper.update(suspension);
     }
 
     @Override

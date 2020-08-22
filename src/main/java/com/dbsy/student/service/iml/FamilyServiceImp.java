@@ -44,27 +44,27 @@ public class FamilyServiceImp implements FamilyService {
 
     @Override
     public List<Family> list(Map map) {
-        return this.list(map);
+        return this.familyMapper.list(map);
     }
 
     @Override
     @Cacheable(key = "#id", unless = "#result == null")
     public Family get(int id) {
-        return this.get(id);
+        return this.familyMapper.get(id);
     }
 
     @Override
     @Transactional
     @CacheEvict(key = "#id")
     public int delete(int id) {
-        return this.delete(id);
+        return this.familyMapper.delete(id);
     }
 
     @Override
     @Transactional
     @CachePut(key = "#family.id", unless = "#family == null")
     public int update(Family family) {
-        return this.update(family);
+        return this.familyMapper.update(family);
     }
 
     @Override
@@ -83,11 +83,11 @@ public class FamilyServiceImp implements FamilyService {
 
     @Override
     public List<Family> getAll() {
-        return this.getAll();
+        return this.familyMapper.getAll();
     }
 
     @Override
     public List<Family> getFamilyByStudentId(int studentId) {
-        return this.getFamilyByStudentId(studentId);
+        return this.familyMapper.getFamilyByStudentId(studentId);
     }
 }
