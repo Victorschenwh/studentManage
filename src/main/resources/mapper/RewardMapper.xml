@@ -46,4 +46,33 @@
       </if>
     </trim>
   </insert>
+
+  <select id="list" resultType="com.dbsy.student.pojo.Reward">
+    select * from reward
+    <where>
+      <if test="studentId != null">
+        or name like concat('%',#{studentId},'%')
+      </if>
+    </where>
+    <if test="page!=null and pageSize != null">
+      limit (#{page}-1)* #{pageSize},#{pageSize}
+    </if>
+  </select>
+
+  <select id="listCount" resultType="int">
+    select reward(*) from reward
+    <where>
+      <if test="studentId != null">
+        or name like concat('%',#{studentId},'%')
+      </if>
+    </where>
+  </select>
+
+
+  <delete id="batchRemove">
+    delete from reward where id in
+    <foreach item="id" collection="array" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
 </mapper>
