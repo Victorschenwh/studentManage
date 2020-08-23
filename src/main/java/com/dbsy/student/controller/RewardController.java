@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/score")
+@RequestMapping("/reward")
 @Authority({Role.Admin})
 public class RewardController {
     @Autowired

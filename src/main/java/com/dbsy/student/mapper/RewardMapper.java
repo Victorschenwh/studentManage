@@ -36,6 +36,6 @@ public interface RewardMapper {
     @Select("select * from reward")
     List<Reward> getAll();
 
-    @Select("select * from score where student_id=#{studentId}")
+    @Select("select * from reward where student_id=#{studentId}")
     List<Reward> getRewardByStudentId(int studentId);
 }

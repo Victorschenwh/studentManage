@@ -3,7 +3,6 @@ package com.dbsy.student.controller;
 import com.dbsy.student.annotation.Authority;
 import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Score;
-import com.dbsy.student.pojo.Score;
 import com.dbsy.student.service.ScoreService;
 import com.dbsy.student.util.News;
 import org.springframework.beans.factory.annotation.Autowired;

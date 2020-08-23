@@ -47,27 +47,27 @@ public class ScoreServiceImp implements ScoreService {
 
     @Override
     public List<Score> list(Map map) {
-        return this.list(map);
+        return this.scoreMapper.list(map);
     }
 
     @Override
     @Cacheable(key = "#id", unless = "#result == null")
     public Score get(int id) {
-        return this.get(id);
+        return this.scoreMapper.get(id);
     }
 
     @Override
     @Transactional
     @CacheEvict(key = "#id")
     public int delete(int id) {
-        return this.delete(id);
+        return this.scoreMapper.delete(id);
     }
 
     @Override
     @Transactional
     @CachePut(key = "#score.id", unless = "#score == null")
     public int update(Score score) {
-        return this.update(score);
+        return this.scoreMapper.update(score);
     }
 
     @Override
@@ -86,11 +86,12 @@ public class ScoreServiceImp implements ScoreService {
 
     @Override
     public List<Score> getAll() {
-        return this.getAll();
+        return this.scoreMapper.getAll();
     }
 
     @Override
     public List<Score> getScoreByStudentId(int studentId) {
-        return this.getScoreByStudentId(studentId);
+
+        return this.scoreMapper.getScoreByStudentId(studentId);
     }
 }

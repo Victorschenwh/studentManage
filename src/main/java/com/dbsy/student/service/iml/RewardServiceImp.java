@@ -50,27 +50,27 @@ public class RewardServiceImp implements RewardService {
 
     @Override
     public List<Reward> list(Map map) {
-        return this.list(map);
+        return this.rewardMapper.list(map);
     }
 
     @Override
     @Cacheable(key = "#id", unless = "#result == null")
     public Reward get(int id) {
-        return this.get(id);
+        return this.rewardMapper.get(id);
     }
 
     @Override
     @Transactional
     @CacheEvict(key = "#id")
     public int delete(int id) {
-        return this.delete(id);
+        return this.rewardMapper.delete(id);
     }
 
     @Override
     @Transactional
     @CachePut(key = "#reward.id", unless = "#reward == null")
     public int update(Reward reward) {
-        return this.update(reward);
+        return this.rewardMapper.update(reward);
     }
 
     @Override
@@ -89,11 +89,11 @@ public class RewardServiceImp implements RewardService {
 
     @Override
     public List<Reward> getAll() {
-        return this.getAll();
+        return this.rewardMapper.getAll();
     }
 
     @Override
     public List<Reward> getRewardByStudentId(int studentId) {
-        return this.getRewardByStudentId(studentId);
+        return this.rewardMapper.getRewardByStudentId(studentId);
     }
 }
