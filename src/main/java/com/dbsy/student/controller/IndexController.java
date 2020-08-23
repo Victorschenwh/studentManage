@@ -15,4 +15,10 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/home")
+    @Authority({Role.Teacher, Role.Admin})
+    public String home() {
+        return "home/home";
+    }
+
 }

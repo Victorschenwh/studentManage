@@ -1,5 +1,6 @@
 package com.dbsy.student.service.iml;
 
+import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.StudentMapper;
 import com.dbsy.student.pojo.Student;
 import com.dbsy.student.service.StudentService;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("studentServiceImp")
-public class StudentServiceImp implements StudentService {
+public class StudentServiceImp implements StudentService, ExcelSave {
     @Autowired
     StudentMapper studentMapper;
 
@@ -52,5 +53,10 @@ public class StudentServiceImp implements StudentService {
     @Override
     public int batchRemove(int[] ids) {
         return studentMapper.batchRemove(ids);
+    }
+
+    @Override
+    public int excelBatchInsert(List list) {
+        return studentMapper.batchInsert(list);
     }
 }

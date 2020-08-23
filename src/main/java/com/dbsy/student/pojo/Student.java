@@ -1,7 +1,12 @@
 package com.dbsy.student.pojo;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
+@JsonIgnoreProperties(value = {"password"})
 public class Student {
     private Integer id;
 
@@ -21,8 +26,10 @@ public class Student {
 
     private String photo;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date admissionDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
 
     private String password;
