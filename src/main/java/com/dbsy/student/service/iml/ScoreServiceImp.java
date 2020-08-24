@@ -1,9 +1,11 @@
 package com.dbsy.student.service.iml;
 
+import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.FamilyMapper;
 import com.dbsy.student.mapper.ScoreMapper;
 import com.dbsy.student.pojo.Family;
 import com.dbsy.student.pojo.Score;
+import com.dbsy.student.pojo.Student;
 import com.dbsy.student.service.FamilyService;
 import com.dbsy.student.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ import java.util.Map;
 
 @Service("scoreServiceImp")
 @CacheConfig(cacheNames = "score")
-public class ScoreServiceImp implements ScoreService {
+public class ScoreServiceImp implements ScoreService, ExcelSave {
 
     @Autowired
     ScoreMapper scoreMapper;
@@ -32,6 +34,11 @@ public class ScoreServiceImp implements ScoreService {
     @Transactional
     public int insert(Score record) {
         return this.scoreMapper.insert(record);
+    }
+
+    @Override
+    public int batchInsert(List<Score> list) {
+        return scoreMapper.batchInsert(list);
     }
 
     @Override
@@ -54,6 +61,11 @@ public class ScoreServiceImp implements ScoreService {
     @Cacheable(key = "#id", unless = "#result == null")
     public Score get(int id) {
         return this.scoreMapper.get(id);
+    }
+
+    @Override
+    public int excelBatchInsert(List list) {
+        return scoreMapper.batchInsert(list);
     }
 
     @Override

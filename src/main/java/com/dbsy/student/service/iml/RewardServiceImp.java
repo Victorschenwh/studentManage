@@ -1,5 +1,6 @@
 package com.dbsy.student.service.iml;
 
+import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.FamilyMapper;
 import com.dbsy.student.mapper.RewardMapper;
 import com.dbsy.student.mapper.ScoreMapper;
@@ -23,7 +24,7 @@ import java.util.Map;
 
 @Service("rewardServiceImp")
 @CacheConfig(cacheNames = "reward")
-public class RewardServiceImp implements RewardService {
+public class RewardServiceImp implements RewardService, ExcelSave {
 
     @Autowired
     RewardMapper rewardMapper;
@@ -35,6 +36,11 @@ public class RewardServiceImp implements RewardService {
     @Transactional
     public int insert(Reward record) {
         return this.rewardMapper.insert(record);
+    }
+
+    @Override
+    public int batchInsert(List<Reward> list) {
+        return rewardMapper.batchInsert(list);
     }
 
     @Override
@@ -57,6 +63,11 @@ public class RewardServiceImp implements RewardService {
     @Cacheable(key = "#id", unless = "#result == null")
     public Reward get(int id) {
         return this.rewardMapper.get(id);
+    }
+
+    @Override
+    public int excelBatchInsert(List list) {
+        return rewardMapper.batchInsert(list);
     }
 
     @Override

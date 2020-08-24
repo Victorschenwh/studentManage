@@ -1,5 +1,6 @@
 package com.dbsy.student.service;
 import com.dbsy.student.pojo.Reward;
+import com.dbsy.student.pojo.Score;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,8 @@ public interface RewardService {
     int listCount(Map map);
 
     List<Reward> list(Map map);
+
+    int batchInsert(List<Reward> list);
 
     Reward get(int id);
 

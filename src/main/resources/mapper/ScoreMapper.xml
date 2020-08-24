@@ -114,6 +114,19 @@
     </where>
   </select>
 
+  <!--批量增加-->
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into score (id, student_id, course_id,score,credit,study_term,
+    total_hours, theory_hours,experiment_hours,test_time
+    )
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=INTEGER}, #{item.courseId,jdbcType=INTEGER},#{item.score,jdbcType=FLOAT},
+      #{item.credit,jdbcType=INTEGER}, #{item.studyTerm,jdbcType=INTEGER},#{item.totalHours,jdbcType=INTEGER},#{item.theoryHours,jdbcType=INTEGER},
+      #{item.experimentHours,jdbcType=INTEGER}, #{item.testTime,jdbcType=DATE}
+      )
+    </foreach>
+  </insert>
 
   <delete id="batchRemove">
     delete from score where id in

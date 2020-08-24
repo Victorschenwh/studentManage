@@ -31,6 +31,8 @@ public interface RewardMapper {
     @Update("update reward set student_id=#{studentId},synopsis=#{synopsis},type=#{type}  where id=#{id}")
     int update(Reward reward);
 
+    int batchInsert(List list);
+
     int batchRemove(int[] ids);
 
     @Select("select * from reward")
