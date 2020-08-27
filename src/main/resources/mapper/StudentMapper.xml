@@ -22,6 +22,7 @@
             <arg column="grade" javaType="java.lang.Integer" jdbcType="INTEGER"/>
             <arg column="age" javaType="java.lang.Integer" jdbcType="INTEGER"/>
             <arg column="nation" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>
     <insert id="insert" parameterType="com.dbsy.student.pojo.Student">
@@ -31,14 +32,14 @@
       admission_date, birthday, password, 
       score, clazz_id, major_id, 
       department_id, grade, age, 
-      nation)
+      nation,address)
     values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{gender,jdbcType=BIT}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{idCard,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
       #{admissionDate,jdbcType=DATE}, #{birthday,jdbcType=DATE}, #{password,jdbcType=VARCHAR}, 
       #{score,jdbcType=REAL}, #{clazzId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, 
       #{departmentId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
-      #{nation,jdbcType=VARCHAR})
+      #{nation,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR})
   </insert>
 
     <!--批量增加-->
@@ -49,7 +50,7 @@
         admission_date, birthday, password,
         score, clazz_id, major_id,
         department_id, grade, age,
-        nation)
+        nation,address)
         VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.id,jdbcType=INTEGER}, #{item.number,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR},
@@ -58,7 +59,7 @@
             #{item.admissionDate,jdbcType=DATE}, #{item.birthday,jdbcType=DATE}, #{item.password,jdbcType=VARCHAR},
             #{item.score,jdbcType=REAL}, #{item.clazzId,jdbcType=INTEGER}, #{item.majorId,jdbcType=INTEGER},
             #{item.departmentId,jdbcType=INTEGER}, #{item.grade,jdbcType=INTEGER}, #{item.age,jdbcType=INTEGER},
-            #{item.nation,jdbcType=VARCHAR})
+            #{item.nation,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR})
         </foreach>
     </insert>
 
@@ -122,6 +123,9 @@
             <if test="nation != null">
                 nation,
             </if>
+            <if test="address != null">
+                address,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -181,6 +185,9 @@
             <if test="nation != null">
                 #{nation,jdbcType=VARCHAR},
             </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
 
@@ -210,7 +217,7 @@
     </select>
 
     <select id="listCount" resultType="int">
-        select conut(*) from student
+        select count(*) from student
         <where>
             <if test="departmentId != null">
                 and department_id = #{departmentId}

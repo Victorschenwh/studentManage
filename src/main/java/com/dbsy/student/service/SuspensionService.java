@@ -26,4 +26,6 @@ public interface SuspensionService {
     List<Suspension> getAll();
 
     List<Suspension> getSuspensionByStudentId(int studentId);
+
+    int batchInsert(List list);
 }

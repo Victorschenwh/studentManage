@@ -1,5 +1,6 @@
 package com.dbsy.student.service;
 import com.dbsy.student.pojo.Family;
+import com.dbsy.student.pojo.Student;
 
 import java.util.List;
 import java.util.Map;
@@ -24,4 +25,6 @@ public interface FamilyService {
     List<Family> getAll();
 
     List<Family> getFamilyByStudentId(int studentId);
+
+    int batchInsert(List list);
 }

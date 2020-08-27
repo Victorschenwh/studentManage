@@ -36,4 +36,6 @@ public interface FamilyMapper {
 
     @Select("select * from family where student_id=#{studentId}")
     List<Family> getFamilyByStudentId(int studentId);
+
+    int batchInsert(List list);
 }

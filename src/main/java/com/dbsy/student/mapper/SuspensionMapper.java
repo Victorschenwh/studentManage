@@ -35,4 +35,6 @@ public interface SuspensionMapper {
 
     @Select("select * from suspension where student_id=#{studentId}")
     List<Suspension> getSuspensionByStudentId(int studentId);
+
+    int batchInsert(List list);
 }

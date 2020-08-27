@@ -27,7 +27,7 @@ public class TransferController {
 //    @Authority({Role.Teacher})
     @RequestMapping("")
     public String transfer() {
-        return "baseInfo/transfer";
+        return "stuInfo/transfer";
     }
 
 

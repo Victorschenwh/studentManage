@@ -18,20 +18,20 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/suspension")
-@Authority({Role.Admin})
+//@Authority({Role.Admin})
 public class SuspensionController {
     @Autowired
     @Qualifier("SuspensionServiceImp")
     SuspensionService suspensionService;
 
-    @Authority({Role.Teacher})
+//    @Authority({Role.Teacher})
     @RequestMapping("")
     public String family() {
         return "baseInfo/suspension";
     }
 
 
-    @Authority({Role.Teacher})
+//    @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
     public Map list(Map map) {
@@ -78,21 +78,21 @@ public class SuspensionController {
         return News.fail("添加失败");
     }
 
-    @Authority({Role.Teacher})
+//    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", suspensionService.get(id));
     }
 
-    @Authority({Role.Teacher})
+//    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getAll")
     public Map getAll() {
         return News.success("成功", suspensionService.getAll());
     }
 
-    @Authority({Role.Teacher})
+//    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getSuspensionByStudentId/{studentId}")
     public Map getSuspensionByStudentId(@PathVariable("studentId") int studentId){

@@ -98,4 +98,14 @@
       #{id}
     </foreach>
   </delete>
+
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into suspension (id,student_id,suspension_date,resumption_date,duration,reason,remarks
+    )
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id},#{item.studentId,#{item.suspensionDate},#{item.resumptionDate},#{item.duration},#{item.reason},#{item.remarks}
+      )
+    </foreach>
+  </insert>
 </mapper>

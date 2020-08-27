@@ -1,5 +1,6 @@
 package com.dbsy.student.service.iml;
 
+import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.SuspensionMapper;
 import com.dbsy.student.pojo.Suspension;
 import com.dbsy.student.service.SuspensionService;
@@ -16,79 +17,81 @@ import java.util.List;
 import java.util.Map;
 
 @Service("SuspensionServiceImp")
-@CacheConfig(cacheNames = "suspension")
-public class SuspensionServiceImp implements SuspensionService {
+//@CacheConfig(cacheNames = "suspension")
+public class SuspensionServiceImp implements SuspensionService, ExcelSave {
     @Autowired
     SuspensionMapper suspensionMapper;
 
-    @Autowired
-    RedisTemplate redisTemplate;
+//    @Autowired
+//    RedisTemplate redisTemplate;
 
     @Override
     @Transactional
     public int insert(Suspension record) {
-        return this.suspensionMapper.insert(record);
+        return suspensionMapper.insert(record);
     }
 
     @Override
     @Transactional
     public int insertSelective(Suspension record) {
-        return this.suspensionMapper.insertSelective(record);
+        return suspensionMapper.insertSelective(record);
     }
 
     @Override
     public int listCount(Map map) {
-        return this.suspensionMapper.listCount(map);
+        return suspensionMapper.listCount(map);
     }
 
     @Override
     public List<Suspension> list(Map map) {
-        return this.suspensionMapper.list(map);
+        return suspensionMapper.list(map);
     }
 
     @Override
-    @Cacheable(key = "#id", unless = "#result == null")
+//    @Cacheable(key = "#id", unless = "#result == null")
     public Suspension get(int id) {
-        return this.suspensionMapper.get(id);
+        return suspensionMapper.get(id);
     }
 
     @Override
     @Transactional
-    @CacheEvict(key = "#id")
+//    @CacheEvict(key = "#id")
     public int delete(int id) {
-        return this.suspensionMapper.delete(id);
+        return suspensionMapper.delete(id);
     }
 
     @Override
     @Transactional
-    @CachePut(key = "#suspension.id", unless = "#suspension == null")
+//    @CachePut(key = "#suspension.id", unless = "#suspension == null")
     public int update(Suspension suspension) {
-        return this.suspensionMapper.update(suspension);
+        return suspensionMapper.update(suspension);
     }
 
     @Override
     public int batchRemove(int[] ids) {
-        //清除缓存
-        if (ids.length > 0) {
-            for (int id : ids) {
-                if (redisTemplate.hasKey("suspension::" + id)) {
-                    redisTemplate.delete("suspension::" + id);
-                }
-            }
-        }
-        return this.suspensionMapper.batchRemove(ids);
+
+        return suspensionMapper.batchRemove(ids);
     }
 
 
     @Override
     public List<Suspension> getAll() {
-        return this.getAll();
+        return getAll();
     }
 
     @Override
     public List<Suspension> getSuspensionByStudentId(int studentId) {
-        return this.suspensionMapper.getSuspensionByStudentId(studentId);
+        return suspensionMapper.getSuspensionByStudentId(studentId);
+    }
+
+    @Override
+    public int batchInsert(List list) {
+        return suspensionMapper.batchInsert(list);
     }
 
 
+    @Override
+    public int excelBatchInsert(List list) {
+        return suspensionMapper.batchInsert(list);
+    }
 }

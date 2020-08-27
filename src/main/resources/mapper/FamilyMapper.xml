@@ -114,4 +114,16 @@
       #{id}
     </foreach>
   </delete>
+
+  <!--批量增加-->
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into family (id, name ,work,relationship,age,gender,id_card,phone_number,student_id
+    )
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id},#{item.name},#{item.work},#{item.relationship},#{item.age},#{item.gender},#{item.idCard},#{item.phoneNumber},#{item.studentId}
+      )
+    </foreach>
+  </insert>
+
 </mapper>

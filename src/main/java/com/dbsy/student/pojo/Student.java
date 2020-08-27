@@ -48,7 +48,9 @@ public class Student {
 
     private String nation;
 
-    public Student(Integer id, String number, String name, Boolean gender, String phoneNumber, String email, String idCard, String nativePlace, String photo, Date admissionDate, Date birthday, String password, Float score, Integer clazzId, Integer majorId, Integer departmentId, Integer grade, Integer age, String nation) {
+    private String address;
+
+    public Student(Integer id, String number, String name, Boolean gender, String phoneNumber, String email, String idCard, String nativePlace, String photo, Date admissionDate, Date birthday, String password, Float score, Integer clazzId, Integer majorId, Integer departmentId, Integer grade, Integer age, String nation,String address) {
         this.id = id;
         this.number = number;
         this.name = name;
@@ -68,6 +70,7 @@ public class Student {
         this.grade = grade;
         this.age = age;
         this.nation = nation;
+        this.address=address;
     }
 
     public Student() {
@@ -224,5 +227,13 @@ public class Student {
 
     public void setNation(String nation) {
         this.nation = nation == null ? null : nation.trim();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
