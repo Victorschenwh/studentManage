@@ -2,39 +2,35 @@ package com.dbsy.student.controller;
 
 import com.dbsy.student.annotation.Authority;
 import com.dbsy.student.myenum.Role;
-import com.dbsy.student.pojo.Major;
-import com.dbsy.student.service.MajorService;
+import com.dbsy.student.pojo.Clazz;
+import com.dbsy.student.service.ClazzService;
 import com.dbsy.student.util.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/major")
+@RequestMapping("/preWarning")
 @Authority({Role.Admin})
-public class MajorController {
+public class preWarningController {
+
     @Autowired
-    @Qualifier("majorServiceImp")
-    MajorService majorService;
+    @Qualifier("clazzServiceImp")
+    ClazzService clazzService;
 
     @Authority({Role.Teacher})
     @RequestMapping("")
-    public String major() {
-        return "baseInfo/major";
+    public String clazz() {
+        return "stuInfo/preWarning";
     }
+
 
 
     @Authority({Role.Teacher})
@@ -42,15 +38,17 @@ public class MajorController {
     @ResponseBody
     public Map list(Map map) {
         Map m = new HashMap();
-        m.put("total", majorService.listCount(map));
-        m.put("rows", majorService.list(map));
+        m.put("total", clazzService.listCount(map));
+        m.put("rows", clazzService.list(map));
         return m;
     }
+
+
 
     @ResponseBody
     @RequestMapping("/remove/{id}")
     public Map remove(@PathVariable("id") int id) {
-        if (majorService.delete(id) > 0) {
+        if (clazzService.delete(id) > 0) {
             return News.success();
         }
         return News.fail("删除失败");
@@ -60,7 +58,7 @@ public class MajorController {
     @RequestMapping("/batchRemove")
     public Map batchRemove(int[] ids) {
 
-        if (majorService.batchRemove(ids) == ids.length) {
+        if (clazzService.batchRemove(ids) == ids.length) {
             return News.success();
         }
         return News.fail("删除失败");
@@ -68,8 +66,8 @@ public class MajorController {
 
     @ResponseBody
     @RequestMapping("/insert")
-    public Map insert(Major major) {
-        if (majorService.insert(major) > 0) {
+    public Map insert(Clazz clazz) {
+        if (clazzService.insert(clazz) > 0) {
             return News.success();
         }
         return News.fail("添加失败");
@@ -77,8 +75,8 @@ public class MajorController {
 
     @ResponseBody
     @RequestMapping("/update")
-    public Map update(Major major) {
-        if (majorService.update(major) > 0) {
+    public Map update(Clazz clazz) {
+        if (clazzService.update(clazz) > 0) {
             return News.success();
         }
         return News.fail("添加失败");
@@ -88,23 +86,21 @@ public class MajorController {
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
-        return News.success("成功", majorService.get(id));
+        return News.success("成功", clazzService.get(id));
     }
 
     @Authority({Role.Teacher})
     @ResponseBody
-    @RequestMapping(value = "/getAll")
+    @RequestMapping("/getAll")
     public Map getAll() {
-
-        return News.success("成功", majorService.getAll());
+        return News.success("成功", clazzService.getAll());
     }
-
 
     @Authority({Role.Teacher})
     @ResponseBody
-    @RequestMapping("/getMajorsByDpartmentId/{departmentId}")
-    public Map getMajorsByDpartmentId(@PathVariable("departmentId") int departmentId){
-        List list = majorService.getMajorsByDpartmentId(departmentId);
+    @RequestMapping("/getClazzByMajorId/{majorId}")
+    public Map getClazzBymajorId(@PathVariable("majorId") int majorId){
+        List list = clazzService.getClazzByMajorId(majorId);
         if (list != null) {
             return News.success("成功",list);
 
