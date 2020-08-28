@@ -1,5 +1,6 @@
 package com.dbsy.student.mapper;
 
+
 import com.dbsy.student.pojo.Student;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -27,5 +28,8 @@ public interface StudentMapper {
     int delete(int id);
 
     int batchRemove(int[] ids);
+
+    @Select("select * from student")
+    List<Student> getAll();
 
 }
