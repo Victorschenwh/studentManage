@@ -113,7 +113,7 @@
   </select>
 
   <select id="listCount" resultType="int">
-    select transfer(*) from transfer
+    select count(*) from transfer
     <where>
       <if test="studentId != null">
         or name like concat('%',#{name},'%')
