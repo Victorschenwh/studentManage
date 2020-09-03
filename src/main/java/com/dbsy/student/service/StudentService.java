@@ -1,6 +1,5 @@
 package com.dbsy.student.service;
 
-
 import com.dbsy.student.pojo.Student;
 
 import java.util.List;
@@ -20,8 +19,6 @@ public interface StudentService {
     List<Student> list(Map map);
 
     int delete(int id);
-
-    List<Student> getAll();
 
     int batchRemove(int[] ids);
 }
