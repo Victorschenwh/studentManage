@@ -1,59 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head th:replace="static :: head">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-<div class="container-fluid">
-    <div class=" form-group">
-        <div class="col-md-2">
-            <select id="departmentId" class="form-control"
-                    required>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <select id="majorId" class="form-control"
-                    required>
-                <option value="">
-                    --请选择专业--
-                </option>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <select id="grade" class="form-control" required>
 
-            </select>
-        </div>
-        <div class="col-md-2">
-            <select id="clazzId" class="form-control" required>
-                <option value="">
-                    --请选择班级--
-                </option>
-            </select>
-        </div>
-
-
-        <div id="toolbar" class=" btn-group pull-right" >
-            <button id="btn_upload" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
-            </button>
-
-            <button id="btn_download" type="button" class="btn btn-danger" onclick="batchRemove()">
-                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
-            </button>
-        </div>
-    </div>
-
-
-
-
-</div>
-
-
-<div th:replace="static :: script"></div>
 </body>
-<script src="/js/select.js"></script>
-<script>
-    department();
-    grade();
-</script>
 </html>

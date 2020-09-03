@@ -55,11 +55,6 @@ public class MajorServiceImp implements MajorService {
     }
 
     @Override
-    public Integer getIdByName(String name) {
-        return this.majorMapper.getIdByName(name);
-    }
-
-    @Override
     @Transactional
     @CacheEvict(key = "#id")
     public int delete(int id) {
