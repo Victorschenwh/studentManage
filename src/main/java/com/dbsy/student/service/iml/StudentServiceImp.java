@@ -51,11 +51,6 @@ public class StudentServiceImp implements StudentService, ExcelSave {
     }
 
     @Override
-    public List<Student> getAll() {
-        return this.studentMapper.getAll();
-    }
-
-    @Override
     public int batchRemove(int[] ids) {
         return studentMapper.batchRemove(ids);
     }

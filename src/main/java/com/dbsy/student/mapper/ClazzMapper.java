@@ -23,10 +23,6 @@ public interface ClazzMapper {
     @Select("select * from clazz where id = #{id}")
     Clazz get(int id);
 
-    @Select("select * from clazz where name = #{name}")
-    Integer getIdByName(String name);
-
-
     @Delete("delete from clazz where id = #{id}")
     int delete(int id);
 
@@ -40,12 +36,6 @@ public interface ClazzMapper {
 
     @Select("select * from clazz where major_id=#{majorId}")
     List<Clazz> getClazzByMajorId(int majorId);
-
-    @Select("select * from clazz where name=#{majorName}")
-    List<Clazz> getClazzByMajorName(String majorName);
-
-    @Select("select * from clazz where major_id=#{majorId} and grade = #{grade}")
-    List<Clazz> getClazzsByMajorIdAndGrade(Integer majorId, Integer grade);
 
 
 }
