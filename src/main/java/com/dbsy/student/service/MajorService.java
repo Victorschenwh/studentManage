@@ -16,6 +16,8 @@ public interface MajorService {
 
     Major get(int id);
 
+    Integer getIdByName(String name);
+
     int delete(int id);
 
     int update(Major major);

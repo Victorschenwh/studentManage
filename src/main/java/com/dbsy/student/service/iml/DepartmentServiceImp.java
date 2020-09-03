@@ -55,6 +55,11 @@ public class DepartmentServiceImp implements DepartmentService {
     }
 
     @Override
+    public Integer getIdByName(String name) {
+        return this.departmentMapper.getIdByName(name);
+    }
+
+    @Override
     @Transactional
     @CacheEvict(key = "#id")
     public int delete(int id) {

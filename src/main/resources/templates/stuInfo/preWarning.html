@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="static :: head">
+</head>
+<body>
+<div class="container-fluid">
+
+        <div class=" form-group">
+
+                <div class="col-md-2">
+                    <select id="departmentId" name="departmentSelect"  class="form-control"
+                            required>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select id="majorId" name="majorSelect"  class="form-control"
+                            required>
+                        <option value="">
+                            --请选择专业--
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select id="grade" name="clazzSelect" class="form-control" required>
+
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select id="clazzId" name="clazzSelect"  class="form-control" required>
+                        <option value="">
+                            --请选择班级--
+                        </option>
+                    </select>
+                </div>
+
+            <div id="toolbar" class="btn-group pull-right">
+                <button id="btn_upload" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
+                    <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
+                </button>
+
+                <button id="btn_download" type="button" class="btn btn-danger" onclick="">
+                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
+                </button>
+            </div>
+
+ </div>
+
+
+
+
+    <table id="table_preWarning" data-mobile-responsive="true">
+        <!--            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">-->
+        <!--                &lt;!&ndash;        <h1 class="h2">test</h1>&ndash;&gt;-->
+        <!--                <div class="btn-toolbar mb-2 mb-md-0">-->
+        <!--                    <div class="btn-group mr-2">-->
+        <!--                        <button type="button" class="btn btn-sm btn-outline-secondary">导入</button>-->
+        <!--                        <button type="button" class="btn btn-sm btn-outline-secondary">导出</button>-->
+        <!--                    </div>-->
+        <!--                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">-->
+        <!--                        <span data-feather="calendar"></span>-->
+        <!--                        This week-->
+        <!--                    </button>-->
+        <!--                </div>-->
+        <!--            </div>-->
+
+    </table>
+</div>
+<div th:replace="static :: script"></div>
+</body>
+
+<script src="/js/select.js"></script>
+<script>
+
+    department();
+    grade();
+</script>
+<!--<script>
+    var departmentDate = null;
+    var majorDate = null;
+    var clazzDate = null;
+    var numberDate = null
+    // var Info={"testKey1":"test","testKey2":"test2","testKey3":"test3"};
+
+
+
+
+
+        $("#departmentSelect").change(function () {
+
+            clear(1);
+            departmentDate = $(this).children('option:selected').text();
+            // alert("val  is :"+ id_1);
+
+            // $("select[name='majorSelect']").empty();
+
+            if (departmentDate != null) {
+
+                // 查询专业
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "/select/major/getAll",
+                    data: {
+                        "departmentName": departmentDate,
+                        "majorName": majorDate,
+                        "clazzName": clazzDate,
+                        "numberName": numberDate
+                    },
+                    // data: {'departmentName':departmentDate},
+                    // traditional: true,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 1) {
+                            var list = [];
+                            list = list.concat(data.data);
+                            /*for (var j = 0; j < $("select[name='departmentId']").length; j++) {
+                                var name = $("select[name='departmentId']").get(j);
+                                name.empty();
+                                for (var i = 0; i < list.length; i++) {
+                                    var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                                    name.append(option);
+                                }
+                            }*/
+                            //$("select[name='majorSelect']").each(function () {
+                            //$(this).text()
+                            $("#majorSelect").empty();
+                            if (list.length > 0) {
+                                for (var i = 0; i < list.length; i++) {
+                                    var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                                    $(this).append(option);
+                                }
+                            } else {
+                                var option = "<option value='" + '' + "'>" + '--无--' + "</option>";
+                                $(this).append(option);
+                            }
+                            // });
+
+                        }
+                    }
+                });
+            }
+        });
+
+        $("#majorSelect").change(function () {
+
+            clear(2);
+            //majorDate=$(this).children('option:selected').val();
+            var id = $("#majorSelect").val();
+
+            // $("select[name='clazzSelect']").empty();
+            if (majorDate != null && departmentDate != null) {
+
+                // 查询班级
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "/select/clazz/getAll",
+                    data: {
+                        "departmentName": departmentDate,
+                        "majorName": majorDate,
+                        "clazzName": clazzDate,
+                        "numberName": numberDate
+                    },
+                    // data: {'departmentName':departmentDate},
+                    // traditional: true,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 1) {
+                            var list = [];
+                            list = list.concat(data.data);
+                            /*for (var j = 0; j < $("select[name='departmentId']").length; j++) {
+                                var name = $("select[name='departmentId']").get(j);
+                                name.empty();
+                                for (var i = 0; i < list.length; i++) {
+                                    var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                                    name.append(option);
+                                }
+                            }*/
+                            $("select[name='clazzSelect']").each(function () {
+                                $("select[name='clazzSelect']").empty();
+                                //$(this).text()
+                                if (list.length > 0) {
+                                    for (var i = 0; i < list.length; i++) {
+                                        var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                                        $(this).append(option);
+                                    }
+                                } else {
+                                    var option = "<option value='" + '' + "'>" + '--无--' + "</option>";
+                                    $(this).append(option);
+                                }
+                            });
+
+                        }
+                    }
+                });
+            }
+        });
+
+
+        $("#clazzSelect").change(function () {
+
+            clear(3);
+            clazzDate = $(this).children('option:selected').text();
+
+            // $("select[name='numberSelect']").empty();
+            if (majorDate != null && departmentDate != null && clazzDate != null) {
+
+                // 查询学号
+                $.ajax({
+                    //cache: false,
+                    type: "POST",
+                    url: "/select/number/getAll",
+                    data: {
+                        "departmentName": departmentDate,
+                        "majorName": majorDate,
+                        "clazzName": clazzDate,
+                        "numberName": numberDate
+                    },
+                    // data: {'departmentName':departmentDate},
+                    // traditional: true,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 1) {
+                            var list = [];
+                            list = list.concat(data.data);
+                            /*for (var j = 0; j < $("select[name='departmentId']").length; j++) {
+                                var name = $("select[name='departmentId']").get(j);
+                                name.empty();
+                                for (var i = 0; i < list.length; i++) {
+                                    var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                                    name.append(option);
+                                }
+                            }*/
+                            $("select[name='stuNumSelect']").each(function () {
+                                $("select[name='stuNumSelect']").empty();
+                                //$(this).text()
+                                if (list.length > 0) {
+                                    for (var i = 0; i < list.length; i++) {
+                                        var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                                        $(this).append(option);
+                                    }
+                                } else {
+                                    var option = "<option value='" + '' + "'>" + '--无--' + "</option>";
+                                    $(this).append(option);
+                                }
+
+
+                            });
+
+                        }
+                    }
+                });
+            }
+        });
+
+
+        $("#stuNumSelect").change(function () {
+
+            clear(4);
+
+            numberDate = $(this).children('option:selected').text();
+
+            if (majorDate != null && departmentDate != null && clazzDate != null && numberDate != null) {
+
+                // // 查询学号
+                // $.ajax({
+                //     cache: false,
+                //     type: "POST",
+                //     url: "/select/number/getAll",
+                //     data: {"departmentName":departmentDate,"majorName":majorDate,"clazzName":clazzDate,"numberName":numberDate},
+                //     // data: {'departmentName':departmentDate},
+                //     // traditional: true,
+                //     dataType: "json",
+                //     success: function (data) {
+                //         if (data.code == 1) {
+                //             var list = [];
+                //             list = list.concat(data.data);
+                //             /*for (var j = 0; j < $("select[name='departmentId']").length; j++) {
+                //                 var name = $("select[name='departmentId']").get(j);
+                //                 name.empty();
+                //                 for (var i = 0; i < list.length; i++) {
+                //                     var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                //                     name.append(option);
+                //                 }
+                //             }*/
+                //             $("select[name='numberSelect']").each(function () {
+                //                 //$(this).text()
+                //                 for (var i = 0; i < list.length; i++) {
+                //                     var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                //                     $(this).append(option);
+                //                 }
+                //             });
+                //
+                //         }
+                //     }
+                // });
+            }
+        });
+
+        $("#insert").validate({
+            rules: {},
+            messages: {},
+            submitHandler: function (form) {
+                insert();
+            }
+        });
+
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/department/getAll",
+            data: {},
+            success: function (data) {
+                if (data.code == 1) {
+                    var list = [];
+                    list = list.concat(data.data);
+                    /*for (var j = 0; j < $("select[name='departmentId']").length; j++) {
+                        var name = $("select[name='departmentId']").get(j);
+                        name.empty();
+                        for (var i = 0; i < list.length; i++) {
+                            var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                            name.append(option);
+                        }
+                    }*/
+                    $("select[name='departmentSelect']").each(function () {
+                        //$(this).text()
+                        for (var i = 0; i < list.length; i++) {
+                            var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                            $(this).append(option);
+                        }
+                    });
+                }
+            }
+        });
+
+
+        // //获取专业数据
+        // $.ajax({
+        //     //cache: true,
+        //     type: "POST",
+        //     url: "/department/getAll",
+        //     data: {},
+        //     success: function (data) {
+        //         if (data.code == 1) {
+        //             var list = [];
+        //             list = list.concat(data.data);
+        //             /*for (var j = 0; j < $("select[name='departmentId']").length; j++) {
+        //                 var name = $("select[name='departmentId']").get(j);
+        //                 name.empty();
+        //                 for (var i = 0; i < list.length; i++) {
+        //                     var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+        //                     name.append(option);
+        //                 }
+        //             }*/
+        //             $("select[name='departmentSelect']").each(function () {
+        //                 //$(this).text()
+        //                 for (var i = 0; i < list.length; i++) {
+        //                     var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+        //                     $(this).append(option);
+        //                 }
+        //             });
+        //         }
+        //     }
+        // });
+
+
+        // //获取学院数据
+        // $.ajax({
+        //     //cache: true,
+        //     type: "POST",
+        //     url: "/major/getAll",
+        //     data: {},
+        //     success: function (data) {
+        //         if (data.code == 1) {
+        //             var list = [];
+        //             list = list.concat(data.data);
+        //             /*for (var j = 0; j < $("select[name='departmentId']").length; j++) {
+        //                 var name = $("select[name='departmentId']").get(j);
+        //                 name.empty();
+        //                 for (var i = 0; i < list.length; i++) {
+        //                     var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+        //                     name.append(option);
+        //                 }
+        //             }*/
+        //             $("select[name='majorSelect']").each(function () {
+        //                 //$(this).text()
+        //                 for (var i = 0; i < list.length; i++) {
+        //                     var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+        //                     $(this).append(option);
+        //                 }
+        //             });
+        //
+        //         }
+        //     }
+        // });
+
+
+    });
+
+    function clear(indexs) {
+
+        switch (indexs) {
+
+            case 1:
+                departmentDate = null;
+                majorDate = null;
+                clazzDate = null;
+                numberDate = null;
+                $("select[name='majorSelect']").empty();
+                $("select[name='majorSelect']").append("<option value='" + '' + "'>" + '--无--' + "</option>");
+                $("select[name='clazzSelect']").empty();
+                $("select[name='clazzSelect']").append("<option value='" + '' + "'>" + '--无--' + "</option>");
+                $("select[name='stuNumSelect']").empty();
+                $("select[name='stuNumSelect']").append("<option value='" + '' + "'>" + '--无--' + "</option>");
+                break;
+
+            case 2:
+                majorDate = null;
+                clazzDate = null;
+                numberDate = null;
+                $("select[name='clazzSelect']").empty();
+                $("select[name='clazzSelect']").append("<option value='" + '' + "'>" + '--无--' + "</option>");
+                $("select[name='stuNumSelect']").empty();
+                $("select[name='stuNumSelect']").append("<option value='" + '' + "'>" + '--无--' + "</option>");
+                break;
+
+            case 3:
+                clazzDate = null;
+                numberDate = null;
+                $("select[name='stuNumSelect']").empty();
+                $("select[name='stuNumSelect']").append("<option value='" + '' + "'>" + '--无--' + "</option>");
+                break;
+
+            case 4:
+                numberDate = null;
+                break;
+
+            default:
+                break;
+
+
+        }
+
+    }
+
+    function getoption() {
+
+        var opOne = $("#departmentSelect").on
+        opOne.onchange = function () {
+            var index = opOne.options;
+            alert("text is : " + index);
+        }
+    }
+
+    function loadChange() {
+
+        $('#table_preWarning')
+            .bootstrapTable({
+                url: "/preWarning/list",                      //请求后台的URL（*）
+                method: 'GET',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+                pageSize: 10,                     //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                      //是否显示表格搜索
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列（选择显示的列）
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+                showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                  //是否显示父子表
+                //得到查询的参数
+                queryParams: function (params) {
+                    //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+                    var temp = {
+                        pageSize: params.limit,                         //页面大小
+                        page: (params.offset / params.limit) + 1,   //页码
+                        //sort: params.sort,      //排序列名
+                        //sortOrder: params.order //排位命令（desc，asc）
+                        search: params.search
+                    };
+                    return temp;
+                },
+                columns: [{
+                    checkbox: true,
+                    visible: true                  //是否显示复选框
+                },
+                    {
+                        field: 'id',
+                        title: '序号',
+                        width: 120,
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        field: 'name',
+                        title: '学号',
+                    },
+                    {
+                        field: 'introduce',
+                        title: '姓名',
+                    },
+                    {
+                        field: 'majorId',
+                        title: '专业班级',
+                        formatter: function (value, row, index) {
+                            var major = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/major/get/" + value,
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            major = data.data;
+                                        }
+                                    }
+                                });
+                            }
+                            return major != null ? major.name : "";
+                        }
+                    },
+                    {
+                        field: 'departmentId',
+                        title: '学院',
+                        formatter: function (value, row, index) {
+                            var department = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/department/get/" + value,
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            department = data.data;
+                                        }
+                                    }
+                                });
+                            }
+                            return department != null ? department.name : "";
+                        }
+                    },
+
+
+                    {
+                        title: '操作',
+                        field: 'id',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
+                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                                + row.id
+                                + '\')">删除</a> ';
+
+                            return e + d;
+                        }
+                    }]
+            });
+
+    }
+
+    function load() {
+        $('#table_preWarning')
+            .bootstrapTable({
+                url: "/preWarning/list",                      //请求后台的URL（*）
+                method: 'GET',                      //请求方式（*）
+                toolbar: '#toolbar',              //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+                pageSize: 10,                     //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                      //是否显示表格搜索
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列（选择显示的列）
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+                showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                  //是否显示父子表
+                //得到查询的参数
+                queryParams: function (params) {
+                    //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+                    var temp = {
+                        pageSize: params.limit,                         //页面大小
+                        page: (params.offset / params.limit) + 1,   //页码
+                        //sort: params.sort,      //排序列名
+                        //sortOrder: params.order //排位命令（desc，asc）
+                        search: params.search
+                    };
+                    return temp;
+                },
+                columns: [{
+                    checkbox: true,
+                    visible: true                  //是否显示复选框
+                },
+                    {
+                        field: 'id',
+                        title: '序号',
+                        width: 120,
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        field: 'name',
+                        title: '学号',
+                    },
+                    {
+                        field: 'introduce',
+                        title: '姓名',
+                    },
+                    {
+                        field: 'majorId',
+                        title: '专业班级',
+                        formatter: function (value, row, index) {
+                            var major = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/major/get/" + value,
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            major = data.data;
+                                        }
+                                    }
+                                });
+                            }
+                            return major != null ? major.name : "";
+                        }
+                    },
+                    {
+                        field: 'departmentId',
+                        title: '学院',
+                        formatter: function (value, row, index) {
+                            var department = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/department/get/" + value,
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            department = data.data;
+                                        }
+                                    }
+                                });
+                            }
+                            return department != null ? department.name : "";
+                        }
+                    },
+
+
+                    {
+                        title: '操作',
+                        field: 'id',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
+                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                                + row.id
+                                + '\')">删除</a> ';
+
+                            return e + d;
+                        }
+                    }]
+            });
+    }
+
+    function reLoad() {
+        $('#table_preWarning').bootstrapTable('refresh');
+    }
+
+    function get(id) {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/preWarning/get/" + id,
+            data: {},
+            success: function (data) {
+                if (data.code == 1) {
+                    var clazz = data.data;
+                    for (var key in clazz) {
+                        $("#" + key).val(clazz[key]);
+                    }
+                }
+            }
+        });
+
+    }
+
+    function update() {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/preWarning/update",
+            data: $('#update').serialize(),
+            success: function (data) {
+                if (data.code == 1) {
+                    //操作成功，关闭模态框
+                    $('#edit').modal('hide');
+                    reLoad();
+                    //alert("修改成功");
+                } else {
+                    alert("修改失败");
+                }
+            }
+        });
+    }
+
+    function insert() {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/preWarning/insert",
+            data: $('#insert').serialize(),
+            success: function (data) {
+                if (data.code == 1) {
+                    //操作成功，关闭模态框
+                    $('#add').modal('hide');
+                    reLoad()
+                    //alert("添加成功");
+                } else {
+                    alert("添加失败");
+                }
+            }
+        });
+    }
+
+    function remove(id) {
+        $.ajax({
+            type: 'POST',
+            data: {},
+            url: "/preWarning/remove/" + id,
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1) {
+                    reLoad()
+                    //alert("删除成功");
+                } else {
+                    alert("删除失败");
+                }
+            }
+        });
+    }
+
+    function batchRemove() {
+        var rows = $('#table_preWarning').bootstrapTable('getSelections');
+        if (rows == null) {
+            alert("请选中操作的行")
+            return;
+        }
+        //.log(rows);
+        var ids = [];
+        for (var i = 0; i < rows.length; i++) {
+            ids[i] = rows[i].id;
+        }
+        //console.log(ids)
+        $.ajax({
+            type: 'POST',
+            data: {
+                ids: ids
+            },
+            url: "/preWarning/batchRemove",
+            traditional: true,//向后台传递数组时加上
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1) {
+                    reLoad()
+                    //alert("删除成功");
+                } else {
+                    alert("删除失败");
+                }
+            }
+        });
+    }
+
+    /* $.validator.setDefaults({
+         submitHandler: function () {
+             update();
+         }
+     });*/
+
+    /* function validateRule() {
+         $("#update").validate({
+             rules: {
+             },
+             messages: {
+             }
+         })
+     }*/
+
+</script>-->
+</html>

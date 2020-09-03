@@ -12,6 +12,8 @@ public interface DepartmentService {
 
     Department get(int id);
 
+    Integer getIdByName(String name);
+
     int listCount(Map map);
 
     List<Department> list(Map map);

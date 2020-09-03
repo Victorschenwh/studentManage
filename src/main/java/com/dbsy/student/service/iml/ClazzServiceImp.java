@@ -55,6 +55,11 @@ public class ClazzServiceImp implements ClazzService {
     }
 
     @Override
+    public Integer getIdByName(String name) {
+        return this.clazzMapper.getIdByName(name);
+    }
+
+    @Override
     @CacheEvict(key = "#id")
     @Transactional
     public int delete(int id) {
@@ -90,6 +95,16 @@ public class ClazzServiceImp implements ClazzService {
     @Override
     public List<Clazz> getClazzByMajorId(int majorId) {
         return this.clazzMapper.getClazzByMajorId(majorId);
+    }
+
+    @Override
+    public List<Clazz> getClazzByMajorName(String majorName) {
+        return this.clazzMapper.getClazzByMajorName(majorName);
+    }
+
+    @Override
+    public List<Clazz> getClazzsByMajorIdAndGrade(Integer majorId, Integer grade) {
+        return this.clazzMapper.getClazzsByMajorIdAndGrade(majorId,grade);
     }
 
 

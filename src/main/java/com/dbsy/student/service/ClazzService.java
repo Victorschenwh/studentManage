@@ -17,6 +17,8 @@ public interface ClazzService {
 
     Clazz get(int id);
 
+    Integer getIdByName(String name);
+
     int delete(int id);
 
     int update(Clazz clazz);
@@ -26,4 +28,8 @@ public interface ClazzService {
     List<Clazz> getAll();
 
     List<Clazz> getClazzByMajorId(int majorId);
+
+    List<Clazz> getClazzByMajorName(String majorIdName);
+
+    List<Clazz> getClazzsByMajorIdAndGrade(Integer majorId,Integer grade);
 }
