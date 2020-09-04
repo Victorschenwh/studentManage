@@ -47,7 +47,7 @@ public class FamilyServiceImp implements FamilyService {
         int page = Integer.parseInt(map.get("page") + "");
         int pageSize = Integer.parseInt(map.get("pageSize") + "");
         map.put("start", (page - 1) * pageSize);
-        map.put("end", (page - 1) * pageSize + pageSize);
+        map.put("end", pageSize);
 
         return this.familyMapper.list(map);
     }

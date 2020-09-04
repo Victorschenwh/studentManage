@@ -10,11 +10,13 @@ public class Employment {
     @ExcelProperty("学生id")
     private Integer studentId;
 
+    @ExcelProperty("是否签订第三方")
     private Boolean isSign;
 
     @ExcelProperty("单位名称")
     private String company;
 
+    @ExcelProperty("公司或单位联系方式")
     private Integer phoneNumber;
 
     private String remarks;
