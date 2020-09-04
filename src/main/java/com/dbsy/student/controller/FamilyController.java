@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -27,14 +28,14 @@ public class FamilyController {
     @Authority({Role.Teacher})
     @RequestMapping("")
     public String family() {
-        return "baseInfo/family";
+        return "stuInfo/family";
     }
 
 
     @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
-    public Map list(Map map) {
+    public Map list(@RequestParam Map map) {
         Map m = new HashMap();
         m.put("total", familyService.listCount(map));
         m.put("rows", familyService.list(map));
@@ -95,10 +96,10 @@ public class FamilyController {
     @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getFamilyByStudentId/{studentId}")
-    public Map getFamilyByStudentId(@PathVariable("studentId") int studentId){
+    public Map getFamilyByStudentId(@PathVariable("studentId") int studentId) {
         List list = familyService.getFamilyByStudentId(studentId);
         if (list != null) {
-            return News.success("成功",list);
+            return News.success("成功", list);
 
         }
         return News.fail("查找失败");

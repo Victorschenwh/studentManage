@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.FamilyMapper">
-  <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Family">
-    <constructor>
-      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="work" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="relationship" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="age" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="gender" javaType="java.lang.Boolean" jdbcType="BIT" />
-      <arg column="id_card" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="phone_number" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-    </constructor>
-  </resultMap>
-  <insert id="insert" parameterType="com.dbsy.student.pojo.Family">
+    <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Family">
+        <constructor>
+            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="work" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="relationship" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="age" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="gender" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="id_card" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="phone_number" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </constructor>
+    </resultMap>
+    <insert id="insert" parameterType="com.dbsy.student.pojo.Family">
     insert into family (id, name, work, 
       relationship, age, gender, 
       id_card, phone_number, student_id
@@ -24,94 +24,121 @@
       #{idCard,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{studentId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Family">
-    insert into family
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="work != null">
-        work,
-      </if>
-      <if test="relationship != null">
-        relationship,
-      </if>
-      <if test="age != null">
-        age,
-      </if>
-      <if test="gender != null">
-        gender,
-      </if>
-      <if test="idCard != null">
-        id_card,
-      </if>
-      <if test="phoneNumber != null">
-        phone_number,
-      </if>
-      <if test="studentId != null">
-        student_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="work != null">
-        #{work,jdbcType=VARCHAR},
-      </if>
-      <if test="relationship != null">
-        #{relationship,jdbcType=VARCHAR},
-      </if>
-      <if test="age != null">
-        #{age,jdbcType=INTEGER},
-      </if>
-      <if test="gender != null">
-        #{gender,jdbcType=BIT},
-      </if>
-      <if test="idCard != null">
-        #{idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="phoneNumber != null">
-        #{phoneNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="studentId != null">
-        #{studentId,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Family">
+        insert into family
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="work != null">
+                work,
+            </if>
+            <if test="relationship != null">
+                relationship,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="idCard != null">
+                id_card,
+            </if>
+            <if test="phoneNumber != null">
+                phone_number,
+            </if>
+            <if test="studentId != null">
+                student_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="work != null">
+                #{work,jdbcType=VARCHAR},
+            </if>
+            <if test="relationship != null">
+                #{relationship,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=BIT},
+            </if>
+            <if test="idCard != null">
+                #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="studentId != null">
+                #{studentId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
 
-  <select id="list" resultType="com.dbsy.student.pojo.Family">
-    select * from family
-    <where>
-      <if test="name != null">
-        or name like concat('%',#{name},'%')
-      </if>
-    </where>
-    <if test="page!=null and pageSize != null">
-      limit (#{page}-1)* #{pageSize},#{pageSize}
-    </if>
-  </select>
+    <select id="list" resultType="HashMap">
+        select f.id as id, f.name as name, f.work as work,
+        f.relationship as relationship, f.age as age, f.gender as gender,s.id as s_id,
+        f.id_card as id_card, f.phone_number as phone_number, s.name as s_name,s.number as number
+        from family f join student s on s.id = f.student_id
+        <where>
+            <if test="departmentId != null and departmentId != 0">
+                and department_id=#{departmentId}
+            </if>
 
-  <select id="listCount" resultType="int">
-    select family(*) from family
-    <where>
-      <if test="name != null">
-        or name like concat('%',#{name},'%')
-      </if>
-    </where>
-  </select>
+            <if test="majorId != null and majorId != 0">
+                and major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and clazz_id=#{clazzId}
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and grade=#{grade}
+            </if>
+        </where>
+        <if test="start !=null and end != null">
+            limit #{start},#{end}
+        </if>
+    </select>
+
+    <select id="listCount" resultType="int">
+        select count(*) from family f join student s on s.id = f.student_id
+        <where>
+            <if test="departmentId != null and departmentId != 0">
+                and department_id=#{departmentId}
+            </if>
+
+            <if test="majorId != null and majorId != 0">
+                and major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and clazz_id=#{clazzId}
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and grade=#{grade}
+            </if>
+        </where>
+    </select>
 
 
-  <delete id="batchRemove">
-    delete from family where id in
-    <foreach item="id" collection="array" open="(" separator="," close=")">
-      #{id}
-    </foreach>
-  </delete>
+    <delete id="batchRemove">
+        delete from family where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

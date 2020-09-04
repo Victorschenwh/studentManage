@@ -11,7 +11,7 @@ public interface FamilyService {
 
     int listCount(Map map);
 
-    List<Family> list(Map map);
+    List<Map> list(Map map);
 
     Family get(int id);
 

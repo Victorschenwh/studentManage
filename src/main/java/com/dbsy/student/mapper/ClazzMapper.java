@@ -37,5 +37,5 @@ public interface ClazzMapper {
     @Select("select * from clazz where major_id=#{majorId}")
     List<Clazz> getClazzByMajorId(int majorId);
 
-
+    List<Clazz> getByFOREIGN_KEY(Map map);
 }

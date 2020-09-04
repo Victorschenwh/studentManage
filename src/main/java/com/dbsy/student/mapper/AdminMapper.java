@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface AdminMapper {
     int insert(Admin record);
@@ -19,5 +22,7 @@ public interface AdminMapper {
 
     @Update("update admin set password=#{password}  where username=#{username}")
     int changePWByUsername(Admin admin);
+    @Select("")
+    List<Map> select(Map map);
 
 }

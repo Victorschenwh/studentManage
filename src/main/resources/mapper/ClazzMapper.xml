@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.ClazzMapper">
-  <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Clazz">
-    <constructor>
-      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="introduce" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="major_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="teacher_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="grade" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="department_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-    </constructor>
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Clazz">
+        <constructor>
+            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="introduce" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="major_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="teacher_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="grade" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="department_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </constructor>
+    </resultMap>
 
-  <insert id="insert" parameterType="com.dbsy.student.pojo.Clazz">
+    <insert id="insert" parameterType="com.dbsy.student.pojo.Clazz">
     insert into clazz (id, name, introduce,
       major_id, teacher_id, grade,
       department_id)
@@ -21,55 +21,55 @@
       #{majorId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER},
       #{departmentId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Clazz">
-    insert into clazz
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="introduce != null">
-        introduce,
-      </if>
-      <if test="majorId != null">
-        major_id,
-      </if>
-      <if test="teacherId != null">
-        teacher_id,
-      </if>
-      <if test="grade != null">
-        grade,
-      </if>
-      <if test="departmentId != null">
-        department_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="introduce != null">
-        #{introduce,jdbcType=VARCHAR},
-      </if>
-      <if test="majorId != null">
-        #{majorId,jdbcType=INTEGER},
-      </if>
-      <if test="teacherId != null">
-        #{teacherId,jdbcType=INTEGER},
-      </if>
-      <if test="grade != null">
-        #{grade,jdbcType=INTEGER},
-      </if>
-      <if test="departmentId != null">
-        #{departmentId,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Clazz">
+        insert into clazz
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="introduce != null">
+                introduce,
+            </if>
+            <if test="majorId != null">
+                major_id,
+            </if>
+            <if test="teacherId != null">
+                teacher_id,
+            </if>
+            <if test="grade != null">
+                grade,
+            </if>
+            <if test="departmentId != null">
+                department_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="introduce != null">
+                #{introduce,jdbcType=VARCHAR},
+            </if>
+            <if test="majorId != null">
+                #{majorId,jdbcType=INTEGER},
+            </if>
+            <if test="teacherId != null">
+                #{teacherId,jdbcType=INTEGER},
+            </if>
+            <if test="grade != null">
+                #{grade,jdbcType=INTEGER},
+            </if>
+            <if test="departmentId != null">
+                #{departmentId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
 
 
     <!--&amp;amp;lt;resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Clazz"&amp;amp;gt;
@@ -81,26 +81,41 @@
         &amp;amp;lt;/constructor&amp;amp;gt;
     &amp;amp;lt;/resultMap&amp;amp;gt;-->
 
-  <select id="list" resultType="com.dbsy.student.pojo.Clazz">
-    select * from clazz
-    <where>
-      <if test="name != null">
-        or name like concat('%',#{name},'%')
-      </if>
-    </where>
-    <if test="page!=null and pageSize != null">
-      limit (#{page}-1)* #{pageSize},#{pageSize}
-    </if>
-  </select>
+    <select id="getByFOREIGN_KEY" resultType="com.dbsy.student.pojo.Clazz">
+        select * from clazz
+        <where>
+            <if test="departmentId != null">
+                and department_id=#{departmentId}
+            </if>
+            <if test="majorId != null">
+                and major_id = #{majorId}
+            </if>
+            <if test="grade !=null and grade != 0">
+                and grade = #{grade}
+            </if>
+        </where>
+    </select>
 
-  <select id="listCount" resultType="int">
-    select count(*) from clazz
-    <where>
-      <if test="name != null">
-        or name like concat('%',#{name},'%')
-      </if>
-    </where>
-  </select>
+    <select id="list" resultType="com.dbsy.student.pojo.Clazz">
+        select * from clazz
+        <where>
+            <if test="name != null">
+                or name like concat('%',#{name},'%')
+            </if>
+        </where>
+        <if test="page!=null and pageSize != null">
+            limit (#{page}-1)* #{pageSize},#{pageSize}
+        </if>
+    </select>
+
+    <select id="listCount" resultType="int">
+        select count(*) from clazz
+        <where>
+            <if test="name != null">
+                or name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
     <delete id="batchRemove">
         delete from clazz where id in
         <foreach close=")" collection="array" item="id" open="(" separator=",">

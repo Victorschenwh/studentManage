@@ -18,7 +18,7 @@ public interface FamilyMapper {
 
     int listCount(Map map);
 
-    List<Family> list(Map map);
+    List<Map> list(Map map);
 
     @Select("select * from family where id = #{id}")
     Family get(int id);
@@ -36,4 +36,5 @@ public interface FamilyMapper {
 
     @Select("select * from family where student_id=#{studentId}")
     List<Family> getFamilyByStudentId(int studentId);
+
 }

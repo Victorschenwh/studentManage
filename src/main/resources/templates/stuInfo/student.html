@@ -4,6 +4,7 @@
 <body>
 <div class="container">
 
+
     <div id="toolbar" class="btn-group">
         <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add"
                 th:if="${session.Teacher!=null ? true : false}">
@@ -266,7 +267,7 @@
                         page: (params.offset / params.limit) + 1,   //页码
                         //sort: params.sort,      //排序列名
                         //sortOrder: params.order //排位命令（desc，asc）
-                        search: params.search
+                        //search: params.search
                     };
                     return temp;
                 },
@@ -282,13 +283,13 @@
                 }, {
                     field: 'name',
                     title: '姓名',
-                },  {
+                }, {
                     field: 'nation',
                     title: '民族',
-                },  {
+                }, {
                     field: 'idCard',
                     title: '身份证号',
-                },  {
+                }, {
                     field: 'departmentId',
                     title: '学院',
                     formatter: function (value, row, index) {
@@ -356,29 +357,29 @@
                     }
                 },
                     {
-                    field: 'admissionDate',
-                    title: '入学年份',
-                },  {
-                    field: 'nativePlace',
-                    title: '生源地',
-                },  {
-                    field: 'address',
-                    title: '家庭住址',
-                },  {
-                    field: 'phoneNumber',
-                    title: '联系电话',
-                }, {
-                    title: '操作',
-                    field: 'id',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
-                            + row.id
-                            + '\')">删除</a> ';
+                        field: 'admissionDate',
+                        title: '入学年份',
+                    }, {
+                        field: 'nativePlace',
+                        title: '生源地',
+                    }, {
+                        field: 'address',
+                        title: '家庭住址',
+                    }, {
+                        field: 'phoneNumber',
+                        title: '联系电话',
+                    }, {
+                        title: '操作',
+                        field: 'id',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                                + row.id
+                                + '\')">删除</a> ';
 
-                        return  d;
-                    }
-                }]
+                            return d;
+                        }
+                    }]
             });
     }
 

@@ -1,6 +1,7 @@
 package com.dbsy.student.service.iml;
 
 
+import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.ClazzMapper;
 import com.dbsy.student.pojo.Clazz;
 import com.dbsy.student.service.ClazzService;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 @Service("clazzServiceImp")
 @CacheConfig(cacheNames = "clazz")
-public class ClazzServiceImp implements ClazzService {
+public class ClazzServiceImp implements ClazzService, ExcelSave {
 
     @Autowired
     private ClazzMapper clazzMapper;
@@ -92,5 +93,14 @@ public class ClazzServiceImp implements ClazzService {
         return this.clazzMapper.getClazzByMajorId(majorId);
     }
 
+    @Override
+    public List<Clazz> getByFOREIGN_KEY(Map map) {
+        return this.clazzMapper.getByFOREIGN_KEY(map);
+    }
 
+
+    @Override
+    public int excelBatchInsert(List list) {
+        return 0;
+    }
 }
