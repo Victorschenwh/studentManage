@@ -210,7 +210,7 @@
     </select>
 
     <select id="listCount" resultType="int">
-        select conut(*) from student
+        select * from student
         <where>
             <if test="departmentId != null">
                 and department_id = #{departmentId}
