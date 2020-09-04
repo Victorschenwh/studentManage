@@ -18,20 +18,20 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/score")
-@Authority({Role.Admin})
+//@Authority({Role.Admin})
 public class ScoreController {
     @Autowired
     @Qualifier("scoreServiceImp")
     ScoreService scoreService;
 
-    @Authority({Role.Teacher})
+ //   @Authority({Role.Teacher})
     @RequestMapping("")
     public String score() {
         return "baseInfo/score";
     }
 
 
-    @Authority({Role.Teacher})
+ //   @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
     public Map list(Map map) {
@@ -78,21 +78,21 @@ public class ScoreController {
         return News.fail("添加失败");
     }
 
-    @Authority({Role.Teacher})
+ //   @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", scoreService.get(id));
     }
 
-    @Authority({Role.Teacher})
+ //   @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getAll")
     public Map getAll() {
         return News.success("成功", scoreService.getAll());
     }
 
-    @Authority({Role.Teacher})
+ //   @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getScoreByStudentId/{studentId}")
     public Map getScoreByStudentId(@PathVariable("studentId") int studentId){

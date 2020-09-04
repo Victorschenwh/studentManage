@@ -15,7 +15,7 @@ public interface ScoreService {
 
     List<Score> list(Map map);
 
-    int batchInsert(List<Score> list);
+    int batchInsert(List list);
 
     Score get(int id);
 

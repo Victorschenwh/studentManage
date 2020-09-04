@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -18,23 +19,23 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/retardation")
-//@Authority({Role.Admin})
+@Authority({Role.Admin})
 public class RetardationController {
     @Autowired
     @Qualifier("retardationServiceImp")
     RetardationService retardationService;
 
-//    @Authority({Role.Teacher})
+    @Authority({Role.Teacher})
     @RequestMapping("")
     public String transfer() {
-        return "baseInfo/retardation";
+        return "stuInfo/retardation";
     }
 
 
-//    @Authority({Role.Teacher})
+    @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
-    public Map list(Map map) {
+    public Map list(@RequestParam Map map) {
         Map m = new HashMap();
         m.put("total", retardationService.listCount(map));
         m.put("rows", retardationService.list(map));
@@ -78,21 +79,21 @@ public class RetardationController {
         return News.fail("添加失败");
     }
 
-//    @Authority({Role.Teacher})
+    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", retardationService.get(id));
     }
 
-//    @Authority({Role.Teacher})
+    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getAll")
     public Map getAll() {
         return News.success("成功", retardationService.getAll());
     }
 
-//    @Authority({Role.Teacher})
+    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getRetardationByStudentId/{studentId}")
     public Map getRetardationByStudentId(@PathVariable("studentId") int studentId){
@@ -104,7 +105,7 @@ public class RetardationController {
         return News.fail("查找失败");
     }
 
-//    @Authority({Role.Teacher})
+    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getRetardationByOldDepartmentId/{oldDepartmentId}")
     public Map getRetardationByOldDepartmentId(@PathVariable("oldDepartmentId") int oldDepartmentId){
@@ -116,7 +117,7 @@ public class RetardationController {
         return News.fail("查找失败");
     }
 
-//    @Authority({Role.Teacher})
+    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getRetardationByOldMajorId/{oldMajorId}")
     public Map getRetardationByOldMajorId(@PathVariable("oldMajorId") int oldMajorId){
@@ -128,7 +129,7 @@ public class RetardationController {
         return News.fail("查找失败");
     }
 
-//    @Authority({Role.Teacher})
+    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getRetardationByOldClazzId/{oldClazzId}")
     public Map getRetardationByOldClazzId(@PathVariable("oldClazzId") int oldClazzId) {
@@ -140,7 +141,7 @@ public class RetardationController {
         return News.fail("查找失败");
     }
 
-//    @Authority({Role.Teacher})
+    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getRetardationByNewDepartmentId/{newDepartmentId}")
     public Map getRetardationByNewDepartmentId(@PathVariable("newDepartmentId") int newDepartmentId) {
@@ -152,7 +153,7 @@ public class RetardationController {
         return News.fail("查找失败");
     }
 
-//    @Authority({Role.Teacher})
+    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getRetardationByNewMajorId/{newMajorId}")
     public Map getRetardationByNewMajorId(@PathVariable("newMajorId") int newMajorId) {
@@ -164,7 +165,7 @@ public class RetardationController {
         return News.fail("查找失败");
     }
 
-//    @Authority({Role.Teacher})
+    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getRetardationByNewClazzId/{newClazzId}")
     public Map getRetardationByNewClazzId(@PathVariable("newClazzId") int newClazzId) {

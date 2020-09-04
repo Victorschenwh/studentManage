@@ -14,7 +14,7 @@ public interface RewardService {
 
     List<Reward> list(Map map);
 
-    int batchInsert(List<Reward> list);
+    int batchInsert(List list);
 
     Reward get(int id);
 

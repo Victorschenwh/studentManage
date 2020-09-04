@@ -13,7 +13,7 @@ public interface RetardationService {
 
     int listCount(Map map);
 
-    List<Retardation> list(Map map);
+    List<Map> list(Map map);
 
     Retardation get(int id);
 

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.RetardationMapper">
-  <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Retardation">
-    <constructor>
-      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="old_department_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="old_major_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="old_clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="new_department_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="new_major_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="new_clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="save_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="is_pass" javaType="java.lang.Boolean" jdbcType="BIT" />
-      <arg column="result" javaType="java.lang.Boolean" jdbcType="BIT" />
-      <arg column="remarks" javaType="java.lang.String" jdbcType="VARCHAR" />
-    </constructor>
-  </resultMap>
-  <insert id="insert" parameterType="com.dbsy.student.pojo.Retardation">
+    <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Retardation">
+        <constructor>
+            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="old_department_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="old_major_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="old_clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="new_department_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="new_major_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="new_clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="save_date" javaType="java.util.Date" jdbcType="DATE"/>
+            <arg column="is_pass" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="result" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="remarks" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
+    <insert id="insert" parameterType="com.dbsy.student.pojo.Retardation">
     insert into retardation (id, student_id, old_department_id, 
       old_major_id, old_clazz_id, new_department_id, 
       new_major_id, new_clazz_id, save_date, 
@@ -27,112 +27,148 @@
       #{newMajorId,jdbcType=INTEGER}, #{newClazzId,jdbcType=INTEGER}, #{saveDate,jdbcType=DATE}, 
       #{isPass,jdbcType=BIT}, #{result,jdbcType=BIT}, #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Retardation">
-    insert into retardation
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="studentId != null">
-        student_id,
-      </if>
-      <if test="oldDepartmentId != null">
-        old_department_id,
-      </if>
-      <if test="oldMajorId != null">
-        old_major_id,
-      </if>
-      <if test="oldClazzId != null">
-        old_clazz_id,
-      </if>
-      <if test="newDepartmentId != null">
-        new_department_id,
-      </if>
-      <if test="newMajorId != null">
-        new_major_id,
-      </if>
-      <if test="newClazzId != null">
-        new_clazz_id,
-      </if>
-      <if test="saveDate != null">
-        save_date,
-      </if>
-      <if test="isPass != null">
-        is_pass,
-      </if>
-      <if test="result != null">
-        result,
-      </if>
-      <if test="remarks != null">
-        remarks,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="studentId != null">
-        #{studentId,jdbcType=INTEGER},
-      </if>
-      <if test="oldDepartmentId != null">
-        #{oldDepartmentId,jdbcType=INTEGER},
-      </if>
-      <if test="oldMajorId != null">
-        #{oldMajorId,jdbcType=INTEGER},
-      </if>
-      <if test="oldClazzId != null">
-        #{oldClazzId,jdbcType=INTEGER},
-      </if>
-      <if test="newDepartmentId != null">
-        #{newDepartmentId,jdbcType=INTEGER},
-      </if>
-      <if test="newMajorId != null">
-        #{newMajorId,jdbcType=INTEGER},
-      </if>
-      <if test="newClazzId != null">
-        #{newClazzId,jdbcType=INTEGER},
-      </if>
-      <if test="saveDate != null">
-        #{saveDate,jdbcType=DATE},
-      </if>
-      <if test="isPass != null">
-        #{isPass,jdbcType=BIT},
-      </if>
-      <if test="result != null">
-        #{result,jdbcType=BIT},
-      </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Retardation">
+        insert into retardation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="studentId != null">
+                student_id,
+            </if>
+            <if test="oldDepartmentId != null">
+                old_department_id,
+            </if>
+            <if test="oldMajorId != null">
+                old_major_id,
+            </if>
+            <if test="oldClazzId != null">
+                old_clazz_id,
+            </if>
+            <if test="newDepartmentId != null">
+                new_department_id,
+            </if>
+            <if test="newMajorId != null">
+                new_major_id,
+            </if>
+            <if test="newClazzId != null">
+                new_clazz_id,
+            </if>
+            <if test="saveDate != null">
+                save_date,
+            </if>
+            <if test="isPass != null">
+                is_pass,
+            </if>
+            <if test="result != null">
+                result,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="studentId != null">
+                #{studentId,jdbcType=INTEGER},
+            </if>
+            <if test="oldDepartmentId != null">
+                #{oldDepartmentId,jdbcType=INTEGER},
+            </if>
+            <if test="oldMajorId != null">
+                #{oldMajorId,jdbcType=INTEGER},
+            </if>
+            <if test="oldClazzId != null">
+                #{oldClazzId,jdbcType=INTEGER},
+            </if>
+            <if test="newDepartmentId != null">
+                #{newDepartmentId,jdbcType=INTEGER},
+            </if>
+            <if test="newMajorId != null">
+                #{newMajorId,jdbcType=INTEGER},
+            </if>
+            <if test="newClazzId != null">
+                #{newClazzId,jdbcType=INTEGER},
+            </if>
+            <if test="saveDate != null">
+                #{saveDate,jdbcType=DATE},
+            </if>
+            <if test="isPass != null">
+                #{isPass,jdbcType=BIT},
+            </if>
+            <if test="result != null">
+                #{result,jdbcType=BIT},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 
-  <select id="list" resultType="com.dbsy.student.pojo.Retardation">
-    select * from retardation
-    <where>
-      <if test="studentId != null">
-        or name like concat('%',#{name},'%')
-      </if>
-    </where>
-    <if test="page!=null and pageSize != null">
-      limit (#{page}-1)* #{pageSize},#{pageSize}
-    </if>
-  </select>
+    <select id="list" resultType="HashMap">
+        select r.id as id, s.number as number, r.old_department_id as old_department_id,s.name as s_name,
+        s.department_id as departmentId,
+        r.old_major_id as old_major_id, r.old_clazz_id as old_clazz_id, r.new_department_id as new_department_id,
+        r.new_major_id as new_major_id, r.new_clazz_id as new_clazz_id, r.save_date as save_date,
+        r.is_pass as is_pass, r.result as result, r.remarks as remarks
+        from retardation r join student s on s.id = r.student_id
 
-  <select id="listCount" resultType="int">
-    select retardation(*) from retardation
-    <where>
-      <if test="studentId != null">
-        or name like concat('%',#{name},'%')
-      </if>
-    </where>
-  </select>
+        <where>
+            <if test="departmentId != null and departmentId != 0">
+                and s.department_id=#{departmentId}
+            </if>
+
+            <if test="majorId != null and majorId != 0">
+                and s.major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and s.clazz_id=#{clazzId}
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and s.grade=#{grade}
+            </if>
+
+            <if test="search_key != null">
+                and s.name like CONCAT('%',#{search_key},'%')
+            </if>
+
+        </where>
+
+        <if test="start !=null and end != null">
+            limit #{start},#{end}
+        </if>
+    </select>
+
+    <select id="listCount" resultType="int">
+        select count(*) from retardation r join student s on s.id =r.student_id
+        <where>
+            <if test="departmentId != null and departmentId != 0">
+                and department_id=#{departmentId}
+            </if>
+
+            <if test="majorId != null and majorId != 0">
+                and major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and clazz_id=#{clazzId}
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and grade=#{grade}
+            </if>
+        </where>
+    </select>
 
 
-  <delete id="batchRemove">
-    delete from retardation where id in
-    <foreach item="id" collection="array" open="(" separator="," close=")">
-      #{id}
-    </foreach>
-  </delete>
+    <delete id="batchRemove">
+        delete from retardation where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

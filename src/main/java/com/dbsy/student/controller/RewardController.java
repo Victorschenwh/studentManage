@@ -20,20 +20,20 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/reward")
-@Authority({Role.Admin})
+//@Authority({Role.Admin})
 public class RewardController {
     @Autowired
     @Qualifier("rewardServiceImp")
     RewardService rewardService;
 
-    @Authority({Role.Teacher})
+//    @Authority({Role.Teacher})
     @RequestMapping("")
     public String reward() {
         return "baseInfo/reward";
     }
 
 
-    @Authority({Role.Teacher})
+//    @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
     public Map list(Map map) {
@@ -80,21 +80,21 @@ public class RewardController {
         return News.fail("添加失败");
     }
 
-    @Authority({Role.Teacher})
+ //   @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", rewardService.get(id));
     }
 
-    @Authority({Role.Teacher})
+ //   @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getAll")
     public Map getAll() {
         return News.success("成功", rewardService.getAll());
     }
 
-    @Authority({Role.Teacher})
+ //   @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getRewardByStudentId/{studentId}")
     public Map getRewardByStudentId(@PathVariable("studentId") int studentId){

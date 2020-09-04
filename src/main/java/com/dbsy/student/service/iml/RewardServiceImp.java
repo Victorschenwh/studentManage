@@ -23,46 +23,46 @@ import java.util.List;
 import java.util.Map;
 
 @Service("rewardServiceImp")
-@CacheConfig(cacheNames = "reward")
+//@CacheConfig(cacheNames = "reward")
 public class RewardServiceImp implements RewardService, ExcelSave {
 
     @Autowired
     RewardMapper rewardMapper;
 
-    @Autowired
-    RedisTemplate redisTemplate;
+//    @Autowired
+//    RedisTemplate redisTemplate;
 
     @Override
     @Transactional
     public int insert(Reward record) {
-        return this.rewardMapper.insert(record);
+        return rewardMapper.insert(record);
     }
 
     @Override
-    public int batchInsert(List<Reward> list) {
+    public int batchInsert(List list) {
         return rewardMapper.batchInsert(list);
     }
 
     @Override
     @Transactional
     public int insertSelective(Reward record) {
-        return this.rewardMapper.insertSelective(record);
+        return rewardMapper.insertSelective(record);
     }
 
     @Override
     public int listCount(Map map) {
-        return this.rewardMapper.listCount(map);
+        return rewardMapper.listCount(map);
     }
 
     @Override
     public List<Reward> list(Map map) {
-        return this.rewardMapper.list(map);
+        return rewardMapper.list(map);
     }
 
     @Override
-    @Cacheable(key = "#id", unless = "#result == null")
+ //   @Cacheable(key = "#id", unless = "#result == null")
     public Reward get(int id) {
-        return this.rewardMapper.get(id);
+        return rewardMapper.get(id);
     }
 
     @Override
@@ -72,39 +72,32 @@ public class RewardServiceImp implements RewardService, ExcelSave {
 
     @Override
     @Transactional
-    @CacheEvict(key = "#id")
+//    @CacheEvict(key = "#id")
     public int delete(int id) {
-        return this.rewardMapper.delete(id);
+        return rewardMapper.delete(id);
     }
 
     @Override
     @Transactional
-    @CachePut(key = "#reward.id", unless = "#reward == null")
+//    @CachePut(key = "#reward.id", unless = "#reward == null")
     public int update(Reward reward) {
-        return this.rewardMapper.update(reward);
+        return rewardMapper.update(reward);
     }
 
     @Override
     public int batchRemove(int[] ids) {
-        //清除缓存
-        if (ids.length > 0) {
-            for (int id : ids) {
-                if (redisTemplate.hasKey("reward::" + id)) {
-                    redisTemplate.delete("reward::" + id);
-                }
-            }
-        }
-        return this.rewardMapper.batchRemove(ids);
+
+        return rewardMapper.batchRemove(ids);
     }
 
 
     @Override
     public List<Reward> getAll() {
-        return this.rewardMapper.getAll();
+        return rewardMapper.getAll();
     }
 
     @Override
     public List<Reward> getRewardByStudentId(int studentId) {
-        return this.rewardMapper.getRewardByStudentId(studentId);
+        return rewardMapper.getRewardByStudentId(studentId);
     }
 }

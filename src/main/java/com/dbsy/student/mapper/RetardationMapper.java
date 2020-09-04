@@ -16,7 +16,7 @@ public interface RetardationMapper {
 
     int listCount(Map map);
 
-    List<Retardation> list(Map map);
+    List<Map> list(Map map);
 
     @Select("select * from retardation where id = #{id}")
     Retardation get(int id);
