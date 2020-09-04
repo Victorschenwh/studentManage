@@ -4,37 +4,43 @@
 <body>
 <div class="container">
 
-    <div id="toolbar" class="btn-group">
-        <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add"
-                th:if="${session.Teacher!=null ? true : false}">
+    <div class="form-group">
+        <div class="col-md-3">
+            <select id="departmentId" class="form-control">
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select id="majorId" class="form-control"
+                    required>
+                <option value="">
+                    --请选择专业--
+                </option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select id="grade" class="form-control">
 
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加
-
-        </button>
-
-
-        <button id="btn_delete" type="button" class="btn btn-danger" onclick="batchRemove()">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>批量删除
-        </button>
-
-
-        <button type="button" class="btn btn-primary">导入</button>
-        <button type="button" class="btn btn-primary">导出</button>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select id="clazzId" class="form-control">
+                <option value="">
+                    --请选择班级--
+                </option>
+            </select>
+        </div>
     </div>
 
-    <div class="text-c">
-        仓库名称：
-        <select class="select" style="width: 150px" size="1" name="ckno" id="ckno">
-            <option value="" selected>请选择仓库</option>
-        </select>
-        专业名称：
-        <select class="select" style="width: 150px" size="1" name="xmno" id="zyno">
-            <option value="" selected>请选择专业</option>
-        </select>
-        项目名称：
-        <select class="select" style="width: 150px" size="1" name="xmno" id="xmno">
-            <option value="" selected>请选择项目</option>
-        </select>
+    <div class="row">
+        <div id="toolbar" class="btn-group ">
+            <button id="btn_upload" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
+                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
+            </button>
+
+            <button id="btn_download" type="button" class="btn btn-danger" onclick="">
+                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
+            </button>
+        </div>
     </div>
 
     <table id="table_transfer" data-mobile-responsive="true">
@@ -44,73 +50,15 @@
 </div>
 <div th:replace="static :: script"></div>
 </body>
+<script src="/js/select.js"></script>
 
 
 <script>
-    $().ready(function () {
-        load();
-
-        $("#insert").validate({
-            rules: {},
-            messages: {},
-            submitHandler: function (form) {
-                insert();
-            }
-        });
-    });
-
-    $.ajax({
-        type: "post",
-        url: "/admin/AdminHandler.ashx",
-        data: { "operation": "GetCKZYXMList" },
-        success: function (data, status) {
-            data_select = data;
-            for (var i = 0; i < data_select.ListCK.length; i++) {
-                $("#ckno").append("<option value='" + data_select.ListCK[i].CKNo + "'>" + data_select.ListCK[i].CKName + "</option>");
-            }
-        },
-    });
-
-    $("#ckno").change(function () {
-        //清空option
-        $("#zyno").find("option").remove();
-        $("#xmno").find("option").remove();
-        var ckno_zy = $(this).val();
-        if (ckno_zy == "") {
-            $("#zyno").append("<option value='' selected>请选择专业</option>");
-            $("#xmno").append("<option value='' selected>请选择项目</option>");
-        } else {
-            for (var i = 0; i < data_select.ListCK.length; i++) {
-                if (data_select.ListCK[i].CKNo == ckno_zy) {
-                    for (var j = 0; j < data_select.ListCK[i].ZYList.length; j++) {
-                        $("#zyno").append("<option value='" + data_select.ListCK[i].ZYList[j].ZYNo + "'>" + data_select.ListCK[i].ZYList[j].ZYName + "</option>");
-                    }
-                    for (var k = 0; k < data_select.ListCK[i].ZYList[0].XMList.length; k++) {
-                        $("#xmno").append("<option value='" + data_select.ListCK[i].ZYList[0].XMList[k].XMNo + "'>" + data_select.ListCK[i].ZYList[0].XMList[k].XMName + "</option>");
-                    }
-                }
-            }
-        }
-    });
-
-    $("#zyno").change(function () {
-        //清空option
-        $("#xmno").find("option").remove();
-        var ckno_zy = $('#ckno option:selected').val();
-        var zyno_xm = $(this).val();
-        for (var i = 0; i < data_select.ListCK.length; i++) {
-            if (data_select.ListCK[i].CKNo == ckno_zy) {
-                for (var j = 0; j < data_select.ListCK[i].ZYList.length; j++) {
-                    if (data_select.ListCK[i].ZYList[j].ZYNo == zyno_xm) {
-                        for (var k = 0; k < data_select.ListCK[i].ZYList[j].XMList.length; k++) {
-                            $("#xmno").append("<option value='" + data_select.ListCK[i].ZYList[j].XMList[k].XMNo + "'>" + data_select.ListCK[i].ZYList[j].XMList[k].XMName + "</option>");
-                        }
-                    }
-
-                }
-            }
-        }
-    });
+    $(document).ready(function () {
+        department();
+        grade();
+        load()
+    })
 
 
     function load() {
@@ -141,15 +89,18 @@
                 detailView: false,                  //是否显示父子表
                 //得到查询的参数
                 queryParams: function (params) {
+                    console.log("list:" + params)
                     //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
-                    var temp = {
+                    return {
                         pageSize: params.limit,                         //页面大小
                         page: (params.offset / params.limit) + 1,   //页码
                         //sort: params.sort,      //排序列名
                         //sortOrder: params.order //排位命令（desc，asc）
-                        search: params.search
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade:$("#grade").val(),
+                        clazzId: $("#clazzId").val(),
                     };
-                    return temp;
                 },
                 columns: [{
                     checkbox: true,
@@ -158,52 +109,14 @@
                     field: 'id',
                     title: '序号',
                 }, {
-                    field: 'studentId',
+                    field: 'number',
                     title: '学号',
-                    formatter: function (value, row, index) {
-                        var student = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/student/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        student = data.data;
-                                    }
-                                }
-                            });
-                        }
-                        return student != null ? student.number : "";
-                    }
 
                 }, {
-                    field: 'studentId',
-                    title: '姓名',
-                    formatter: function (value, row, index) {
-                        var student = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/student/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        student = data.data;
-                                    }
-                                }
-                            });
-                        }
-                        return student != null ? student.name : "";
-                    }
+                    field: 'name',
+                    title: '姓名'
                 },  {
-                    field: 'oldDepartmentId',
+                    field: 'old_department_id',
                     title: '转出学院',
                     formatter: function (value, row, index) {
                         var department = {};
@@ -225,7 +138,7 @@
                         return department != null ? department.name : "";
                     }
                 },  {
-                    field: 'oldMajorId',
+                    field: 'old_major_id',
                     title: '转出专业',
                     formatter: function (value, row, index) {
                         var major = {};
@@ -247,7 +160,7 @@
                         return major != null ? major.name : "";
                     }
                 }, {
-                    field: 'oldClazzId',
+                    field: 'old_clazz_id',
                     title: '转出班级',
                     formatter: function (value, row, index) {
                         var clazz = {};
@@ -269,7 +182,7 @@
                         return clazz != null ? clazz.name : "";
                     }
                 }, {
-                    field: 'newDepartmentId',
+                    field: 'new_department_id',
                     title: '转入学院',
                     formatter: function (value, row, index) {
                         var department = {};
@@ -291,7 +204,7 @@
                         return department != null ? department.name : "";
                     }
                 },  {
-                    field: 'newMajorId',
+                    field: 'new_major_id',
                     title: '转入专业',
                     formatter: function (value, row, index) {
                         var major = {};
@@ -313,7 +226,7 @@
                         return major != null ? major.name : "";
                     }
                 }, {
-                    field: 'newClazzId',
+                    field: 'new_clazz_id',
                     title: '转入班级',
                     formatter: function (value, row, index) {
                         var clazz = {};
@@ -335,7 +248,7 @@
                         return clazz != null ? clazz.name : "";
                     }
                 }, {
-                    field: 'isPass',
+                    field: 'is_pass',
                     title: '审批进度',
                     formatter: function (value, row, index) {
                         return value ? "审批通过" : "审批未通过";

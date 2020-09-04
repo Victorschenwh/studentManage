@@ -1,5 +1,6 @@
 package com.dbsy.student.service.iml;
 
+import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.TransferMapper;
 import com.dbsy.student.pojo.Transfer;
 import com.dbsy.student.service.TransferService;
@@ -43,8 +44,13 @@ public class TransferServiceImp implements TransferService {
     }
 
     @Override
-    public List<Transfer> list(Map map) {
-        return transferMapper.list(map);
+    public List<Map> list(Map map) {
+        int page = Integer.parseInt(map.get("page") + "");
+        int pageSize = Integer.parseInt(map.get("pageSize") + "");
+        map.put("start", (page - 1) * pageSize);
+        map.put("end", pageSize);
+
+        return this.transferMapper.list(map);
     }
 
     @Override
@@ -120,4 +126,5 @@ public class TransferServiceImp implements TransferService {
     public List<Transfer> getTransferByNewClazzId(int newClazzId) {
         return transferMapper.getTransferByNewClazzId(newClazzId);
     }
+
 }

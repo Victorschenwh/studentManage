@@ -100,23 +100,52 @@
     </trim>
   </insert>
 
-  <select id="list" resultType="com.dbsy.student.pojo.Transfer">
-    select * from transfer
+  <select id="list" resultType="HashMap">
+    select t.id as id, t.old_department_id as old_department_id ,
+    t.old_major_id as old_major_id,t.old_clazz_id as old_clazz_id,
+    t.new_department_id as new_department_id,t.new_major_id as new_major_id,
+    t.new_clazz_id as new_clazz_id,t.is_pass as is_pass,  s.id as s_id,
+     s.name as name,s.number as number
+    from transfer t join student s on s.id = t.student_id
     <where>
-      <if test="studentId != null">
-        or name like concat('%',#{name},'%')
+      <if test="departmentId != null and departmentId != 0">
+        and department_id=#{departmentId}
+      </if>
+
+      <if test="majorId != null and majorId != 0">
+        and major_id=#{majorId}
+      </if>
+
+      <if test="clazzId != null and clazzId != 0">
+        and clazz_id=#{clazzId}
+      </if>
+
+      <if test="grade != null and grade != 0">
+        and grade=#{grade}
       </if>
     </where>
-    <if test="page!=null and pageSize != null">
-      limit (#{page}-1)* #{pageSize},#{pageSize}
+    <if test="start !=null and end != null">
+      limit #{start},#{end}
     </if>
   </select>
 
   <select id="listCount" resultType="int">
-    select count(*) from transfer
+    select count(*) from transfer t join student s on s.id = t.student_id
     <where>
-      <if test="studentId != null">
-        or name like concat('%',#{name},'%')
+      <if test="departmentId != null and departmentId != 0">
+        and department_id=#{departmentId}
+      </if>
+
+      <if test="majorId != null and majorId != 0">
+        and major_id=#{majorId}
+      </if>
+
+      <if test="clazzId != null and clazzId != 0">
+        and clazz_id=#{clazzId}
+      </if>
+
+      <if test="grade != null and grade != 0">
+        and grade=#{grade}
       </if>
     </where>
   </select>

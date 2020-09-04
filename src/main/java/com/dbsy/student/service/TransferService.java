@@ -13,7 +13,7 @@ public interface TransferService {
 
     int listCount(Map map);
 
-    List<Transfer> list(Map map);
+    List<Map> list(Map map);
 
     Transfer get(int id);
 

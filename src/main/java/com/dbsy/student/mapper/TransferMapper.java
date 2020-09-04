@@ -1,5 +1,6 @@
 package com.dbsy.student.mapper;
 
+
 import com.dbsy.student.pojo.Transfer;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,7 +17,7 @@ public interface TransferMapper {
 
     int listCount(Map map);
 
-    List<Transfer> list(Map map);
+    List<Map> list(Map map);
 
     @Select("select * from transfer where id = #{id}")
     Transfer get(int id);
@@ -52,4 +53,6 @@ public interface TransferMapper {
 
     @Select("select * from transfer where new_clazz_id=#{newClazzId}")
     List<Transfer> getTransferByNewClazzId(int newClazzId);
+
+    int batchInsert(List<Transfer> list);
 }

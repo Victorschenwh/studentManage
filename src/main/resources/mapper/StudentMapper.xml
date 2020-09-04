@@ -187,51 +187,22 @@
     <select id="list" resultType="com.dbsy.student.pojo.Student">
         select * from student
         <where>
-            <if test="departmentId != null">
-                and department_id = #{departmentId}
-            </if>
-            <if test="majorId != null">
-                and major_id = #{majorId}
-            </if>
-            <if test="grade != null">
-                and grade = #{grade}
-            </if>
-            <if test="clazzId != null">
-                and clazz_id = #{clazzId}
-            </if>
-
             <if test="number != null">
-                and number like concat('%',#{number},'%')
+                or name like concat('%',#{name},'%')
             </if>
         </where>
-        <if test="page!=null and pageSize != null">
-            limit (#{page}-1)* #{pageSize},#{pageSize}
+        <if test="start !=null and end != null">
+            limit #{start},#{end}
         </if>
     </select>
 
     <select id="listCount" resultType="int">
-        select * from student
+        select count(*) from student
         <where>
-            <if test="departmentId != null">
-                and department_id = #{departmentId}
-            </if>
-            <if test="majorId != null">
-                and major_id = #{majorId}
-            </if>
-            <if test="grade != null">
-                and grade = #{grade}
-            </if>
-            <if test="clazzId != null">
-                and clazz_id = #{clazzId}
-            </if>
-
             <if test="number != null">
-                and number like concat('%',#{number},'%')
+                or name like concat('%',#{name},'%')
             </if>
         </where>
-        <if test="page!=null and pageSize != null">
-            limit (#{page}-1)* #{pageSize},#{pageSize}
-        </if>
     </select>
 
     <delete id="batchRemove">
