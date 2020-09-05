@@ -119,6 +119,18 @@
     </where>
   </select>
 
+  <!--批量增加-->
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into suspension (id, student_id, suspension_date, resumption_date,duration,reason,
+    remarks)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=INTEGER}, #{item.suspensionDate,jdbcType=INTEGER},#{item.resumptionDate,jdbcType=FLOAT},
+      #{item.duration,jdbcType=INTEGER}, #{item.reason,jdbcType=INTEGER},#{item.remarks,jdbcType=INTEGER}}
+      )
+    </foreach>
+  </insert>
+
 
   <delete id="batchRemove">
     delete from suspension where id in

@@ -11,6 +11,8 @@ public interface SuspensionService {
 
     int insertSelective(Suspension record);
 
+    int batchInsert(List list);
+
     int listCount(Map map);
 
     List<Map> list(Map map);

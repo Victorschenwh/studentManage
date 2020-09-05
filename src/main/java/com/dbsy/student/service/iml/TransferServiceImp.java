@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Service("transferServiceImp")
 @CacheConfig(cacheNames = "transfer")
-public class TransferServiceImp implements TransferService {
+public class TransferServiceImp implements TransferService, ExcelSave {
 
     @Autowired
     TransferMapper transferMapper;
@@ -36,6 +36,16 @@ public class TransferServiceImp implements TransferService {
     @Transactional
     public int insertSelective(Transfer record) {
         return transferMapper.insertSelective(record);
+    }
+
+    @Override
+    public int batchInsert(List list) {
+        return transferMapper.batchInsert(list);
+    }
+
+    @Override
+    public int excelBatchInsert(List list) {
+        return transferMapper.batchInsert(list);
     }
 
     @Override

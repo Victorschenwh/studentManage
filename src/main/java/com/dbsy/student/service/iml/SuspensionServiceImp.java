@@ -1,5 +1,6 @@
 package com.dbsy.student.service.iml;
 
+import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.SuspensionMapper;
 import com.dbsy.student.pojo.Suspension;
 import com.dbsy.student.service.SuspensionService;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 @Service("SuspensionServiceImp")
 @CacheConfig(cacheNames = "suspension")
-public class SuspensionServiceImp implements SuspensionService {
+public class SuspensionServiceImp implements SuspensionService, ExcelSave {
     @Autowired
     SuspensionMapper suspensionMapper;
 
@@ -34,6 +35,16 @@ public class SuspensionServiceImp implements SuspensionService {
     @Transactional
     public int insertSelective(Suspension record) {
         return this.suspensionMapper.insertSelective(record);
+    }
+
+    @Override
+    public int batchInsert(List list) {
+        return suspensionMapper.batchInsert(list);
+    }
+
+    @Override
+    public int excelBatchInsert(List list) {
+        return suspensionMapper.batchInsert(list);
     }
 
     @Override

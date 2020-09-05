@@ -14,6 +14,8 @@ public interface RetardationMapper {
 
     int insertSelective(Retardation record);
 
+    int batchInsert(List list);
+
     int listCount(Map map);
 
     List<Map> list(Map map);

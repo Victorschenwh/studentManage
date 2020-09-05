@@ -150,6 +150,20 @@
     </where>
   </select>
 
+  <!--批量增加-->
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into retardation (id,student_id,old_department_id,old_major_id,old_clazz_id,
+    new_department_id,new_major_id,new_clazz_id,is_pass,old_out_date,new_in_date
+    )
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=INTEGER}, #{item.oldDepartmentId,jdbcType=BIT},
+      #{item.oldMajorId,jdbcType=VARCHAR}, #{item.oldClazzId,jdbcType=INTEGER}, #{item.newDepartmentId,jdbcType=VARCHAR}
+      #{item.newMajorId,jdbcType=VARCHAR},#{item.newClazzId,jdbcType=VARCHAR},#{item.isPass,jdbcType=VARCHAR},
+      #{item.oldOutDate,jdbcType=VARCHAR},#{item.newInDate,jdbcType=VARCHAR},)
+    </foreach>
+  </insert>
+
 
   <delete id="batchRemove">
     delete from transfer where id in

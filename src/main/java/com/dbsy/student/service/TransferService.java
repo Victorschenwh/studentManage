@@ -11,6 +11,8 @@ public interface TransferService {
 
     int insertSelective(Transfer record);
 
+    int batchInsert(List<Transfer> list);
+
     int listCount(Map map);
 
     List<Map> list(Map map);

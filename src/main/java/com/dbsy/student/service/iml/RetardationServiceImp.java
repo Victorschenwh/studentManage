@@ -1,5 +1,6 @@
 package com.dbsy.student.service.iml;
 
+import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.RetardationMapper;
 import com.dbsy.student.pojo.Retardation;
 import com.dbsy.student.service.RetardationService;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 @Service("retardationServiceImp")
 @CacheConfig(cacheNames = "retardation")
-public class RetardationServiceImp implements RetardationService {
+public class RetardationServiceImp implements RetardationService, ExcelSave {
 
     @Autowired
     RetardationMapper retardationMapper;
@@ -35,6 +36,16 @@ public class RetardationServiceImp implements RetardationService {
     @Transactional
     public int insertSelective(Retardation record) {
         return this.retardationMapper.insertSelective(record);
+    }
+
+    @Override
+    public int batchInsert(List list) {
+        return retardationMapper.batchInsert(list);
+    }
+
+    @Override
+    public int excelBatchInsert(List list) {
+        return retardationMapper.batchInsert(list);
     }
 
     @Override

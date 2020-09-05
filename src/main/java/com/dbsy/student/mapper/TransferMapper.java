@@ -15,6 +15,8 @@ public interface TransferMapper {
 
     int insertSelective(Transfer record);
 
+    int batchInsert(List list);
+
     int listCount(Map map);
 
     List<Map> list(Map map);
@@ -54,5 +56,4 @@ public interface TransferMapper {
     @Select("select * from transfer where new_clazz_id=#{newClazzId}")
     List<Transfer> getTransferByNewClazzId(int newClazzId);
 
-    int batchInsert(List<Transfer> list);
 }

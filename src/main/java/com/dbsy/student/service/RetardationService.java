@@ -13,6 +13,8 @@ public interface RetardationService {
 
     int listCount(Map map);
 
+    int batchInsert(List<Retardation> list);
+
     List<Map> list(Map map);
 
     Retardation get(int id);
