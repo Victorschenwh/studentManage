@@ -40,8 +40,12 @@
             <button id="btn_download" type="button" class="btn btn-danger" onclick="">
                 <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
             </button>
+
+            <input type="text" id="search_key" placeholder="请输入关键字"/>
+
         </div>
     </div>
+
 
 
     <table id="table_student" data-mobile-responsive="true">
@@ -100,6 +104,7 @@
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
+                        search_key: $("#search_key").val()
                     };
                 },
                 columns: [{
