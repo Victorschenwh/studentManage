@@ -21,7 +21,7 @@
       total_hours, theory_hours, experiment_hours, 
       test_time)
     values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
-      #{score,jdbcType=REAL}, #{credit,jdbcType=INTEGER}, #{studyTerm,jdbcType=INTEGER}, 
+      #{score}, #{credit}, #{studyTerm,jdbcType=INTEGER}, 
       #{totalHours,jdbcType=INTEGER}, #{theoryHours,jdbcType=INTEGER}, #{experimentHours,jdbcType=INTEGER}, 
       #{testTime,jdbcType=DATE})
   </insert>
@@ -70,10 +70,10 @@
         #{courseId,jdbcType=INTEGER},
       </if>
       <if test="score != null">
-        #{score,jdbcType=REAL},
+        #{score},
       </if>
       <if test="credit != null">
-        #{credit,jdbcType=INTEGER},
+        #{credit},
       </if>
       <if test="studyTerm != null">
         #{studyTerm,jdbcType=INTEGER},
@@ -100,8 +100,8 @@
         or name like concat('%',#{studentId},'%')
       </if>
     </where>
-    <if test="page!=null and pageSize != null">
-      limit (#{page}-1)* #{pageSize},#{pageSize}
+    <if test="start!=null and end != null">
+      limit #{start},#{end}
     </if>
   </select>
 
@@ -121,7 +121,7 @@
     )
     VALUES
     <foreach collection="list" item="item" separator=",">
-      (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=INTEGER}, #{item.courseId,jdbcType=INTEGER},#{item.score,jdbcType=FLOAT},
+      (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=INTEGER}, #{item.courseId,jdbcType=INTEGER},#{item.score},
       #{item.credit,jdbcType=INTEGER}, #{item.studyTerm,jdbcType=INTEGER},#{item.totalHours,jdbcType=INTEGER},#{item.theoryHours,jdbcType=INTEGER},
       #{item.experimentHours,jdbcType=INTEGER}, #{item.testTime,jdbcType=DATE}
       )

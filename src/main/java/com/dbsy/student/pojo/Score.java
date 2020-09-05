@@ -9,9 +9,9 @@ public class Score {
 
     private Integer courseId;
 
-    private Float score;
+    private Double score;
 
-    private Integer credit;
+    private Double credit;
 
     private Integer studyTerm;
 
@@ -23,7 +23,7 @@ public class Score {
 
     private Date testTime;
 
-    public Score(Integer id, Integer studentId, Integer courseId, Float score, Integer credit, Integer studyTerm, Integer totalHours, Integer theoryHours, Integer experimentHours, Date testTime) {
+    public Score(Integer id, Integer studentId, Integer courseId, Double score, Double credit, Integer studyTerm, Integer totalHours, Integer theoryHours, Integer experimentHours, Date testTime) {
         this.id = id;
         this.studentId = studentId;
         this.courseId = courseId;
@@ -64,19 +64,19 @@ public class Score {
         this.courseId = courseId;
     }
 
-    public Float getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(Float score) {
+    public void setScore(Double score) {
         this.score = score;
     }
 
-    public Integer getCredit() {
+    public Double getCredit() {
         return credit;
     }
 
-    public void setCredit(Integer credit) {
+    public void setCredit(Double credit) {
         this.credit = credit;
     }
 
