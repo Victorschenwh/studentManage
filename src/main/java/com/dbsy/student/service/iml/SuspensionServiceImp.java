@@ -42,7 +42,12 @@ public class SuspensionServiceImp implements SuspensionService {
     }
 
     @Override
-    public List<Suspension> list(Map map) {
+    public List<Map> list(Map map) {
+        int page = Integer.parseInt(map.get("page") + "");
+        int pageSize = Integer.parseInt(map.get("pageSize") + "");
+        map.put("start", (page - 1) * pageSize);
+        map.put("end", pageSize);
+
         return this.suspensionMapper.list(map);
     }
 

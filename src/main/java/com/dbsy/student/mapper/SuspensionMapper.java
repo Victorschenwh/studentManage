@@ -17,7 +17,7 @@ public interface SuspensionMapper {
 
     int listCount(Map map);
 
-    List<Suspension> list(Map map);
+    List<Map> list(Map map);
 
     @Select("select * from suspension where id = #{id}")
     Suspension get(int id);

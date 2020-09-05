@@ -13,7 +13,7 @@ public interface SuspensionService {
 
     int listCount(Map map);
 
-    List<Suspension> list(Map map);
+    List<Map> list(Map map);
 
     Suspension get(int id);
 
