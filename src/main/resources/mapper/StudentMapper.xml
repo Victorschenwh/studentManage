@@ -190,6 +190,10 @@
             <if test="number != null">
                 or name like concat('%',#{name},'%')
             </if>
+
+            <if test="search_key != null">
+                and name like CONCAT('%',#{search_key},'%')
+            </if>
         </where>
         <if test="start !=null and end != null">
             limit #{start},#{end}

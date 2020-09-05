@@ -109,21 +109,27 @@
     from transfer t join student s on s.id = t.student_id
     <where>
       <if test="departmentId != null and departmentId != 0">
-        and department_id=#{departmentId}
+        and s.department_id=#{departmentId}
       </if>
 
       <if test="majorId != null and majorId != 0">
-        and major_id=#{majorId}
+        and s.major_id=#{majorId}
       </if>
 
       <if test="clazzId != null and clazzId != 0">
-        and clazz_id=#{clazzId}
+        and s.clazz_id=#{clazzId}
       </if>
 
       <if test="grade != null and grade != 0">
-        and grade=#{grade}
+        and s.grade=#{grade}
       </if>
+
+      <if test="search_key != null">
+        and s.name like CONCAT('%',#{search_key},'%')
+      </if>
+
     </where>
+
     <if test="start !=null and end != null">
       limit #{start},#{end}
     </if>
