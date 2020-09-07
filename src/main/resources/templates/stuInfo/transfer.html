@@ -43,6 +43,17 @@
 
             <input type="text" id="search_key" placeholder="请输入关键字"/>
 
+            <button type="button" class="btn btn-primary" onclick="isPass=null;reLoad()">
+                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>未处理
+            </button>
+
+            <button type="button" class="btn btn-primary" onclick="isPass=true;reLoad();">
+                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>已同意
+            </button>
+
+            <button type="button" class="btn btn-primary" onclick="isPass=false;reLoad();">
+                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>已拒绝
+            </button>
 
         </div>
     </div>
@@ -57,6 +68,7 @@
             <div class="modal-content">
                 <form class="form-horizontal" id="update">
                     <div class="modal-header">
+
                         <button type="button" class="close" data-dismiss="modal"
                                 aria-hidden="true">×
                         </button>
@@ -72,7 +84,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">姓名：</label>
                             <div class="col-sm-8">
-                                <input id="name" name="name" class="form-control" type="text" required>
+                                <input id="studentId" name="name" class="form-control" type="text" required>
                             </div>
                         </div>
 
@@ -80,7 +92,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转出学院：</label>
                             <div class="col-sm-8">
-                                <input id="old_department_id" name="old_department_id" class="form-control" type="text"
+                                <input id="oldDepartmentId" name="oldDepartmentId" class="form-control" type="text"
                                        required>
                             </div>
                         </div>
@@ -88,20 +100,20 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转出专业：</label>
                             <div class="col-sm-8">
-                                <input id="old_major_id" name="old_major_id" class="form-control" type="text" required>
+                                <input id="oldMajorId" name="oldMajorId" class="form-control" type="text" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转出班级：</label>
                             <div class="col-sm-8">
-                                <input id="old_clazz_id" name="old_clazz_id" class="form-control" type="text" required>
+                                <input id="oldClazzId" name="oldClazzId" class="form-control" type="text" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转入学院：</label>
                             <div class="col-sm-8">
-                                <input id="new_department_id" name="new_department_id" class="form-control" type="text"
+                                <input id="newDepartmentId" name="newDepartmentId" class="form-control" type="text"
                                        required>
                             </div>
                         </div>
@@ -109,7 +121,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转入专业：</label>
                             <div class="col-sm-8">
-                                <input id="new_major_id" name="new_major_id" class="form-control" type="text"
+                                <input id="newMajorId" name="newMajorId" class="form-control" type="text"
                                        required>
                             </div>
                         </div>
@@ -119,7 +131,7 @@
                             <label class="col-sm-3 control-label">转入班级：</label>
                             <div class="col-sm-8">
                                 <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select id="new_clazz_id" name="new_clazz_id" class="form-control" required>
+                                <select id="newClazzId" name="new_clazz_id" class="form-control" required>
                                     <option value="">
                                         --请选择--
                                     </option>
@@ -130,14 +142,14 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转出时间：</label>
                             <div class="col-sm-8">
-                                <input id="old_out_date" name="old_out_date" class="form-control" type="text" required>
+                                <input id="oldOutDate" name="oldOutDate" class="form-control" type="text" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转入时间：</label>
                             <div class="col-sm-8">
-                                <input id="new_in_date" name="new_in_date" class="form-control" type="text" required>
+                                <input id="newInDate" name="newInDate" class="form-control" type="text" required>
                             </div>
                         </div>
 
@@ -146,10 +158,10 @@
                         <button type="button" class="btn btn-default"
                                 data-dismiss="modal">关闭
                         </button>
-                        <button type="submit1" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" onclick="yesOrNo(true)">
                             同意转入/转出
                         </button>
-                        <button type="submit0" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" onclick="yesOrNo(false)">
                             拒绝转入/转出
                         </button>
                     </div>
@@ -166,6 +178,30 @@
 
 
 <script>
+    var isPass = null;
+
+    function yesOrNo(isPass) {
+        let id = $("#id").val()
+        $.ajax({
+            //cache: true,
+            async: false,
+            type: "POST",
+            url: "/transfer/updateSelective/",
+            dataType: "json",
+            data: {"id": id, "isPass": isPass},
+            success: function (res) {
+                if (res.code == 1) {
+                    //操作成功，关闭模态框
+                    $('#message').modal('hide');
+                    reLoad();
+                } else {
+                    alert("修改失败");
+                }
+            }
+        });
+    }
+
+
     $(document).ready(function () {
         department();
         grade();
@@ -201,7 +237,6 @@
                 }
             }
         });
-
 
 
     });
@@ -246,7 +281,8 @@
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
-                        search_key: $("#search_key").val()
+                        search_key: $("#search_key").val(),
+                        isPass: isPass,
                     };
                 },
                 columns: [{
@@ -397,15 +433,15 @@
                 }, {
                     field: 'old_out_date',
                     title: '转出时间',
-                },{
+                }, {
                     field: 'new_in_date',
                     title: '转入时间',
-                },{
+                }, {
                     field: 'is_pass',
                     title: '审批进度',
                     formatter: function (value, row, index) {
                         if (value == null) {
-                            return "<button onclick=\"get(' + row.id + ')\" data-toggle=\"modal\" data-target=\"#message\">等待审批</button>";
+                            return "<button onclick=get(" + row.id + ") data-toggle=\"modal\" data-target=\"#message\">等待审批</button>";
                         }
                         return value ? "同意转入" : "拒绝转入";
                     }
@@ -414,7 +450,7 @@
                     field: 'id',
                     align: 'center',
                     formatter: function (value, row, index) {
-                        var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                        let d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
                             + row.id
                             + '\')">删除</a> ';
 
@@ -429,19 +465,28 @@
     }
 
 
-
-
     function get(id) {
+        console.log("id" + id)
         $.ajax({
             //cache: true,
             type: "POST",
-            url: "/transfer/get/" + id,
+            url: "/transfer/getOpposite/" + id,
             data: {},
-            success: function (data) {
-                if (data.code == 1) {
-                    var transfer = data.data;
-                    for (var key in transfer) {
-                        $("#" + key).val(transfer[key]);
+            success: function (res) {
+                if (res.code == 1) {
+
+                    console.log(res.data)
+                    let transfer = res.data;
+                    for (let key in transfer) {
+                        if (key != "newClazzId")
+                            $("#" + key).val(transfer[key]);
+
+                        else {
+                            let clazzes = transfer[key];
+                            clazzes.forEach(function (element) {
+                                $("#newClazzId").append("<option value='" + element.id + "'>" + element.name + "</option>")
+                            })
+                        }
                     }
                 }
             }
@@ -535,7 +580,6 @@
             }
         });
     }
-
 
 
 </script>

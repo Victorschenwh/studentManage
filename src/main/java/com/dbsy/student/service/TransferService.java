@@ -19,6 +19,8 @@ public interface TransferService {
 
     Transfer get(int id);
 
+    Map getOpposite(int id);
+
     int delete(int id);
 
     int update(Transfer transfer);
@@ -40,4 +42,7 @@ public interface TransferService {
     List<Transfer> getTransferByNewMajorId(int newMajorId);
 
     List<Transfer> getTransferByNewClazzId(int newClazzId);
+
+    int updateSelective(Transfer transfer);
+
 }

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.TransferMapper">
-  <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Transfer">
-    <constructor>
-      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="old_department_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="old_major_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="old_clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="new_department_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="new_major_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="new_clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="is_pass" javaType="java.lang.Boolean" jdbcType="BIT" />
-      <arg column="old_out_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="new_in_date" javaType="java.util.Date" jdbcType="DATE" />
-    </constructor>
-  </resultMap>
-  <insert id="insert" parameterType="com.dbsy.student.pojo.Transfer">
+    <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Transfer">
+        <constructor>
+            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="old_department_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="old_major_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="old_clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="new_department_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="new_major_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="new_clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="is_pass" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="old_out_date" javaType="java.util.Date" jdbcType="DATE"/>
+            <arg column="new_in_date" javaType="java.util.Date" jdbcType="DATE"/>
+        </constructor>
+    </resultMap>
+    <insert id="insert" parameterType="com.dbsy.student.pojo.Transfer">
     insert into transfer (id, student_id, old_department_id, 
       old_major_id, old_clazz_id, new_department_id, 
       new_major_id, new_clazz_id, is_pass, 
@@ -26,155 +26,212 @@
       #{newMajorId,jdbcType=INTEGER}, #{newClazzId,jdbcType=INTEGER}, #{isPass,jdbcType=BIT}, 
       #{oldOutDate,jdbcType=DATE}, #{newInDate,jdbcType=DATE})
   </insert>
-  <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Transfer">
-    insert into transfer
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="studentId != null">
-        student_id,
-      </if>
-      <if test="oldDepartmentId != null">
-        old_department_id,
-      </if>
-      <if test="oldMajorId != null">
-        old_major_id,
-      </if>
-      <if test="oldClazzId != null">
-        old_clazz_id,
-      </if>
-      <if test="newDepartmentId != null">
-        new_department_id,
-      </if>
-      <if test="newMajorId != null">
-        new_major_id,
-      </if>
-      <if test="newClazzId != null">
-        new_clazz_id,
-      </if>
-      <if test="isPass != null">
-        is_pass,
-      </if>
-      <if test="oldOutDate != null">
-        old_out_date,
-      </if>
-      <if test="newInDate != null">
-        new_in_date,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="studentId != null">
-        #{studentId,jdbcType=INTEGER},
-      </if>
-      <if test="oldDepartmentId != null">
-        #{oldDepartmentId,jdbcType=INTEGER},
-      </if>
-      <if test="oldMajorId != null">
-        #{oldMajorId,jdbcType=INTEGER},
-      </if>
-      <if test="oldClazzId != null">
-        #{oldClazzId,jdbcType=INTEGER},
-      </if>
-      <if test="newDepartmentId != null">
-        #{newDepartmentId,jdbcType=INTEGER},
-      </if>
-      <if test="newMajorId != null">
-        #{newMajorId,jdbcType=INTEGER},
-      </if>
-      <if test="newClazzId != null">
-        #{newClazzId,jdbcType=INTEGER},
-      </if>
-      <if test="isPass != null">
-        #{isPass,jdbcType=BIT},
-      </if>
-      <if test="oldOutDate != null">
-        #{oldOutDate,jdbcType=DATE},
-      </if>
-      <if test="newInDate != null">
-        #{newInDate,jdbcType=DATE},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Transfer">
+        insert into transfer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="studentId != null">
+                student_id,
+            </if>
+            <if test="oldDepartmentId != null">
+                old_department_id,
+            </if>
+            <if test="oldMajorId != null">
+                old_major_id,
+            </if>
+            <if test="oldClazzId != null">
+                old_clazz_id,
+            </if>
+            <if test="newDepartmentId != null">
+                new_department_id,
+            </if>
+            <if test="newMajorId != null">
+                new_major_id,
+            </if>
+            <if test="newClazzId != null">
+                new_clazz_id,
+            </if>
+            <if test="isPass != null">
+                is_pass,
+            </if>
+            <if test="oldOutDate != null">
+                old_out_date,
+            </if>
+            <if test="newInDate != null">
+                new_in_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="studentId != null">
+                #{studentId,jdbcType=INTEGER},
+            </if>
+            <if test="oldDepartmentId != null">
+                #{oldDepartmentId,jdbcType=INTEGER},
+            </if>
+            <if test="oldMajorId != null">
+                #{oldMajorId,jdbcType=INTEGER},
+            </if>
+            <if test="oldClazzId != null">
+                #{oldClazzId,jdbcType=INTEGER},
+            </if>
+            <if test="newDepartmentId != null">
+                #{newDepartmentId,jdbcType=INTEGER},
+            </if>
+            <if test="newMajorId != null">
+                #{newMajorId,jdbcType=INTEGER},
+            </if>
+            <if test="newClazzId != null">
+                #{newClazzId,jdbcType=INTEGER},
+            </if>
+            <if test="isPass != null">
+                #{isPass,jdbcType=BIT},
+            </if>
+            <if test="oldOutDate != null">
+                #{oldOutDate,jdbcType=DATE},
+            </if>
+            <if test="newInDate != null">
+                #{newInDate,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
 
-  <select id="list" resultType="HashMap">
-    select t.id as id, t.old_department_id as old_department_id ,
-    t.old_major_id as old_major_id,t.old_clazz_id as old_clazz_id,
-    t.new_department_id as new_department_id,t.new_major_id as new_major_id,
-    t.new_clazz_id as new_clazz_id,t.is_pass as is_pass, t.old_out_date as old_out_date,t.new_in_date as new_in_date , s.id as s_id,
-     s.name as name,s.number as number
-    from transfer t join student s on s.id = t.student_id
-    <where>
-      <if test="departmentId != null and departmentId != 0">
-        and s.department_id=#{departmentId}
-      </if>
+    <update id="updateSelective" parameterType="com.dbsy.student.pojo.Transfer">
+        update transfer set
+        <trim suffixOverrides=",">
 
-      <if test="majorId != null and majorId != 0">
-        and s.major_id=#{majorId}
-      </if>
+            <if test="studentId != null">
+                student_id = #{studentId,jdbcType=INTEGER},
+            </if>
+            <if test="oldDepartmentId != null">
+                old_department_id = #{oldDepartmentId,jdbcType=INTEGER},
+            </if>
+            <if test="oldMajorId != null">
+                old_major_id = #{oldMajorId,jdbcType=INTEGER},
+            </if>
+            <if test="oldClazzId != null">
+                old_clazz_id=#{oldClazzId,jdbcType=INTEGER},
+            </if>
+            <if test="newDepartmentId != null">
+                new_department_id=#{newDepartmentId,jdbcType=INTEGER},
+            </if>
+            <if test="newMajorId != null">
+                new_major_id=#{newMajorId,jdbcType=INTEGER},
+            </if>
+            <if test="newClazzId != null">
+                new_clazz_id=#{newClazzId,jdbcType=INTEGER},
+            </if>
+            <if test="isPass != null">
+                is_pass= #{isPass,jdbcType=BIT},
+            </if>
+            <if test="oldOutDate != null">
+                old_out_date=#{oldOutDate,jdbcType=DATE},
+            </if>
+            <if test="newInDate != null">
+                new_in_date=#{newInDate,jdbcType=DATE},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
 
-      <if test="clazzId != null and clazzId != 0">
-        and s.clazz_id=#{clazzId}
-      </if>
+    <select id="list" resultType="HashMap">
+        select t.id as id, t.old_department_id as old_department_id ,
+        t.old_major_id as old_major_id,t.old_clazz_id as old_clazz_id,
+        t.new_department_id as new_department_id,t.new_major_id as new_major_id,
+        t.new_clazz_id as new_clazz_id,t.is_pass as is_pass, t.old_out_date as old_out_date,
+        t.new_in_date as new_in_date, s.id as s_id,
+        s.name as name,s.number as number
+        from transfer t join student s on s.id = t.student_id
+        <where>
+            <if test="departmentId != null and departmentId != 0">
+                and s.department_id=#{departmentId}
+            </if>
 
-      <if test="grade != null and grade != 0">
-        and s.grade=#{grade}
-      </if>
+            <if test="majorId != null and majorId != 0">
+                and s.major_id=#{majorId}
+            </if>
 
-      <if test="search_key != null">
-        and s.name like CONCAT('%',#{search_key},'%')
-      </if>
+            <if test="clazzId != null and clazzId != 0">
+                and s.clazz_id=#{clazzId}
+            </if>
 
-    </where>
-
-    <if test="start !=null and end != null">
-      limit #{start},#{end}
-    </if>
-  </select>
-
-  <select id="listCount" resultType="int">
-    select count(*) from transfer t join student s on s.id = t.student_id
-    <where>
-      <if test="departmentId != null and departmentId != 0">
-        and department_id=#{departmentId}
-      </if>
-
-      <if test="majorId != null and majorId != 0">
-        and major_id=#{majorId}
-      </if>
-
-      <if test="clazzId != null and clazzId != 0">
-        and clazz_id=#{clazzId}
-      </if>
-
-      <if test="grade != null and grade != 0">
-        and grade=#{grade}
-      </if>
-    </where>
-  </select>
-
-  <!--批量增加-->
-  <insert id="batchInsert" parameterType="java.util.List">
-    insert into retardation (id,student_id,old_department_id,old_major_id,old_clazz_id,
-    new_department_id,new_major_id,new_clazz_id,is_pass,old_out_date,new_in_date
-    )
-    VALUES
-    <foreach collection="list" item="item" separator=",">
-      (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=INTEGER}, #{item.oldDepartmentId,jdbcType=BIT},
-      #{item.oldMajorId,jdbcType=VARCHAR}, #{item.oldClazzId,jdbcType=INTEGER}, #{item.newDepartmentId,jdbcType=VARCHAR}
-      #{item.newMajorId,jdbcType=VARCHAR},#{item.newClazzId,jdbcType=VARCHAR},#{item.isPass,jdbcType=VARCHAR},
-      #{item.oldOutDate,jdbcType=VARCHAR},#{item.newInDate,jdbcType=VARCHAR},)
-    </foreach>
-  </insert>
+            <if test="grade != null and grade != 0">
+                and s.grade=#{grade}
+            </if>
 
 
-  <delete id="batchRemove">
-    delete from transfer where id in
-    <foreach item="id" collection="array" open="(" separator="," close=")">
-      #{id}
-    </foreach>
-  </delete>
+            <if test="isPass != null">
+                and t.is_pass = #{isPass}
+            </if>
+
+            <if test="isPass == null">
+                and t.is_pass is null
+            </if>
+
+            <if test="search_key != null">
+                and s.name like CONCAT('%',#{search_key},'%')
+            </if>
+
+        </where>
+
+        <if test="start !=null and end != null">
+            limit #{start},#{end}
+        </if>
+    </select>
+
+    <select id="listCount" resultType="int">
+        select count(*) from transfer t join student s on s.id = t.student_id
+        <where>
+            <if test="departmentId != null and departmentId != 0">
+                and department_id=#{departmentId}
+            </if>
+
+            <if test="majorId != null and majorId != 0">
+                and major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and clazz_id=#{clazzId}
+            </if>
+
+            <if test="isPass != null">
+                and t.is_pass = #{isPass}
+            </if>
+
+            <if test="isPass == null">
+                and t.is_pass is null
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and grade=#{grade}
+            </if>
+        </where>
+    </select>
+
+    <!--批量增加-->
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into retardation (id,student_id,old_department_id,old_major_id,old_clazz_id,
+        new_department_id,new_major_id,new_clazz_id,is_pass,old_out_date,new_in_date
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=INTEGER}, #{item.oldDepartmentId,jdbcType=BIT},
+            #{item.oldMajorId,jdbcType=VARCHAR}, #{item.oldClazzId,jdbcType=INTEGER},
+            #{item.newDepartmentId,jdbcType=VARCHAR}
+            #{item.newMajorId,jdbcType=VARCHAR},#{item.newClazzId,jdbcType=VARCHAR},#{item.isPass,jdbcType=VARCHAR},
+            #{item.oldOutDate,jdbcType=VARCHAR},#{item.newInDate,jdbcType=VARCHAR},)
+        </foreach>
+    </insert>
+
+
+    <delete id="batchRemove">
+        delete from transfer where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

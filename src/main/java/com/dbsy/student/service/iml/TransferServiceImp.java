@@ -1,7 +1,7 @@
 package com.dbsy.student.service.iml;
 
 import com.dbsy.student.excel.ExcelSave;
-import com.dbsy.student.mapper.TransferMapper;
+import com.dbsy.student.mapper.*;
 import com.dbsy.student.pojo.Transfer;
 import com.dbsy.student.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,14 @@ public class TransferServiceImp implements TransferService, ExcelSave {
 
     @Autowired
     TransferMapper transferMapper;
+    @Autowired
+    DepartmentMapper departmentMapper;
+    @Autowired
+    MajorMapper majorMapper;
+    @Autowired
+    ClazzMapper clazzMapper;
+    @Autowired
+    StudentMapper studentMapper;
 
 //    @Autowired
 //    RedisTemplate redisTemplate;
@@ -67,6 +77,30 @@ public class TransferServiceImp implements TransferService, ExcelSave {
     @Cacheable(key = "#id", unless = "#result == null")
     public Transfer get(int id) {
         return transferMapper.get(id);
+    }
+
+    @Override
+    public Map getOpposite(int id) {
+        Transfer transfer = this.get(id);
+        Map map = new HashMap();
+        map.put("newDepartmentId", departmentMapper.get(transfer.getNewDepartmentId()).getName());
+        map.put("newMajorId", majorMapper.get(transfer.getNewMajorId()).getName());
+        map.put("oldClazzId", clazzMapper.get(transfer.getOldClazzId()).getName());
+        map.put("oldDepartmentId", departmentMapper.get(transfer.getOldDepartmentId()).getName());
+        map.put("oldMajorId", majorMapper.get(transfer.getOldMajorId()).getName());
+        map.put("id", transfer.getId());
+        map.put("studentId", studentMapper.get(transfer.getStudentId()).getName());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (transfer.getOldOutDate() != null)
+            map.put("oldOutDate", simpleDateFormat.format(transfer.getOldOutDate()));
+        if (transfer.getNewInDate() != null)
+            map.put("newInDate", simpleDateFormat.format(transfer.getNewInDate()));
+        Map map2 = new HashMap();
+        map2.put("departmentId", transfer.getNewDepartmentId());
+        map2.put("majorId", transfer.getNewMajorId());
+        map.put("newClazzId", clazzMapper.getByFOREIGN_KEY(map2));
+
+        return map;
     }
 
     @Override
@@ -135,6 +169,11 @@ public class TransferServiceImp implements TransferService, ExcelSave {
     @Override
     public List<Transfer> getTransferByNewClazzId(int newClazzId) {
         return transferMapper.getTransferByNewClazzId(newClazzId);
+    }
+
+    @Override
+    public int updateSelective(Transfer transfer) {
+        return transferMapper.updateSelective(transfer);
     }
 
 }

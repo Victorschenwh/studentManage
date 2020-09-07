@@ -5,6 +5,8 @@ import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Transfer;
 import com.dbsy.student.service.TransferService;
 import com.dbsy.student.util.News;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -25,20 +27,34 @@ public class TransferController {
     @Qualifier("transferServiceImp")
     TransferService transferService;
 
-//    @Authority({Role.Teacher})
+    //    @Authority({Role.Teacher})
     @RequestMapping("")
     public String transfer() {
         return "stuInfo/transfer";
     }
 
 
-//    @Authority({Role.Teacher})
+    //    @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
-    public Map list(@RequestParam  Map map) {
+    public Map list(@RequestParam Map map) {
+        // log.info(map.toString());
+        String isPass = map.get("isPass") + "";
+        if ("".equals(isPass)) {
+            map.remove("isPass");
+        }
+        if ("true".equals(isPass)) {
+            map.put("isPass", true);
+        }
+        if ("false".equals(isPass)) {
+            map.put("isPass", false);
+        }
+
         Map m = new HashMap();
         m.put("total", transferService.listCount(map));
         m.put("rows", transferService.list(map));
+
+        log.info(m.toString());
         return m;
     }
 
@@ -79,57 +95,57 @@ public class TransferController {
         return News.fail("添加失败");
     }
 
-//    @Authority({Role.Teacher})
+    //    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", transferService.get(id));
     }
 
-//    @Authority({Role.Teacher})
+    //    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getAll")
     public Map getAll() {
         return News.success("成功", transferService.getAll());
     }
 
-//    @Authority({Role.Teacher})
+    //    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getTransferByStudentId/{studentId}")
-    public Map getTransferByStudentId(@PathVariable("studentId") int studentId){
+    public Map getTransferByStudentId(@PathVariable("studentId") int studentId) {
         List list = transferService.getTransferByStudentId(studentId);
         if (list != null) {
-            return News.success("成功",list);
+            return News.success("成功", list);
 
         }
         return News.fail("查找失败");
     }
 
-//    @Authority({Role.Teacher})
+    //    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getTransferByOldDepartmentId/{oldDepartmentId}")
-    public Map getTransferByOldDepartmentId(@PathVariable("oldDepartmentId") int oldDepartmentId){
+    public Map getTransferByOldDepartmentId(@PathVariable("oldDepartmentId") int oldDepartmentId) {
         List list = transferService.getTransferByOldDepartmentId(oldDepartmentId);
         if (list != null) {
-            return News.success("成功",list);
+            return News.success("成功", list);
 
         }
         return News.fail("查找失败");
     }
 
-//    @Authority({Role.Teacher})
+    //    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getTransferByOldMajorId/{oldMajorId}")
-    public Map getTransferByOldMajorId(@PathVariable("oldMajorId") int oldMajorId){
+    public Map getTransferByOldMajorId(@PathVariable("oldMajorId") int oldMajorId) {
         List list = transferService.getTransferByOldMajorId(oldMajorId);
         if (list != null) {
-            return News.success("成功",list);
+            return News.success("成功", list);
 
         }
         return News.fail("查找失败");
     }
 
-//    @Authority({Role.Teacher})
+    //    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getTransferByOldClazzId/{oldClazzId}")
     public Map getTransferByOldClazzId(@PathVariable("oldClazzId") int oldClazzId) {
@@ -141,7 +157,7 @@ public class TransferController {
         return News.fail("查找失败");
     }
 
-//    @Authority({Role.Teacher})
+    //    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getTransferByNewDepartmentId/{newDepartmentId}")
     public Map getTransferByNewDepartmentId(@PathVariable("newDepartmentId") int newDepartmentId) {
@@ -153,7 +169,7 @@ public class TransferController {
         return News.fail("查找失败");
     }
 
-//    @Authority({Role.Teacher})
+    //    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getTransferByNewMajorId/{newMajorId}")
     public Map getTransferByNewMajorId(@PathVariable("newMajorId") int newMajorId) {
@@ -165,7 +181,7 @@ public class TransferController {
         return News.fail("查找失败");
     }
 
-//    @Authority({Role.Teacher})
+    //    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getTransferByNewClazzId/{newClazzId}")
     public Map getTransferByNewClazzId(@PathVariable("newClazzId") int newClazzId) {
@@ -175,5 +191,26 @@ public class TransferController {
 
         }
         return News.fail("查找失败");
+    }
+
+    @ResponseBody
+    @RequestMapping("/getOpposite/{id}")
+    public Map getOpposite(@PathVariable("id") int id) {
+        Map opposite = transferService.getOpposite(id);
+        if (opposite != null)
+            return News.success("成功", opposite);
+        else
+            return News.fail();
+    }
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @ResponseBody
+    @RequestMapping("/updateSelective")
+    Map updateSelective(Transfer transfer) {
+        log.info(transfer.toString());
+        int i = transferService.updateSelective(transfer);
+        if (i > 0) News.success();
+        return News.fail();
     }
 }

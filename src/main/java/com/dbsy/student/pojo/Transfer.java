@@ -130,4 +130,21 @@ public class Transfer {
     public void setNewInDate(Date newInDate) {
         this.newInDate = newInDate;
     }
+
+    @Override
+    public String toString() {
+        return "Transfer{" +
+                "id=" + id +
+                ", studentId=" + studentId +
+                ", oldDepartmentId=" + oldDepartmentId +
+                ", oldMajorId=" + oldMajorId +
+                ", oldClazzId=" + oldClazzId +
+                ", newDepartmentId=" + newDepartmentId +
+                ", newMajorId=" + newMajorId +
+                ", newClazzId=" + newClazzId +
+                ", isPass=" + isPass +
+                ", oldOutDate=" + oldOutDate +
+                ", newInDate=" + newInDate +
+                '}';
+    }
 }

@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
+
 @Mapper
 public interface TransferMapper {
     int insert(Transfer record);
@@ -56,4 +57,5 @@ public interface TransferMapper {
     @Select("select * from transfer where new_clazz_id=#{newClazzId}")
     List<Transfer> getTransferByNewClazzId(int newClazzId);
 
+    int updateSelective(Transfer transfer);
 }

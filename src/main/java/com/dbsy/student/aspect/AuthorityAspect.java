@@ -25,8 +25,6 @@ public class AuthorityAspect {
     @Around("@annotation(com.dbsy.student.annotation.Authority)||@within(com.dbsy.student.annotation.Authority)")
     public Object around(ProceedingJoinPoint pJoinPoint) throws Throwable {
 
-        log.info("权限校验");
-
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         HttpServletResponse response = attributes.getResponse();
