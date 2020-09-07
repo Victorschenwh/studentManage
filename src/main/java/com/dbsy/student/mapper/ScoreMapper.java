@@ -1,7 +1,6 @@
 package com.dbsy.student.mapper;
 
 
-
 import com.dbsy.student.pojo.Family;
 import com.dbsy.student.pojo.Score;
 import com.dbsy.student.pojo.Student;
@@ -13,6 +12,7 @@ import org.apache.poi.ddf.EscherOptRecord;
 
 import java.util.List;
 import java.util.Map;
+
 @Mapper
 public interface ScoreMapper {
     int insert(Score record);
@@ -41,4 +41,8 @@ public interface ScoreMapper {
 
     @Select("select * from score where student_id=#{studentId}")
     List<Score> getScoreByStudentId(int studentId);
+
+    @Select("select * from score where student_id = #{studentId} and course_id = #{courseId}")
+    Score getByStudentIdAndCourseId(int studentId, int courseId);
+
 }

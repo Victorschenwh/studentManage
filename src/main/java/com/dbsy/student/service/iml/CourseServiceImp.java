@@ -28,13 +28,24 @@ public class CourseServiceImp implements CourseService {
     @Override
     @Transactional
     public int insert(Course record) {
-        return this.courseMapper.insert(record);
+        Course course = courseMapper.selectByName(record.getName());
+        if (course == null)
+            return courseMapper.insertSelective(record);
+        else
+            record.setId(course.getId());
+        return 0;
     }
+
 
     @Override
     @Transactional
     public int insertSelective(Course record) {
-        return this.insertSelective(record);
+        Course course = courseMapper.selectByName(record.getName());
+        if (course == null)
+            return courseMapper.insertSelective(record);
+        else
+            record.setId(course.getId());
+        return 0;
     }
 
     @Override
@@ -87,7 +98,6 @@ public class CourseServiceImp implements CourseService {
 
     @Override
     public List<Course> getCourseByDepartmentId(int departmentId) {
-
         return this.courseMapper.getCourseByDepartmentId(departmentId);
     }
 }

@@ -22,7 +22,12 @@ public class StudentServiceImp implements StudentService, ExcelSave {
 
     @Override
     public int insertSelective(Student record) {
-        return studentMapper.insertSelective(record);
+        Student student = studentMapper.selectByNumber(record.getNumber());
+        if (student == null)
+            return studentMapper.insertSelective(record);
+        else
+            record.setId(student.getId());
+        return 0;
     }
 
     @Override
@@ -57,6 +62,11 @@ public class StudentServiceImp implements StudentService, ExcelSave {
     @Override
     public int batchRemove(int[] ids) {
         return studentMapper.batchRemove(ids);
+    }
+
+    @Override
+    public Student selectByNumber(String number) {
+        return studentMapper.selectByNumber(number);
     }
 
     @Override

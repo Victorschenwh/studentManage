@@ -21,4 +21,6 @@ public interface StudentService {
     int delete(int id);
 
     int batchRemove(int[] ids);
+
+    Student selectByNumber(String number);
 }

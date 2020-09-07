@@ -33,7 +33,10 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
     @Override
     @Transactional
     public int insert(Score record) {
-        return scoreMapper.insert(record);
+        Score score = scoreMapper.getByStudentIdAndCourseId(record.getStudentId(), record.getCourseId());
+        if (score == null)
+            return scoreMapper.insert(record);
+        return 0;
     }
 
     @Override
@@ -70,7 +73,7 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
 
     @Override
     @Transactional
- //   @CacheEvict(key = "#id")
+    //   @CacheEvict(key = "#id")
     public int delete(int id) {
         return scoreMapper.delete(id);
     }

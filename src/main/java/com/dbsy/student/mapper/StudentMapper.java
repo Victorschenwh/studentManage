@@ -28,4 +28,7 @@ public interface StudentMapper {
 
     int batchRemove(int[] ids);
 
+    @Select("select * from student where number = #{number}")
+    Student selectByNumber(String number);
+
 }

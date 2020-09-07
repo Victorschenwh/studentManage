@@ -7,7 +7,7 @@ public class Employment {
     @ExcelIgnore
     private Integer id;
 
-    @ExcelProperty("学生id")
+    @ExcelProperty("学号")
     private Integer studentId;
 
     @ExcelProperty("是否签订第三方")
@@ -19,6 +19,7 @@ public class Employment {
     @ExcelProperty("公司或单位联系方式")
     private Integer phoneNumber;
 
+    @ExcelProperty("公司或单位简介")
     private String remarks;
 
     public Employment(Integer id, Integer studentId, Boolean isSign, String company, Integer phoneNumber, String remarks) {

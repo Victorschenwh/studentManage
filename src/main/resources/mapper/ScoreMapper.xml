@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.ScoreMapper">
-  <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Score">
-    <constructor>
-      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="course_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="score" javaType="java.lang.Float" jdbcType="REAL" />
-      <arg column="credit" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="study_term" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="total_hours" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="theory_hours" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="experiment_hours" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="test_time" javaType="java.util.Date" jdbcType="DATE" />
-    </constructor>
-  </resultMap>
-  <insert id="insert" parameterType="com.dbsy.student.pojo.Score">
+    <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Score">
+        <constructor>
+            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="course_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="score" javaType="java.lang.Float" jdbcType="REAL"/>
+            <arg column="credit" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="study_term" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="total_hours" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="theory_hours" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="experiment_hours" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="test_time" javaType="java.util.Date" jdbcType="DATE"/>
+        </constructor>
+    </resultMap>
+    <insert id="insert" parameterType="com.dbsy.student.pojo.Score">
     insert into score (id, student_id, course_id, 
       score, credit, study_term, 
       total_hours, theory_hours, experiment_hours, 
@@ -25,114 +25,117 @@
       #{totalHours,jdbcType=INTEGER}, #{theoryHours,jdbcType=INTEGER}, #{experimentHours,jdbcType=INTEGER}, 
       #{testTime,jdbcType=DATE})
   </insert>
-  <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Score">
-    insert into score
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="studentId != null">
-        student_id,
-      </if>
-      <if test="courseId != null">
-        course_id,
-      </if>
-      <if test="score != null">
-        score,
-      </if>
-      <if test="credit != null">
-        credit,
-      </if>
-      <if test="studyTerm != null">
-        study_term,
-      </if>
-      <if test="totalHours != null">
-        total_hours,
-      </if>
-      <if test="theoryHours != null">
-        theory_hours,
-      </if>
-      <if test="experimentHours != null">
-        experiment_hours,
-      </if>
-      <if test="testTime != null">
-        test_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="studentId != null">
-        #{studentId,jdbcType=INTEGER},
-      </if>
-      <if test="courseId != null">
-        #{courseId,jdbcType=INTEGER},
-      </if>
-      <if test="score != null">
-        #{score},
-      </if>
-      <if test="credit != null">
-        #{credit},
-      </if>
-      <if test="studyTerm != null">
-        #{studyTerm,jdbcType=INTEGER},
-      </if>
-      <if test="totalHours != null">
-        #{totalHours,jdbcType=INTEGER},
-      </if>
-      <if test="theoryHours != null">
-        #{theoryHours,jdbcType=INTEGER},
-      </if>
-      <if test="experimentHours != null">
-        #{experimentHours,jdbcType=INTEGER},
-      </if>
-      <if test="testTime != null">
-        #{testTime,jdbcType=DATE},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Score" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into score
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="studentId != null">
+                student_id,
+            </if>
+            <if test="courseId != null">
+                course_id,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="credit != null">
+                credit,
+            </if>
+            <if test="studyTerm != null">
+                study_term,
+            </if>
+            <if test="totalHours != null">
+                total_hours,
+            </if>
+            <if test="theoryHours != null">
+                theory_hours,
+            </if>
+            <if test="experimentHours != null">
+                experiment_hours,
+            </if>
+            <if test="testTime != null">
+                test_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="studentId != null">
+                #{studentId,jdbcType=INTEGER},
+            </if>
+            <if test="courseId != null">
+                #{courseId,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                #{score},
+            </if>
+            <if test="credit != null">
+                #{credit},
+            </if>
+            <if test="studyTerm != null">
+                #{studyTerm,jdbcType=INTEGER},
+            </if>
+            <if test="totalHours != null">
+                #{totalHours,jdbcType=INTEGER},
+            </if>
+            <if test="theoryHours != null">
+                #{theoryHours,jdbcType=INTEGER},
+            </if>
+            <if test="experimentHours != null">
+                #{experimentHours,jdbcType=INTEGER},
+            </if>
+            <if test="testTime != null">
+                #{testTime,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
 
-  <select id="list" resultType="com.dbsy.student.pojo.Score">
-    select * from score
-    <where>
-      <if test="studentId != null">
-        or name like concat('%',#{studentId},'%')
-      </if>
-    </where>
-    <if test="start!=null and end != null">
-      limit #{start},#{end}
-    </if>
-  </select>
+    <select id="list" resultType="com.dbsy.student.pojo.Score">
+        select * from score
+        <where>
+            <if test="studentId != null">
+                or name like concat('%',#{studentId},'%')
+            </if>
+        </where>
+        <if test="start!=null and end != null">
+            limit #{start},#{end}
+        </if>
+    </select>
 
-  <select id="listCount" resultType="int">
-    select score(*) from score
-    <where>
-      <if test="studentId != null">
-        or name like concat('%',#{studentId},'%')
-      </if>
-    </where>
-  </select>
+    <select id="listCount" resultType="int">
+        select score(*) from score
+        <where>
+            <if test="studentId != null">
+                or name like concat('%',#{studentId},'%')
+            </if>
+        </where>
+    </select>
 
-  <!--批量增加-->
-  <insert id="batchInsert" parameterType="java.util.List">
-    insert into score (id, student_id, course_id,score,credit,study_term,
-    total_hours, theory_hours,experiment_hours,test_time
-    )
-    VALUES
-    <foreach collection="list" item="item" separator=",">
-      (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=INTEGER}, #{item.courseId,jdbcType=INTEGER},#{item.score},
-      #{item.credit,jdbcType=INTEGER}, #{item.studyTerm,jdbcType=INTEGER},#{item.totalHours,jdbcType=INTEGER},#{item.theoryHours,jdbcType=INTEGER},
-      #{item.experimentHours,jdbcType=INTEGER}, #{item.testTime,jdbcType=DATE}
-      )
-    </foreach>
-  </insert>
+    <!--批量增加-->
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into score (id, student_id, course_id,score,credit,study_term,
+        total_hours, theory_hours,experiment_hours,test_time
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=INTEGER},
+            #{item.courseId,jdbcType=INTEGER},#{item.score},
+            #{item.credit,jdbcType=INTEGER},
+            #{item.studyTerm,jdbcType=INTEGER},#{item.totalHours,jdbcType=INTEGER},#{item.theoryHours,jdbcType=INTEGER},
+            #{item.experimentHours,jdbcType=INTEGER}, #{item.testTime,jdbcType=DATE}
+            )
+        </foreach>
+    </insert>
 
-  <delete id="batchRemove">
-    delete from score where id in
-    <foreach item="id" collection="array" open="(" separator="," close=")">
-      #{id}
-    </foreach>
-  </delete>
+    <delete id="batchRemove">
+        delete from score where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
 </mapper>
