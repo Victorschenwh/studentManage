@@ -1,5 +1,6 @@
 package com.dbsy.student.service.iml;
 
+import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.MajorMapper;
 import com.dbsy.student.pojo.Major;
 import com.dbsy.student.service.MajorService;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 @Service("majorServiceImp")
 @CacheConfig(cacheNames = "major")
-public class MajorServiceImp implements MajorService {
+public class MajorServiceImp implements MajorService, ExcelSave {
 
     @Autowired
     MajorMapper majorMapper;
@@ -96,5 +97,10 @@ public class MajorServiceImp implements MajorService {
 //    @Cacheable(key = "#departmentId", unless = "#result == null")
     public List<Major> getMajorsByDpartmentId(int departmentId) {
         return majorMapper.getMajorsByDpartmentId(departmentId);
+    }
+
+    @Override
+    public int excelBatchInsert(List list) {
+        return 0;
     }
 }

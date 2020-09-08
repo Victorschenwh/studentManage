@@ -1,5 +1,6 @@
 package com.dbsy.student.service.iml;
 
+import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.DepartmentMapper;
 import com.dbsy.student.pojo.Department;
 import com.dbsy.student.service.DepartmentService;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 @Service("departmentServiceImp")
 @CacheConfig(cacheNames = "department")
-public class DepartmentServiceImp implements DepartmentService {
+public class DepartmentServiceImp implements DepartmentService, ExcelSave {
     @Autowired
     DepartmentMapper departmentMapper;
 
@@ -90,5 +91,10 @@ public class DepartmentServiceImp implements DepartmentService {
     @Override
     public Department getByName(String name) {
         return departmentMapper.getByName(name);
+    }
+
+    @Override
+    public int excelBatchInsert(List list) {
+        return 0;
     }
 }

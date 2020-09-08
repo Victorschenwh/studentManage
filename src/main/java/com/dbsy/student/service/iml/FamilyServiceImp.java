@@ -1,5 +1,6 @@
 package com.dbsy.student.service.iml;
 
+import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.FamilyMapper;
 import com.dbsy.student.pojo.Family;
 import com.dbsy.student.service.FamilyService;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 @Service("familyServiceImp")
 @CacheConfig(cacheNames = "family")
-public class FamilyServiceImp implements FamilyService {
+public class FamilyServiceImp implements FamilyService , ExcelSave {
 
     @Autowired
     FamilyMapper familyMapper;
@@ -94,5 +95,10 @@ public class FamilyServiceImp implements FamilyService {
     @Override
     public List<Family> getFamilyByStudentId(int studentId) {
         return this.familyMapper.getFamilyByStudentId(studentId);
+    }
+
+    @Override
+    public int excelBatchInsert(List list) {
+        return 0;
     }
 }

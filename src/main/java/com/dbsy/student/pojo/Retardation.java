@@ -12,6 +12,7 @@ import java.util.Date;
 public class Retardation {
     @ExcelIgnore
     private Integer id;
+
     @ExcelProperty(value = "学生学号", converter = StudentNumberToIdConverter.class)
     private Integer studentId;
 
@@ -36,11 +37,13 @@ public class Retardation {
     @ExcelProperty("保存时间")
     private Date saveDate;
 
-    @ExcelProperty("是否合格(0:否,1:是)")
+    @ExcelProperty("留级期间是否达到要求(0:否,1:是)")
     private Boolean isPass;
 
+    @ExcelProperty("留级结果(0:退学,1:试读)")
     private Boolean result;
 
+    @ExcelProperty("备注")
     private String remarks;
 
     public Retardation(Integer id, Integer studentId, Integer oldDepartmentId, Integer oldMajorId, Integer oldClazzId, Integer newDepartmentId, Integer newMajorId, Integer newClazzId, Date saveDate, Boolean isPass, Boolean result, String remarks) {

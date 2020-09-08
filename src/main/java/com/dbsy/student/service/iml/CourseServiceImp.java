@@ -1,6 +1,7 @@
 package com.dbsy.student.service.iml;
 
 
+import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.CourseMapper;
 import com.dbsy.student.pojo.Course;
 import com.dbsy.student.service.CourseService;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 @Service("courseServiceImp")
 @CacheConfig(cacheNames = "course")
-public class CourseServiceImp implements CourseService {
+public class CourseServiceImp implements CourseService, ExcelSave {
     @Autowired
     private CourseMapper courseMapper;
 
@@ -99,5 +100,10 @@ public class CourseServiceImp implements CourseService {
     @Override
     public List<Course> getCourseByDepartmentId(int departmentId) {
         return this.courseMapper.getCourseByDepartmentId(departmentId);
+    }
+
+    @Override
+    public int excelBatchInsert(List list) {
+        return 0;
     }
 }
