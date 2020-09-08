@@ -41,7 +41,7 @@ public class Student {
     private String password;
     @ExcelProperty("高考分数")
     private Float score;
-    @ExcelProperty(value = "班级", converter = ClazzNameToIdConverter.class)
+    @ExcelProperty(value = "班级名", converter = ClazzNameToIdConverter.class)
     private Integer clazzId;
     @ExcelProperty(value = "专业名", converter = MajorNameToIdConverter.class)
     private Integer majorId;
