@@ -22,6 +22,9 @@ public interface MajorMapper {
     @Select("select * from major where id = #{id}")
     Major get(int id);
 
+    @Select("select * from major where name = #{name}")
+    Major getByName(String name);
+
     @Delete("delete from major where id = #{id}")
     int delete(int id);
 

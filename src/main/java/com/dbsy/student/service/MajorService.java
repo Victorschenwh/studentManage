@@ -12,6 +12,8 @@ public interface MajorService {
 
     int listCount(Map map);
 
+    Major getByName(String name);
+
     List<Major> list(Map map);
 
     Major get(int id);

@@ -23,4 +23,6 @@ public interface DepartmentService {
     int batchRemove(int[] ids);
 
     List<Department> getAll();
+
+    Department getByName(String name);
 }

@@ -43,6 +43,11 @@ public class MajorServiceImp implements MajorService {
     }
 
     @Override
+    public Major getByName(String name) {
+        return majorMapper.getByName(name);
+    }
+
+    @Override
     @Transactional
     public List<Major> list(Map map) {
         return majorMapper.list(map);

@@ -5,17 +5,16 @@ import com.alibaba.excel.enums.CellDataTypeEnum;
 import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
-import com.dbsy.student.service.StudentService;
+import com.dbsy.student.service.MajorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StudentNumberToIdConverter implements Converter<Integer> {
-
+public class MajorNameToIdConverter implements Converter<Integer> {
     @Autowired
-    @Qualifier("studentServiceImp")
-    StudentService studentService;
+    @Qualifier("majorServiceImp")
+    MajorService majorService;
 
     @Override
     public Class supportJavaTypeKey() {
@@ -29,11 +28,11 @@ public class StudentNumberToIdConverter implements Converter<Integer> {
 
     @Override
     public Integer convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return studentService.selectByNumber(cellData.getStringValue()).getId();
+        return majorService.getByName(cellData.getStringValue().trim()).getId();
     }
 
     @Override
-    public CellData convertToExcelData(Integer i, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return new CellData(studentService.get(i).getNumber());
+    public CellData convertToExcelData(Integer integer, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+        return new CellData(majorService.get(integer).getName());
     }
 }

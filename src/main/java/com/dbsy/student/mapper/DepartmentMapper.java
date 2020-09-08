@@ -22,6 +22,9 @@ public interface DepartmentMapper {
     @Select("select * from department where id = #{id}")
     Department get(int id);
 
+    @Select("select * from department where name = #{name}")
+    Department getByName(String name);
+
     @Delete("delete from department where id = #{id}")
     int delete(int id);
 

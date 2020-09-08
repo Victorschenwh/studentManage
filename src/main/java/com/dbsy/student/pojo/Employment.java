@@ -2,12 +2,13 @@ package com.dbsy.student.pojo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.StudentNumberToIdConverter;
 
 public class Employment {
     @ExcelIgnore
     private Integer id;
 
-    @ExcelProperty("学号")
+    @ExcelProperty(value = "学号", converter = StudentNumberToIdConverter.class)
     private Integer studentId;
 
     @ExcelProperty("是否签订第三方")
@@ -81,5 +82,17 @@ public class Employment {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Employment{" +
+                "id=" + id +
+                ", studentId=" + studentId +
+                ", isSign=" + isSign +
+                ", company='" + company + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", remarks='" + remarks + '\'' +
+                '}';
     }
 }

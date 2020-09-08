@@ -23,6 +23,9 @@ public interface ClazzMapper {
     @Select("select * from clazz where id = #{id}")
     Clazz get(int id);
 
+    @Select("select * from clazz where name = #{name}")
+    Clazz getByName(String name);
+
     @Delete("delete from clazz where id = #{id}")
     int delete(int id);
 

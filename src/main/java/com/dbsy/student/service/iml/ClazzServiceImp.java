@@ -98,6 +98,11 @@ public class ClazzServiceImp implements ClazzService, ExcelSave {
         return this.clazzMapper.getByFOREIGN_KEY(map);
     }
 
+    @Override
+    public Clazz getByName(String name) {
+        return clazzMapper.getByName(name);
+    }
+
 
     @Override
     public int excelBatchInsert(List list) {

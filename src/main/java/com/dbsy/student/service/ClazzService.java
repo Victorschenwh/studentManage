@@ -28,4 +28,6 @@ public interface ClazzService {
     List<Clazz> getClazzByMajorId(int majorId);
 
     List<Clazz> getByFOREIGN_KEY(Map map);
+
+    Clazz getByName(String name);
 }
