@@ -1,10 +1,14 @@
 package com.dbsy.student.pojo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+
 public class Department {
+    @ExcelIgnore
     private Integer id;
-
+    @ExcelProperty("学院名称")
     private String name;
-
+    @ExcelProperty("学院介绍")
     private String introduce;
 
     public Department(Integer id, String name, String introduce) {

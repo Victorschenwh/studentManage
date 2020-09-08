@@ -2,11 +2,15 @@ package com.dbsy.student.excel;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataListener extends AnalysisEventListener {
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
     private static final int BATC_COUNT = 5;
     List list = new ArrayList();
     /**
@@ -31,6 +35,7 @@ public class DataListener extends AnalysisEventListener {
      */
     @Override
     public void invoke(Object data, AnalysisContext context) {
+
         list.add(data);
         // 达到BATCH_COUNT了，需要去存储一次数据库，防止数据几万条数据在内存，容易OOM
         if (list.size() >= BATC_COUNT) {

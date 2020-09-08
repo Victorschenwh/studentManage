@@ -2,6 +2,7 @@ package com.dbsy.student.pojo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.StringToBooleanConverter;
 import com.dbsy.student.excel.StudentNumberToIdConverter;
 
 public class Employment {
@@ -11,19 +12,19 @@ public class Employment {
     @ExcelProperty(value = "学号", converter = StudentNumberToIdConverter.class)
     private Integer studentId;
 
-    @ExcelProperty("是否签订第三方")
+    @ExcelProperty(value = "第三方(1:已签订,0:未签订)", converter = StringToBooleanConverter.class)
     private Boolean isSign;
 
     @ExcelProperty("单位名称")
     private String company;
 
     @ExcelProperty("公司或单位联系方式")
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @ExcelProperty("公司或单位简介")
     private String remarks;
 
-    public Employment(Integer id, Integer studentId, Boolean isSign, String company, Integer phoneNumber, String remarks) {
+    public Employment(Integer id, Integer studentId, Boolean isSign, String company, String phoneNumber, String remarks) {
         this.id = id;
         this.studentId = studentId;
         this.isSign = isSign;
@@ -68,11 +69,11 @@ public class Employment {
         this.company = company == null ? null : company.trim();
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

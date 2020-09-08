@@ -6,16 +6,14 @@ import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.dbsy.student.service.ClazzService;
+import com.dbsy.student.service.iml.ClazzServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 
-@Component
 public class ClazzNameToIdConverter implements Converter<Integer> {
 
-    @Autowired
-    @Qualifier("clazzServiceImp")
-    ClazzService clazzService;
+
+    ClazzService clazzService =new ClazzServiceImp();
 
     @Override
     public Class supportJavaTypeKey() {

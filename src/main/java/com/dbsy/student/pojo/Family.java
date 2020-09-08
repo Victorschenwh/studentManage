@@ -1,22 +1,36 @@
 package com.dbsy.student.pojo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.StringToBooleanConverter;
+import com.dbsy.student.excel.StudentNumberToIdConverter;
+
 public class Family {
+    @ExcelIgnore
     private Integer id;
 
+    @ExcelProperty("家庭成员姓名")
     private String name;
 
+    @ExcelProperty("工作单位")
     private String work;
 
+    @ExcelProperty("与本人关系")
     private String relationship;
 
+    @ExcelProperty("年龄")
     private Integer age;
 
+    @ExcelProperty(value = "性别(1:男,0:女)", converter = StringToBooleanConverter.class)
     private Boolean gender;
 
+    @ExcelProperty("身份证号")
     private String idCard;
 
+    @ExcelProperty("手机号")
     private String phoneNumber;
 
+    @ExcelProperty(value = "学生学号", converter = StudentNumberToIdConverter.class)
     private Integer studentId;
 
     public Family(Integer id, String name, String work, String relationship, Integer age, Boolean gender, String idCard, String phoneNumber, Integer studentId) {
@@ -105,5 +119,20 @@ public class Family {
 
     public void setStudentId(Integer studentId) {
         this.studentId = studentId;
+    }
+
+    @Override
+    public String toString() {
+        return "Family{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", work='" + work + '\'' +
+                ", relationship='" + relationship + '\'' +
+                ", age=" + age +
+                ", gender=" + gender +
+                ", idCard='" + idCard + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", studentId=" + studentId +
+                '}';
     }
 }

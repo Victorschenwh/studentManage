@@ -1,12 +1,20 @@
 package com.dbsy.student.pojo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.StudentNumberToIdConverter;
+
 public class Reward {
+    @ExcelIgnore
     private Integer id;
 
+    @ExcelProperty(value = "学号", converter = StudentNumberToIdConverter.class)
     private Integer studentId;
 
+    @ExcelProperty("获奖介绍")
     private String synopsis;
 
+    @ExcelProperty("获奖类型")
     private String type;
 
     public Reward(Integer id, Integer studentId, String synopsis, String type) {

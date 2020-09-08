@@ -1,12 +1,18 @@
 package com.dbsy.student.pojo;
 
-public class Major {
-    private Integer id;
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
 
+public class Major {
+    @ExcelIgnore
+    private Integer id;
+    @ExcelProperty("专业名称")
     private String name;
 
+    @ExcelProperty("专业介绍")
     private String introduce;
 
+    @ExcelProperty("所属学院名称")
     private Integer departmentId;
 
     public Major(Integer id, String name, String introduce, Integer departmentId) {

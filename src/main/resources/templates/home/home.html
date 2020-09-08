@@ -3,6 +3,13 @@
 <head th:replace="static :: head">
 <body>
 <div id="main" class="container-fluid" style="width: 600px;height:400px;"></div>
+
+<form action="/excel/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input name="type" type="text" class="hidden" value="employment">
+    <input type="submit" value="上传">
+</form>
+
 </body>
 <div th:replace="static :: script"></div>
 <script>

@@ -1,26 +1,42 @@
 package com.dbsy.student.pojo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.ClazzNameToIdConverter;
+import com.dbsy.student.excel.DepartmentNameToIdConverter;
+import com.dbsy.student.excel.MajorNameToIdConverter;
+import com.dbsy.student.excel.StudentNumberToIdConverter;
+
 import java.util.Date;
 
 public class Retardation {
+    @ExcelIgnore
     private Integer id;
-
+    @ExcelProperty(value = "学生学号", converter = StudentNumberToIdConverter.class)
     private Integer studentId;
 
+    @ExcelProperty(value = "原学院名", converter = DepartmentNameToIdConverter.class)
     private Integer oldDepartmentId;
 
+    @ExcelProperty(value = "原专业名", converter = MajorNameToIdConverter.class)
     private Integer oldMajorId;
 
+    @ExcelProperty(value = "原班级名", converter = ClazzNameToIdConverter.class)
     private Integer oldClazzId;
 
+    @ExcelProperty(value = "新学院名", converter = DepartmentNameToIdConverter.class)
     private Integer newDepartmentId;
 
+    @ExcelProperty(value = "新专业名", converter = MajorNameToIdConverter.class)
     private Integer newMajorId;
 
+    @ExcelProperty(value = "新班级名", converter = ClazzNameToIdConverter.class)
     private Integer newClazzId;
 
+    @ExcelProperty("保存时间")
     private Date saveDate;
 
+    @ExcelProperty("是否合格(0:否,1:是)")
     private Boolean isPass;
 
     private Boolean result;

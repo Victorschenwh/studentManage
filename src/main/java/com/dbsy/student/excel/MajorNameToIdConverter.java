@@ -6,15 +6,11 @@ import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.dbsy.student.service.MajorService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component
 public class MajorNameToIdConverter implements Converter<Integer> {
-    @Autowired
-    @Qualifier("majorServiceImp")
-    MajorService majorService;
+
+    MajorService majorService = (MajorService) SpringContext.getApplicationContext().getBean("majorServiceImp");
 
     @Override
     public Class supportJavaTypeKey() {

@@ -6,16 +6,10 @@ import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.dbsy.student.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 
-@Component
 public class StudentNumberToIdConverter implements Converter<Integer> {
 
-    @Autowired
-    @Qualifier("studentServiceImp")
-    StudentService studentService;
+    StudentService studentService = (StudentService) SpringContext.getApplicationContext().getBean("studentServiceImp");
 
     @Override
     public Class supportJavaTypeKey() {
@@ -29,7 +23,8 @@ public class StudentNumberToIdConverter implements Converter<Integer> {
 
     @Override
     public Integer convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return studentService.selectByNumber(cellData.getStringValue()).getId();
+        System.out.println("cellData:" + cellData.getNumberValue().toString());
+        return studentService.selectByNumber(cellData.getNumberValue().toString().split("\\.")[0]).getId();
     }
 
     @Override

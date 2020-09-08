@@ -1,28 +1,46 @@
 package com.dbsy.student.pojo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.ClazzNameToIdConverter;
+import com.dbsy.student.excel.DepartmentNameToIdConverter;
+import com.dbsy.student.excel.MajorNameToIdConverter;
+import com.dbsy.student.excel.StudentNumberToIdConverter;
+
 import java.util.Date;
 
 public class Transfer {
+    @ExcelIgnore
     private Integer id;
 
+    @ExcelProperty(value = "学生学号", converter = StudentNumberToIdConverter.class)
     private Integer studentId;
 
+    @ExcelProperty(value = "原学院名", converter = DepartmentNameToIdConverter.class)
     private Integer oldDepartmentId;
 
+    @ExcelProperty(value = "原专业名", converter = MajorNameToIdConverter.class)
     private Integer oldMajorId;
 
+    @ExcelProperty(value = "原班级名", converter = ClazzNameToIdConverter.class)
     private Integer oldClazzId;
 
+    @ExcelProperty(value = "新学院名", converter = DepartmentNameToIdConverter.class)
     private Integer newDepartmentId;
 
+    @ExcelProperty(value = "新专业名", converter = MajorNameToIdConverter.class)
     private Integer newMajorId;
 
+    @ExcelProperty(value = "新班级名", converter = ClazzNameToIdConverter.class)
     private Integer newClazzId;
 
+    @ExcelProperty("是否批准(0:否,1:是)")
     private Boolean isPass;
 
+    @ExcelProperty("转出日期")
     private Date oldOutDate;
 
+    @ExcelProperty("转入日期")
     private Date newInDate;
 
     public Transfer(Integer id, Integer studentId, Integer oldDepartmentId, Integer oldMajorId, Integer oldClazzId, Integer newDepartmentId, Integer newMajorId, Integer newClazzId, Boolean isPass, Date oldOutDate, Date newInDate) {

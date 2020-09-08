@@ -1,13 +1,12 @@
 package com.dbsy.student;
 
-import com.dbsy.student.mapper.CourseMapper;
+import com.dbsy.student.excel.SpringContext;
 import com.dbsy.student.pojo.Course;
 import com.dbsy.student.pojo.Score;
 import com.dbsy.student.pojo.Student;
 import com.dbsy.student.service.CourseService;
 import com.dbsy.student.service.ScoreService;
 import com.dbsy.student.service.StudentService;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -20,7 +19,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.FileInputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 class StudentApplicationTests {
@@ -111,9 +111,8 @@ class StudentApplicationTests {
 
     @Test
     void contextLoads1() {
-        Course course = new Course(null, null, "125226211", null);
-        int i = courseService.insertSelective(course);
-        log.info("id-----------------------------------" + i + "------------------------" + course.getId());
+        StudentService studentService = (StudentService) SpringContext.getApplicationContext().getBean("studentServiceImp");
+        log.info(studentService.selectByNumber("111").toString());
     }
 
 

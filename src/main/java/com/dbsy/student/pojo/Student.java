@@ -1,6 +1,11 @@
 package com.dbsy.student.pojo;
 
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.ClazzNameToIdConverter;
+import com.dbsy.student.excel.DepartmentNameToIdConverter;
+import com.dbsy.student.excel.MajorNameToIdConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -8,44 +13,45 @@ import java.util.Date;
 
 @JsonIgnoreProperties(value = {"password"})
 public class Student {
+    @ExcelIgnore
     private Integer id;
-
+    @ExcelProperty("学号")
     private String number;
-
+    @ExcelProperty("姓名")
     private String name;
-
+    @ExcelProperty("性别(0:女,1:男)")
     private Boolean gender;
-
+    @ExcelProperty("手机号")
     private String phoneNumber;
-
+    @ExcelProperty("邮箱")
     private String email;
-
+    @ExcelProperty("身份证号")
     private String idCard;
-
+    @ExcelProperty("籍贯")
     private String nativePlace;
-
+    @ExcelIgnore
     private String photo;
-
+    @ExcelProperty("入学日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date admissionDate;
-
+    @ExcelProperty("出生日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
-
+    @ExcelIgnore
     private String password;
-
+    @ExcelProperty("高考分数")
     private Float score;
-
+    @ExcelProperty(value = "班级", converter = ClazzNameToIdConverter.class)
     private Integer clazzId;
-
+    @ExcelProperty(value = "专业名", converter = MajorNameToIdConverter.class)
     private Integer majorId;
-
+    @ExcelProperty(value = "学院名", converter = DepartmentNameToIdConverter.class)
     private Integer departmentId;
-
+    @ExcelProperty("年级(1:大一,2:大二,3:大三,4:大四)")
     private Integer grade;
-
+    @ExcelProperty("年龄")
     private Integer age;
-
+    @ExcelProperty("民族")
     private String nation;
 
     public Student(Integer id, String number, String name, Boolean gender, String phoneNumber, String email, String idCard, String nativePlace, String photo, Date admissionDate, Date birthday, String password, Float score, Integer clazzId, Integer majorId, Integer departmentId, Integer grade, Integer age, String nation) {

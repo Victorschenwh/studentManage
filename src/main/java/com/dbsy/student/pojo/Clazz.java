@@ -1,18 +1,24 @@
 package com.dbsy.student.pojo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.DepartmentNameToIdConverter;
+import com.dbsy.student.excel.MajorNameToIdConverter;
+
 public class Clazz {
+    @ExcelIgnore
     private Integer id;
-
+    @ExcelProperty("班级名称")
     private String name;
-
+    @ExcelProperty("班级介绍")
     private String introduce;
-
+    @ExcelProperty(value = "所属专业名称", converter = MajorNameToIdConverter.class)
     private Integer majorId;
-
+    @ExcelIgnore
     private Integer teacherId;
-
+    @ExcelProperty("年级(1:大一,2:大二,3:大三,4:大四)")
     private Integer grade;
-
+    @ExcelProperty(value = "所属院系名称", converter = DepartmentNameToIdConverter.class)
     private Integer departmentId;
 
     public Clazz(Integer id, String name, String introduce, Integer majorId, Integer teacherId, Integer grade, Integer departmentId) {

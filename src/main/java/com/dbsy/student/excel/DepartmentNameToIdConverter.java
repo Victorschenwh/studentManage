@@ -6,15 +6,15 @@ import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.dbsy.student.service.DepartmentService;
+import com.dbsy.student.service.iml.DepartmentServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class DepartmentNameToIdConverter implements Converter<Integer> {
-    @Autowired
-    @Qualifier("departmentServiceImp")
-    DepartmentService departmentService;
+
+    DepartmentService departmentService = (DepartmentService) SpringContext.getApplicationContext().getBean("departmentServiceImp");
 
     @Override
     public Class supportJavaTypeKey() {
