@@ -92,6 +92,9 @@
       <if test="grade != null and grade != 0">
         and grade=#{grade}
       </if>
+      <if test="search_key != null">
+        and s.name like CONCAT('%',#{search_key},'%')
+      </if>
     </where>
     <if test="start !=null and end != null">
       limit #{start},#{end}
