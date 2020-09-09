@@ -83,28 +83,60 @@
         </foreach>
     </delete>
 
-    <select id="list" resultType="com.dbsy.student.pojo.Employment">
-        select * from employment
+
+    <select id="list" resultType="HashMap">
+        select e.id as id, e.student_id as studentId,e.is_sign as isSign,e.company as company,
+        e.phone_number as phoneNumber,e.remarks as remarks, s.id as s_id,
+        s.name as name,s.number as number,s.department_id as departmentId ,s.major_id as majorId,
+        s.clazz_id as clazzId
+        from employment e join student s on s.id = e.student_id
         <where>
-            <if test="company != null">
-                and company like concat('%',#{company},'%')
+            <if test="departmentId != null and departmentId != 0">
+                and s.department_id=#{departmentId}
             </if>
+
+            <if test="majorId != null and majorId != 0">
+                and s.major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and s.clazz_id=#{clazzId}
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and s.grade=#{grade}
+            </if>
+
+            <if test="search_key != null">
+                and s.name like CONCAT('%',#{search_key},'%')
+            </if>
+
         </where>
-        <if test="page!=null and pageSize != null">
-            limit (#{page}-1)* #{pageSize},#{pageSize}
+
+        <if test="start !=null and end != null">
+            limit #{start},#{end}
         </if>
     </select>
 
     <select id="listCount" resultType="int">
-        select conut(*) from employment
+        select count(*) from employment e join student s on s.id = e.student_id
         <where>
-            <if test="company != null">
-                and company like concat('%',#{company},'%')
+            <if test="departmentId != null and departmentId != 0">
+                and department_id=#{departmentId}
+            </if>
+
+            <if test="majorId != null and majorId != 0">
+                and major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and clazz_id=#{clazzId}
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and grade=#{grade}
             </if>
         </where>
-        <if test="page!=null and pageSize != null">
-            limit (#{page}-1)* #{pageSize},#{pageSize}
-        </if>
     </select>
 
 </mapper>

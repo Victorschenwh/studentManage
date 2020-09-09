@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/employ")
+@RequestMapping("/employment")
 public class EmployController {
     @Autowired
     @Qualifier("employmentServiceImp")
@@ -23,7 +23,7 @@ public class EmployController {
 
     @RequestMapping("")
     public String employ() {
-        return "employ/employ";
+        return "workinfo/employment";
     }
 
     @RequestMapping("/list")

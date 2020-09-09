@@ -37,9 +37,9 @@
                         </li>
                     </ul>
                 </div>
-
-
             </li>
+
+
             <li class="nav-item">
                 <a onclick="goto('/score')" href="#score"
                    class="nav-link">成绩管理</a>
@@ -50,9 +50,19 @@
                    class="nav-link">奖助贷惩</a>
             </li>
 
-            <li class="nav-item">
-                <a onclick="goto('/employment')" href="#employment"
-                   class="nav-link">就业情况</a>
+
+            <li class="nav nav-list">
+                <a class="nav-link" data-toggle="collapse" href="#employ" role="button">
+                    就业情况
+                </a>
+                <div id="employ" class="collapse navbar-collapse" aria-expanded="false">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a onclick="goto('/employment')" href="#employment" class="nav-link"><kbd>就业情况</kbd></a>
+                    </li>
+                </ul>
+                </div>
+
             </li>
 
             <li class="nav-item">
