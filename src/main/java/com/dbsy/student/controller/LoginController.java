@@ -30,10 +30,6 @@ import java.util.concurrent.TimeUnit;
 public class LoginController {
 
     @Autowired
-    @Qualifier("teacherServiceImp")
-    TeacherService teacherService;
-
-    @Autowired
     @Qualifier("adminServiceImp")
     AdminService adminService;
 
@@ -41,61 +37,23 @@ public class LoginController {
     RedisTemplate redisTemplate;
 
     /**
-     * 登录操作时安全次数限制
+     * 登陆失败,次数加1,缓存时间为1小时
      *
      * @param key
      */
     public void limit(String key) {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        String ip = request.getRemoteAddr();
-
-        if (redisTemplate.hasKey(ip)) {
-            redisTemplate.opsForValue().set(ip, Integer.parseInt(redisTemplate.opsForValue().get(ip) + "") + 1);
-        } else {
-            redisTemplate.opsForValue().set(ip, 0, 1, TimeUnit.HOURS);
-        }
-
         if (redisTemplate.hasKey(key)) {
             redisTemplate.opsForValue().set(key, Integer.parseInt(redisTemplate.opsForValue().get(key) + "") + 1);
         } else {
             redisTemplate.opsForValue().set(key, 0, 1, TimeUnit.HOURS);
         }
-
-    }
-
-    @RequestMapping("/teacher")
-    @Login
-    @ResponseBody
-    public Map teacher(String username, String password, String NewPassword, HttpSession httpSession) {
-
-        Teacher teacher = null;
-
-        if (username != null) {
-            teacher = teacherService.selectByUsernameAndPassword(username, password);
-        }
-
-
-        if (teacher == null) {
-            this.limit(username);
-            return News.fail("用户名或密码不正确");
-        }
-
-        if (!teacher.getIsLock()) {
-            httpSession.setAttribute(Role.Teacher + "", teacher);
-
-            return News.success();
-        } else {
-            return News.fail("操作过于频繁,被锁定,请联系管理员!");
-        }
-
     }
 
 
     @RequestMapping("/admin")
     @Login
     @ResponseBody
-    public Map admin(String username, String password, HttpSession httpSession) {
+    public Map admin(String username, String password, HttpSession httpSession, HttpServletRequest request) {
 
         Admin admin = null;
 
@@ -104,7 +62,9 @@ public class LoginController {
         }
 
         if (admin == null) {
+            String ip = request.getRemoteAddr();
             this.limit(username);
+            this.limit(ip);
             return News.fail("用户名或密码不正确");
         }
 
@@ -121,25 +81,11 @@ public class LoginController {
     @RequestMapping("/emailLogin")
     @Login
     @ResponseBody
-    public Map emailLogin(String email, String captcha, int role, HttpServletRequest request, HttpSession httpSession) {
+    public Map emailLogin(String email, String captcha, HttpServletRequest request, HttpSession httpSession) {
         String ip = request.getRemoteAddr();
 
         if (captcha != null && captcha.equals(redisTemplate.opsForValue().get(ip + email) + "")) {
-
-            if (role == 0) {
-                Teacher t = teacherService.selectByEmail(email);
-                if (t != null) {
-                    httpSession.setAttribute(Role.Teacher + "", t);
-                    return News.success();
-                }
-            } else if (role == 1) {
-                Admin a = adminService.selectByEmail(email);
-                if (a != null) {
-                    httpSession.setAttribute(Role.Admin + "", a);
-                    return News.success();
-                }
-
-            }
+            return News.success();
         }
         this.limit(email);
         return News.fail("验证码错误");

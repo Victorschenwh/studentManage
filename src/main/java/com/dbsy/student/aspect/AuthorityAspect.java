@@ -38,21 +38,6 @@ public class AuthorityAspect {
         if (aClass.getAnnotation(Authority.class) != null) {
             Role[] roles = aClass.getAnnotation(Authority.class).value();
             roleList.addAll(Arrays.asList(roles));
-/*            for (Role role : roles) {
-                //只要拥有一个角色在线,便能拥有访问权限
-                if (request.getSession().getAttribute(role + "") != null) {
-                    //放行
-                    return pJoinPoint.proceed();
-                }
-            }
-            //一个角色的登录状态都不存在,拒绝访问
-            if (pJoinPoint.proceed() instanceof String) {
-                response.sendRedirect("/");
-                return null;
-            }
-            map.put("code", -1);
-            map.put("msg", "权限不足,请先登录");
-            return map;*/
         }
 
         String name = pJoinPoint.getSignature().getName();
@@ -62,19 +47,6 @@ public class AuthorityAspect {
         //判断注解是否在方法上
         if (authority != null) {
             roleList.addAll(Arrays.asList(authority.value()));
-           /* for (Role role : authority.value()) {
-                if (request.getSession().getAttribute(role + "") != null) {
-                    return pJoinPoint.proceed();
-                }
-            }
-            if (pJoinPoint.proceed() instanceof String) {
-                response.sendRedirect("/");
-                return null;
-            }
-            //一个角色的登录状态都不存在,拒绝访问
-            map.put("code", -1);
-            map.put("msg", "权限不足");
-            return map;*/
         }
 
         if (roleList.size() > 0) {

@@ -90,9 +90,7 @@ $("#departmentId").change(function () {
 
     $("#clazzId").empty();
     $("#clazzId").append("<option value=''>--请选择班级--</option>");
-
     major();
-
     reLoad()
 })
 
@@ -107,14 +105,10 @@ $("#majorId").change(function () {
 
 
 $("#grade").change(function () {
-
     $("#clazzId").empty();
     $("#clazzId").append("<option value=''>--请选择班级--</option>");
-
     clazz();
-
     reLoad();
-
 })
 
 $("#clazz").change(function () {
