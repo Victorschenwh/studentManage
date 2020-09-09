@@ -1,13 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+</head>
+<body>
 <nav th:fragment="menu" id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="sidebar-sticky pt-3">
-        <ul class="nav flex-column">
-            <li class="nav-item">
+        <ul class="nav flex-column" style="height: 650px;background-color: #1c232f">
+            <!--<li class="nav-item">
                 <a class="nav-link active" href="#" onclick="goto('/index/home')">
                     <span data-feather="home"></span>
                     首页 <span class="sr-only">(current)</span>
                 </a>
-            </li>
-            <li class="nav nav-list">
+            </li>-->
+            <div class="col-lg-2"></div>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingS">
+                        <h4 class="panel-title text-center">
+                            <a role="button" style="text-decoration: none;color: #ffffff;" data-toggle="collapse"
+                               data-parent="#accordion" href="#" onclick="goto('/index/home')" aria-expanded="true"
+                               aria-controls="collapseS">
+                                首页
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title text-center">
+                            <a role="button" style="text-decoration: none;color: white;" data-toggle="collapse"
+                               data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                               aria-controls="collapseOne">
+                                学生信息
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+                        <ul class="list-group text-center">
+                            <li class="list-group-item">
+                                <a style="text-decoration: none;color: #1c232f;" onclick="goto('/student')"
+                                   href="#student" class="list-group-item">基本信息</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a style="text-decoration: none;color: #1c232f;" onclick="goto('/preWarning')"
+                                   href="#preWarning" class="list-group-item">学业预警</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a style="text-decoration: none;color: #1c232f;" onclick="goto('/family')"
+                                   href="#family" class="list-group-item">家庭</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a style="text-decoration: none;color: #1c232f;" onclick="goto('/retardation')"
+                                   href="#retardation" class="list-group-item">留级试读</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a style="text-decoration: none;color: #1c232f;" onclick="goto('/suspension')"
+                                   href="#suspension" class="list-group-item">休学退学</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a style="text-decoration: none;color: #1c232f;" onclick="goto('/transfer')"
+                                   href="#transfer" class="list-group-item">转专业</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a style="text-decoration: none;color: #1c232f;" onclick="goto('/monitoring')"
+                                   href="#monitoring" class="list-group-item">学业监控</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a style="text-decoration: none;color: #1c232f;" onclick="goto('/employment')"
+                                   href="#employ" class="list-group-item">就业情况</a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title text-center">
+                            <a class="collapsed" style="text-decoration: none;color: white;" role="button"
+                               data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                               aria-controls="collapseTwo">
+                                成绩管理
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <ul class="list-group text-center">
+                            <li style="text-decoration: none;color: #1c232f;" class="list-group-item">基本信息</li>
+                            <li style="text-decoration: none;color: #1c232f;" class="list-group-item">学业预警</li>
+                            <li style="text-decoration: none;color: #1c232f;" class="list-group-item">家庭</li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                        <h4 class="panel-title text-center">
+                            <a style="text-decoration: none;color: white;" class="collapsed" role="button"
+                               data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                               aria-expanded="false" aria-controls="collapseThree">
+                                奖助贷惩
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingThree">
+                        <ul class="list-group text-center">
+                            <li style="text-decoration: none;color: #1c232f;" class="list-group-item">基本信息</li>
+                            <li style="text-decoration: none;color: #1c232f;" class="list-group-item">学业预警</li>
+                            <li style="text-decoration: none;color: #1c232f;" class="list-group-item">家庭</li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingFour">
+                        <h4 class="panel-title text-center">
+                            <a style="text-decoration: none;color: white;" class="collapsed" role="button"
+                               data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
+                               aria-expanded="false" aria-controls="collapseFour">
+                                就业情况
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingFour">
+                        <ul class="list-group text-center">
+                            <li style="text-decoration: none;color: #1c232f;" class="list-group-item">就业情况</li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingFive">
+                        <h4 class="panel-title text-center">
+                            <a style="text-decoration: none;color: #ffffff;" class="collapsed" role="button"
+                               data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
+                               aria-expanded="false" aria-controls="collapseFive">
+                                办公机构
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingFive">
+                        <ul class="list-group text-center">
+                            <li style="text-decoration: none;color: #1c232f;" class="list-group-item">基本信息</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </ul>
+    </div>
+</nav>
+</body>
+</html>
+<!--<li class="nav nav-list">
                 <a class="nav-link" data-toggle="collapse" href="#collapseMenu" role="button">
                     学生信息
                 </a>
@@ -37,9 +192,9 @@
                         </li>
                     </ul>
                 </div>
+
+
             </li>
-
-
             <li class="nav-item">
                 <a onclick="goto('/score')" href="#score"
                    class="nav-link">成绩管理</a>
@@ -50,19 +205,9 @@
                    class="nav-link">奖助贷惩</a>
             </li>
 
-
-            <li class="nav nav-list">
-                <a class="nav-link" data-toggle="collapse" href="#employ" role="button">
-                    就业情况
-                </a>
-                <div id="employ" class="collapse navbar-collapse" aria-expanded="false">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a onclick="goto('/employment')" href="#employment" class="nav-link"><kbd>就业情况</kbd></a>
-                    </li>
-                </ul>
-                </div>
-
+            <li class="nav-item">
+                <a onclick="goto('/employment')" href="#employment"
+                   class="nav-link">就业情况</a>
             </li>
 
             <li class="nav-item">
@@ -73,5 +218,3 @@
         </ul>
     </div>
 </nav>
-
-<!--office-->
