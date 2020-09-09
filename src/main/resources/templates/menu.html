@@ -1,16 +1,3 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap</title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <script src="../js/jquery.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-
-</head>
-<body>
 <nav th:fragment="menu" id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column" style="height: 650px;background-color: #1c232f">
@@ -20,12 +7,12 @@
                     首页 <span class="sr-only">(current)</span>
                 </a>
             </li>-->
-            <div class="col-lg-2"></div>
+
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingS">
                         <h4 class="panel-title text-center">
-                            <a role="button" style="text-decoration: none;color: #ffffff;" data-toggle="collapse"
+                            <a role="button" style="text-decoration: none;color: white;" data-toggle="collapse"
                                data-parent="#accordion" href="#" onclick="goto('/index/home')" aria-expanded="true"
                                aria-controls="collapseS">
                                 首页
@@ -71,11 +58,6 @@
                                 <a style="text-decoration: none;color: #1c232f;" onclick="goto('/monitoring')"
                                    href="#monitoring" class="list-group-item">学业监控</a>
                             </li>
-                            <li class="list-group-item">
-                                <a style="text-decoration: none;color: #1c232f;" onclick="goto('/employment')"
-                                   href="#employ" class="list-group-item">就业情况</a>
-                            </li>
-
 
                         </ul>
                     </div>
@@ -132,8 +114,9 @@
                     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
                          aria-labelledby="headingFour">
                         <ul class="list-group text-center">
-                            <li style="text-decoration: none;color: #1c232f;" class="list-group-item">就业情况</li>
-
+                            <li style="text-decoration: none;color: #1c232f;" class="list-group-item">基本信息</li>
+                            <li style="text-decoration: none;color: #1c232f;" class="list-group-item">学业预警</li>
+                            <li style="text-decoration: none;color: #1c232f;" class="list-group-item">家庭</li>
                         </ul>
                     </div>
                 </div>
@@ -160,8 +143,6 @@
         </ul>
     </div>
 </nav>
-</body>
-</html>
 <!--<li class="nav nav-list">
                 <a class="nav-link" data-toggle="collapse" href="#collapseMenu" role="button">
                     学生信息
@@ -217,4 +198,4 @@
 
         </ul>
     </div>
-</nav>
+</nav>-->
