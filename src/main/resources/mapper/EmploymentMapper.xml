@@ -86,10 +86,10 @@
 
     <select id="list" resultType="HashMap">
         select e.id as id, e.student_id as studentId,e.is_sign as isSign,e.company as company,
-        e.phone_number as phoneNumber,e.remarks as remarks, s.id as s_id,
+        e.phone_number as phoneNumber,e.remarks as remarks,
         s.name as name,s.number as number,s.department_id as departmentId ,s.major_id as majorId,
         s.clazz_id as clazzId
-        from employment e join student s on s.id = e.student_id
+        from employment e left outer join student s on s.id = e.student_id
         <where>
             <if test="departmentId != null and departmentId != 0">
                 and s.department_id=#{departmentId}

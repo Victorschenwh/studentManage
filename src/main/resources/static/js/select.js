@@ -102,7 +102,6 @@ $("#majorId").change(function () {
     $("#clazzId").append("<option value=''>--请选择班级--</option>");
 
     clazz();
-
     reLoad();
 })
 

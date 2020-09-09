@@ -43,6 +43,10 @@ public class EmploymentServiceImp implements EmploymentService, ExcelSave {
 
     @Override
     public List<Employment> list(Map map) {
+        int page = Integer.parseInt(map.get("page") + "");
+        int pageSize = Integer.parseInt(map.get("pageSize") + "");
+        map.put("start", (page - 1) * pageSize);
+        map.put("end", pageSize);
         return employmentMapper.list(map);
     }
 

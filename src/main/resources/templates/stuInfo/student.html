@@ -101,7 +101,7 @@
                             <label class="col-sm-3 control-label">所属院系：</label>
                             <div class="col-sm-8">
                                 <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="departmentId" class="form-control" required>
+                                <select name="departmentId" class="form-control" id="departmentId2" required>
                                     <option value="">
                                         --请选择--
                                     </option>
@@ -113,7 +113,7 @@
                             <label class="col-sm-3 control-label">所属专业：</label>
                             <div class="col-sm-8">
                                 <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="majorId" class="form-control" required>
+                                <select name="majorId" class="form-control" id="majorId2" required>
                                     <option value="">
                                         --请选择--
                                     </option>
@@ -125,7 +125,7 @@
                             <label class="col-sm-3 control-label">所属班级：</label>
                             <div class="col-sm-8">
                                 <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="clazzId" class="form-control" required>
+                                <select name="clazzId" class="form-control" id="clazzId2" required>
                                     <option value="">
                                         --请选择--
                                     </option>
@@ -169,8 +169,6 @@
     </div><!-- /.modal -->
 
 
-
-
 </div>
 <div th:replace="static :: script"></div>
 </body>
@@ -184,39 +182,41 @@
     })
 
 
-
     //获取学院数据
-    $.ajax({
-        //cache: true,
-        type: "POST",
-        url: "/department/getAll",
-        data: {},
-        success: function (data) {
-            if (data.code == 1) {
-                var list = [];
-                list = list.concat(data.data);
-                $("select[name='departmentId']").each(function () {
-                    //$(this).text()
-                    for (var i = 0; i < list.length; i++) {
-                        var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
-                        $(this).append(option);
-                    }
-                });
+    function department2() {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/department/getAll",
+            data: {},
+            success: function (data) {
+                if (data.code == 1) {
+                    var list = [];
+                    list = list.concat(data.data);
+                    $("#departmentId2").each(function () {
+                        //$(this).text()
+                        for (var i = 0; i < list.length; i++) {
+                            var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
+                            $(this).append(option);
+                        }
+                    });
+                }
             }
-        }
-    });
+        });
+    }
+
 
     //获取专业数据
     $.ajax({
         //cache: true,
         type: "POST",
-        url: "/major/getAll",
+        url: "/major/" + $("#departmentId2").val(),
         data: {},
         success: function (data) {
             if (data.code == 1) {
                 var list = [];
                 list = list.concat(data.data);
-                $("select[name='majorId']").each(function () {
+                $("#majorId2").each(function () {
                     //$(this).text()
                     for (var i = 0; i < list.length; i++) {
                         var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
@@ -231,13 +231,13 @@
     $.ajax({
         //cache: true,
         type: "POST",
-        url: "/clazz/getAll",
+        url: "/clazz/?departmentId=" + $("#departmentId2").val() + "&majorId=" + $("#majorId2").val(),
         data: {},
         success: function (data) {
             if (data.code == 1) {
                 var list = [];
                 list = list.concat(data.data);
-                $("select[name='clazzId']").each(function () {
+                $("#clazzId2").each(function () {
                     //$(this).text()
                     for (var i = 0; i < list.length; i++) {
                         var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
@@ -247,6 +247,33 @@
             }
         }
     });
+
+    $("#departmentId2").change(function () {
+        $("#majorId2").empty();
+        $("#majorId2").append("<option value=''>--请选择专业--</option>");
+
+        $("#clazzId2").empty();
+        $("#clazzId2").append("<option value=''>--请选择班级--</option>");
+
+        major();
+
+        reLoad()
+    })
+
+
+    $("#majorId2").change(function () {
+        $("#clazzId2").empty();
+        $("#clazzId2").append("<option value=''>--请选择班级--</option>");
+
+        clazz();
+
+        reLoad();
+    })
+
+
+    $("#clazz2").change(function () {
+        reLoad()
+    })
 
 
     function load() {
@@ -375,7 +402,7 @@
                         field: 'id',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            var d = '<a class="btn btn-warning btn-xs " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
                                 + row.id
                                 + '\')">删除</a> ';
 
@@ -398,7 +425,7 @@
             success: function (data) {
                 if (data.code == 1) {
                     var student = data.data;
-                    for (var key  in student) {
+                    for (var key in student) {
                         $("#" + key).val(student[key]);
                     }
                 }

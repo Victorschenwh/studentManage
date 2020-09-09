@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class EmployController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public Map list(Map map) {
+    public Map list(@RequestParam Map map) {
         Map m = new HashMap();
         m.put("total", employmentService.listCount(map));
         m.put("rows", employmentService.list(map));

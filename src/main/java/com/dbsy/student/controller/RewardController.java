@@ -29,7 +29,7 @@ public class RewardController {
 //    @Authority({Role.Teacher})
     @RequestMapping("")
     public String reward() {
-        return "baseInfo/reward";
+        return "rewinfo/reward";
     }
 
 

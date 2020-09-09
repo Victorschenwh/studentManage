@@ -250,7 +250,7 @@
     function load() {
         $('#table_employ')
             .bootstrapTable({
-                url: "/student/list",                      //请求后台的URL（*）
+                url: "/employment/list",                      //请求后台的URL（*）
                 method: 'GET',                      //请求方式（*）
                 toolbar: '#toolbar',              //工具按钮用哪个容器
                 striped: true,                      //是否显示行间隔色
@@ -305,7 +305,7 @@
                     field: 'departmentId',
                     title: '学院',
                     formatter: function (value, row, index) {
-                        var major = {};
+                        var depart = {};
                         if (value != null) {
                             $.ajax({
                                 //cache: true,
@@ -316,12 +316,12 @@
                                 data: {},
                                 success: function (data) {
                                     if (data.code == 1) {
-                                        department = data.data;
+                                        depart = data.data;
                                     }
                                 }
                             });
                         }
-                        return department != null ? department.name : "";
+                        return depart != null ? depart.name : "";
                     }
 
                 }, {
@@ -377,16 +377,16 @@
                         }
                     }, {
                         field: 'company',
-                        title: '就业单位',
+                        title: '就业单位'
                     }, {
                         field: 'remarks',
-                        title: '备注',
+                        title: '备注'
                     }, {
                         title: '操作',
                         field: 'id',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            var d = '<a class="btn btn-warning btn-xs " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
                                 + row.id
                                 + '\')">删除</a> ';
 
@@ -404,13 +404,13 @@
         $.ajax({
             //cache: true,
             type: "POST",
-            url: "/student/get/" + id,
+            url: "/employment/get/" + id,
             data: {},
             success: function (data) {
                 if (data.code == 1) {
-                    var student = data.data;
-                    for (var key  in student) {
-                        $("#" + key).val(student[key]);
+                    var employment = data.data;
+                    for (var key  in employment) {
+                        $("#" + key).val(employment[key]);
                     }
                 }
             }
@@ -423,7 +423,7 @@
         $.ajax({
             //cache: true,
             type: "POST",
-            url: "/student/insert",
+            url: "/employment/insert",
             data: $('#insert').serialize(),
             success: function (data) {
                 console.log(data)
@@ -443,7 +443,7 @@
         $.ajax({
             type: 'POST',
             data: {},
-            url: "/student/remove/" + id,
+            url: "/employment/remove/" + id,
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
@@ -473,7 +473,7 @@
             data: {
                 ids: ids
             },
-            url: "/student/batchRemove",
+            url: "/emplo/batchRemove",
             traditional: true,//向后台传递数组时加上
             dataType: "json",
             success: function (data) {

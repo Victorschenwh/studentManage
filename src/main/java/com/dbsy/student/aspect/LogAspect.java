@@ -15,8 +15,8 @@ import java.util.Arrays;
  * LogAspect  用于日志记录
  */
 
-//@Component
-//@Aspect
+@Component
+@Aspect
 public class LogAspect {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());

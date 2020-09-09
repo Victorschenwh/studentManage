@@ -249,5 +249,29 @@ public class Student {
         this.nation = nation == null ? null : nation.trim();
     }
 
-
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                ", name='" + name + '\'' +
+                ", gender=" + gender +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", idCard='" + idCard + '\'' +
+                ", nativePlace='" + nativePlace + '\'' +
+                ", photo='" + photo + '\'' +
+                ", admissionDate=" + admissionDate +
+                ", birthday=" + birthday +
+                ", password='" + password + '\'' +
+                ", score=" + score +
+                ", clazzId=" + clazzId +
+                ", majorId=" + majorId +
+                ", departmentId=" + departmentId +
+                ", grade=" + grade +
+                ", age=" + age +
+                ", nation='" + nation + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }
