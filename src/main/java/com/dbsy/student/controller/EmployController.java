@@ -39,8 +39,8 @@ public class EmployController {
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
-        Student student = employmentService.get(id);
-        return student != null ? News.success("OK", student) : News.fail("学生不存在");
+        Employment employment = employmentService.get(id);
+        return employment != null ? News.success("OK", employment) : News.fail("学生不存在");
     }
 
     @ResponseBody

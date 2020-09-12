@@ -18,7 +18,10 @@ public interface EmploymentMapper {
     int batchInsert(List<Student> list);
 
     @Select("select * from employment where id = #{id}")
-    Student get(int id);
+    Employment get(int id);
+
+    @Select("select * from employment where student_id=#{studentId}")
+    Employment getByStudentId(int studentId);
 
     int listCount(Map map);
 

@@ -1,73 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.AdminMapper">
-  <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Admin">
-    <constructor>
-      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="nickname" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="phone_number" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="is_lock" javaType="java.lang.Boolean" jdbcType="BIT" />
-    </constructor>
-  </resultMap>
-  <insert id="insert" parameterType="com.dbsy.student.pojo.Admin">
+    <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Admin">
+        <constructor>
+            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="nickname" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="phone_number" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="is_lock" javaType="java.lang.Boolean" jdbcType="BIT"/>
+        </constructor>
+    </resultMap>
+    <insert id="insert" parameterType="com.dbsy.student.pojo.Admin">
     insert into admin (id, username, password, 
       nickname, phone_number, email, 
-      is_lock)
+      is_lock,foreign_id,role,departmentId)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{nickname,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{isLock,jdbcType=BIT})
+      #{isLock,jdbcType=BIT},#{foreignId},#{role},#{departmentId})
   </insert>
-  <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Admin">
-    insert into admin
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="username != null">
-        username,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="nickname != null">
-        nickname,
-      </if>
-      <if test="phoneNumber != null">
-        phone_number,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="isLock != null">
-        is_lock,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="nickname != null">
-        #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="phoneNumber != null">
-        #{phoneNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="isLock != null">
-        #{isLock,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Admin">
+        insert into admin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="phoneNumber != null">
+                phone_number,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="isLock != null">
+                is_lock,
+            </if>
+
+            <if test="foreignId != null">
+                foreign_id,
+            </if>
+            <if test="role != null">
+                role,
+            </if>
+            <if test="departmentId != null">
+                department_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="isLock != null">
+                #{isLock,jdbcType=BIT},
+            </if>
+            <if test="foreignId != null">
+                #{foreignId},
+            </if>
+            <if test="role != null">
+                #{role},
+            </if>
+            <if test="departmentId != null">
+                #{departmentId},
+            </if>
+        </trim>
+    </insert>
 
 </mapper>

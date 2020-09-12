@@ -15,7 +15,35 @@ public class Admin {
 
     private Boolean isLock;
 
-    public Admin(Integer id, String username, String password, String nickname, String phoneNumber, String email, Boolean isLock) {
+    private Integer role;
+
+    private Integer foreignId;
+
+    private Integer department_id;
+
+
+    public Boolean getLock() {
+        return isLock;
+    }
+
+    public void setLock(Boolean lock) {
+        isLock = lock;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
+    public Integer getForeignId() {
+        return foreignId;
+    }
+
+    public Admin(Integer id, String username, String password, String nickname, String phoneNumber, String email,
+                 Boolean isLock, Integer role, Integer foreignId, Integer department_id) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -23,6 +51,37 @@ public class Admin {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.isLock = isLock;
+        this.role = role;
+        this.foreignId = foreignId;
+        this.department_id = department_id;
+    }
+
+    public void setForeignId(Integer foreignId) {
+        this.foreignId = foreignId;
+    }
+
+    public Integer getDepartment_id() {
+        return department_id;
+    }
+
+    public void setDepartment_id(Integer department_id) {
+        this.department_id = department_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", isLock=" + isLock +
+                ", role=" + role +
+                ", foreignId=" + foreignId +
+                ", department_id=" + department_id +
+                '}';
     }
 
     public Admin() {
@@ -84,4 +143,6 @@ public class Admin {
     public void setIsLock(Boolean isLock) {
         this.isLock = isLock;
     }
+
+
 }

@@ -32,8 +32,13 @@ public class EmploymentServiceImp implements EmploymentService, ExcelSave {
     }
 
     @Override
-    public Student get(int id) {
+    public Employment get(int id) {
         return employmentMapper.get(id);
+    }
+
+    @Override
+    public Employment getByStudentId(int studentId) {
+        return employmentMapper.getByStudentId(studentId);
     }
 
     @Override

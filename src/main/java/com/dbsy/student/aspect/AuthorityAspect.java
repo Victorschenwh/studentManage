@@ -2,6 +2,8 @@ package com.dbsy.student.aspect;
 
 import com.dbsy.student.annotation.Authority;
 import com.dbsy.student.myenum.Role;
+import com.dbsy.student.util.JWTUtils;
+import com.dbsy.student.util.News;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -29,6 +31,10 @@ public class AuthorityAspect {
         HttpServletRequest request = attributes.getRequest();
         HttpServletResponse response = attributes.getResponse();
 
+        if (request.getSession().getAttribute(Role.Admin.toString()) != null) {
+            return pJoinPoint.proceed();
+        }
+
         List<Role> roleList = new ArrayList<>();
         Map map = new HashMap();
 
@@ -51,7 +57,19 @@ public class AuthorityAspect {
 
         if (roleList.size() > 0) {
             for (Role role : roleList) {
-                if (request.getSession().getAttribute(role + "") != null) {
+
+                //学生访问
+                if (role.getRole() == Role.Student.getRole()) {
+                    String token = request.getParameter("token");
+                    if (JWTUtils.checkToken(token)) {
+                        return pJoinPoint.proceed();
+                    } else {
+                        return News.fail(-2, "请先登录");
+                    }
+                }
+
+
+                if (request.getSession().getAttribute(role.toString()) != null) {
                     return pJoinPoint.proceed();
                 }
             }

@@ -15,7 +15,9 @@ public interface EmploymentService {
 
     int batchInsert(List<Student> list);
 
-    Student get(int id);
+    Employment get(int id);
+
+    Employment getByStudentId(int studentId);
 
     int listCount(Map map);
 
@@ -24,4 +26,6 @@ public interface EmploymentService {
     int delete(int id);
 
     int batchRemove(int[] ids);
+
+
 }

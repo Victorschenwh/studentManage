@@ -7,6 +7,7 @@ import com.dbsy.student.pojo.Teacher;
 import com.dbsy.student.service.AdminService;
 import com.dbsy.student.service.TeacherService;
 import com.dbsy.student.util.Check;
+import com.dbsy.student.util.JWTUtils;
 import com.dbsy.student.util.News;
 import com.dbsy.student.util.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,7 @@ public class LoginController {
 
         if (username != null) {
             admin = adminService.selectByUsernameAndPassword(username, password);
+
         }
 
         if (admin == null) {
@@ -69,8 +71,16 @@ public class LoginController {
         }
 
         if (!admin.getIsLock()) {
-            httpSession.setAttribute(Role.Admin + "", admin);
-            return News.success();
+            //不是学生登录
+            if (admin.getRole() != Role.Student.getRole()) {
+                httpSession.setAttribute(Role.User.setRole(admin.getRole()).toString(), admin);
+                return News.success();
+            }
+            //学生登录
+            Map map = new HashMap<String, String>();
+            map.put("studentId", admin.getForeignId());
+            map.put("id", admin.getId());
+            return News.success("ok", JWTUtils.getToken(map));
         } else {
             return News.fail("操作过于频繁,被锁定,请联系管理员!");
         }
@@ -85,7 +95,17 @@ public class LoginController {
         String ip = request.getRemoteAddr();
 
         if (captcha != null && captcha.equals(redisTemplate.opsForValue().get(ip + email) + "")) {
-            return News.success();
+            Admin admin = adminService.selectByEmail(email);
+            //不是学生登录
+            if (admin.getRole() != Role.Student.getRole()) {
+                httpSession.setAttribute(Role.User.setRole(admin.getRole()).toString(), admin);
+                return News.success();
+            }
+            //学生登录
+            Map map = new HashMap<String, String>();
+            map.put("id", admin.getId());
+            map.put("studentId", admin.getForeignId());
+            return News.success("ok", JWTUtils.getToken(map));
         }
         this.limit(email);
         return News.fail("验证码错误");
