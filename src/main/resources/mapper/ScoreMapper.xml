@@ -106,14 +106,79 @@
         </if>
     </select>
 
-    <select id="listCount" resultType="int">
-        select score(*) from score
+    <select id="listScore" resultType="java.util.HashMap">
+        SELECT stu.id as id, stu.number as number, stu.`name` as stuName, stu.major_id as majId, stu.clazz_id as clId,sum(s.score) as sscore,stu.score as score  FROM student stu left JOIN  score s on  stu.id=s.student_id
+
         <where>
-            <if test="studentId != null">
-                or name like concat('%',#{studentId},'%')
+            <if test="1 == 1">
+                stu.major_id is not null  or stu.clazz_id is not null
             </if>
+
+            <if test="majorId != null">
+                and  stu.major_id = #{majorId}
+            </if>
+
+             <if test="clazzId != null">
+              and  stu.clazz_id = #{clazzId}
+             </if>
+
+            <if test="search_key != null">
+                and stu.name like concat('%',#{search_key},'%')
+            </if>
+
         </where>
+        GROUP BY stu.id,stu.number, stu.name
+        <if test="start!=null and end != null">
+            limit #{start},#{end}
+        </if>
     </select>
+
+    <select id="listRank" resultType="java.util.HashMap">
+     SELECT stu.id as id, stu.number as number ,stu.`name` as stuName,stu.major_id as majId,stu.clazz_id as clId,count(DISTINCT c.id) as ccourse, avg(s.score) as avgScore FROM student stu LEFT JOIN score s on s.student_id=stu.id LEFT JOIN course c on c.id =s.course_id
+
+     <where>
+         <if test="1 == 1">
+             s.course_id is not null
+         </if>
+
+<!--         <if test="majorId != null">-->
+<!--             and  stu.major_id= #{majorId}-->
+<!--         </if>-->
+
+<!--         <if test="clazzId != null">-->
+<!--             and  stu.clazz_id = #{clazzId}-->
+<!--         </if>-->
+
+         <if test="search_key != null">
+             and stu.name like concat('%',#{search_key},'%')
+         </if>
+     </where>
+        GROUP BY stu.id
+        <if test="start!=null and end != null">
+            limit #{start},#{end}
+        </if>
+
+
+    </select>
+
+
+
+
+    <select id="listCount" resultType="int">
+        select count(*) from score
+    </select>
+    <select id="listCountSelf" resultType="int">
+        select count(*) from student where major_id is not null or clazz_id is not null
+    </select>
+    <select id="listCountRank" resultType="int">
+    select count(distinct stu.id) from student stu left join score s on stu.id=s.student_id WHERE course_id is not null
+    </select>
+
+
+
+
+
+
 
     <!--批量增加-->
     <insert id="batchInsert" parameterType="java.util.List">

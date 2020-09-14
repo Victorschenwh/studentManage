@@ -1,7 +1,6 @@
 package com.dbsy.student.service;
-import com.dbsy.student.pojo.Family;
 import com.dbsy.student.pojo.Score;
-import com.dbsy.student.pojo.Student;
+
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,15 @@ public interface ScoreService {
 
     int listCount(Map map);
 
+    int listCountSelf(Map map);
+
+    int listCountRank(Map map);
+
     List<Score> list(Map map);
+
+    List<Map> listScore(Map map);
+
+    List<Map> listRank(Map map);
 
     int batchInsert(List list);
 
