@@ -6,8 +6,8 @@
 
     <ol class="breadcrumb">
         <li>首页</li>
-        <li>学生信息</li>
-        <li class="active">基本信息</li>
+        <li>成绩管理</li>
+        <li class="active">综合测评</li>
     </ol>
 
     <div class="form-group">
@@ -72,36 +72,36 @@
         department();
         grade();
 
-    })
+    });
 
 
 
-    $("#departmentId2").change(function () {
-        $("#majorId2").empty();
-        $("#majorId2").append("<option value=''>--请选择专业--</option>");
-
-        $("#clazzId2").empty();
-        $("#clazzId2").append("<option value=''>--请选择班级--</option>");
-
-        major();
-
-        reLoad();
-    })
-
-
-    $("#majorId2").change(function () {
-        $("#clazzId2").empty();
-        $("#clazzId2").append("<option value=''>--请选择班级--</option>");
-
-        clazz();
-
-        reLoad();
-    })
-
-
-    $("#clazz2").change(function () {
-        reLoad();
-    })
+    // $("#departmentId2").change(function () {
+    //     $("#majorId2").empty();
+    //     $("#majorId2").append("<option value=''>--请选择专业--</option>");
+    //
+    //     $("#clazzId2").empty();
+    //     $("#clazzId2").append("<option value=''>--请选择班级--</option>");
+    //
+    //     major();
+    //
+    //     reLoad();
+    // })
+    //
+    //
+    // $("#majorId2").change(function () {
+    //     $("#clazzId2").empty();
+    //     $("#clazzId2").append("<option value=''>--请选择班级--</option>");
+    //
+    //     clazz();
+    //
+    //     reLoad();
+    // })
+    //
+    //
+    // $("#clazz2").change(function () {
+    //     reLoad();
+    // })
 
 
     function load() {
@@ -222,11 +222,12 @@
                         field: 'id',
                         align: 'center',
                         formatter: function (value, row, index) {
+                            var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
                             var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
                                 + row.id
                                 + '\')">删除</a> ';
 
-                            return d;
+                            return e+d;
                         }
                     }]
             });

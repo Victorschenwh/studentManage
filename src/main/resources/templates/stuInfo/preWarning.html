@@ -64,7 +64,7 @@
         department();
         grade();
         load()
-    })
+    });
 
 
     function load() {
@@ -211,13 +211,41 @@
                         field: 'warngrade',
                         title: '预警等级',
                         align: 'center',
+                    },
+                    {
+                        title: '操作',
+                        field: 'id',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
+                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\'' + row.id + '\')">删除</a> ';
+
+                            return e+d;
+                        }
                     }]
 
             });
     }
 
     function reLoad() {
-        $('#table_family').bootstrapTable('refresh');
+        $('#table_warning').bootstrapTable('refresh');
+    }
+
+    function remove(id) {
+        $.ajax({
+            type: 'POST',
+            data: {},
+            url: "/student/remove/" + id,
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1) {
+                    reLoad()
+                    //alert("删除成功");
+                } else {
+                    alert("删除失败");
+                }
+            }
+        });
     }
 </script>
 </html>

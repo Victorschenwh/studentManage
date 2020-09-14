@@ -6,8 +6,8 @@
 
     <ol class="breadcrumb">
         <li>首页</li>
-        <li>学生信息</li>
-        <li class="active">基本信息</li>
+        <li>成绩管理</li>
+        <li class="active">绩点排名</li>
     </ol>
 
     <div class="form-group">
@@ -72,36 +72,36 @@
         department();
         grade();
 
-    })
+    });
 
 
 
-    $("#departmentId2").change(function () {
-        $("#majorId2").empty();
-        $("#majorId2").append("<option value=''>--请选择专业--</option>");
-
-        $("#clazzId2").empty();
-        $("#clazzId2").append("<option value=''>--请选择班级--</option>");
-
-        major();
-
-        reLoad();
-    })
-
-
-    $("#majorId2").change(function () {
-        $("#clazzId2").empty();
-        $("#clazzId2").append("<option value=''>--请选择班级--</option>");
-
-        clazz();
-
-        reLoad();
-    })
-
-
-    $("#clazz2").change(function () {
-        reLoad();
-    })
+    // $("#departmentId2").change(function () {
+    //     $("#majorId2").empty();
+    //     $("#majorId2").append("<option value=''>--请选择专业--</option>");
+    //
+    //     $("#clazzId2").empty();
+    //     $("#clazzId2").append("<option value=''>--请选择班级--</option>");
+    //
+    //     major();
+    //
+    //     reLoad();
+    // })
+    //
+    //
+    // $("#majorId2").change(function () {
+    //     $("#clazzId2").empty();
+    //     $("#clazzId2").append("<option value=''>--请选择班级--</option>");
+    //
+    //     clazz();
+    //
+    //     reLoad();
+    // })
+    //
+    //
+    // $("#clazz2").change(function () {
+    //     reLoad();
+    // })
 
 
     function load() {
