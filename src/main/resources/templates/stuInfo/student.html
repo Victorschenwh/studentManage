@@ -165,7 +165,7 @@
                         <button type="button" class="btn btn-default"
                                 data-dismiss="modal">关闭
                         </button>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" >
                             确定
                         </button>
                     </div>
@@ -179,106 +179,14 @@
 <div th:replace="static :: script"></div>
 </body>
 <script src="/js/select.js"></script>
+<script src="/js/smallSelect.js"></script>
 
 <script>
     $(document).ready(function () {
         department();
         grade();
-        load()
-    })
-
-
-    //获取学院数据
-    function department2() {
-        $.ajax({
-            //cache: true,
-            type: "POST",
-            url: "/department/getAll",
-            data: {},
-            success: function (data) {
-                if (data.code == 1) {
-                    var list = [];
-                    list = list.concat(data.data);
-                    $("#departmentId2").each(function () {
-                        //$(this).text()
-                        for (var i = 0; i < list.length; i++) {
-                            var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
-                            $(this).append(option);
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-
-    //获取专业数据
-    $.ajax({
-        //cache: true,
-        type: "POST",
-        url: "/major/" + $("#departmentId2").val(),
-        data: {},
-        success: function (data) {
-            if (data.code == 1) {
-                var list = [];
-                list = list.concat(data.data);
-                $("#majorId2").each(function () {
-                    //$(this).text()
-                    for (var i = 0; i < list.length; i++) {
-                        var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
-                        $(this).append(option);
-                    }
-                });
-            }
-        }
-    });
-
-    //获取班级数据
-    $.ajax({
-        //cache: true,
-        type: "POST",
-        url: "/clazz/?departmentId=" + $("#departmentId2").val() + "&majorId=" + $("#majorId2").val(),
-        data: {},
-        success: function (data) {
-            if (data.code == 1) {
-                var list = [];
-                list = list.concat(data.data);
-                $("#clazzId2").each(function () {
-                    //$(this).text()
-                    for (var i = 0; i < list.length; i++) {
-                        var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
-                        $(this).append(option);
-                    }
-                });
-            }
-        }
-    });
-
-    $("#departmentId2").change(function () {
-        $("#majorId2").empty();
-        $("#majorId2").append("<option value=''>--请选择专业--</option>");
-
-        $("#clazzId2").empty();
-        $("#clazzId2").append("<option value=''>--请选择班级--</option>");
-
-        major();
-
-        reLoad()
-    })
-
-
-    $("#majorId2").change(function () {
-        $("#clazzId2").empty();
-        $("#clazzId2").append("<option value=''>--请选择班级--</option>");
-
-        clazz();
-
-        reLoad();
-    })
-
-
-    $("#clazz2").change(function () {
-        reLoad()
+        load();
+        s(2);
     })
 
 
@@ -345,6 +253,25 @@
                 }, {
                     field: 'departmentId',
                     title: '学院',
+                    formatter: function (value, row, index) {
+                        var department = {};
+                        if (value != null) {
+                            $.ajax({
+                                //cache: true,
+                                async: false,
+                                type: "POST",
+                                url: "/department/get/" + value,
+                                dataType: "json",
+                                data: {},
+                                success: function (data) {
+                                    if (data.code == 1) {
+                                        department = data.data;
+                                    }
+                                }
+                            });
+                        }
+                        return department != null ? department.name : "";
+                    }
 
                 }, {
                     field: 'majorId',

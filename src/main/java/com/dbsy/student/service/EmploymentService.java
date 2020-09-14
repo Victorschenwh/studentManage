@@ -27,5 +27,7 @@ public interface EmploymentService {
 
     int batchRemove(int[] ids);
 
+    int update(Employment employment);
+
 
 }
