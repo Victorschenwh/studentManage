@@ -21,7 +21,19 @@ public interface ScoreMapper {
 
     int listCount(Map map);
 
+    int listCountSelf(Map map);
+
+    int listCountRank(Map map);
+
+
+    List<Map> listRank(Map map);
+
+
     List<Score> list(Map map);
+
+    List<Map> listScore(Map map);
+
+
 
     @Select("select * from score where id = #{id}")
     Score get(int id);

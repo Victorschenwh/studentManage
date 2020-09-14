@@ -133,17 +133,21 @@
                     align: 'center',
                     formatter: function (value, row, index) {
                         var department = {};
-                        $.ajax({
-                            url: "/department/get/" + value,
-                            async: false,
-                            type: "GET",
-                            success: function (res) {
-                                if (res.code == 1) {
-                                    department = res.data
+                        if(value != null){
+                            $.ajax({
+                                url: "/department/get/" + value,
+                                async: false,
+                                type: "GET",
+                                success: function (res) {
+                                    if (res.code == 1) {
+                                        department = res.data
+                                    }
                                 }
-                            }
-                        })
+                            })
+
+                        }
                         return department != null ? department.name : "";
+
                     }
                 },
                     {
@@ -152,16 +156,19 @@
                         align: 'center',
                         formatter: function (value, row, index) {
                             var major = {};
-                            $.ajax({
-                                url: "/major/get/" + value,
-                                async: false,
-                                type: "GET",
-                                success: function (res) {
-                                    if (res.code == 1) {
-                                        major = res.data
+                            if(value != null){
+                                $.ajax({
+                                    url: "/major/get/" + value,
+                                    async: false,
+                                    type: "GET",
+                                    success: function (res) {
+                                        if (res.code == 1) {
+                                            major = res.data
+                                        }
                                     }
-                                }
-                            })
+                                })
+
+                            }
                             return major != null ? major.name : "";
                         }
                     }
@@ -174,16 +181,19 @@
                         //value:代表当前单元格中的值，row：代表当前行,index:代表当前行的下标,使用return 返回你想要的数据显示在单元格中;
                         formatter: function (value, row, index) {
                             var clazz = {};
-                            $.ajax({
-                                url: "/clazz/get/" + value,
-                                async: false,
-                                type: "GET",
-                                success: function (res) {
-                                    if (res.code == 1) {
-                                        clazz = res.data
+                            if(value != null){
+                                $.ajax({
+                                    url: "/clazz/get/" + value,
+                                    async: false,
+                                    type: "GET",
+                                    success: function (res) {
+                                        if (res.code == 1) {
+                                            clazz = res.data
+                                        }
                                     }
-                                }
-                            })
+                                })
+                            }
+
                             return clazz != null ? clazz.name : "";
                         }
                     },

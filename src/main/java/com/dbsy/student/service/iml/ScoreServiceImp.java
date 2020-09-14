@@ -56,8 +56,38 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
     }
 
     @Override
+    public int listCountSelf(Map map) {
+        return this.scoreMapper.listCountSelf(map);
+    }
+
+    @Override
+    public int listCountRank(Map map) {
+        return this.scoreMapper.listCountRank(map);
+    }
+
+    @Override
     public List<Score> list(Map map) {
         return scoreMapper.list(map);
+    }
+
+    @Override
+    public List<Map> listScore(Map map) {
+
+        int page = Integer.parseInt(map.get("page") + "");
+        int pageSize = Integer.parseInt(map.get("pageSize") + "");
+        map.put("start", (page - 1) * pageSize);
+        map.put("end", pageSize);
+        return scoreMapper.listScore(map);
+    }
+
+    @Override
+    public List<Map> listRank(Map map) {
+
+        int page = Integer.parseInt(map.get("page") + "");
+        int pageSize = Integer.parseInt(map.get("pageSize") + "");
+        map.put("start", (page - 1) * pageSize);
+        map.put("end", pageSize);
+        return scoreMapper.listRank(map);
     }
 
     @Override

@@ -21,8 +21,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/preWarning")
-@Authority({Role.Admin})
-public class preWarningController {
+public class PreWarningController {
 
 //    @Autowired
 //    @Qualifier("clazzServiceImp")
@@ -32,7 +31,6 @@ public class preWarningController {
     @Qualifier("studentServiceImp")
     StudentService studentService;
 
-    @Authority({Role.Teacher})
     @RequestMapping("")
     public String preWarning() {
         return "stuInfo/preWarning";
