@@ -8,6 +8,7 @@ import com.dbsy.student.excel.DepartmentNameToIdConverter;
 import com.dbsy.student.excel.MajorNameToIdConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -33,9 +34,12 @@ public class Student {
     private String photo;
     @ExcelProperty("入学日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date admissionDate;
+
     @ExcelProperty("出生日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     @ExcelIgnore
     private String password;

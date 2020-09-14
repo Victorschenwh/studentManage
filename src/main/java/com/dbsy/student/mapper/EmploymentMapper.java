@@ -5,6 +5,7 @@ import com.dbsy.student.pojo.Student;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -31,4 +32,7 @@ public interface EmploymentMapper {
     int delete(int id);
 
     int batchRemove(int[] ids);
+
+    @Update("update employment set student_id=#{studentId},is_sign=#{isSign},phone_number=#{phoneNumber},remarks=#{remarks}  where id=#{id}")
+    int update(Employment employment);
 }

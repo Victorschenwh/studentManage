@@ -41,10 +41,6 @@
                 <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
             </button>
 
-            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加
-            </button>
-
             <input type="text" id="search_key" placeholder="请输入关键字"/>
 
         </div>
@@ -55,105 +51,42 @@
     </table>
 
     <!--模态框-->
-    <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form class="form-horizontal" id="insert">
+                <form class="form-horizontal" id="update">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"
                                 aria-hidden="true">×
                         </button>
-                        <h4 class="modal-title">
-                            增加
+                        <h4 class="modal-title" id="myModalLabel">
+                            修改
                         </h4>
                     </div>
                     <div class="modal-body">
 
+                        <input id="id" name="id" class="hidden">
+
+
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">学号：</label>
                             <div class="col-sm-8">
-                                <input name="number" class="form-control" type="text" required>
+                                <input id="studentId" name="studentId" class="hidden" type="text" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">姓名：</label>
+                            <label class="col-sm-3 control-label">奖惩记录：</label>
                             <div class="col-sm-8">
-                                <input name="name" class="form-control" type="text" required>
+                                <input id="synopsis" name="synopsis" class="form-control" type="text" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">民族：</label>
+                            <label class="col-sm-3 control-label">类型：</label>
                             <div class="col-sm-8">
-                                <input name="nation" class="form-control" type="text" required>
+                                <input id="type" name="type" class="form-control" type="text" required>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">身份证号：</label>
-                            <div class="col-sm-8">
-                                <input name="clazzId" class="form-control" type="text" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">所属院系：</label>
-                            <div class="col-sm-8">
-                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="departmentId" class="form-control" required>
-                                    <option value="">
-                                        --请选择--
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">所属专业：</label>
-                            <div class="col-sm-8">
-                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="majorId" class="form-control" required>
-                                    <option value="">
-                                        --请选择--
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">所属班级：</label>
-                            <div class="col-sm-8">
-                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="clazzId" class="form-control" required>
-                                    <option value="">
-                                        --请选择--
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">入学年份：</label>
-                            <div class="col-sm-8">
-                                <input name="admissionDate" class="form-control" type="text">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">家庭住址：</label>
-                            <div class="col-sm-8">
-                                <input name="address" class="form-control" type="text">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">联系电话：</label>
-                            <div class="col-sm-8">
-                                <input name="phoneNumber" class="form-control" type="text">
-                            </div>
-                        </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default"
@@ -169,80 +102,33 @@
     </div><!-- /.modal -->
 
 
-
-
 </div>
 <div th:replace="static :: script"></div>
 </body>
 <script src="/js/select.js"></script>
+<script src="/js/smallSelect.js"></script>
 
 <script>
     $(document).ready(function () {
         department();
         grade();
-        load()
+        load();
+        s(1);
     })
 
-    //获取学院数据
-    $.ajax({
-        //cache: true,
-        type: "POST",
-        url: "/department/getAll",
-        data: {},
-        success: function (data) {
-            if (data.code == 1) {
-                var list = [];
-                list = list.concat(data.data);
-                $("select[name='departmentId']").each(function () {
-                    //$(this).text()
-                    for (var i = 0; i < list.length; i++) {
-                        var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
-                        $(this).append(option);
-                    }
-                });
-            }
+    $("#update").validate({
+        rules: {},
+        messages: {},
+        submitHandler: function (form) {
+            update();
         }
     });
 
-    //获取专业数据
-    $.ajax({
-        //cache: true,
-        type: "POST",
-        url: "/major/getAll",
-        data: {},
-        success: function (data) {
-            if (data.code == 1) {
-                var list = [];
-                list = list.concat(data.data);
-                $("select[name='majorId']").each(function () {
-                    //$(this).text()
-                    for (var i = 0; i < list.length; i++) {
-                        var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
-                        $(this).append(option);
-                    }
-                });
-            }
-        }
-    });
-
-    //获取班级数据
-    $.ajax({
-        //cache: true,
-        type: "POST",
-        url: "/clazz/getAll",
-        data: {},
-        success: function (data) {
-            if (data.code == 1) {
-                var list = [];
-                list = list.concat(data.data);
-                $("select[name='clazzId']").each(function () {
-                    //$(this).text()
-                    for (var i = 0; i < list.length; i++) {
-                        var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";
-                        $(this).append(option);
-                    }
-                });
-            }
+    $("#insert").validate({
+        rules: {},
+        messages: {},
+        submitHandler: function (form) {
+            insert();
         }
     });
 
@@ -292,9 +178,6 @@
                 columns: [{
                     checkbox: true,
                     visible: true                  //是否显示复选框
-                }, {
-                    field: 'id',
-                    title: '序号',
                 }, {
                     field: 'number',
                     title: '学号',
@@ -379,11 +262,12 @@
                         field: 'id',
                         align: 'center',
                         formatter: function (value, row, index) {
+                            var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
                             var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
                                 + row.id
                                 + '\')">删除</a> ';
 
-                            return d;
+                            return e + d;
                         }
                     }]
             });
@@ -408,7 +292,25 @@
                 }
             }
         });
+    }
 
+    function update() {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/reward/update",
+            data: $('#update').serialize(),
+            success: function (data) {
+                if (data.code == 1) {
+                    //操作成功，关闭模态框
+                    $('#edit').modal('hide');
+                    reLoad();
+                    //alert("修改成功");
+                } else {
+                    alert("修改失败");
+                }
+            }
+        });
     }
 
 

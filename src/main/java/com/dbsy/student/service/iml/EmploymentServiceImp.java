@@ -66,6 +66,11 @@ public class EmploymentServiceImp implements EmploymentService, ExcelSave {
     }
 
     @Override
+    public int update(Employment employment) {
+        return employmentMapper.update(employment);
+    }
+
+    @Override
     public int excelBatchInsert(List list) {
         return employmentMapper.batchInsert(list);
     }

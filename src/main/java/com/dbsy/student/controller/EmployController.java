@@ -1,6 +1,7 @@
 package com.dbsy.student.controller;
 
 import com.dbsy.student.pojo.Employment;
+
 import com.dbsy.student.pojo.Student;
 import com.dbsy.student.service.EmploymentService;
 import com.dbsy.student.util.News;
@@ -65,6 +66,15 @@ public class EmployController {
     @RequestMapping("/insert")
     public Map insert(Employment employment) {
         if (employmentService.insert(employment) > 0) {
+            return News.success();
+        }
+        return News.fail("添加失败");
+    }
+
+    @ResponseBody
+    @RequestMapping("/update")
+    public Map update(Employment employment) {
+        if (employmentService.update(employment) > 0) {
             return News.success();
         }
         return News.fail("添加失败");
