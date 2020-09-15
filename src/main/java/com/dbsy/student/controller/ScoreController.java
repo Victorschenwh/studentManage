@@ -27,7 +27,7 @@ public class ScoreController {
  //   @Authority({Role.Teacher})
     @RequestMapping("")
     public String score() {
-        return "baseInfo/score";
+        return "scoinfo/score";
     }
 
 
