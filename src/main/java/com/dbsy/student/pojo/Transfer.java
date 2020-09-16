@@ -6,6 +6,8 @@ import com.dbsy.student.excel.ClazzNameToIdConverter;
 import com.dbsy.student.excel.DepartmentNameToIdConverter;
 import com.dbsy.student.excel.MajorNameToIdConverter;
 import com.dbsy.student.excel.StudentNumberToIdConverter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -38,9 +40,13 @@ public class Transfer {
     private Boolean isPass;
 
     @ExcelProperty("转出日期")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date oldOutDate;
 
     @ExcelProperty("转入日期")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date newInDate;
 
     public Transfer(Integer id, Integer studentId, Integer oldDepartmentId, Integer oldMajorId, Integer oldClazzId, Integer newDepartmentId, Integer newMajorId, Integer newClazzId, Boolean isPass, Date oldOutDate, Date newInDate) {

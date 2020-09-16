@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -205,10 +206,17 @@ public class TransferController {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
+
+    /**
+     * 审批
+     * @param transfer
+     * @return
+     */
     @ResponseBody
-    @RequestMapping("/updateSelective")
+    @RequestMapping("/examine")
     Map updateSelective(Transfer transfer) {
-        log.info(transfer.toString());
+        //log.info(transfer.toString());
+        transfer.setNewInDate(new Date());
         int i = transferService.updateSelective(transfer);
         if (i > 0) News.success();
         return News.fail();

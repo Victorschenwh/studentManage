@@ -90,15 +90,17 @@ public class TransferServiceImp implements TransferService, ExcelSave {
         map.put("oldMajorId", majorMapper.get(transfer.getOldMajorId()).getName());
         map.put("id", transfer.getId());
         map.put("studentId", studentMapper.get(transfer.getStudentId()).getName());
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         if (transfer.getOldOutDate() != null)
             map.put("oldOutDate", simpleDateFormat.format(transfer.getOldOutDate()));
         if (transfer.getNewInDate() != null)
             map.put("newInDate", simpleDateFormat.format(transfer.getNewInDate()));
+
         Map map2 = new HashMap();
         map2.put("departmentId", transfer.getNewDepartmentId());
         map2.put("majorId", transfer.getNewMajorId());
-        map.put("newClazzId", clazzMapper.getByFOREIGN_KEY(map2));
+        map.put("newClazzId", transfer.getNewClazzId());
 
         return map;
     }
