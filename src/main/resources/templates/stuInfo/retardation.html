@@ -48,14 +48,28 @@
             </button>
 
             <input type="text" id="search_key" placeholder="请输入关键字"/>
+
+            <button type="button" class="btn btn-primary" onclick="isPass=null;reLoad()">
+                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>未处理
+            </button>
+
+            <button type="button" class="btn btn-primary" onclick="isPass=true;reLoad();">
+                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>已同意
+            </button>
+
+            <button type="button" class="btn btn-primary" onclick="isPass=false;reLoad();">
+                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>已拒绝
+            </button>
+
         </div>
     </div>
+
 
     <table id="table_retardation" data-mobile-responsive="true">
     </table>
 
     <!--模态框-->
-    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form class="form-horizontal" id="update">
@@ -151,15 +165,38 @@
                         </button>
                     </div>
                 </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
 </div>
 <div th:replace="static :: script"></div>
 </body>
 <script src="/js/select.js"></script>
 
 <script>
+
+    var isPass = null;
+
+    function yesOrNo(isPass) {
+        let id = $("#id").val()
+        $.ajax({
+            //cache: true,
+            async: false,
+            type: "POST",
+            url: "/retardation/updateSelective/",
+            dataType: "json",
+            data: {"id": id, "isPass": isPass},
+            success: function (res) {
+                if (res.code == 1) {
+                    //操作成功，关闭模态框
+                    $('#message').modal('hide');
+                    reLoad();
+                } else {
+                    alert("修改失败");
+                }
+            }
+        });
+    }
 
     $(document).ready(function () {
         department();
@@ -375,8 +412,13 @@
                         align: 'center',
                     }, {
                         field: 'is_pass',
-                        title: '留级期间是否达到要求',
-                        align: 'center',
+                        title: '审批进度',
+                        formatter: function (value, row, index) {
+                            if (value == null) {
+                                return "<button onclick=get(" + row.id + ") data-toggle=\"modal\" data-target=\"#message\">等待审批</button>";
+                            }
+                            return value ? "同意留级" : "拒绝留级";
+                        }
                     }, {
                         field: 'result',
                         title: '留级结果',
@@ -406,16 +448,27 @@
         $('#table_retardation').bootstrapTable('refresh');
     }
     function get(id) {
+        console.log("id" + id)
         $.ajax({
             //cache: true,
             type: "POST",
-            url: "/score/get/" + id,
+            url: "/retardation/getOpposite/" + id,
             data: {},
-            success: function (data) {
-                if (data.code == 1) {
-                    var score = data.data;
-                    for (var key  in score) {
-                        $("#" + key).val(score[key]);
+            success: function (res) {
+                if (res.code == 1) {
+
+                    console.log(res.data)
+                    let retardation = res.data;
+                    for (let key in retardation) {
+                        if (key != "newClazzId")
+                            $("#" + key).val(retardation[key]);
+
+                        else {
+                            let clazzes = retardation[key];
+                            clazzes.forEach(function (element) {
+                                $("#newClazzId").append("<option value='" + element.id + "'>" + element.name + "</option>")
+                            })
+                        }
                     }
                 }
             }
@@ -427,7 +480,7 @@
         $.ajax({
             //cache: true,
             type: "POST",
-            url: "/score/update",
+            url: "/retardation/update",
             data: $('#update').serialize(),
             success: function (data) {
                 if (data.code == 1) {
@@ -447,7 +500,7 @@
         $.ajax({
             //cache: true,
             type: "POST",
-            url: "/score/insert",
+            url: "/retardation/insert",
             data: $('#insert').serialize(),
             success: function (data) {
                 console.log(data)
@@ -467,7 +520,7 @@
         $.ajax({
             type: 'POST',
             data: {},
-            url: "/score/remove/" + id,
+            url: "/retardation/remove/" + id,
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
@@ -481,7 +534,7 @@
     }
 
     function batchRemove() {
-        var rows = $('#table_score').bootstrapTable('getSelections');
+        var rows = $('#table_retardation').bootstrapTable('getSelections');
         if (rows == null) {
             alert("请选中操作的行")
             return;
@@ -497,7 +550,7 @@
             data: {
                 ids: ids
             },
-            url: "/score/batchRemove",
+            url: "/retardation/batchRemove",
             traditional: true,//向后台传递数组时加上
             dataType: "json",
             success: function (data) {
@@ -510,6 +563,5 @@
             }
         });
     }
-
 </script>
 </html>

@@ -1,6 +1,7 @@
 package com.dbsy.student.mapper;
 
 import com.dbsy.student.pojo.Retardation;
+import com.dbsy.student.pojo.Transfer;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -54,4 +55,6 @@ public interface RetardationMapper {
 
     @Select("select * from retardation where new_clazz_id=#{newClazzId}")
     List<Retardation> getRetardationByNewClazzId(int newClazzId);
+
+    int updateSelective(Retardation retardation);
 }

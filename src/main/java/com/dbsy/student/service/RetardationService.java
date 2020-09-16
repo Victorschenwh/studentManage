@@ -1,6 +1,7 @@
 package com.dbsy.student.service;
 
 import com.dbsy.student.pojo.Retardation;
+import com.dbsy.student.pojo.Transfer;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,8 @@ public interface RetardationService {
     List<Map> list(Map map);
 
     Retardation get(int id);
+
+    Map getOpposite(int id);
 
     int delete(int id);
 
@@ -40,4 +43,6 @@ public interface RetardationService {
     List<Retardation> getRetardationByNewMajorId(int newMajorId);
 
     List<Retardation> getRetardationByNewClazzId(int newClazzId);
+
+    int updateSelective(Retardation retardation);
 }
