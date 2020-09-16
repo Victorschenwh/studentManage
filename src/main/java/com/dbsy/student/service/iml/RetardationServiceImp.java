@@ -91,15 +91,16 @@ public class RetardationServiceImp implements RetardationService, ExcelSave {
         map.put("oldMajorId", majorMapper.get(retardation.getOldMajorId()).getName());
         map.put("id", retardation.getId());
         map.put("studentId", studentMapper.get(retardation.getStudentId()).getName());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if (retardation.getOldOutDate() != null)
-            map.put("oldOutDate", simpleDateFormat.format(retardation.getOldOutDate()));
-        if (retardation.getNewInDate() != null)
-            map.put("newInDate", simpleDateFormat.format(retardation.getNewInDate()));
-        Map map2 = new HashMap();
-        map2.put("departmentId", retardation.getNewDepartmentId());
-        map2.put("majorId", retardation.getNewMajorId());
-        map.put("newClazzId", clazzMapper.getByFOREIGN_KEY(map2));
+
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        if (retardation.getOldOutDate() != null)
+//            map.put("oldOutDate", simpleDateFormat.format(retardation.getOldOutDate()));
+//        if (retardation.getNewInDate() != null)
+//            map.put("newInDate", simpleDateFormat.format(retardation.getNewInDate()));
+//        Map map2 = new HashMap();
+//        map2.put("departmentId", retardation.getNewDepartmentId());
+//        map2.put("majorId", retardation.getNewMajorId());
+//        map.put("newClazzId", clazzMapper.getByFOREIGN_KEY(map2));
 
         return map;
     }
