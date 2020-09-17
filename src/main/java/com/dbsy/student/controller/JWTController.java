@@ -9,6 +9,7 @@ import com.dbsy.student.util.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -91,4 +92,5 @@ public class JWTController {
         List<Reward> rewards = rewardService.getRewardByStudentId(studentId);
         return rewards != null && rewards.size() > 0 ? News.success("ok", rewards) : News.fail();
     }
+
 }

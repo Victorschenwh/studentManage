@@ -15,7 +15,7 @@
     <insert id="insert" parameterType="com.dbsy.student.pojo.Admin">
     insert into admin (id, username, password, 
       nickname, phone_number, email, 
-      is_lock,foreign_id,role,departmentId)
+      is_lock,foreign_id,role,department_id)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{nickname,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{isLock,jdbcType=BIT},#{foreignId},#{role},#{departmentId})

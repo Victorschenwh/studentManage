@@ -2,7 +2,9 @@ package com.dbsy.student.controller;
 
 import com.dbsy.student.annotation.Authority;
 import com.dbsy.student.myenum.Role;
+import com.dbsy.student.pojo.Admin;
 import com.dbsy.student.pojo.Transfer;
+import com.dbsy.student.service.DepartmentService;
 import com.dbsy.student.service.TransferService;
 import com.dbsy.student.util.News;
 import org.slf4j.Logger;
@@ -10,11 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,11 +31,17 @@ public class TransferController {
     @Autowired
     @Qualifier("transferServiceImp")
     TransferService transferService;
+    @Autowired
+    DepartmentService departmentService;
 
     //    @Authority({Role.Teacher})
     @RequestMapping("")
-    public String transfer() {
-        return "stuInfo/transfer";
+    public String transfer(Model model, HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("user");
+        if (admin.getRole() == 0)
+            return "stuInfo/leaderTransfer";
+        else
+            return "stuInfo/transfer";
     }
 
 
@@ -39,23 +49,10 @@ public class TransferController {
     @RequestMapping("/list")
     @ResponseBody
     public Map list(@RequestParam Map map) {
-        // log.info(map.toString());
-        String isPass = map.get("isPass") + "";
-        if ("".equals(isPass)) {
-            map.remove("isPass");
-        }
-        if ("true".equals(isPass)) {
-            map.put("isPass", true);
-        }
-        if ("false".equals(isPass)) {
-            map.put("isPass", false);
-        }
-
         Map m = new HashMap();
         m.put("total", transferService.listCount(map));
         m.put("rows", transferService.list(map));
 
-        log.info(m.toString());
         return m;
     }
 
@@ -209,6 +206,7 @@ public class TransferController {
 
     /**
      * 审批
+     *
      * @param transfer
      * @return
      */

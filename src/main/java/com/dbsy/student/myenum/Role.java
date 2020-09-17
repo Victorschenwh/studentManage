@@ -2,7 +2,7 @@ package com.dbsy.student.myenum;
 
 public enum Role {
     User(),
-    Teacher(1),//1 2 3 4
+    Teacher(1),
     Admin(0),
     Student(5);
     private Integer role;

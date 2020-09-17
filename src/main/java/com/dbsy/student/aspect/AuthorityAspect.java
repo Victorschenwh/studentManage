@@ -2,6 +2,7 @@ package com.dbsy.student.aspect;
 
 import com.dbsy.student.annotation.Authority;
 import com.dbsy.student.myenum.Role;
+import com.dbsy.student.pojo.Admin;
 import com.dbsy.student.util.JWTUtils;
 import com.dbsy.student.util.News;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -31,10 +32,6 @@ public class AuthorityAspect {
         HttpServletRequest request = attributes.getRequest();
         HttpServletResponse response = attributes.getResponse();
 
-        if (request.getSession().getAttribute(Role.Admin.toString()) != null) {
-            return pJoinPoint.proceed();
-        }
-
         List<Role> roleList = new ArrayList<>();
         Map map = new HashMap();
 
@@ -56,30 +53,34 @@ public class AuthorityAspect {
         }
 
         if (roleList.size() > 0) {
-            for (Role role : roleList) {
+            Admin admin = (Admin) request.getSession().getAttribute("user");
+            if (admin != null) {
+                for (Role role : roleList) {
+                    //学生访问
+                    if (role.getRole() == Role.Student.getRole()) {
+                        String token = request.getParameter("token");
+                        if (JWTUtils.checkToken(token)) {
+                            return pJoinPoint.proceed();
+                        } else {
+                            return News.fail(-2, "请先登录");
+                        }
+                    }
 
-                //学生访问
-                if (role.getRole() == Role.Student.getRole()) {
-                    String token = request.getParameter("token");
-                    if (JWTUtils.checkToken(token)) {
+
+                    if (admin.getRole() == role.getRole()) {
                         return pJoinPoint.proceed();
-                    } else {
-                        return News.fail(-2, "请先登录");
                     }
                 }
 
-
-                if (request.getSession().getAttribute(role.toString()) != null) {
-                    return pJoinPoint.proceed();
-                }
             }
-            //log.info(method.getReturnType().toString());
+
+
             if (method.getReturnType().toString().equals("class java.lang.String")) {
                 response.sendRedirect("/");
                 return null;
             }
             //一个角色的登录状态都不存在,拒绝访问
-            map.put("code", -1);
+            map.put("code", -2);
             map.put("msg", "权限不足");
             return map;
         }

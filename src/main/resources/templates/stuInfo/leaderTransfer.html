@@ -18,9 +18,6 @@
             <button type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
             </button>
-            <button type="button" class="btn btn-primary">
-                开始申请
-            </button>
         </div>
 
         <div class="form-group col-md-2">
@@ -34,10 +31,6 @@
         <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a onclick="state='待审核';reLoad();" href="#">待审核</a></li>
             <li role="presentation"><a onclick="state='已审核';reLoad();" href="#">已审核</a></li>
-            <li role="presentation">
-                <a onclick="state='我的申请';reLoad()"
-                   href="#">我的申请</a>
-            </li>
         </ul>
     </div>
 
@@ -45,12 +38,13 @@
     </table>
 
     <!--模态框-->
-    <div class="modal fade" id="check" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
+    <div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">message
         <div class="modal-dialog">
             <div class="modal-content">
                 <form class="form-horizontal">
                     <div class="modal-header">
+
                         <button type="button" class="close" data-dismiss="modal"
                                 aria-hidden="true">×
                         </button>
@@ -58,15 +52,16 @@
                             转专业审批
                         </h4>
                     </div>
-                    <div class="modal-body">
 
-                    </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="yesOrNo(false)">
-                            拒绝
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
                         </button>
                         <button type="button" class="btn btn-primary" onclick="yesOrNo(true)">
-                            同意
+                            同意转入/转出
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="yesOrNo(false)">
+                            拒绝转入/转出
                         </button>
                     </div>
                 </form>
@@ -203,15 +198,16 @@
             success: function (res) {
                 if (res.code == 1) {
                     //操作成功，关闭模态框
-                    $('#check').modal('hide');
+                    $('#message').modal('hide');
                     reLoad();
                 } else {
                     // alert("修改失败");
-                    $('#check').modal('hide');
+                    $('#message').modal('hide');
                 }
             }
         });
     }
+
 
     $(document).ready(function () {
         load();
@@ -237,7 +233,7 @@
     function load() {
         $('#table_transfer')
             .bootstrapTable({
-                url: "/transfer/list",              //请求后台的URL（*）
+                url: "/transfer/list",                      //请求后台的URL（*）
                 method: 'GET',                      //请求方式（*）
                 //toolbar: '#toolbar',              //工具按钮用哪个容器
                 striped: true,                      //是否显示行间隔色
@@ -248,7 +244,7 @@
                 sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
                 pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
                 pageSize: 10,                     //每页的记录行数（*）
-                pageList: [10, 20, 30],        //可供选择的每页的行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
                 search: false,                      //是否显示表格搜索
                 strictSearch: false,
                 showColumns: false,                  //是否显示所有的列（选择显示的列）
@@ -262,13 +258,13 @@
                 detailView: false,                  //是否显示父子表
                 //得到查询的参数
                 queryParams: function (params) {
+                    //console.log("list:" + params)
                     //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
                     return {
                         pageSize: params.limit,                         //页面大小
                         page: (params.offset / params.limit) + 1,   //页码
                         //sort: params.sort,      //排序列名
                         //sortOrder: params.order //排位命令（desc，asc）
-                        department: [[${session.user.departmentId == null ? 'null' : session.user.departmentId}]],
                         search_key: $("#search_key").val(),
                         state: state,
                     };
@@ -279,20 +275,12 @@
                 }, {
                     field: 'number',
                     title: '学号',
-                    align: 'center',
-
-                }, {
-                    field: 'grade',
-                    title: '年级',
-                    align: 'center',
 
                 }, {
                     field: 'name',
-                    title: '姓名',
-                    align: 'center',
+                    title: '姓名'
                 }, {
                     field: 'old_department_id',
-                    align: 'center',
                     title: '转出学院',
                     formatter: function (value, row, index) {
                         var department = {};
@@ -315,7 +303,6 @@
                     }
                 }, {
                     field: 'old_major_id',
-                    align: 'center',
                     title: '转出专业',
                     formatter: function (value, row, index) {
                         var major = {};
@@ -338,7 +325,6 @@
                     }
                 }, {
                     field: 'old_clazz_id',
-                    align: 'center',
                     title: '转出班级',
                     formatter: function (value, row, index) {
                         var clazz = {};
@@ -361,7 +347,6 @@
                     }
                 }, {
                     field: 'new_department_id',
-                    align: 'center',
                     title: '转入学院',
                     formatter: function (value, row, index) {
                         var department = {};
@@ -384,7 +369,6 @@
                     }
                 }, {
                     field: 'new_major_id',
-                    align: 'center',
                     title: '转入专业',
                     formatter: function (value, row, index) {
                         var major = {};
@@ -407,7 +391,6 @@
                     }
                 }, {
                     field: 'new_clazz_id',
-                    align: 'center',
                     title: '转入班级',
                     formatter: function (value, row, index) {
                         var clazz = {};
@@ -430,37 +413,18 @@
                     }
                 }, {
                     field: 'old_out_date',
-                    align: 'center',
                     title: '转出时间',
                 }, {
                     field: 'new_in_date',
-                    align: 'center',
                     title: '转入时间',
                 }, {
                     field: 'is_pass',
-                    align: 'center',
                     title: '审批进度',
                     formatter: function (value, row, index) {
                         if (value == null) {
                             return "等待审批";
                         }
                         return value ? "同意转入" : "拒绝转入";
-                    }
-                }, {
-                    title: '操作',
-                    field: 'id',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        if (state == "待审核") {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#check" onclick="get(' + row.id + ')">开始审批</a> ';
-                        } else if (state == "已审核") {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
-                        } else if (state == "我的申请" && row.is_pass == null) {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ' +
-                                '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
-                                + row.id
-                                + '\')">删除</a> ';
-                        }
                     }
                 }]
             });

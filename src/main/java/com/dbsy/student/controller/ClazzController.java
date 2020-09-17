@@ -82,7 +82,7 @@ public class ClazzController {
         return News.fail("添加失败");
     }
 
-    @Authority({Role.Teacher})
+    @Authority({Role.Teacher,Role.Student})
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {

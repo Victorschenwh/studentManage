@@ -19,8 +19,21 @@ public class Admin {
 
     private Integer foreignId;
 
-    private Integer department_id;
+    private Integer departmentId;
 
+    public Admin(Integer id, String username, String password, String nickname, String phoneNumber, String email,
+                 Boolean isLock, Integer role, Integer foreignId, Integer departmentId) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.isLock = isLock;
+        this.role = role;
+        this.foreignId = foreignId;
+        this.departmentId = departmentId;
+    }
 
     public Boolean getLock() {
         return isLock;
@@ -42,46 +55,17 @@ public class Admin {
         return foreignId;
     }
 
-    public Admin(Integer id, String username, String password, String nickname, String phoneNumber, String email,
-                 Boolean isLock, Integer role, Integer foreignId, Integer department_id) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.isLock = isLock;
-        this.role = role;
-        this.foreignId = foreignId;
-        this.department_id = department_id;
-    }
 
     public void setForeignId(Integer foreignId) {
         this.foreignId = foreignId;
     }
 
-    public Integer getDepartment_id() {
-        return department_id;
+    public Integer getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartment_id(Integer department_id) {
-        this.department_id = department_id;
-    }
-
-    @Override
-    public String toString() {
-        return "Admin{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", isLock=" + isLock +
-                ", role=" + role +
-                ", foreignId=" + foreignId +
-                ", department_id=" + department_id +
-                '}';
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
     public Admin() {

@@ -73,7 +73,7 @@ public class LoginController {
         if (!admin.getIsLock()) {
             //不是学生登录
             if (admin.getRole() != Role.Student.getRole()) {
-                httpSession.setAttribute(Role.User.setRole(admin.getRole()).toString(), admin);
+                httpSession.setAttribute("user", admin);
                 return News.success();
             }
             //学生登录
@@ -98,7 +98,7 @@ public class LoginController {
             Admin admin = adminService.selectByEmail(email);
             //不是学生登录
             if (admin.getRole() != Role.Student.getRole()) {
-                httpSession.setAttribute(Role.User.setRole(admin.getRole()).toString(), admin);
+                httpSession.setAttribute("user", admin);
                 return News.success();
             }
             //学生登录
