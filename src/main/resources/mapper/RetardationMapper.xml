@@ -107,6 +107,48 @@
         </trim>
     </insert>
 
+    <update id="updateSelective" parameterType="com.dbsy.student.pojo.Retardation">
+        update retardation set
+        <trim suffixOverrides=",">
+
+            <if test="studentId != null">
+                student_id = #{studentId,jdbcType=INTEGER},
+            </if>
+            <if test="oldDepartmentId != null">
+                old_department_id = #{oldDepartmentId,jdbcType=INTEGER},
+            </if>
+            <if test="oldMajorId != null">
+                old_major_id = #{oldMajorId,jdbcType=INTEGER},
+            </if>
+            <if test="oldClazzId != null">
+                old_clazz_id=#{oldClazzId,jdbcType=INTEGER},
+            </if>
+            <if test="newDepartmentId != null">
+                new_department_id=#{newDepartmentId,jdbcType=INTEGER},
+            </if>
+            <if test="newMajorId != null">
+                new_major_id=#{newMajorId,jdbcType=INTEGER},
+            </if>
+            <if test="newClazzId != null">
+                new_clazz_id=#{newClazzId,jdbcType=INTEGER},
+            </if>
+            <if test="isPass != null">
+                is_pass= #{isPass,jdbcType=BIT},
+            </if>
+            <if test="saveDate != null">
+                save_date =#{saveDate,jdbcType=DATE},
+            </if>
+            <if test="result != null">
+                result=#{result,jdbcType=DATE},
+            </if>
+            <if test="remarks != null">
+                remarks=#{remarks,jdbcType=DATE},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+
     <select id="list" resultType="HashMap">
         select r.id as id, s.number as number, r.old_department_id as old_department_id,s.name as s_name,
         s.department_id as departmentId,

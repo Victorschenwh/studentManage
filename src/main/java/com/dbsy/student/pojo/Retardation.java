@@ -6,6 +6,8 @@ import com.dbsy.student.excel.ClazzNameToIdConverter;
 import com.dbsy.student.excel.DepartmentNameToIdConverter;
 import com.dbsy.student.excel.MajorNameToIdConverter;
 import com.dbsy.student.excel.StudentNumberToIdConverter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -35,7 +37,10 @@ public class Retardation {
     private Integer newClazzId;
 
     @ExcelProperty("保存时间")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date saveDate;
+
 
     @ExcelProperty("留级期间是否达到要求(0:否,1:是)")
     private Boolean isPass;

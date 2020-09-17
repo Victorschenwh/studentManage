@@ -209,6 +209,7 @@ public class RetardationController {
     @RequestMapping("/updateSelective")
     Map updateSelective(Retardation retardation) {
         log.info(retardation.toString());
+        retardation.getSaveDate();
         int i = retardationService.updateSelective(retardation);
         if (i > 0) News.success();
         return News.fail();
