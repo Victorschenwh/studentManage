@@ -211,4 +211,34 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="getTransferByStudent " resultType="int">
+        select t.id as id, t.old_department_id as old_department_id ,
+        t.old_major_id as old_major_id,t.old_clazz_id as old_clazz_id,
+        t.new_department_id as new_department_id,t.new_major_id as new_major_id,
+        t.new_clazz_id as new_clazz_id,t.is_pass as is_pass, t.old_out_date as old_out_date,
+        t.new_in_date as new_in_date, s.id as s_id,
+        s.name as name,s.number as number,s.grade as grade
+        from transfer t left join student s on s.id = t.student_id
+        <where>
+            <if test="newDepartmentId != null">
+                and t.new_department_id = #{newDepartmentId}
+            </if>
+            <if test="oldDepartmentId != null">
+                and t.old_department_id = #{oldDepartmentId}
+            </if>
+            <if test="isPass == 'null'">
+                and t.is_pass is null
+            </if>
+            <if test="isPass == '0,1'">
+                and t.is_pass is not null
+            </if>
+            <if test="search_key != null">
+                and s.number like CONCAT('%',#{search_key},'%')
+            </if>
+        </where>
+        <if test="start !=null and pageSize != null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
 </mapper>

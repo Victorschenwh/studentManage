@@ -77,12 +77,13 @@ public class TransferController {
 
     @ResponseBody
     @RequestMapping("/insert")
-    public Map insert(Transfer transfer) {
-        if (transferService.insert(transfer) > 0) {
+    public Map insert(@RequestParam Map map) {
+        if (transferService.insert(map) > 0) {
             return News.success();
         }
         return News.fail("添加失败");
     }
+
 
     @ResponseBody
     @RequestMapping("/update")

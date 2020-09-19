@@ -2,7 +2,9 @@ package com.dbsy.student.service.iml;
 
 import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.*;
+import com.dbsy.student.pojo.Student;
 import com.dbsy.student.pojo.Transfer;
+import com.dbsy.student.service.StudentService;
 import com.dbsy.student.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +36,9 @@ public class TransferServiceImp implements TransferService, ExcelSave {
     @Autowired
     StudentMapper studentMapper;
 
+    @Autowired
+    StudentService studentService;
+
 //    @Autowired
 //    RedisTemplate redisTemplate;
 
@@ -40,6 +46,22 @@ public class TransferServiceImp implements TransferService, ExcelSave {
     @Transactional
     public int insert(Transfer record) {
         return transferMapper.insert(record);
+    }
+
+    @Override
+    @Transactional
+    public int insert(Map map) {
+        String number = map.get("number") + "";
+        Student student = studentService.selectByNumber(number);
+        Transfer transfer = new Transfer();
+        transfer.setOldOutDate(new Date());
+        transfer.setStudentId(student.getId());
+        transfer.setOldDepartmentId(student.getDepartmentId());
+        transfer.setOldMajorId(student.getMajorId());
+        transfer.setOldClazzId(student.getClazzId());
+        transfer.setNewDepartmentId(Integer.parseInt(map.get("departmentId") + ""));
+        transfer.setNewMajorId(Integer.parseInt(map.get("majorId") + ""));
+        return transferMapper.insert(transfer);
     }
 
     @Override

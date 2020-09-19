@@ -18,7 +18,7 @@
             <button type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
             </button>
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#apply">
                 开始申请
             </button>
         </div>
@@ -44,22 +44,154 @@
     <table id="table_transfer" data-mobile-responsive="true">
     </table>
 
-    <!--模态框-->
-    <div class="modal fade" id="check" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
+    <!--申请审批模态框-->
+    <div class="modal fade" id="apply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form class="form-horizontal">
+                <form class="form-horizontal" id="insert">
                     <div class="modal-header">
+
                         <button type="button" class="close" data-dismiss="modal"
                                 aria-hidden="true">×
                         </button>
                         <h4 class="modal-title" id="myModalLabel">
-                            转专业审批
+                            申请审批
                         </h4>
                     </div>
                     <div class="modal-body">
 
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">学号：</label>
+                            <div class="col-sm-8">
+                                <input id="number" class="form-control" name="number" type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">转入学院：</label>
+                            <div class="col-sm-8">
+                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
+                                <select name="departmentId" class="form-control" id="departmentId4" required>
+                                    <option value="">
+                                        --请选择--
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">转入专业：</label>
+                            <div class="col-sm-8">
+                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
+                                <select name="majorId" class="form-control" id="majorId4" required>
+                                    <option value="">
+                                        --请选择--
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            确定
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--开始审批模态框-->
+    <div class="modal fade" id="check" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal" id="checkView">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel1">
+                            转专业审批
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <input id="id1" name="id" class="hidden">
+
+                        <input id="studentId1" name="studentId" class="hidden" type="text" required>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">学号：</label>
+                            <div class="col-sm-8">
+                                <input id="number1" name="number" class="form-control" readonly="true" type="text"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">姓名：</label>
+                            <div class="col-sm-8">
+                                <input id="name1" name="name" class="form-control" readonly="true" type="text"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">转出学院：</label>
+                            <div class="col-sm-8">
+                                <input id="oldDepartmentId1" name="oldDepartmentId" class="form-control" readonly="true"
+                                       type="text"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">转出专业：</label>
+                            <div class="col-sm-8">
+                                <input id="oldMajorId1" name="oldMajorId" class="form-control" readonly="true"
+                                       type="text"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">转出班级：</label>
+                            <div class="col-sm-8">
+                                <input id="oldClazzId1" name="oldClazzId1" class="form-control" readonly="true"
+                                       type="text"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">转入学院：</label>
+                            <div class="col-sm-8">
+                                <input id="newDepartmentId1" name="newDepartmentId" class="form-control" readonly="true"
+                                       type="text"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">转入专业：</label>
+                            <div class="col-sm-8">
+                                <input id="newMajorId1" name="newMajorId" class="form-control" readonly="true"
+                                       type="text"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">转入班级：</label>
+                            <div class="col-sm-8">
+                                <select name="newClazzId" class="form-control" id="newClazzId1" required>
+                                    <option value="">
+                                        --请选择--
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onclick="yesOrNo(false)">
@@ -75,7 +207,7 @@
     </div><!-- /.modal -->
 
 
-    <!--模态框-->
+    <!--已审批进行编辑模态框-->
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -86,44 +218,24 @@
                         <button type="button" class="close" data-dismiss="modal"
                                 aria-hidden="true">×
                         </button>
-                        <h4 class="modal-title" id="myModalLabel1">
+                        <h4 class="modal-title" id="myModalLabel2">
                             转专业消息
                         </h4>
                     </div>
                     <div class="modal-body">
 
-                        <input id="id" name="id" class="hidden">
-
-                        <input id="studentId" name="studentId" class="hidden" type="text" required>
-
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">转出学院：</label>
+                            <label class="col-sm-3 control-label">学号：</label>
                             <div class="col-sm-8">
-                                <input id="oldDepartmentId" class="form-control" readonly="true" type="text"
-                                       required>
+                                <input id="number2" class="form-control" name="number" type="text" required>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">转出专业：</label>
-                            <div class="col-sm-8">
-                                <input id="oldMajorId" name="oldMajorId" class="form-control" readonly="true"
-                                       type="text" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">转出班级：</label>
-                            <div class="col-sm-8">
-                                <input id="oldClazzId" name="oldClazzId" class="form-control" readonly="true"
-                                       type="text" required>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转入学院：</label>
                             <div class="col-sm-8">
                                 <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="newDepartmentId" class="form-control" id="departmentId3" required>
+                                <select name="departmentId" class="form-control" id="departmentId3" required>
                                     <option value="">
                                         --请选择--
                                     </option>
@@ -135,38 +247,11 @@
                             <label class="col-sm-3 control-label">转入专业：</label>
                             <div class="col-sm-8">
                                 <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="newMajorId" class="form-control" id="majorId3" required>
+                                <select name="majorId" class="form-control" id="majorId3" required>
                                     <option value="">
                                         --请选择--
                                     </option>
                                 </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">转入班级：</label>
-                            <div class="col-sm-8">
-                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="newClazzId" class="form-control" id="clazzId3" required>
-                                    <option value="">
-                                        --请选择--
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">转出时间：</label>
-                            <div class="col-sm-8">
-                                <input id="oldOutDate" name="oldOutDate" class="form-control" type="text"
-                                       readonly="true" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">转入时间：</label>
-                            <div class="col-sm-8">
-                                <input id="newInDate" name="newInDate" class="form-control" readonly="true" type="text"
-                                       required>
                             </div>
                         </div>
 
@@ -180,6 +265,7 @@
                         </button>
                     </div>
                 </form>
+                </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -188,6 +274,7 @@
 <div th:replace="static :: script"></div>
 </body>
 
+<script src="/js/smallSelect.js"></script>
 <script>
     var state = '待审核';
 
@@ -206,7 +293,7 @@
                     $('#check').modal('hide');
                     reLoad();
                 } else {
-                    // alert("修改失败");
+                    alert("修改失败");
                     $('#check').modal('hide');
                 }
             }
@@ -215,12 +302,22 @@
 
     $(document).ready(function () {
         load();
+        s(4);
+        s(3);
 
         $("#update").validate({
             rules: {},
             messages: {},
             submitHandler: function (form) {
                 update();
+            }
+        });
+
+        $("#checkView").validate({
+            rules: {},
+            messages: {},
+            submitHandler: function (form) {
+                checkView();
             }
         });
 
@@ -451,12 +548,16 @@
                     field: 'id',
                     align: 'center',
                     formatter: function (value, row, index) {
+                        var tran = {}
+                        for (let field in row) {
+                            tran[field] = row[field]
+                        }
                         if (state == "待审核") {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#check" onclick="get(' + row.id + ')">开始审批</a> ';
+                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#check" onclick="check(' + row.id + ')">开始审批</a> ';
                         } else if (state == "已审核") {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
+                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#check" title="编辑" onclick="check(' + tran + ')">编辑</a> ';
                         } else if (state == "我的申请" && row.is_pass == null) {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ' +
+                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="">编辑</a> ' +
                                 '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
                                 + row.id
                                 + '\')">删除</a> ';
@@ -470,34 +571,6 @@
         $('#table_transfer').bootstrapTable('refresh');
     }
 
-
-    function get(id) {
-        console.log("id" + id)
-        $.ajax({
-            //cache: true,
-            type: "POST",
-            url: "/transfer/getOpposite/" + id,
-            data: {},
-            success: function (res) {
-                if (res.code == 1) {
-
-                    console.log(res.data)
-                    let transfer = res.data;
-                    for (let key in transfer) {
-                        if (key != "newClazzId")
-                            $("#" + key).val(transfer[key]);
-
-                        else {
-                            let clazzes = transfer[key];
-                            clazzes.forEach(function (element) {
-                                $("#newClazzId").append("<option value='" + element.id + "'>" + element.name + "</option>")
-                            })
-                        }
-                    }
-                }
-            }
-        });
-    }
 
     function update() {
         $.ajax({
@@ -529,7 +602,7 @@
                 console.log(data)
                 if (data.code == 1) {
                     //操作成功，关闭模态框
-                    $('#add').modal('hide');
+                    $('#apply').modal('hide');
                     reLoad()
                     //alert("添加成功");
                 } else {
@@ -585,6 +658,21 @@
                 }
             }
         });
+    }
+
+    //触发模态框的同时调用此方法
+    function check(obj) {
+        console.log(obj)
+        //向模态框中传值
+        $("#id1").val(obj.id);
+        $("#number1").val(obj.number);
+        $("#name1").val(obj.name);
+        $("#oldDepartmentId1").val(obj.old_department_id);
+        $("#oldMajorId1").val(obj.old_Major_id);
+        $("#oldClazzId1").val(obj.old_clazz_id);
+        $("#newDepartmentId1").val(obj.new_department_id);
+        $("#newMajorId1").val(obj.new_major_id);
+        $("#newClazzId1").val(obj.new_clazz_id);
     }
 
 

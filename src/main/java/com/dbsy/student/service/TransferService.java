@@ -21,6 +21,8 @@ public interface TransferService {
 
     Map getOpposite(int id);
 
+    public int insert(Map map);
+
     int delete(int id);
 
     int update(Transfer transfer);

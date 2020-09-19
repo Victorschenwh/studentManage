@@ -58,4 +58,6 @@ public interface TransferMapper {
     List<Transfer> getTransferByNewClazzId(int newClazzId);
 
     int updateSelective(Transfer transfer);
+
+    List<Transfer> getTransferByStudent(int id);
 }
