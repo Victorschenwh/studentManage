@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.RewardMapper">
-    <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Reward">
-        <constructor>
-            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="synopsis" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        </constructor>
-    </resultMap>
     <insert id="insert" parameterType="com.dbsy.student.pojo.Reward">
     insert into reward (id, student_id, synopsis, 
-      type)
+      score,study_term)
     values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{synopsis,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR})
+      #{score},#{studyTerm})
   </insert>
     <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Reward">
         insert into reward
@@ -27,8 +19,11 @@
             <if test="synopsis != null">
                 synopsis,
             </if>
-            <if test="type != null">
-                type,
+            <if test="score != null">
+                score,
+            </if>
+            <if test="studyTerm != null">
+                study_term,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -41,77 +36,22 @@
             <if test="synopsis != null">
                 #{synopsis,jdbcType=VARCHAR},
             </if>
-            <if test="type != null">
-                #{type,jdbcType=VARCHAR},
+            <if test="score != null">
+                #{score},
+            </if>
+            <if test="studyTerm != null">
+                #{studyTerm},
             </if>
         </trim>
     </insert>
 
-
-    <select id="list" resultType="HashMap">
-        select r.id as id, r.student_id as studentId,r.synopsis as synopsis,r.type as type,
-        s.name as name,s.number as number,s.department_id as departmentId ,s.major_id as majorId,
-        s.clazz_id as clazzId
-        from reward r left outer join student s on s.id = r.student_id
-        <where>
-            <if test="departmentId != null and departmentId != 0">
-                and s.department_id=#{departmentId}
-            </if>
-
-            <if test="majorId != null and majorId != 0">
-                and s.major_id=#{majorId}
-            </if>
-
-            <if test="clazzId != null and clazzId != 0">
-                and s.clazz_id=#{clazzId}
-            </if>
-
-            <if test="grade != null and grade != 0">
-                and s.grade=#{grade}
-            </if>
-
-            <if test="search_key != null">
-                and s.name like CONCAT('%',#{search_key},'%')
-            </if>
-
-        </where>
-
-        <if test="start !=null and end != null">
-            limit #{start},#{end}
-        </if>
-    </select>
-
-
-    <select id="listCount" resultType="int">
-        select count(*) from reward r join student s on s.id = r.student_id
-        <where>
-            <if test="departmentId != null and departmentId != 0">
-                and department_id=#{departmentId}
-            </if>
-
-            <if test="majorId != null and majorId != 0">
-                and major_id=#{majorId}
-            </if>
-
-            <if test="clazzId != null and clazzId != 0">
-                and clazz_id=#{clazzId}
-            </if>
-
-            <if test="grade != null and grade != 0">
-                and grade=#{grade}
-            </if>
-        </where>
-    </select>
-
     <!--批量增加-->
     <insert id="batchInsert" parameterType="java.util.List">
-        insert into reward (id, student_id, synopsis, type
-        )
+        insert into reward (id, student_id, synopsis, score,study_term)
         VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=INTEGER},
-            #{item.synopsis,jdbcType=VARCHAR}, #{item.type,jdbcType=VARCHAR}
-            )
+            #{item.synopsis,jdbcType=VARCHAR}, #{item.score},#{item.studyTerm})
         </foreach>
     </insert>
 

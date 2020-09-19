@@ -60,7 +60,7 @@ public class RewardServiceImp implements RewardService, ExcelSave {
     }
 
     @Override
- //   @Cacheable(key = "#id", unless = "#result == null")
+    //   @Cacheable(key = "#id", unless = "#result == null")
     public Reward get(int id) {
         return rewardMapper.get(id);
     }
@@ -99,5 +99,10 @@ public class RewardServiceImp implements RewardService, ExcelSave {
     @Override
     public List<Reward> getRewardByStudentId(int studentId) {
         return rewardMapper.getRewardByStudentId(studentId);
+    }
+
+    @Override
+    public List<Reward> getRewardsByStudentIdAndStudyTerm(int studentId, int studyTerm) {
+        return rewardMapper.getRewardsByStudentIdAndStudyTerm(studentId, studyTerm);
     }
 }

@@ -1,4 +1,5 @@
 package com.dbsy.student.service;
+
 import com.dbsy.student.pojo.Score;
 
 
@@ -9,16 +10,6 @@ public interface ScoreService {
     int insert(Score record);
 
     int insertSelective(Score record);
-
-    int listCount(Map map);
-
-    int listCountSelf(Map map);
-
-    int listCountRank(Map map);
-
-    List<Score> list(Map map);
-
-    List<Map> listScore(Map map);
 
     List<Map> listRank(Map map);
 
@@ -35,4 +26,9 @@ public interface ScoreService {
     List<Score> getAll();
 
     List<Score> getScoreByStudentId(int studentId);
+
+    int countRank(Map map);
+
+    List<Map> listTotal(Map map);
+
 }

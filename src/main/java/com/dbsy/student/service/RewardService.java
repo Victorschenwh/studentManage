@@ -1,4 +1,5 @@
 package com.dbsy.student.service;
+
 import com.dbsy.student.pojo.Reward;
 import com.dbsy.student.pojo.Score;
 
@@ -27,4 +28,7 @@ public interface RewardService {
     List<Reward> getAll();
 
     List<Reward> getRewardByStudentId(int studentId);
+
+    List<Reward> getRewardsByStudentIdAndStudyTerm(int studentId, int studyTerm);
+
 }

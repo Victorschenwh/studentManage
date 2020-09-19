@@ -1,19 +1,10 @@
 package com.dbsy.student.service.iml;
 
 import com.dbsy.student.excel.ExcelSave;
-import com.dbsy.student.mapper.FamilyMapper;
 import com.dbsy.student.mapper.ScoreMapper;
-import com.dbsy.student.pojo.Family;
 import com.dbsy.student.pojo.Score;
-import com.dbsy.student.pojo.Student;
-import com.dbsy.student.service.FamilyService;
 import com.dbsy.student.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,44 +41,30 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
         return scoreMapper.insertSelective(record);
     }
 
-    @Override
-    public int listCount(Map map) {
-        return scoreMapper.listCount(map);
-    }
-
-    @Override
-    public int listCountSelf(Map map) {
-        return this.scoreMapper.listCountSelf(map);
-    }
-
-    @Override
-    public int listCountRank(Map map) {
-        return this.scoreMapper.listCountRank(map);
-    }
-
-    @Override
-    public List<Score> list(Map map) {
-        return scoreMapper.list(map);
-    }
-
-    @Override
-    public List<Map> listScore(Map map) {
-
-        int page = Integer.parseInt(map.get("page") + "");
-        int pageSize = Integer.parseInt(map.get("pageSize") + "");
-        map.put("start", (page - 1) * pageSize);
-        map.put("end", pageSize);
-        return scoreMapper.listScore(map);
-    }
-
+    /**
+     * score.html 服务器分页
+     *
+     * @param map
+     * @return
+     */
     @Override
     public List<Map> listRank(Map map) {
-
         int page = Integer.parseInt(map.get("page") + "");
         int pageSize = Integer.parseInt(map.get("pageSize") + "");
         map.put("start", (page - 1) * pageSize);
-        map.put("end", pageSize);
+        map.put("pageSize", pageSize);
         return scoreMapper.listRank(map);
+    }
+
+    /**
+     * total.html客户端分页
+     *
+     * @param map
+     * @return
+     */
+    @Override
+    public List<Map> listTotal(Map map) {
+        return scoreMapper.listTotal(map);
     }
 
     @Override
@@ -132,4 +109,11 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
 
         return scoreMapper.getScoreByStudentId(studentId);
     }
+
+    @Override
+    public int countRank(Map map) {
+        return this.scoreMapper.countRank(map);
+    }
+
+
 }

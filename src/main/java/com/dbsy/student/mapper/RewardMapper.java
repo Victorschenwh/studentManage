@@ -1,7 +1,6 @@
 package com.dbsy.student.mapper;
 
 
-
 import com.dbsy.student.pojo.Family;
 import com.dbsy.student.pojo.Reward;
 import com.dbsy.student.pojo.Score;
@@ -12,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
+
 @Mapper
 public interface RewardMapper {
     int insert(Reward record);
@@ -28,7 +28,7 @@ public interface RewardMapper {
     @Delete("delete from reward where id = #{id}")
     int delete(int id);
 
-    @Update("update reward set student_id=#{studentId},synopsis=#{synopsis},type=#{type}  where id=#{id}")
+    @Update("update reward set student_id=#{studentId},synopsis=#{synopsis},score=#{score},study_term=#{studyTerm} where id=#{id}")
     int update(Reward reward);
 
     int batchInsert(List list);
@@ -40,4 +40,7 @@ public interface RewardMapper {
 
     @Select("select * from reward where student_id=#{studentId}")
     List<Reward> getRewardByStudentId(int studentId);
+
+    @Select("select * from reward where student_id=#{studentId} and study_term = #{studyTerm}")
+    List<Reward> getRewardsByStudentIdAndStudyTerm(int studentId, int studyTerm);
 }

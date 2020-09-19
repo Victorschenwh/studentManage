@@ -42,7 +42,7 @@ class StudentApplicationTests {
     void contextLoads() {
         try {
             //获取系统文档
-            POIFSFileSystem fspoi = new POIFSFileSystem(new FileInputStream("C:\\Users\\Administrator\\Desktop\\给水161\\2016-2017-1+给水161班.xls"));
+            POIFSFileSystem fspoi = new POIFSFileSystem(new FileInputStream("C:\\Users\\Administrator\\Desktop\\给水161\\2016-2017-2+给水161班.xls"));
             //创建工作薄对象
             HSSFWorkbook workbook = new HSSFWorkbook(fspoi);
             //创建工作表对象
@@ -97,6 +97,7 @@ class StudentApplicationTests {
                         score1.setStudentId(student);
                         score1.setCredit(credit);
                         score1.setScore(score);
+                        score1.setStudyTerm(2);
                         scoreService.insert(score1);
                     }
                 }

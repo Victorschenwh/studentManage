@@ -93,93 +93,6 @@
             </if>
         </trim>
     </insert>
-
-    <select id="list" resultType="com.dbsy.student.pojo.Score">
-        select * from score
-        <where>
-            <if test="studentId != null">
-                or name like concat('%',#{studentId},'%')
-            </if>
-        </where>
-        <if test="start!=null and end != null">
-            limit #{start},#{end}
-        </if>
-    </select>
-
-    <select id="listScore" resultType="java.util.HashMap">
-        SELECT stu.id as id, stu.number as number, stu.`name` as stuName, stu.major_id as majId, stu.clazz_id as clId,sum(s.score) as sscore,stu.score as score  FROM student stu left JOIN  score s on  stu.id=s.student_id
-
-        <where>
-            <if test="1 == 1">
-                stu.major_id is not null  or stu.clazz_id is not null
-            </if>
-
-            <if test="majorId != null">
-                and  stu.major_id = #{majorId}
-            </if>
-
-             <if test="clazzId != null">
-              and  stu.clazz_id = #{clazzId}
-             </if>
-
-            <if test="search_key != null">
-                and stu.name like concat('%',#{search_key},'%')
-            </if>
-
-        </where>
-        GROUP BY stu.id,stu.number, stu.name
-        <if test="start!=null and end != null">
-            limit #{start},#{end}
-        </if>
-    </select>
-
-    <select id="listRank" resultType="java.util.HashMap">
-     SELECT stu.id as id, stu.number as number ,stu.`name` as stuName,stu.major_id as majId,stu.clazz_id as clId,count(DISTINCT c.id) as ccourse, avg(s.score) as avgScore FROM student stu LEFT JOIN score s on s.student_id=stu.id LEFT JOIN course c on c.id =s.course_id
-
-     <where>
-         <if test="1 == 1">
-             s.course_id is not null
-         </if>
-
-<!--         <if test="majorId != null">-->
-<!--             and  stu.major_id= #{majorId}-->
-<!--         </if>-->
-
-<!--         <if test="clazzId != null">-->
-<!--             and  stu.clazz_id = #{clazzId}-->
-<!--         </if>-->
-
-         <if test="search_key != null">
-             and stu.name like concat('%',#{search_key},'%')
-         </if>
-     </where>
-        GROUP BY stu.id
-        <if test="start!=null and end != null">
-            limit #{start},#{end}
-        </if>
-
-
-    </select>
-
-
-
-
-    <select id="listCount" resultType="int">
-        select count(*) from score
-    </select>
-    <select id="listCountSelf" resultType="int">
-        select count(*) from student where major_id is not null or clazz_id is not null
-    </select>
-    <select id="listCountRank" resultType="int">
-    select count(distinct stu.id) from student stu left join score s on stu.id=s.student_id WHERE course_id is not null
-    </select>
-
-
-
-
-
-
-
     <!--批量增加-->
     <insert id="batchInsert" parameterType="java.util.List">
         insert into score (id, student_id, course_id,score,credit,study_term,
@@ -195,12 +108,87 @@
             )
         </foreach>
     </insert>
-
+    <!--批量删除-->
     <delete id="batchRemove">
         delete from score where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
+
+    <select id="listRank" parameterType="Map" resultType="Map">
+        select sc.student_id as s_id,avg(sc.score) as sum_score,sc.study_term as study_term,s.department_id as
+        department_id,s.major_id as major_id,s.grade as grade,s.clazz_id as clazz_id,s.number as number,sc.id as id,
+        s.name as name
+        from score sc left join student s on s.id=sc.student_id
+        <where>
+            <if test="departmentId!=null and departmentId!=0">
+                and s.department_id = #{departmentId},
+            </if>
+            <if test="majorId!=null and majorId!=0">
+                and s.major_id = #{majorId},
+            </if>
+            <if test="grade!=null and grade!=0">
+                and s.grade = #{grade},
+            </if>
+            <if test="clazzId!=null and clazzId!=0">
+                and s.clazz_id = #{clazzId},
+            </if>
+            <if test="studyTerm!=null">
+                and sc.study_term = #{studyTerm},
+            </if>
+        </where>
+        GROUP BY s.id, sc.study_term ORDER BY sum_score desc
+        <if test="start!=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+    <select id="listTotal" parameterType="Map" resultType="Map">
+        select sc.student_id as s_id,avg(sc.score) as sum_score,sc.study_term as study_term,s.department_id as
+        department_id,s.major_id as major_id,s.grade as grade,s.clazz_id as clazz_id,s.number as number,sc.id as id,
+        s.name as name
+        from score sc left join student s on s.id=sc.student_id
+        <where>
+            <if test="departmentId!=null and departmentId!=0">
+                and s.department_id = #{departmentId},
+            </if>
+            <if test="majorId!=null and majorId!=0">
+                and s.major_id = #{majorId},
+            </if>
+            <if test="grade!=null and grade!=0">
+                and s.grade = #{grade},
+            </if>
+            <if test="clazzId!=null and clazzId!=0">
+                and s.clazz_id = #{clazzId},
+            </if>
+            <if test="studyTerm!=null">
+                and sc.study_term = #{studyTerm},
+            </if>
+        </where>
+        GROUP BY s.id, sc.study_term ORDER BY sum_score desc
+    </select>
+
+    <select id="countRank" parameterType="Map" resultType="int">
+        select count(DISTINCT(score.student_id)) from score
+        <where>
+            <if test="departmentId!=null and departmentId!=0">
+                and s.department_id = #{departmentId},
+            </if>
+            <if test="majorId!=null and majorId!=0">
+                and s.major_id = #{majorId},
+            </if>
+            <if test="grade!=null and grade!=0">
+                and s.grade = #{grade},
+            </if>
+            <if test="clazzId!=null and clazzId!=0">
+                and s.clazz_id = #{clazzId},
+            </if>
+            <if test="studyTerm!=null">
+                and sc.study_term = #{studyTerm},
+            </if>
+        </where>
+    </select>
+
 
 </mapper>

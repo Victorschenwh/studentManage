@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -24,20 +25,33 @@ public class ScoreController {
     @Qualifier("scoreServiceImp")
     ScoreService scoreService;
 
- //   @Authority({Role.Teacher})
+    //   @Authority({Role.Teacher})
     @RequestMapping("")
     public String score() {
         return "scoinfo/score";
     }
 
+    @RequestMapping("/total")
+    public String total() {
+        return "scoinfo/total";
+    }
 
- //   @Authority({Role.Teacher})
+    //   @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
-    public Map list(Map map) {
+    public Map list(@RequestParam Map map) {
         Map m = new HashMap();
-        m.put("total", scoreService.listCount(map));
-        m.put("rows", scoreService.list(map));
+        m.put("total", scoreService.countRank(map));
+        m.put("rows", scoreService.listRank(map));
+        return m;
+    }
+
+    @RequestMapping("/totalList")
+    @ResponseBody
+    public Map totalList(@RequestParam Map map) {
+        Map m = new HashMap();
+        // m.put("total", scoreService.countRank(map));
+        m.put("data", scoreService.listTotal(map));
         return m;
     }
 
@@ -78,27 +92,27 @@ public class ScoreController {
         return News.fail("添加失败");
     }
 
- //   @Authority({Role.Teacher})
+    //   @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", scoreService.get(id));
     }
 
- //   @Authority({Role.Teacher})
+    //   @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getAll")
     public Map getAll() {
         return News.success("成功", scoreService.getAll());
     }
 
- //   @Authority({Role.Teacher})
+    //   @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getScoreByStudentId/{studentId}")
-    public Map getScoreByStudentId(@PathVariable("studentId") int studentId){
+    public Map getScoreByStudentId(@PathVariable("studentId") int studentId) {
         List list = scoreService.getScoreByStudentId(studentId);
         if (list != null) {
-            return News.success("成功",list);
+            return News.success("成功", list);
 
         }
         return News.fail("查找失败");

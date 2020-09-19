@@ -14,14 +14,36 @@ public class Reward {
     @ExcelProperty("获奖介绍")
     private String synopsis;
 
-    @ExcelProperty("获奖类型")
-    private String type;
+    @ExcelProperty("加分")
+    private Integer score;
 
-    public Reward(Integer id, Integer studentId, String synopsis, String type) {
+    private Integer studyTerm;
+
+    public Integer getStudyTerm() {
+        return studyTerm;
+    }
+
+
+    public void setStudyTerm(Integer studyTerm) {
+        this.studyTerm = studyTerm;
+    }
+
+    public Reward(Integer id, Integer studentId, String synopsis, Integer score, Integer studyTerm) {
         this.id = id;
         this.studentId = studentId;
         this.synopsis = synopsis;
-        this.type = type;
+        this.score = score;
+        this.studyTerm = studyTerm;
+    }
+
+    @Override
+    public String toString() {
+        return "Reward{" +
+                "id=" + id +
+                ", studentId=" + studentId +
+                ", synopsis='" + synopsis + '\'' +
+                ", score=" + score +
+                '}';
     }
 
     public Reward() {
@@ -52,11 +74,11 @@ public class Reward {
         this.synopsis = synopsis == null ? null : synopsis.trim();
     }
 
-    public String getType() {
-        return type;
+    public Integer getScore() {
+        return score;
     }
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }
