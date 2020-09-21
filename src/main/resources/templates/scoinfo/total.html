@@ -140,24 +140,37 @@
                             }
                             row.sys = "";
                             row.addScore = 0;
-                            rewards.forEach(function (a, b, c) {
-                                row.addScore += a.score
 
-                                if (a.synopsis != null)
-                                    if (row.sys == "")
-                                        row.sys = row.sys + a.synopsis;
-                                    else
-                                        row.sys = row.sys + "、" + a.synopsis;
+                            row.sysSub = ""
+                            row.subScore = 100
+                            rewards.forEach(function (a, b, c) {
+                                if (a.score > 0) {
+                                    row.addScore += a.score
+
+                                    if (a.synopsis != null)
+                                        if (row.sys == "")
+                                            row.sys = row.sys + a.synopsis;
+                                        else
+                                            row.sys = row.sys + "、" + a.synopsis;
+                                } else {
+                                    row.subScore += a.score
+
+                                    if (a.synopsis != null)
+                                        if (row.sysSub == "")
+                                            row.sysSub = row.sysSub + a.synopsis;
+                                        else
+                                            row.sysSub = row.sysSub + "、" + a.synopsis;
+                                }
+
                             })
 
                             if (row.sys == "") row.sys = "无"
+                            //上限100分
+                            if (row.addScore > 100) row.addScore = 100
 
-                            if (row.addScore != 0) {
-                                row.total = row.sum_score + row.addScore
-                            } else {
-                                row.total = row.sum_score
-                                row.addScore = "无"
-                            }
+                            if (row.sysSub == "") row.sysSub = "表现良好"
+
+                            row.total = row.avgAcademiRecoreds * 0.85 + row.addScore * 0.1 + row.subScore * 0.05
 
                         })
 
@@ -260,19 +273,25 @@
                         title: '学期'
                     },
                     {
-                        field: 'sum_score',
+                        field: 'avgAcademiRecoreds',
                         title: '智育成绩'
                     },
                     {
                         field: 'addScore',
-                        title: '加分'
+                        title: '职务及活动加分'
                     }, {
                         field: 'sys',
-                        title: '加分细则'
+                        title: '职务及活动加分细则'
+                    }, {
+                        field: 'subScore',
+                        title: '行为规范加分'
+                    }, {
+                        field: 'sysSub',
+                        title: '行为规范加分细则'
                     },
                     {
                         field: 'total',
-                        title: '总分'
+                        title: '综测成绩'
                     },
 
                 ]

@@ -213,6 +213,9 @@
                 onSearch: function (text) {
                     alert(text)
                 },
+                onPreBody: function (data) {
+
+                },
 
                 columns: [{
                     checkbox: true,
@@ -296,7 +299,11 @@
                         title: '学期'
                     },
                     {
-                        field: 'sum_score',
+                        field: 'avg_score',
+                        title: '平均成绩'
+                    },
+                    {
+                        field: 'avgAcademiRecoreds',
                         title: '智育成绩'
                     }]
             });

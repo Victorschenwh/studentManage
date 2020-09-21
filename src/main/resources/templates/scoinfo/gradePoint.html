@@ -47,97 +47,12 @@
                 <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
             </button>
 
-            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加
-            </button>
-
-            <input type="text" id="search_key" placeholder="请输入关键字"/>
-
         </div>
     </div>
 
 
     <table id="table_bprank" data-mobile-responsive="true">
     </table>
-
-    <!--模态框-->
-    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form class="form-horizontal" id="updata">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"
-                                aria-hidden="true">×
-                        </button>
-                        <h4 class="modal-title">
-                            编辑
-                        </h4>
-                    </div>
-                    <div class="modal-body">
-                        <input id="id2" name="id" class="hidden">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">学号：</label>
-                            <div class="col-sm-8">
-                                <input name="number" id="number2" class="form-control" type="text" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">姓名：</label>
-                            <div class="col-sm-8">
-                                <input name="name" id="name2" class="form-control" type="text" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">所属院系：</label>
-                            <div class="col-sm-8">
-                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="departmentId" class="form-control" id="departmentId2" required>
-                                    <option value="">
-                                        --请选择--
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">所属专业：</label>
-                            <div class="col-sm-8">
-                                <select name="majorId" class="form-control" id="majorId2" required>
-                                    <option value="">
-                                        --请选择--
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">所属班级：</label>
-                            <div class="col-sm-8">
-                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="clazzId" class="form-control" id="clazzId2" required>
-                                    <option value="">
-                                        --请选择--
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default"
-                                data-dismiss="modal">关闭
-                        </button>
-                        <button type="submit" class="btn btn-primary" >
-                            确定
-                        </button>
-                    </div>
-                </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 
 
 </div>
@@ -151,12 +66,7 @@
         load();
         department();
         grade();
-        up();
-        s(2);
-
     });
-
-
 
 
     function load() {
@@ -173,7 +83,7 @@
                 sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
                 pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
                 pageSize: 10,                     //每页的记录行数（*）
-                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                pageList: [10, 20, 30],        //可供选择的每页的行数（*）
                 search: false,                      //是否显示表格搜索
                 strictSearch: true,
                 showColumns: true,                  //是否显示所有的列（选择显示的列）
@@ -204,14 +114,7 @@
                 columns: [{
                     checkbox: true,
                     visible: true                  //是否显示复选框
-                },
-
-                    // {
-                    //     field: 'id',
-                    //     title: '序号',
-                    //     align: 'center',
-                    // },
-                    {
+                }, {
                     field: 'number',
                     title: '学号',
                 }, {
@@ -266,33 +169,20 @@
                     field: 'ccourse',
                     title: '课程门数',
 
+                }, {
+                    field: 'avgScore',
+                    title: '平均学分绩点',
+                }, {
+                    field: 'rank',
+                    title: '排名',
+                }, {
+                    field: 'pass4',
+                    title: '四级通过情况',
                 },
-                    {
-                        field: 'avgScore',
-                        title: '平均学分绩点',
-                    }, {
-                        field: 'rank',
-                        title: '排名',
-                    }, {
-                        field: 'pass4',
-                        title: '四级通过情况',
-                    },
                     {
                         field: 'pass6',
                         title: '六级通过情况',
-                    },{
-                        title: '操作',
-                        field: 'id',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
-                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
-                                + row.id
-                                + '\')">删除</a> ';
-
-                            return e+d;
-                        }
-                    }]
+                    },]
             });
     }
 
@@ -310,7 +200,7 @@
                 if (data.code == 1) {
                     var student = data.data;
                     for (var key in student) {
-                        $("#" + key+'2').val(student[key]);
+                        $("#" + key + '2').val(student[key]);
                         // alert(key);
                     }
                 }
@@ -318,7 +208,8 @@
         });
 
     }
-    function up(){
+
+    function up() {
 
         $("#updata").validate({
 

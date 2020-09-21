@@ -36,6 +36,11 @@ public class ScoreController {
         return "scoinfo/total";
     }
 
+    @RequestMapping("/gradePoint")
+    public String gradePoint() {
+        return "scoinfo/gradePoint";
+    }
+
     //   @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody

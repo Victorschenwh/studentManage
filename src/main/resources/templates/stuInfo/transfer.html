@@ -22,11 +22,6 @@
                 开始申请
             </button>
         </div>
-
-        <div class="form-group col-md-2">
-            <label class="sr-only">搜索</label>
-            <input type="text" id="search_key" placeholder="搜索学号" class="form-control"/>
-        </div>
     </div>
 
 
@@ -120,21 +115,19 @@
                         </h4>
                     </div>
                     <div class="modal-body">
-                        <input id="id1" name="id" class="hidden">
-
-                        <input id="studentId1" name="studentId" class="hidden" type="text" required>
+                        <input id="check_id" name="id" class="hidden">
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">学号：</label>
                             <div class="col-sm-8">
-                                <input id="number1" name="number" class="form-control" readonly="true" type="text"
+                                <input id="check_number" name="number" class="form-control" readonly="true" type="text"
                                        required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">姓名：</label>
                             <div class="col-sm-8">
-                                <input id="name1" name="name" class="form-control" readonly="true" type="text"
+                                <input id="check_name" name="name" class="form-control" readonly="true" type="text"
                                        required>
                             </div>
                         </div>
@@ -142,50 +135,46 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转出学院：</label>
                             <div class="col-sm-8">
-                                <input id="oldDepartmentId1" name="oldDepartmentId" class="form-control" readonly="true"
-                                       type="text"
-                                       required>
+                                <input id="check_old_department_name" name="oldDepartmentId" class="form-control"
+                                       readonly="true" type="text" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转出专业：</label>
                             <div class="col-sm-8">
-                                <input id="oldMajorId1" name="oldMajorId" class="form-control" readonly="true"
-                                       type="text"
-                                       required>
+                                <input id="check_old_major_name" name="oldMajorId" class="form-control" readonly="true"
+                                       type="text" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转出班级：</label>
                             <div class="col-sm-8">
-                                <input id="oldClazzId1" name="oldClazzId1" class="form-control" readonly="true"
-                                       type="text"
-                                       required>
+                                <input id="check_old_clazz_name" name="oldClazzId1" class="form-control" readonly="true"
+                                       type="text" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转入学院：</label>
                             <div class="col-sm-8">
-                                <input id="newDepartmentId1" name="newDepartmentId" class="form-control" readonly="true"
-                                       type="text"
-                                       required>
+                                <input id="check_new_department_name" name="newDepartmentId" class="form-control"
+                                       readonly="true"
+                                       type="text" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转入专业：</label>
                             <div class="col-sm-8">
-                                <input id="newMajorId1" name="newMajorId" class="form-control" readonly="true"
-                                       type="text"
-                                       required>
+                                <input id="check_new_major_name" name="newMajorId" class="form-control" readonly="true"
+                                       type="text" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转入班级：</label>
                             <div class="col-sm-8">
-                                <select name="newClazzId" class="form-control" id="newClazzId1" required>
+                                <select id="check_new_clazz_id" class="form-control" required>
                                     <option value="">
                                         --请选择--
                                     </option>
@@ -273,10 +262,28 @@
 </div>
 <div th:replace="static :: script"></div>
 </body>
-
+<script src="/js/utils.js"></script>
 <script src="/js/smallSelect.js"></script>
 <script>
-    var state = '待审核';
+    let state = '待审核'
+    let utils = new Utils()
+
+    function check(id) {
+        let row = $('#table_transfer').bootstrapTable('getRowByUniqueId', id)
+        $("#check_id").val(row.id)
+        $("#check_number").val(row.number)
+        $("#check_name").val(row.name)
+        $("#check_old_department_name").val(row.old_department_name)
+        $("#check_old_major_name").val(row.old_major_name)
+        $("#check_old_clazz_name").val(row.old_clazz_name)
+        $("#check_new_department_name").val(row.new_department_name)
+        $("#check_new_major_name").val(row.new_major_name)
+        let newClazz = $("#check_new_clazz_id");
+        let clazzs = utils.get("/select/clazz?majorId=" + row.new_major_id + "&departmentId=" + row.new_department_id)
+        clazzs.forEach(function (r, i, rs) {
+            newClazz.append("<option value='" + r.id + "'>" + r.name + "</option>")
+        })
+    }
 
     function yesOrNo(isPass) {
         let id = $("#id").val()
@@ -302,8 +309,6 @@
 
     $(document).ready(function () {
         load();
-        s(4);
-        s(3);
 
         $("#update").validate({
             rules: {},
@@ -370,6 +375,17 @@
                         state: state,
                     };
                 },
+                onPreBody: function (data) {
+                    if (data != null) {
+                        data.forEach(function (row, index, rows) {
+                            row.old_department_name = utils.get("/department/get/" + row.old_department_id).name
+                            row.old_major_name = utils.get("/major/get/" + row.old_major_id).name
+                            row.old_clazz_name = utils.get("/clazz/get/" + row.old_clazz_id).name
+                            row.new_department_name = utils.get("/department/get/" + row.new_department_id).name
+                            row.new_major_name = utils.get("/major/get/" + row.new_major_id).name
+                        })
+                    }
+                },
                 columns: [{
                     checkbox: true,
                     visible: true                  //是否显示复选框
@@ -388,143 +404,29 @@
                     title: '姓名',
                     align: 'center',
                 }, {
-                    field: 'old_department_id',
+                    field: 'old_department_name',
                     align: 'center',
                     title: '转出学院',
-                    formatter: function (value, row, index) {
-                        var department = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/department/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        department = data.data;
-                                    }
-                                }
-                            });
-                        }
-                        return department != null ? department.name : "";
-                    }
                 }, {
-                    field: 'old_major_id',
+                    field: 'old_major_name',
                     align: 'center',
                     title: '转出专业',
-                    formatter: function (value, row, index) {
-                        var major = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/major/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        major = data.data;
-                                    }
-                                }
-                            });
-                        }
-                        return major != null ? major.name : "";
-                    }
                 }, {
-                    field: 'old_clazz_id',
+                    field: 'old_clazz_name',
                     align: 'center',
                     title: '转出班级',
-                    formatter: function (value, row, index) {
-                        var clazz = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/clazz/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        clazz = data.data;
-                                    }
-                                }
-                            });
-                        }
-                        return clazz != null ? clazz.name : "";
-                    }
                 }, {
-                    field: 'new_department_id',
+                    field: 'new_department_name',
                     align: 'center',
                     title: '转入学院',
-                    formatter: function (value, row, index) {
-                        var department = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/department/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        department = data.data;
-                                    }
-                                }
-                            });
-                        }
-                        return department != null ? department.name : "";
-                    }
                 }, {
-                    field: 'new_major_id',
+                    field: 'new_major_name',
                     align: 'center',
                     title: '转入专业',
-                    formatter: function (value, row, index) {
-                        var major = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/major/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        major = data.data;
-                                    }
-                                }
-                            });
-                        }
-                        return major != null ? major.name : "";
-                    }
                 }, {
-                    field: 'new_clazz_id',
+                    field: 'new_clazz_name',
                     align: 'center',
                     title: '转入班级',
-                    formatter: function (value, row, index) {
-                        var clazz = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/clazz/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        clazz = data.data;
-                                    }
-                                }
-                            });
-                        }
-                        return clazz != null ? clazz.name : "";
-                    }
                 }, {
                     field: 'old_out_date',
                     align: 'center',
@@ -566,6 +468,7 @@
                 }]
             });
     }
+
 
     function reLoad() {
         $('#table_transfer').bootstrapTable('refresh');
@@ -658,21 +561,6 @@
                 }
             }
         });
-    }
-
-    //触发模态框的同时调用此方法
-    function check(obj) {
-        console.log(obj)
-        //向模态框中传值
-        $("#id1").val(obj.id);
-        $("#number1").val(obj.number);
-        $("#name1").val(obj.name);
-        $("#oldDepartmentId1").val(obj.old_department_id);
-        $("#oldMajorId1").val(obj.old_Major_id);
-        $("#oldClazzId1").val(obj.old_clazz_id);
-        $("#newDepartmentId1").val(obj.new_department_id);
-        $("#newMajorId1").val(obj.new_major_id);
-        $("#newClazzId1").val(obj.new_clazz_id);
     }
 
 
