@@ -280,6 +280,8 @@
         $("#check_new_major_name").val(row.new_major_name)
         let newClazz = $("#check_new_clazz_id");
         let clazzs = utils.get("/select/clazz?majorId=" + row.new_major_id + "&departmentId=" + row.new_department_id)
+        newClazz.empty()
+        newClazz.append("<option value=''>--请选择--</option>")
         clazzs.forEach(function (r, i, rs) {
             newClazz.append("<option value='" + r.id + "'>" + r.name + "</option>")
         })
@@ -298,11 +300,12 @@
         $("#check_new_major_name").val(row.new_major_name)
         let newClazz = $("#check_new_clazz_id");
         let clazzs = utils.get("/select/clazz?majorId=" + row.new_major_id + "&departmentId=" + row.new_department_id)
+        newClazz.empty()
+        newClazz.append("<option value=''>--请选择--</option>")
         clazzs.forEach(function (r, i, rs) {
             newClazz.append("<option value='" + r.id + "'>" + r.name + "</option>")
         })
         newClazz.val(row.new_clazz_id)
-
     }
 
     function myApply(id) {
@@ -407,11 +410,18 @@
                 onPreBody: function (data) {
                     if (data != null) {
                         data.forEach(function (row, index, rows) {
-                            row.old_department_name = utils.get("/department/get/" + row.old_department_id).name
-                            row.old_major_name = utils.get("/major/get/" + row.old_major_id).name
-                            row.old_clazz_name = utils.get("/clazz/get/" + row.old_clazz_id).name
-                            row.new_department_name = utils.get("/department/get/" + row.new_department_id).name
-                            row.new_major_name = utils.get("/major/get/" + row.new_major_id).name
+                            if (row.old_department_id != null)
+                                row.old_department_name = utils.get("/department/get/" + row.old_department_id).name
+                            if (row.old_major_id != null)
+                                row.old_major_name = utils.get("/major/get/" + row.old_major_id).name
+                            if (row.old_clazz_id != null)
+                                row.old_clazz_name = utils.get("/clazz/get/" + row.old_clazz_id).name
+                            if (row.new_department_id != null)
+                                row.new_department_name = utils.get("/department/get/" + row.new_department_id).name
+                            if (row.new_major_id != null)
+                                row.new_major_name = utils.get("/major/get/" + row.new_major_id).name
+                            if (row.new_clazz_id != null)
+                                row.new_clazz_name = utils.get("/major/get/" + row.new_clazz_id).name
                         })
                     }
                 },
@@ -486,7 +496,7 @@
                         if (state == "待审核") {
                             return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#check" onclick="check(' + row.id + ')">开始审批</a> ';
                         } else if (state == "已审核") {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#check" title="编辑" onclick="check2(' + tran + ')">编辑</a> ';
+                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#check" title="编辑" onclick="check2(' + row.id + ')">编辑</a> ';
                         } else if (state == "我的申请" && row.is_pass == null) {
                             return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="myApply">编辑</a> ' +
                                 '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''

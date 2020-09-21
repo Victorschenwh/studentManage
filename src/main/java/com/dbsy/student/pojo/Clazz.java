@@ -91,16 +91,4 @@ public class Clazz {
         this.departmentId = departmentId;
     }
 
-    @Override
-    public String toString() {
-        return "Clazz{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", introduce='" + introduce + '\'' +
-                ", majorId=" + majorId +
-                ", teacherId=" + teacherId +
-                ", grade=" + grade +
-                ", departmentId=" + departmentId +
-                '}';
-    }
 }
