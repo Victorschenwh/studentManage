@@ -7,7 +7,7 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/stu_manage?useunicode=true&characterEncoding=utf8&serverTimezone=UTC
+    url: jdbc:mysql://121.40.115.18:3306/stu_manage?useunicode=true&characterEncoding=utf8&serverTimezone=UTC
 
 #  mybatis配置
 mybatis:
