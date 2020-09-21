@@ -1,8 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns:v-model="http://www.w3.org/1999/xhtml">
+<html xmlns:v-model="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="keywords" content="学生管理系统">
+    <meta name="description" content="学生管理系统">
+    <meta name="author" content="AUI, a-ui.com">
+    <title>登录</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
@@ -36,81 +47,54 @@
             src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-
-    <title>登录</title>
 </head>
-<style>
-    .mar {
-        margin-top: 200px;
-    }
-</style>
-<body class="bg-info">
-
-<div class="container" id="page">
-    <div class="row mar">
-        <div class="col-md-offset-3 col-md-6 form">
-            <form class="form-horizontal">
-                <div v-if="isLogin">
-                    <div class="form-group">
-                        <label for="inputEmail3" class="control-label col-md-3">用户名</label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" id="inputEmail3" placeholder="用户名/工号"
-                                   v-model:value="username">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="control-label col-md-3">密码</label>
-                        <div class="col-md-8">
-                            <input type="password" class="form-control col-md-8" id="inputPassword3" placeholder="密码"
-                                   v-model:value="password">
-                        </div>
-                    </div>
-                </div>
-
-                <div v-if="!isLogin">
-                    <div class="form-group">
-                        <label for="inputEmail1" class="control-label col-md-3">邮箱</label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" id="inputEmail1" placeholder="邮箱"
-                                   v-model:value="email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3">验证码</label>
-                        <div class="col-lg-8">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="captcha" name="captcha"
-                                       v-model:value="captcha"
-                                       placeholder="验证码">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="button" @click="send()">发送验证码</button>
-                                 </span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-3 col-md-4">
-                        <a class="btn" @click="isLogin = !isLogin">{{isLogin ? '邮箱登录' : '用户名密码登录'}}</a>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-primary" @click="login">登录</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+<body>
+<div class="aui-flexView clearfix" id="page">
+    <div class="aui-login-bg">
+        <img src="body-bg.png" alt="">
     </div>
+    <div class="aui-login-box">
+        <h2 class="aui-login-title">学生管理系统</h2>
+        <form action="" class="aui-login-form">
+            <div v-if="isLogin">
+                <p>
+                    <i class="icon icon-user"></i>
+                    <input type="text"  placeholder="用户名/邮箱/手机号" id="inputEmail3" v-model:value="username">
+                </p>
+                <p>
+                    <i class="icon icon-pass"></i>
+                    <input type="password" placeholder="密码" id="inputPassword3" v-model:value="password">
+                    <!--<a href="javascript:;" class="aui-forget">忘记密码？</a>-->
+                </p>
+            </div>
 
-    <div class="navbar-fixed-bottom hidden-xs hidden-sm">
-        <p class="text-info text-center">
-            东北石油大学
-        </p>
+            <div v-if="!isLogin">
+                <p>
+                    <i class="icon icon-user"></i>
+                    <input type="text" placeholder="邮箱" id="inputEmail1" v-model:value="email">
+                </p>
+
+                <p>
+                    <!--                <div class="input-group">-->
+                    <i class="icon icon-code"></i>
+                    <input type="text"  placeholder="验证码" id="captcha" name="captcha" v-model:value="captcha">
+                    <span>
+                        <button  class="aui-button" type="button" @click="send()">获取验证码</button>
+                    </span>
+                </p>
+                <!--                </div>-->
+            </div>
+
+            <div>
+                <a @click="isLogin = !isLogin">{{isLogin ? '邮箱登录' : '用户名密码登录'}}</a>
+            </div>
+            <button type="button" class="aui-button-go" @click="login">登录</button>
+
+        </form>
     </div>
 </div>
-
 </body>
+
 <script type="text/javascript">
     //设置页面baseURL
     //Vue.http.options.root = 'http://127.0.0.1/';
@@ -119,7 +103,7 @@
         data: {
             isLogin: true,
             password: "123",
-            username: "feng",
+            username: "mao",
             captcha: null,
             email: null
         },
@@ -147,7 +131,6 @@
                 var data = new URLSearchParams();
                 data.append('email', this.email)
                 data.append('captcha', this.captcha)
-                data.append('role', this.select)
 
                 axios.post("/login/emailLogin", data)
                     .then(function (res) {
