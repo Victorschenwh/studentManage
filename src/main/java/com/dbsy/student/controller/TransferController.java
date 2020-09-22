@@ -206,14 +206,14 @@ public class TransferController {
 
 
     /**
-     * 审批
+     * 审批或修改审批
      *
      * @param transfer
      * @return
      */
     @ResponseBody
     @RequestMapping("/examine")
-    Map updateSelective(Transfer transfer) {
+    Map examine(Transfer transfer) {
         //log.info(transfer.toString());
         transfer.setNewInDate(new Date());
         int i = transferService.updateSelective(transfer);
