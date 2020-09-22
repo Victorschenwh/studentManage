@@ -1,5 +1,6 @@
 package com.dbsy.student.service;
 
+import com.dbsy.student.pojo.Student;
 import com.dbsy.student.pojo.Transfer;
 
 import java.util.List;
@@ -46,5 +47,7 @@ public interface TransferService {
     List<Transfer> getTransferByNewClazzId(int newClazzId);
 
     int updateSelective(Transfer transfer);
+
+
 
 }

@@ -3,8 +3,10 @@ package com.dbsy.student.controller;
 import com.dbsy.student.annotation.Authority;
 import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Admin;
+import com.dbsy.student.pojo.Student;
 import com.dbsy.student.pojo.Transfer;
 import com.dbsy.student.service.DepartmentService;
+import com.dbsy.student.service.StudentService;
 import com.dbsy.student.service.TransferService;
 import com.dbsy.student.util.News;
 import org.slf4j.Logger;
@@ -204,6 +206,8 @@ public class TransferController {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    StudentService studentService;
 
     /**
      * 审批或修改审批
@@ -214,10 +218,62 @@ public class TransferController {
     @ResponseBody
     @RequestMapping("/examine")
     Map examine(Transfer transfer) {
-        //log.info(transfer.toString());
         transfer.setNewInDate(new Date());
         int i = transferService.updateSelective(transfer);
-        if (i > 0) News.success();
+        if (i > 0) {
+            if (transfer.getIsPass()) {
+                Transfer transfer1 = transferService.get(transfer.getId());
+                Student student = studentService.get(transfer1.getStudentId());
+                student.setDepartmentId(transfer1.getNewDepartmentId());
+                student.setMajorId(transfer1.getNewMajorId());
+                student.setClazzId(transfer1.getNewClazzId());
+                studentService.update(student);
+            }
+            return News.success();
+        }
+        return News.fail();
+    }
+
+    @ResponseBody
+    @RequestMapping("/updateExamine")
+    Map updateExamine(Transfer transfer) {
+        Transfer old_transfer = transferService.get(transfer.getId());
+        transfer.setNewInDate(new Date());
+        if (transfer.getIsPass()) {
+            //上次同意，这次也同意
+            if (old_transfer.getIsPass()) {
+                if (transfer.getNewClazzId() != old_transfer.getNewClazzId()) {
+                    int i = transferService.updateSelective(transfer);
+                    if (i > 0) {
+                        Student student = studentService.get(old_transfer.getStudentId());
+                        student.setClazzId(transfer.getNewClazzId());
+                        studentService.update(student);
+                        return News.success();
+                    }
+                }
+
+            }//上次不同意，这次同意
+            else {
+                int i = transferService.updateSelective(transfer);
+                if (i > 0) {
+                    if (transfer.getIsPass()) {
+                        Transfer transfer1 = transferService.get(transfer.getId());
+                        Student student = studentService.get(transfer1.getStudentId());
+                        student.setDepartmentId(transfer1.getNewDepartmentId());
+                        student.setMajorId(transfer1.getNewMajorId());
+                        student.setClazzId(transfer1.getNewClazzId());
+                        studentService.update(student);
+                    }
+                }
+
+            }
+        } else {
+
+
+        }
         return News.fail();
     }
 }
+
+
+

@@ -313,14 +313,15 @@
     }
 
     function yesOrNo(isPass) {
-        let id = $("#id").val()
+        let id = $("#check_id").val()
+        let clazz = $("#check_new_clazz_id").val()
         $.ajax({
             //cache: true,
             //async: true,
             type: "POST",
             url: "/transfer/examine/",
             dataType: "json",
-            data: {"id": id, "isPass": isPass},
+            data: {"id": id, "isPass": isPass,"newClazzId":clazz},
             success: function (res) {
                 if (res.code == 1) {
                     //操作成功，关闭模态框
@@ -418,7 +419,7 @@
                             if (row.new_major_id != null)
                                 row.new_major_name = utils.get("/major/get/" + row.new_major_id).name
                             if (row.new_clazz_id != null)
-                                row.new_clazz_name = utils.get("/major/get/" + row.new_clazz_id).name
+                                row.new_clazz_name = utils.get("/clazz/get/" + row.new_clazz_id).name
                         })
                     }
                 },

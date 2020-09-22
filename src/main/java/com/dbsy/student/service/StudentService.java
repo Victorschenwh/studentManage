@@ -23,4 +23,6 @@ public interface StudentService {
     int batchRemove(int[] ids);
 
     Student selectByNumber(String number);
+
+    int update (Student student);
 }

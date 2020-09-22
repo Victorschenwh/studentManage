@@ -71,6 +71,11 @@ public class StudentServiceImp implements StudentService, ExcelSave {
     }
 
     @Override
+    public int update(Student student) {
+        return studentMapper.update(student);
+    }
+
+    @Override
     public int excelBatchInsert(List list) {
         return studentMapper.batchInsert(list);
     }

@@ -4,6 +4,7 @@ import com.dbsy.student.pojo.Student;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -30,5 +31,12 @@ public interface StudentMapper {
 
     @Select("select * from student where number = #{number}")
     Student selectByNumber(String number);
+
+    @Update("update student set number=#{number},name = #{name},gender=#{gender},phone_number=#{phoneNumber}," +
+            "email=#{email},id_card=#{idCard},native_place=#{nativePlace}," +
+            "photo=#{photo},admission_date=#{admissionDate},birthday=#{birthday}," +
+            "password=#{password},score=#{score},clazz_id=#{clazzId},major_id=#{majorId},department_id=#{departmentId}," +
+            "grade=#{grade},age=#{age},nation=#{nation},address=#{address}")
+    int update (Student student);
 
 }
