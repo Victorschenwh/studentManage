@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml http://www.thymeleaf.org">
+<html lang="en" xmlns:="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="static :: head">
 <body>
 <div class="container-fluid">
@@ -99,7 +99,7 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <!--开始审批模态框-->
+    <!--待审批模态框-->
     <div class="modal fade" id="check" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -290,7 +290,7 @@
     </div><!-- /.modal -->
 
 
-    <!--已审批进行编辑模态框-->
+    <!--已审批进行编辑模态框，我的申请-->
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -302,15 +302,15 @@
                                 aria-hidden="true">×
                         </button>
                         <h4 class="modal-title" id="myModalLabel2">
-                            转专业消息
+                            我的申请
                         </h4>
                     </div>
                     <div class="modal-body">
-
+                        <input id="check_id2" name="id" class="hidden">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">学号：</label>
                             <div class="col-sm-8">
-                                <input id="number2" class="form-control" name="number" type="text" required>
+                                <input id="check_number2" class="form-control" name="number" type="text" readonly="readonly" required>
                             </div>
                         </div>
 
@@ -318,7 +318,7 @@
                             <label class="col-sm-3 control-label">转入学院：</label>
                             <div class="col-sm-8">
                                 <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="departmentId" class="form-control" id="departmentId3" required>
+                                <select name="departmentId2" class="form-control" id="departmentId3" required>
                                     <option value="">
                                         --请选择--
                                     </option>
@@ -330,7 +330,7 @@
                             <label class="col-sm-3 control-label">转入专业：</label>
                             <div class="col-sm-8">
                                 <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="majorId" class="form-control" id="majorId3" required>
+                                <select name="majorId2" class="form-control" id="majorId3" required>
                                     <option value="">
                                         --请选择--
                                     </option>
@@ -348,7 +348,7 @@
                         </button>
                     </div>
                 </form>
-                </form>
+
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -404,7 +404,10 @@
 
     function myApply(id) {
         let row = $('#table_transfer').bootstrapTable('getRowByUniqueId', id)
-        $("#check_id").val(row.id)
+        // alert("b>>"+ row.id)
+        $("#check_id2").val(row.id)
+        $("#check_number2").val(row.number)
+        // alert("A>>>" +$("#check_id2").val())
     }
 
     function applyed(isPass) {
@@ -457,6 +460,7 @@
         load();
         s(4);
         s(3);
+        S(2);
 
         $("#update").validate({
             rules: {},
@@ -613,8 +617,8 @@
                             return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#check" onclick="check(' + row.id + ')">开始审批</a> ';
                         } else if (state == "已审核") {
                             return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#selectCheck" title="编辑" onclick="check2(' + row.id + ')">编辑</a> ';
-                        } else if (state == "我的申请" && row.is_pass == null) {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="myApply">编辑</a> ' +
+                        } else if (state == "我的申请" && row.is_pass != null) {
+                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="myApply(' + row.id + ')">编辑</a> ' +
                                 '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
                                 + row.id
                                 + '\')">删除</a> ';
@@ -661,6 +665,26 @@
                 if (data.code == 1) {
                     //操作成功，关闭模态框
                     $('#apply').modal('hide');
+                    reLoad()
+                    //alert("添加成功");
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+    }
+
+    function checkView() {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/transfer/update",
+            data: $('#checkView').serialize(),
+            success: function (data) {
+                console.log(data)
+                if (data.code == 1) {
+                    //操作成功，关闭模态框
+                    $('#check').modal('hide');
                     reLoad()
                     //alert("添加成功");
                 } else {
