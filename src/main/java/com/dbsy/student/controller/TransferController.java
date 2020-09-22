@@ -239,6 +239,7 @@ public class TransferController {
     Map updateExamine(Transfer transfer) {
         Transfer old_transfer = transferService.get(transfer.getId());
         transfer.setNewInDate(new Date());
+        //这次同意
         if (transfer.getIsPass()) {
             //上次同意，这次也同意
             if (old_transfer.getIsPass()) {
@@ -256,20 +257,30 @@ public class TransferController {
             else {
                 int i = transferService.updateSelective(transfer);
                 if (i > 0) {
-                    if (transfer.getIsPass()) {
-                        Transfer transfer1 = transferService.get(transfer.getId());
-                        Student student = studentService.get(transfer1.getStudentId());
-                        student.setDepartmentId(transfer1.getNewDepartmentId());
-                        student.setMajorId(transfer1.getNewMajorId());
-                        student.setClazzId(transfer1.getNewClazzId());
-                        studentService.update(student);
-                    }
+                    Student student = studentService.get(old_transfer.getStudentId());
+                    student.setDepartmentId(old_transfer.getNewDepartmentId());
+                    student.setMajorId(old_transfer.getNewMajorId());
+                    student.setClazzId(transfer.getNewClazzId());
+                    studentService.update(student);
+                    return News.success();
                 }
 
             }
-        } else {
-
-
+        }
+        //这次不同意
+        else {
+            //上次同意，这次不同意
+            if(old_transfer.getIsPass()){
+                int i = transferService.updateSelective(transfer);
+                if (i > 0) {
+                    Student student = studentService.get(old_transfer.getStudentId());
+                    student.setDepartmentId(old_transfer.getOldDepartmentId());
+                    student.setMajorId(old_transfer.getOldMajorId());
+                    student.setClazzId(transfer.getOldClazzId());
+                    studentService.update(student);
+                    return News.success();
+                }
+            }
         }
         return News.fail();
     }
