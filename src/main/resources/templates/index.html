@@ -1,202 +1,234 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<!--<head th:replace="static :: head">-->
-<!--</head>-->
-<!-- 新 Bootstrap4 核心 CSS 文件 -->
-<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<!doctype html>
+<html lang="en">
 
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/fonts/circular-std/style.css">
+    <link rel="stylesheet" href="assets/libs/css/style.css">
+    <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="assets/vendor/vector-map/jqvmap.css">
+    <link rel="stylesheet" href="assets/vendor/jvectormap/jquery-jvectormap-2.0.2.css">
+    <link rel="stylesheet" href="assets/vendor/charts/chartist-bundle/chartist.css">
+    <link rel="stylesheet" href="assets/vendor/charts/c3charts/c3.css">
+    <link rel="stylesheet" href="assets/vendor/charts/morris-bundle/morris.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/daterangepicker/daterangepicker.css"/>
+    <title></title>
+</head>
 
-<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
-<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
-
-<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
-<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-<style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-        }
-    }
-
-
-    body {
-        font-size: .875rem;
-    }
-
-    .feather {
-        width: 16px;
-        height: 16px;
-        vertical-align: text-bottom;
-    }
-
-    /*
- * Sidebar
- */
-
-    .sidebar {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 100;
-        /* Behind the navbar */
-        padding: 48px 0 0;
-        /* Height of navbar */
-        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-    }
-
-    @media (max-width: 767.98px) {
-        .sidebar {
-            top: 5rem;
-        }
-    }
-
-    .sidebar-sticky {
-        position: relative;
-        top: 0;
-        height: calc(100vh - 48px);
-        padding-top: .5rem;
-        overflow-x: hidden;
-        overflow-y: auto;
-        /* Scrollable contents if viewport is shorter than content. */
-    }
-
-    @supports ((position: -webkit-sticky) or (position: sticky)) {
-        .sidebar-sticky {
-            position: -webkit-sticky;
-            position: sticky;
-        }
-    }
-
-    .sidebar .nav-link {
-        font-weight: 500;
-        color: #333;
-    }
-
-    .sidebar .nav-link .feather {
-        margin-right: 4px;
-        color: #999;
-    }
-
-    .sidebar .nav-link.active {
-        color: #007bff;
-    }
-
-    .sidebar .nav-link:hover .feather,
-    .sidebar .nav-link.active .feather {
-        color: inherit;
-    }
-
-    .sidebar-heading {
-        font-size: .75rem;
-        text-transform: uppercase;
-    }
-
-    /*
- * Navbar
- */
-
-    .navbar-brand {
-        padding-top: .75rem;
-        padding-bottom: .75rem;
-        font-size: 1rem;
-        background-color: rgba(0, 0, 0, .25);
-        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
-    }
-
-    .navbar .navbar-toggler {
-        top: .25rem;
-        right: 1rem;
-    }
-
-    .navbar .form-control {
-        padding: .75rem 1rem;
-        border-width: 0;
-        border-radius: 0;
-    }
-
-    .form-control-dark {
-        color: #fff;
-        background-color: rgba(255, 255, 255, .1);
-        border-color: rgba(255, 255, 255, .1);
-    }
-
-    .form-control-dark:focus {
-        border-color: transparent;
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
-    }
-</style>
 <body>
-
-
-<nav th:replace="top::top"></nav>
-<div class="container-fluid">
-    <div class="row">
-        <nav th:replace="menu::menu">
+<div class="dashboard-main-wrapper">
+    <div class="dashboard-header">
+        <nav class="navbar navbar-expand-lg bg-white fixed-top">
+            <a class="navbar-brand" href="index.html">学生管理系统</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto navbar-right-top">
+                    <li class="nav-item">
+                        <div id="custom-search" class="top-search-bar">
+                            <input class="form-control" type="text" placeholder="Search..">
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown notification">
+                        <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
+                                class="indicator"></span></a>
+                    </li>
+                    <li class="nav-item dropdown connection">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
+                    </li>
+                    <li class="nav-item dropdown nav-user">
+                        <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false"><img src="assets/images/avatar-1.jpg" alt=""
+                                                                           class="user-avatar-md rounded-circle"></a>
+                        <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
+                             aria-labelledby="navbarDropdownMenuLink2">
+                            <div class="nav-user-info">
+                                <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
+                                <span class="status"></span><span class="ml-2">Available</span>
+                            </div>
+                            <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 h-100">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group mr-2">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">导入</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">导出</button>
-                    </div>
-                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <span data-feather="calendar"></span>
-                        This week
-                    </button>
+    </div>
+    <div class="nav-left-sidebar sidebar-dark">
+        <div class="menu-list">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="d-xl-none d-lg-none" href="#">首页</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-divider">
+                            <a role="button" style="text-decoration: none;color: white;" data-toggle="collapse"
+                               data-parent="#accordion" href="#" onclick="goto('/index/home')" aria-expanded="true"
+                               aria-controls="collapseS">
+                                首页
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#submenu-1" aria-controls="submenu-1"><i
+                                    class="fa fa-fw fa-user-circle"></i>学生信息 <span class="badge badge-success">6</span></a>
+                            <div id="submenu-1" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" onclick="goto('/student')"
+                                           href="#student" >基本信息</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" onclick="goto('/preWarning')"
+                                           href="#preWarning" >学业预警</a>
+                                    </li>
+                                    <!--<li class="nav-item">
+                                        <a class="nav-link" href="index.html">家庭</a>
+                                    </li>-->
+                                    <li class="nav-item">
+                                        <a class="nav-link" onclick="goto('/retardation')"
+                                           href="#retardation" >留级试读</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" onclick="goto('/suspension')"
+                                           href="#suspension" >休学退学</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" onclick="goto('/transfer')"
+                                           href="#transfer" >转专业</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" onclick="goto('/monitoring')"
+                                           href="#monitoring" >学业监控</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>成绩管理</a>
+                            <div id="submenu-2" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a onclick="goto('/score')"
+                                           href="#score" class="nav-link">智育成绩</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a onclick="goto('/score/total')"
+                                           href="#assessment" class="nav-link">综合测评</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a onclick="goto('/bprank')"
+                                           href="#bprank" class="nav-link">绩点排名</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>奖助贷惩</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#submenu-4" aria-controls="submenu-4"><i class="fas fa-fw fa-chart-pie"></i>就业情况</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-inbox"></i>办事机构</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <div class="dashboard-finance">
+            <div class="container-fluid dashboard-content">
+                <div class="row">
+                    <iframe id="frame" src="/index/home" class="h-100 w-100" frameborder="0" scrolling="auto"
+                            style="min-height:600px;width:100%;height:100%;"
+                            seamless></iframe>
                 </div>
             </div>
-            <iframe id="frame" src="/index/home" class="h-100 w-100" frameborder="0" scrolling="auto"
-                    style="min-height:600px;width:100%;height:100%;"
-                    seamless></iframe>
-        </main>
-
-
+        </div>
     </div>
 </div>
-
-<!--<div th:replace="static :: script"></div>-->
-</body>
-
+<script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+<!-- bootstap bundle js -->
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<!-- slimscroll js -->
+<script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+<!-- chart chartist js -->
+<script src="assets/vendor/charts/chartist-bundle/chartist.min.js"></script>
+<script src="assets/vendor/charts/chartist-bundle/Chartistjs.js"></script>
+<script src="assets/vendor/charts/chartist-bundle/chartist-plugin-threshold.js"></script>
+<!-- chart C3 js -->
+<script src="assets/vendor/charts/c3charts/c3.min.js"></script>
+<script src="assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
+<!-- chartjs js -->
+<script src="assets/vendor/charts/charts-bundle/Chart.bundle.js"></script>
+<script src="assets/vendor/charts/charts-bundle/chartjs.js"></script>
+<!-- sparkline js -->
+<script src="assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
+<!-- dashboard finance js -->
+<script src="assets/libs/js/dashboard-finance.js"></script>
+<!-- main js -->
+<script src="assets/libs/js/main-js.js"></script>
+<!-- gauge js -->
+<script src="assets/vendor/gauge/gauge.min.js"></script>
+<!-- morris js -->
+<script src="assets/vendor/charts/morris-bundle/raphael.min.js"></script>
+<script src="assets/vendor/charts/morris-bundle/morris.js"></script>
+<script src="assets/vendor/charts/morris-bundle/morrisjs.html"></script>
+<!-- daterangepicker js -->
+<script src="../../../../cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="../../../../cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script>
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function (start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+    });
+
     function goto(url) {
         $("#frame").attr("src", url);
     }
 
 
-      function calcPageHeight(doc) {
-          var cHeight = Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
-          var sHeight = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
-          var height = Math.max(cHeight, sHeight)
-          return height
-      }
+    function calcPageHeight(doc) {
+        var cHeight = Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
+        var sHeight = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
+        var height = Math.max(cHeight, sHeight)
+        return height
+    }
 
-      //根据ID获取iframe对象
-      var ifr = document.getElementById('frame')
-      ifr.onload = function () {
-          //解决打开高度太高的页面后再打开高度较小页面滚动条不收缩
-          ifr.style.height = '0px';
-          var iDoc = ifr.contentDocument || ifr.document
-          var height = calcPageHeight(iDoc)
-          // if (height < 850) {
-          //     height = 850;
-          // }
-          ifr.style.height = height + 'px'
-      }
-
+    //根据ID获取iframe对象
+    var ifr = document.getElementById('frame')
+    ifr.onload = function () {
+        //解决打开高度太高的页面后再打开高度较小页面滚动条不收缩
+        ifr.style.height = '0px';
+        var iDoc = ifr.contentDocument || ifr.document
+        var height = calcPageHeight(iDoc)
+        // if (height < 850) {
+        //     height = 850;
+        // }
+        ifr.style.height = height + 'px'
+    }
 </script>
+</body>
 </html>
