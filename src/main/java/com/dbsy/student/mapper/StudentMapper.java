@@ -36,7 +36,7 @@ public interface StudentMapper {
             "email=#{email},id_card=#{idCard},native_place=#{nativePlace}," +
             "photo=#{photo},admission_date=#{admissionDate},birthday=#{birthday}," +
             "password=#{password},score=#{score},clazz_id=#{clazzId},major_id=#{majorId},department_id=#{departmentId}," +
-            "grade=#{grade},age=#{age},nation=#{nation},address=#{address}")
+            "grade=#{grade},age=#{age},nation=#{nation},address=#{address} where id=#{id}")
     int update (Student student);
 
 }
