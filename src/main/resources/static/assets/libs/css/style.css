@@ -1246,7 +1246,9 @@ Top Header
 .navbar-brand:hover{
     color: #007bff;
 }
-.navbar-right-top {}
+.navbar-right-top {
+    margin-right: 1%;
+}
 
 .navbar-right-top .nav-item {
     border-right: 1px solid #e6e6f2;
@@ -1458,7 +1460,8 @@ Top Header
 
 /* ----- User Nav Dropdown -----*/
 
-.nav-user {}
+.nav-user {
+}
 
 .nav-user-dropdown {
     padding: 0px;

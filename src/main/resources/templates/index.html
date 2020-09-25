@@ -21,40 +21,41 @@
 <div class="dashboard-main-wrapper">
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" href="index.html">学生管理系统</a>
+            <a class="navbar-brand" href="index.html">学生全过程监控系统</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
-                    <li class="nav-item">
-                        <div id="custom-search" class="top-search-bar">
-                            <input class="form-control" type="text" placeholder="Search..">
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown notification">
-                        <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
-                                class="indicator"></span></a>
-                    </li>
-                    <li class="nav-item dropdown connection">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
-                    </li>
+                    <!--                    <li class="nav-item">-->
+                    <!--                        <div id="custom-search" class="top-search-bar">-->
+                    <!--                            <input class="form-control" type="text" placeholder="Search..">-->
+                    <!--                        </div>-->
+                    <!--                    </li>-->
+                    <!--                    <li class="nav-item dropdown notification">-->
+                    <!--                        <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"-->
+                    <!--                           aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span-->
+                    <!--                                class="indicator"></span></a>-->
+                    <!--                    </li>-->
+                    <!--                    <li class="nav-item dropdown connection">-->
+                    <!--                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"-->
+                    <!--                           aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>-->
+                    <!--                    </li>-->
                     <li class="nav-item dropdown nav-user">
                         <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"><img src="assets/images/avatar-1.jpg" alt=""
-                                                                           class="user-avatar-md rounded-circle"></a>
+                           aria-haspopup="true" aria-expanded="false" >
+                            <img src="images/user.png"  alt="" class="user-avatar-md rounded-circle">
+                        </a>
                         <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
                              aria-labelledby="navbarDropdownMenuLink2">
                             <div class="nav-user-info">
-                                <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
-                                <span class="status"></span><span class="ml-2">Available</span>
+                                <h5 class="mb-0 text-white nav-user-name">欢迎您，老师 </h5>
+<!--                                <span class="status"></span><span class="ml-2">Available</span>-->
                             </div>
-                            <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>修改密码</a>
+<!--                            <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>退出登录</a>-->
+                            <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>退出登录</a>
                         </div>
                     </li>
                 </ul>
@@ -64,7 +65,7 @@
     <div class="nav-left-sidebar sidebar-dark">
         <div class="menu-list">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="d-xl-none d-lg-none" href="#">首页</a>
+<!--                <a class="d-xl-none d-lg-none" href="#">首页</a>-->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -72,14 +73,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav flex-column">
                         <li class="nav-divider">
-                            <a role="button" style="text-decoration: none;color: white;" data-toggle="collapse"
+                            <a role="button" style="text-decoration: none;color: white;font-size: 17px"
+                               data-toggle="collapse"
                                data-parent="#accordion" href="#" onclick="goto('/index/home')" aria-expanded="true"
                                aria-controls="collapseS">
                                 首页
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
+                            <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#submenu-1" aria-controls="submenu-1">
                                 <i class="fa fa-fw fa-user-circle"></i>
                                 学生信息
                                 <span class="badge badge-success">6</span>
@@ -88,30 +91,30 @@
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
                                         <a class="nav-link" onclick="goto('/student')"
-                                           href="#student" >基本信息</a>
+                                           href="#student">基本信息</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" onclick="goto('/preWarning')"
-                                           href="#preWarning" >学业预警</a>
+                                           href="#preWarning">学业预警</a>
                                     </li>
                                     <!--<li class="nav-item">
                                         <a class="nav-link" href="index.html">家庭</a>
                                     </li>-->
                                     <li class="nav-item">
                                         <a class="nav-link" onclick="goto('/retardation')"
-                                           href="#retardation" >留级试读</a>
+                                           href="#retardation">留级试读</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" onclick="goto('/suspension')"
-                                           href="#suspension" >休学退学</a>
+                                           href="#suspension">休学退学</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" onclick="goto('/transfer')"
-                                           href="#transfer" >转专业</a>
+                                           href="#transfer">转专业</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" onclick="goto('/monitoring')"
-                                           href="#monitoring" >学业监控</a>
+                                           href="#monitoring">学业监控</a>
                                     </li>
                                 </ul>
                             </div>
@@ -142,8 +145,9 @@
                                data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>奖助贷惩</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                               data-target="#submenu-4" aria-controls="submenu-4"><i class="fas fa-fw fa-chart-pie"></i>就业情况</a>
+                            <a class="nav-link" onclick="goto('/employment')" href="#employment" data-toggle="collapse"
+                               aria-expanded="false"
+                               data-target="#submenu-4" aria-controls="submenu-4"><i class="fab fa-fw fa-wpforms"></i>就业情况</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
