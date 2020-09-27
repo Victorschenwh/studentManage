@@ -11,11 +11,11 @@
 
     <div class="row">
         <div class="col-md-3 btn-group">
-            <button type="button" class="btn btn-primary ">
-                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
-            </button>
             <button type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
+            </button>
+            <button type="button" class="btn btn-primary ">
+                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
             </button>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#apply">
                 开始申请
@@ -26,16 +26,29 @@
 
     <div class="row">
         <ul class="nav nav-tabs">
-            <li role="presentation"><a onclick="state='待审核';reLoad();" href="#">待审核</a></li>
-            <li role="presentation"><a onclick="state='已审核';reLoad();" href="#">已审核</a></li>
+            <li role="presentation"><a onclick="state='待审核';reLoad(1);" href="#">待审核</a></li>
+            <li role="presentation"><a onclick="state='已审核';reLoad(1);" href="#">已审核</a></li>
+<!--            <li role="presentation">-->
+<!--                <a onclick="state='我的申请';reLoad(1);reLoad(2);"-->
+<!--                   href="#">我的申请</a>-->
+<!--            </li>-->
+        </ul>
+    </div>
+
+    <table id="table_transfer1" data-mobile-responsive="true">
+    </table>
+    <div class="row">
+        <ul class="nav nav-tabs">
+<!--            <li role="presentation"><a onclick="state='待审核';reLoad(1);reload(2);" href="#">待审核</a></li>-->
+<!--            <li role="presentation"><a onclick="state='已审核';reLoad(1);reLoad(2);" href="#">已审核</a></li>-->
             <li role="presentation">
-                <a onclick="state='我的申请';reLoad()"
+                <a onclick="state='我的申请';reLoad(2);"
                    href="#">我的申请</a>
             </li>
         </ul>
     </div>
 
-    <table id="table_transfer" data-mobile-responsive="true">
+    <table id="table_transfer2" data-mobile-responsive="true">
     </table>
 
     <!--申请审批模态框-->
@@ -362,8 +375,8 @@
     let state = '待审核'
     let utils = new Utils()
 
-    function check(id) {
-        let row = $('#table_transfer').bootstrapTable('getRowByUniqueId', id)
+    function check(id,index) {
+        let row = $('#table_transfer'+index).bootstrapTable('getRowByUniqueId', id)
         $("#check_id").val(row.id)
         $("#check_number").val(row.number)
         $("#check_name").val(row.name)
@@ -382,8 +395,8 @@
 
     }
 
-    function check2(id) {
-        let row = $('#table_transfer').bootstrapTable('getRowByUniqueId', id)
+    function check2(id,index) {
+        let row = $('#table_transfer'+index).bootstrapTable('getRowByUniqueId', id)
         $("#check_id1").val(row.id)
         $("#check_number1").val(row.number)
         $("#check_name1").val(row.name)
@@ -402,8 +415,8 @@
         newClazz.val(row.new_clazz_id)
     }
 
-    function myApply(id) {
-        let row = $('#table_transfer').bootstrapTable('getRowByUniqueId', id)
+    function myApply(id,index) {
+        let row = $('#table_transfer'+index).bootstrapTable('getRowByUniqueId', id)
         // alert("b>>"+ row.id)
         $("#check_id2").val(row.id)
         $("#check_number2").val(row.number)
@@ -457,10 +470,11 @@
     }
 
     $(document).ready(function () {
-        load();
+        load(1);
+        load(2);
         s(4);
         s(3);
-        S(2);
+        // S(2);
 
         $("#update").validate({
             rules: {},
@@ -488,8 +502,8 @@
     });
 
 
-    function load() {
-        $('#table_transfer')
+    function load(index) {
+        $('#table_transfer'+index)
             .bootstrapTable({
                 url: "/transfer/list",              //请求后台的URL（*）
                 method: 'GET',                      //请求方式（*）
@@ -614,11 +628,11 @@
                             tran[field] = row[field]
                         }
                         if (state == "待审核") {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#check" onclick="check(' + row.id + ')">开始审批</a> ';
+                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#check" onclick="check(' + row.id + ',1)">开始审批</a> ';
                         } else if (state == "已审核") {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#selectCheck" title="编辑" onclick="check2(' + row.id + ')">编辑</a> ';
+                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#selectCheck" title="编辑" onclick="check2(' + row.id + ',1)">编辑</a> ';
                         } else if (state == "我的申请" && row.is_pass != null) {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="myApply(' + row.id + ')">编辑</a> ' +
+                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="myApply(' + row.id + ',1)">编辑</a> ' +
                                 '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
                                 + row.id
                                 + '\')">删除</a> ';
@@ -629,8 +643,8 @@
     }
 
 
-    function reLoad() {
-        $('#table_transfer').bootstrapTable('refresh');
+    function reLoad(index) {
+        $('#table_transfer'+index).bootstrapTable('refresh');
     }
 
 
@@ -644,7 +658,8 @@
                 if (data.code == 1) {
                     //操作成功，关闭模态框
                     $('#edit').modal('hide');
-                    reLoad();
+                    reLoad(1);
+                    reLoad(2);
                     alert("修改成功");
                 } else {
                     alert("修改失败");
@@ -665,7 +680,8 @@
                 if (data.code == 1) {
                     //操作成功，关闭模态框
                     $('#apply').modal('hide');
-                    reLoad()
+                    reLoad(1);
+                    reLoad(2);
                     //alert("添加成功");
                 } else {
                     alert(data.msg);
@@ -685,7 +701,8 @@
                 if (data.code == 1) {
                     //操作成功，关闭模态框
                     $('#check').modal('hide');
-                    reLoad()
+                    reLoad(1);
+                    reLoad(2);
                     //alert("添加成功");
                 } else {
                     alert(data.msg);
@@ -702,7 +719,8 @@
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
-                    reLoad()
+                    reLoad(1);
+                    reLoad(2);
                     //alert("删除成功");
                 } else {
                     alert("删除失败");
@@ -733,7 +751,8 @@
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
-                    reLoad()
+                    reLoad(1);
+                    reLoad(2);
                     //alert("删除成功");
                 } else {
                     alert("删除失败");
