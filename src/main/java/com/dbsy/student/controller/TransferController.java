@@ -46,11 +46,20 @@ public class TransferController {
             return "stuInfo/transfer";
     }
 
+    @RequestMapping("/page2")
+    public String toPage2(Model model, HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("user");
+        if (admin.getRole() == 0)
+            return "stuInfo/leaderTransfer";
+        else
+            return "stuInfo/transfer2";
+    }
+
 
     //    @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
-    public Map list(@RequestParam Map map) {
+    public Map list(@RequestParam Map map,String state) {
         Map m = new HashMap();
         m.put("total", transferService.listCount(map));
         m.put("rows", transferService.list(map));

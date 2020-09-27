@@ -112,13 +112,13 @@ public class TransferServiceImp implements TransferService, ExcelSave {
             map.put("isPass", "0,1");
             if (map.get("department") != null && !"".equals(map.get("department")))
                 map.put("newDepartmentId", Integer.parseInt(map.get("department") + ""));
-        } else if ("我的申请".equals(state)) {
-            if (map.get("department") != null && !"".equals(map.get("department")))
-                map.put("oldDepartmentId", Integer.parseInt(map.get("department") + ""));
-            map.put("isPass", null);
-        } else if ("待审核".equals(state)) {
+        }  if ("我的申请".equals(state)) {
             if (map.get("department") != null && !"".equals(map.get("department")))
                 map.put("newDepartmentId", Integer.parseInt(map.get("department") + ""));
+            map.put("isPass", "0,1");
+        }  if ("待审核".equals(state)) {
+            if (map.get("department") != null && !"".equals(map.get("department")))
+                map.put("oldDepartmentId", Integer.parseInt(map.get("department") + ""));
             map.put("isPass", "null");
         }
 

@@ -138,7 +138,7 @@
         where id=#{id}
     </update>
 
-    <select id="list" resultType="HashMap">
+    <select id="list" resultType="java.util.HashMap">
         select t.id as id, t.old_department_id as old_department_id ,
         t.old_major_id as old_major_id,t.old_clazz_id as old_clazz_id,
         t.new_department_id as new_department_id,t.new_major_id as new_major_id,

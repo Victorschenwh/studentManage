@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="static :: head">
+<body>
+<div class="container-fluid">
+
+    <div class="row">
+        <ul class="nav nav-tabs">
+            <li role="presentation">
+                <a onclick="state='我的申请';reLoad();" href="#">我的申请</a>
+            </li>
+        </ul>
+    </div>
+
+    <table id="table_transfer" data-mobile-responsive="true">
+    </table>
+
+
+
+
+
+
+
+
+    <!--已审批进行编辑模态框，我的申请-->
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal" id="update">
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel2">
+                            我的申请
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <input id="check_id2" name="id" class="hidden">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">学号：</label>
+                            <div class="col-sm-8">
+                                <input id="check_number2" class="form-control" name="number" type="text" readonly="readonly" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">转入学院：</label>
+                            <div class="col-sm-8">
+                                <input id="check_new_department_name2" name="newDepartmentId" class="form-control"
+                                       readonly="readonly"
+                                       type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">转入专业：</label>
+                            <div class="col-sm-8">
+                                <input id="check_new_major_name2" name="newMajorId" class="form-control" readonly="readonly"
+                                       type="text" required>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            确定
+                        </button>
+                    </div>
+                </form>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+</div>
+<div th:replace="static :: script"></div>
+</body>
+<script src="/js/utils.js"></script>
+<script src="/js/smallSelect.js"></script>
+<script>
+    let state = "我的申请";
+    let utils = new Utils();
+
+
+
+
+    function myApply(id) {
+        let row = $('#table_transfer2').bootstrapTable('getRowByUniqueId', id)
+
+        $("#check_id2").val(row.id)
+        $("#check_number2").val(row.number)
+        $("#check_new_department_name2").val(row.new_department_name)
+        $("#check_new_major_name2").val(row.new_major_name)
+    }
+
+
+
+    $(document).ready(function () {
+
+        load();
+        s(4);
+        s(3);
+
+
+    });
+
+
+    function load() {
+        $('#table_transfer')
+            .bootstrapTable({
+                url: "/transfer/list",              //请求后台的URL（*）
+                method: 'GET',                      //请求方式（*）
+                //toolbar: '#toolbar',              //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+                pageSize: 10,                     //每页的记录行数（*）
+                pageList: [10, 20, 30],        //可供选择的每页的行数（*）
+                search: false,                      //是否显示表格搜索
+                strictSearch: false,
+                showColumns: false,                  //是否显示所有的列（选择显示的列）
+                showRefresh: false,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: false,                //是否启用点击选中行
+                //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+                showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                  //是否显示父子表
+                //得到查询的参数
+
+                queryParams: function (params) {
+                    //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+                    return {
+                        pageSize: params.limit,                         //页面大小
+                        page: (params.offset / params.limit) + 1,   //页码
+                        //sort: params.sort,      //排序列名
+                        //sortOrder: params.order //排位命令（desc，asc）
+                        department: [[${session.user.departmentId == null ? 'null' : session.user.departmentId}]],
+                        search_key: $("#search_key").val(),
+                        state: state
+                    };
+                },
+                onPreBody: function (data) {
+                    if (data != null) {
+                        data.forEach(function (row, index, rows) {
+                            if (row.old_department_id != null)
+                                row.old_department_name = utils.get("/department/get/" + row.old_department_id).name
+                            if (row.old_major_id != null)
+                                row.old_major_name = utils.get("/major/get/" + row.old_major_id).name
+                            if (row.old_clazz_id != null)
+                                row.old_clazz_name = utils.get("/clazz/get/" + row.old_clazz_id).name
+                            if (row.new_department_id != null)
+                                row.new_department_name = utils.get("/department/get/" + row.new_department_id).name
+                            if (row.new_major_id != null)
+                                row.new_major_name = utils.get("/major/get/" + row.new_major_id).name
+                            if (row.new_clazz_id != null)
+                                row.new_clazz_name = utils.get("/clazz/get/" + row.new_clazz_id).name
+                        })
+                    }
+                },
+                columns: [{
+                    checkbox: true,
+                    visible: true                  //是否显示复选框
+                }, {
+                    field: 'number',
+                    title: '学号',
+                    align: 'center',
+
+                },
+                    // {
+                    // field: 'grade',
+                    // title: '年级',
+                    // align: 'center',
+
+                // },
+                    {
+                    field: 'name',
+                    title: '姓名',
+                    align: 'center',
+                }, {
+                    field: 'old_department_name',
+                    align: 'center',
+                    title: '转出学院',
+                }, {
+                    field: 'old_major_name',
+                    align: 'center',
+                    title: '转出专业',
+                }, {
+                    field: 'old_clazz_name',
+                    align: 'center',
+                    title: '转出班级',
+                }, {
+                    field: 'new_department_name',
+                    align: 'center',
+                    title: '转入学院',
+                }, {
+                    field: 'new_major_name',
+                    align: 'center',
+                    title: '转入专业',
+                }, {
+                    field: 'new_clazz_name',
+                    align: 'center',
+                    title: '转入班级',
+                }, {
+                    field: 'old_out_date',
+                    align: 'center',
+                    title: '转出时间',
+                }, {
+                    field: 'new_in_date',
+                    align: 'center',
+                    title: '转入时间',
+                }, {
+                    field: 'is_pass',
+                    align: 'center',
+                    title: '审批进度',
+                    formatter: function (value, row, index) {
+                        if (value == null) {
+                            return "等待审批";
+                        }
+                        return value ? "同意转入" : "拒绝转入";
+                    }
+                }, {
+                    title: '操作',
+                    field: 'id',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var tran = {}
+                        for (let field in row) {
+                            tran[field] = row[field];
+                        }
+
+                        if (state == "我的申请" && row.is_pass != null) {
+                                return ' <a class="btn btn-warning btn-sm "   title="退回"  mce_href="#" onclick="remove(' + row.id + ')">退回</a> ';
+
+                                //<a class="btn btn-warning btn-sm " href="#"  title="退回"  mce_href="#" onclick="remove(\'' + row.id + '\')">退回</a> '
+                                // '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="myApply(' + row.id + ')">编辑</a> ' +
+                            }
+                        }
+
+                }]
+            });
+    }
+
+
+    function reLoad() {
+        $('#table_transfer').bootstrapTable('refresh');
+    }
+
+
+
+
+
+
+
+    function remove(id) {
+        $.ajax({
+            type: 'POST',
+            data: {},
+            url: "/transfer/remove/" + id,
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1) {
+                    // reLoad(1);
+                    reLoad();
+                    alert("删除成功");
+                } else {
+                    alert("删除失败");
+                }
+            }
+        });
+    }
+
+    function batchRemove(index) {
+        var rows = $('#table_transfer'+index).bootstrapTable('getSelections');
+        if (rows == null) {
+            alert("请选中操作的行")
+            return;
+        }
+        //.log(rows);
+        var ids = [];
+        for (var i = 0; i < rows.length; i++) {
+            ids[i] = rows[i].id;
+        }
+        //console.log(ids)
+        $.ajax({
+            type: 'POST',
+            data: {
+                ids: ids
+            },
+            url: "/transfer/batchRemove",
+            traditional: true,//向后台传递数组时加上
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1) {
+                    reLoad(1);
+                    reLoad(2);
+                    alert("删除成功");
+                } else {
+                    alert("删除失败");
+                }
+            }
+        });
+    }
+
+
+</script>
+</html>

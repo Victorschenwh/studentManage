@@ -14,9 +14,9 @@
             <button type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
             </button>
-            <button type="button" class="btn btn-primary ">
-                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
-            </button>
+<!--            <button type="button" class="btn btn-primary ">-->
+<!--                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传-->
+<!--            </button>-->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#apply">
                 开始申请
             </button>
@@ -37,19 +37,28 @@
 
     <table id="table_transfer1" data-mobile-responsive="true">
     </table>
-    <div class="row">
-        <ul class="nav nav-tabs">
-<!--            <li role="presentation"><a onclick="state='待审核';reLoad(1);reload(2);" href="#">待审核</a></li>-->
-<!--            <li role="presentation"><a onclick="state='已审核';reLoad(1);reLoad(2);" href="#">已审核</a></li>-->
-            <li role="presentation">
-                <a onclick="state='我的申请';reLoad(2);"
-                   href="#">我的申请</a>
-            </li>
-        </ul>
-    </div>
 
-    <table id="table_transfer2" data-mobile-responsive="true">
-    </table>
+
+    <hr>
+<!--    <div class="row">-->
+<!--        <ul class="nav nav-tabs">-->
+<!--&lt;!&ndash;            <li role="presentation"><a onclick="state='待审核';reLoad(1);reload(2);" href="#">待审核</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li role="presentation"><a onclick="state='已审核';reLoad(1);reLoad(2);" href="#">已审核</a></li>&ndash;&gt;-->
+<!--            <li role="presentation">-->
+<!--                <a onclick="state='我的申请';reLoad(2);" href="#">我的申请</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+
+    <div class="row">
+        <iframe id="frame" src="/transfer/page2" class="h-100 w-100" frameborder="0" scrolling="auto"
+                style="min-height:600px;width:100%;height:100%;"
+                seamless></iframe>
+    </div>
+<!--    <table id="table_transfer2" data-mobile-responsive="true">-->
+<!--    </table>-->
+
+
 
     <!--申请审批模态框-->
     <div class="modal fade" id="apply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -195,6 +204,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
                         <button type="button" class="btn btn-primary" onclick="yesOrNo(false)">
                             拒绝
                         </button>
@@ -290,6 +302,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
                         <button type="button" class="btn btn-primary" onclick="applyed(false)">
                             拒绝
                         </button>
@@ -330,26 +345,43 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转入学院：</label>
                             <div class="col-sm-8">
-                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="departmentId2" class="form-control" id="departmentId3" required>
-                                    <option value="">
-                                        --请选择--
-                                    </option>
-                                </select>
+                                <input id="check_new_department_name2" name="newDepartmentId" class="form-control"
+                                       readonly="readonly"
+                                       type="text" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">转入专业：</label>
                             <div class="col-sm-8">
-                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
-                                <select name="majorId2" class="form-control" id="majorId3" required>
-                                    <option value="">
-                                        --请选择--
-                                    </option>
-                                </select>
+                                <input id="check_new_major_name2" name="newMajorId" class="form-control" readonly="readonly"
+                                       type="text" required>
                             </div>
                         </div>
+
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-sm-3 control-label">转入学院：</label>-->
+<!--                            <div class="col-sm-8">-->
+<!--                                &lt;!&ndash;<input id="gender" name="gender" class="form-control" type="text">&ndash;&gt;-->
+<!--                                <select name="departmentId2" class="form-control" id="departmentId3" required>-->
+<!--                                    <option value="">-->
+<!--                                        &#45;&#45;请选择&#45;&#45;-->
+<!--                                    </option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-sm-3 control-label">转入专业：</label>-->
+<!--                            <div class="col-sm-8">-->
+<!--                                &lt;!&ndash;<input id="gender" name="gender" class="form-control" type="text">&ndash;&gt;-->
+<!--                                <select name="majorId2" class="form-control" id="majorId3" required>-->
+<!--                                    <option value="">-->
+<!--                                        &#45;&#45;请选择&#45;&#45;-->
+<!--                                    </option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
                     </div>
                     <div class="modal-footer">
@@ -372,11 +404,11 @@
 <script src="/js/utils.js"></script>
 <script src="/js/smallSelect.js"></script>
 <script>
-    let state = '待审核'
-    let utils = new Utils()
+    let state = "待审核";
+    let utils = new Utils();
 
-    function check(id,index) {
-        let row = $('#table_transfer'+index).bootstrapTable('getRowByUniqueId', id)
+    function check(id) {
+        let row = $('#table_transfer1').bootstrapTable('getRowByUniqueId', id)
         $("#check_id").val(row.id)
         $("#check_number").val(row.number)
         $("#check_name").val(row.name)
@@ -395,8 +427,8 @@
 
     }
 
-    function check2(id,index) {
-        let row = $('#table_transfer'+index).bootstrapTable('getRowByUniqueId', id)
+    function check2(id) {
+        let row = $('#table_transfer1').bootstrapTable('getRowByUniqueId', id)
         $("#check_id1").val(row.id)
         $("#check_number1").val(row.number)
         $("#check_name1").val(row.name)
@@ -415,12 +447,13 @@
         newClazz.val(row.new_clazz_id)
     }
 
-    function myApply(id,index) {
-        let row = $('#table_transfer'+index).bootstrapTable('getRowByUniqueId', id)
-        // alert("b>>"+ row.id)
+    function myApply(id) {
+        let row = $('#table_transfer2').bootstrapTable('getRowByUniqueId', id)
+
         $("#check_id2").val(row.id)
         $("#check_number2").val(row.number)
-        // alert("A>>>" +$("#check_id2").val())
+        $("#check_new_department_name2").val(row.new_department_name)
+        $("#check_new_major_name2").val(row.new_major_name)
     }
 
     function applyed(isPass) {
@@ -437,7 +470,8 @@
                 if (res.code == 1) {
                     //操作成功，关闭模态框
                     $('#selectCheck').modal('hide');
-                    reLoad();
+                    reLoad(1);
+                    // reLoad(2);
                 } else {
                     alert("修改失败");
                     $('#selectCheck').modal('hide');
@@ -460,7 +494,8 @@
                 if (res.code == 1) {
                     //操作成功，关闭模态框
                     $('#check').modal('hide');
-                    reLoad();
+                    reLoad(1);
+                    // reLoad(2);
                 } else {
                     alert("修改失败");
                     $('#check').modal('hide');
@@ -470,19 +505,22 @@
     }
 
     $(document).ready(function () {
+
         load(1);
         load(2);
         s(4);
         s(3);
+
+
         // S(2);
 
-        $("#update").validate({
-            rules: {},
-            messages: {},
-            submitHandler: function (form) {
-                update();
-            }
-        });
+        // $("#update").validate({
+        //     rules: {},
+        //     messages: {},
+        //     submitHandler: function (form) {
+        //         update();
+        //     }
+        // });
 
         $("#checkView").validate({
             rules: {},
@@ -529,8 +567,13 @@
                 cardView: false,                    //是否显示详细视图
                 detailView: false,                  //是否显示父子表
                 //得到查询的参数
+
                 queryParams: function (params) {
                     //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+                    console.log(index);
+                    if(index==2){
+                        state="我的申请";
+                    }
                     return {
                         pageSize: params.limit,                         //页面大小
                         page: (params.offset / params.limit) + 1,   //页码
@@ -538,7 +581,7 @@
                         //sortOrder: params.order //排位命令（desc，asc）
                         department: [[${session.user.departmentId == null ? 'null' : session.user.departmentId}]],
                         search_key: $("#search_key").val(),
-                        state: state,
+                        state: state
                     };
                 },
                 onPreBody: function (data) {
@@ -567,12 +610,14 @@
                     title: '学号',
                     align: 'center',
 
-                }, {
-                    field: 'grade',
-                    title: '年级',
-                    align: 'center',
+                },
+                    // {
+                    // field: 'grade',
+                    // title: '年级',
+                    // align: 'center',
 
-                }, {
+                // },
+                    {
                     field: 'name',
                     title: '姓名',
                     align: 'center',
@@ -625,19 +670,22 @@
                     formatter: function (value, row, index) {
                         var tran = {}
                         for (let field in row) {
-                            tran[field] = row[field]
+                            tran[field] = row[field];
+                            console.log(tran[field]);
                         }
-                        if (state == "待审核") {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#check" onclick="check(' + row.id + ',1)">开始审批</a> ';
-                        } else if (state == "已审核") {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#selectCheck" title="编辑" onclick="check2(' + row.id + ',1)">编辑</a> ';
-                        } else if (state == "我的申请" && row.is_pass != null) {
-                            return '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="myApply(' + row.id + ',1)">编辑</a> ' +
-                                '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
-                                + row.id
-                                + '\')">删除</a> ';
+
+                            if (state == "待审核" || row.is_pass == null) {
+                                return ' <a class="btn btn-primary btn-sm"   href="#" mce_href="#"  data-toggle="modal" data-target="#check" onclick="check(' + row.id + ')">开始审批</a> ';
+                            }  if (state == "已审核") {
+                                return ' <a class="btn btn-primary btn-sm"  href="#" mce_href="#"  data-toggle="modal" data-target="#selectCheck" title="编辑" onclick="check2(' + row.id + ')">编辑</a> ';
+                            }  if (state == "我的申请" && row.is_pass != null) {
+                                return ' <a class="btn btn-warning btn-sm "   title="退回"  mce_href="#" onclick="remove(' + row.id + ')">退回</a> ';
+
+                                //<a class="btn btn-warning btn-sm " href="#"  title="退回"  mce_href="#" onclick="remove(\'' + row.id + '\')">退回</a> '
+                                // '<a class="btn btn-primary btn-sm ' + '" href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="myApply(' + row.id + ')">编辑</a> ' +
+                            }
                         }
-                    }
+
                 }]
             });
     }
@@ -648,25 +696,25 @@
     }
 
 
-    function update() {
-        $.ajax({
-            //cache: true,
-            type: "POST",
-            url: "/transfer/update",
-            data: $('#update').serialize(),
-            success: function (data) {
-                if (data.code == 1) {
-                    //操作成功，关闭模态框
-                    $('#edit').modal('hide');
-                    reLoad(1);
-                    reLoad(2);
-                    alert("修改成功");
-                } else {
-                    alert("修改失败");
-                }
-            }
-        });
-    }
+    // function update() {
+    //     $.ajax({
+    //         //cache: true,
+    //         type: "POST",
+    //         url: "/transfer/update",
+    //         data: $('#update').serialize(),
+    //         success: function (data) {
+    //             if (data.code == 1) {
+    //                 //操作成功，关闭模态框
+    //                 $('#edit').modal('hide');
+    //                 // reLoad(1);
+    //                 reLoad(2);
+    //                 alert("修改成功");
+    //             } else {
+    //                 alert("修改失败");
+    //             }
+    //         }
+    //     });
+    // }
 
 
     function insert() {
@@ -680,9 +728,10 @@
                 if (data.code == 1) {
                     //操作成功，关闭模态框
                     $('#apply').modal('hide');
+                    state="待审核";
                     reLoad(1);
-                    reLoad(2);
-                    //alert("添加成功");
+                    // reLoad(2);
+                    alert("申请成功");
                 } else {
                     alert(data.msg);
                 }
@@ -701,8 +750,9 @@
                 if (data.code == 1) {
                     //操作成功，关闭模态框
                     $('#check').modal('hide');
+                    state="待审核";
                     reLoad(1);
-                    reLoad(2);
+                    // reLoad(2);
                     //alert("添加成功");
                 } else {
                     alert(data.msg);
@@ -719,9 +769,9 @@
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
-                    reLoad(1);
+                    // reLoad(1);
                     reLoad(2);
-                    //alert("删除成功");
+                    alert("删除成功");
                 } else {
                     alert("删除失败");
                 }
@@ -729,8 +779,8 @@
         });
     }
 
-    function batchRemove() {
-        var rows = $('#table_transfer').bootstrapTable('getSelections');
+    function batchRemove(index) {
+        var rows = $('#table_transfer'+index).bootstrapTable('getSelections');
         if (rows == null) {
             alert("请选中操作的行")
             return;
@@ -753,7 +803,7 @@
                 if (data.code == 1) {
                     reLoad(1);
                     reLoad(2);
-                    //alert("删除成功");
+                    alert("删除成功");
                 } else {
                     alert("删除失败");
                 }
