@@ -1,53 +1,59 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="static :: head">
+<head th:replace="static :: head"></head>
+<style>
+    .select {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .item {
+        flex: 1;
+    }
+</style>
 <body>
 <div class="container-fluid">
     <ol class="breadcrumb">
         <li>首页</li>
         <li class="active">就业情况</li>
     </ol>
-    <div class="form-group">
-        <div class="col-md-3">
-            <select id="departmentId" class="form-control">
-            </select>
-        </div>
-        <div class="col-md-3">
-            <select id="majorId" class="form-control"
-                    required>
-                <option value="">
-                    --请选择专业--
-                </option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <select id="grade" class="form-control">
+    <div id="toolbar" class="btn-group">
+        <button id="btn_download" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载导入模板
+        </button>
 
-            </select>
-        </div>
-        <div class="col-md-3">
-            <select id="clazzId" class="form-control">
-                <option value="">
-                    --请选择班级--
-                </option>
-            </select>
-        </div>
-    </div>
+        <button id="btn_upload" type="button" class="btn btn-primary" onclick="">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传
+        </button>
 
-    <div class="row">
-        <div id="toolbar" class="btn-group ">
-            <button id="btn_upload" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
-            </button>
+        <div class="select">
+            <div class="item">
+                <select id="departmentId" class="form-control">
+                </select>
+            </div>
+            <div class="item">
+                <select id="majorId" class="form-control"
+                        required>
+                    <option value="">
+                        --请选择专业--
+                    </option>
+                </select>
+            </div>
+            <div class="item">
+                <select id="grade" class="form-control">
 
-            <button id="btn_download" type="button" class="btn btn-danger" onclick="">
-                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
-            </button>
-
-            <input type="text" id="search_key" placeholder="请输入关键字"/>
-
+                </select>
+            </div>
+            <div class="item">
+                <select id="clazzId" class="form-control">
+                    <option value="">
+                        --请选择班级--
+                    </option>
+                </select>
+            </div>
         </div>
     </div>
+
 
 
     <table id="table_employ" data-mobile-responsive="true">
@@ -166,17 +172,18 @@
                 pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
                 pageSize: 10,                     //每页的记录行数（*）
                 pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-                search: false,                      //是否显示表格搜索
+                search: true,                      //是否显示表格搜索
+                showSearchButton: true,
                 strictSearch: true,
                 showColumns: true,                  //是否显示所有的列（选择显示的列）
-                showRefresh: true,                  //是否显示刷新按钮
+                showRefresh: false,                  //是否显示刷新按钮
                 minimumCountColumns: 2,             //最少允许的列数
                 clickToSelect: true,                //是否启用点击选中行
                 //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
                 uniqueId: "id",                     //每一行的唯一标识，一般为主键列
-                showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
+                showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
-                detailView: false,                  //是否显示父子表
+                detailView: false,                       //是否显示父子表
                 //得到查询的参数
                 queryParams: function (params) {
                     console.log("list:" + params)
@@ -190,7 +197,8 @@
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
-                        search_key: $("#search_key").val()
+                        search_key: $("#search_key").val(),
+                        search: params.search
                     };
                 },
                 columns: [{

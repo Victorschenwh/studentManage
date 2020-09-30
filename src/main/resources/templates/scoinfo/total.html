@@ -21,12 +21,12 @@
     </ol>
 
     <div id="toolbar" class="btn-group">
-        <button id="btn_upload" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
+        <button id="btn_download" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载导入模板
         </button>
 
-        <button id="btn_download" type="button" class="btn btn-danger" onclick="">
-            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
+        <button id="btn_upload" type="button" class="btn btn-primary" onclick="">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传
         </button>
 
         <div class="select">
@@ -95,16 +95,16 @@
                 showSearchButton: true,
                 //searchText: "请输入关键字",
                 trimOnSearch: true,
-                showSearchClearButton: true,
+                showSearchClearButton: false,
                 strictSearch: true,
 
                 showColumns: true,                  //是否显示所有的列（选择显示的列）
-                showRefresh: true,                  //是否显示刷新按钮
+                showRefresh: false,                  //是否显示刷新按钮
                 minimumCountColumns: 2,             //最少允许的列数
                 clickToSelect: true,                //是否启用点击选中行
                 //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
                 uniqueId: "id",                     //每一行的唯一标识，一般为主键列
-                showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
+                showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
                 detailView: false,                  //是否显示父子表
                 //得到查询的参数
