@@ -119,4 +119,20 @@ public class Score {
     public void setTestTime(Date testTime) {
         this.testTime = testTime;
     }
+
+    @Override
+    public String toString() {
+        return "Score{" +
+                "id=" + id +
+                ", studentId=" + studentId +
+                ", courseId=" + courseId +
+                ", score=" + score +
+                ", credit=" + credit +
+                ", studyTerm=" + studyTerm +
+                ", totalHours=" + totalHours +
+                ", theoryHours=" + theoryHours +
+                ", experimentHours=" + experimentHours +
+                ", testTime=" + testTime +
+                '}';
+    }
 }

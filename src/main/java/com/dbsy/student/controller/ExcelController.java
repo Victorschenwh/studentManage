@@ -6,6 +6,7 @@ import com.dbsy.student.pojo.Course;
 import com.dbsy.student.pojo.Employment;
 import com.dbsy.student.pojo.Score;
 import com.dbsy.student.pojo.Student;
+import com.dbsy.student.service.ScoreService;
 import com.dbsy.student.service.iml.*;
 import com.dbsy.student.util.News;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -52,6 +53,8 @@ public class ExcelController {
     RewardServiceImp rewardServiceImp;
     @Autowired
     CourseServiceImp courseServiceImp;
+    @Autowired
+    ScoreService scoreService;
 
     @PostMapping("/upload")
     @ResponseBody
@@ -102,16 +105,24 @@ public class ExcelController {
                     //获取第一行第二行的课程数据和对应学分,课程数据从第四列开始
                     HSSFRow row0 = sheet.getRow(0);
                     HSSFRow row1 = sheet.getRow(1);
+                    //第二行第一列  获取学期
+                    int study_term = Integer.parseInt(row1.getCell(0).toString());
+
                     List<Integer> cources = new ArrayList();
                     List<Double> credits = new ArrayList();
                     //log.info("LastCellNum:" + row0.getLastCellNum());
                     //LastCellNum 从1算起
-                    for (int i = 3; i < row0.getLastCellNum(); i++) {
+                    int cols = row0.getLastCellNum();
+                    for (int i = 3; i < cols; i++) {
+                        String ss = row1.getCell(i).toString().trim().replaceAll("　", "");
+                        if ("".equals(ss)) {
+                            break;
+                        }
                         Course course = new Course();
                         course.setName(row0.getCell(i).toString());
                         courseServiceImp.insertSelective(course);
                         cources.add(course.getId());
-                        credits.add(Double.parseDouble(row1.getCell(i).toString()));
+                        credits.add(Double.parseDouble(ss));
                     }
                     //获取所有学生姓名学号,入库
                     //log.info("lastRownumber:" + sheet.getLastRowNum());
@@ -120,8 +131,8 @@ public class ExcelController {
                     for (int j = 2; j <= sheet.getLastRowNum(); j++) {
                         HSSFRow row = sheet.getRow(j);
                         Student student = new Student();
-                        student.setNumber(row.getCell(0).toString());
-                        student.setName(row.getCell(1).toString());
+                        student.setNumber(row.getCell(0).toString().trim());
+                        student.setName(row.getCell(1).toString().trim());
                         studentServiceImp.insertSelective(student);
                         students.add(student.getId());
                     }
@@ -130,14 +141,19 @@ public class ExcelController {
                     for (int i = 2; i <= sheet.getLastRowNum(); i++) {
                         HSSFRow row = sheet.getRow(i);
                         for (int j = 3; j < row.getLastCellNum(); j++) {
-                            String s = row.getCell(j).toString();
-                            if (s != null && !"".equals(s.trim())) {
+                            String s = row.getCell(j).toString().trim();
+
+                            if (s != null && !"".equals(s)) {
                                 int student = students.get(i - 2);
                                 int course = cources.get(j - 3);
                                 Double credit = credits.get(j - 3);
                                 Double score;
                                 if (s.contains(","))
                                     score = 0.0;
+                                else if ("优秀".equals(s)) score = 90.0;
+                                else if ("良好".equals(s)) score = 80.0;
+                                else if ("中等".equals(s)) score = 70.0;
+                                else if ("及格".equals(s)) score = 60.0;
                                 else
                                     score = Double.parseDouble(s);
                                 Score score1 = new Score();
@@ -145,6 +161,9 @@ public class ExcelController {
                                 score1.setStudentId(student);
                                 score1.setCredit(credit);
                                 score1.setScore(score);
+                                score1.setStudyTerm(study_term);
+                                //System.out.println(score1);
+                                scoreService.insert(score1);
                             }
                         }
                     }

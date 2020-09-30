@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="static :: head">
+<head th:replace="static :: head"></head>
+<style>
+    .select {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .item {
+        flex: 1;
+    }
+</style>
 <body>
 <div class="container-fluid">
 
@@ -10,42 +20,40 @@
         <li class="active">综合测评</li>
     </ol>
 
-    <div class="form-group">
-        <div class="col-md-3">
-            <select id="departmentId" class="form-control">
-            </select>
-        </div>
-        <div class="col-md-3">
-            <select id="majorId" class="form-control"
-                    required>
-                <option value="">
-                    --请选择专业--
-                </option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <select id="grade" class="form-control">
+    <div id="toolbar" class="btn-group">
+        <button id="btn_upload" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
+        </button>
 
-            </select>
-        </div>
-        <div class="col-md-3">
-            <select id="clazzId" class="form-control">
-                <option value="">
-                    --请选择班级--
-                </option>
-            </select>
-        </div>
-    </div>
+        <button id="btn_download" type="button" class="btn btn-danger" onclick="">
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
+        </button>
 
-    <div class="row">
-        <div id="toolbar" class="btn-group ">
-            <button id="btn_upload" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
-            </button>
+        <div class="select">
+            <div class="item">
+                <select id="departmentId" class="form-control">
+                </select>
+            </div>
+            <div class="item">
+                <select id="majorId" class="form-control"
+                        required>
+                    <option value="">
+                        --请选择专业--
+                    </option>
+                </select>
+            </div>
+            <div class="item">
+                <select id="grade" class="form-control">
 
-            <button id="btn_download" type="button" class="btn btn-danger" onclick="">
-                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
-            </button>
+                </select>
+            </div>
+            <div class="item">
+                <select id="clazzId" class="form-control">
+                    <option value="">
+                        --请选择班级--
+                    </option>
+                </select>
+            </div>
         </div>
     </div>
 
@@ -185,6 +193,10 @@
                                 return 0;
                             }
                         })
+
+                        /* data.forEach((item, index) => {
+                             item.rank = index + 1
+                         })*/
                         return data;
                     }
                 },
@@ -291,9 +303,18 @@
                     },
                     {
                         field: 'total',
-                        title: '综测成绩'
+                        title: '综测成绩',
+                        formatter: function (value, row, index) {
+                            return value.toFixed(2);
+                        }
                     },
-
+                    {
+                        field: 'id',
+                        title: '综测排名',
+                        formatter: function (value, row, index) {
+                            return index + 1;
+                        }
+                    }
                 ]
             });
     }

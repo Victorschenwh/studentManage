@@ -24,7 +24,7 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
     @Override
     @Transactional
     public int insert(Score record) {
-        Score score = scoreMapper.getByStudentIdAndCourseId(record.getStudentId(), record.getCourseId());
+        Score score = scoreMapper.getByStudentIdCourseIdAndStudyTerm(record.getStudentId(), record.getCourseId(), record.getStudyTerm());
         if (score == null)
             return scoreMapper.insert(record);
         return 0;
