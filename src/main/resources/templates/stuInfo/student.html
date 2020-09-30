@@ -39,20 +39,27 @@
 
     <div class="row">
         <div id="toolbar" class="btn-group ">
-            <button id="btn_upload" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
+            <button id="btn_download" type="button" class="btn btn-primary" onclick="">
+                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载导入模板
             </button>
 
-            <button id="btn_download" type="button" class="btn btn-danger" onclick="">
-                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
+            <button id="btn_upload" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
+                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传
             </button>
 
             <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加
             </button>
 
-            <input type="text" id="search_key" placeholder="请输入关键字"/>
-
+<!--            <input type="text" id="search_key" placeholder="请输入关键字"/>-->
+            <div class="col-lg-2" style="float:right">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="请输入关键字">
+                    <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">搜索</button>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -165,7 +172,7 @@
                         <button type="button" class="btn btn-default"
                                 data-dismiss="modal">关闭
                         </button>
-                        <button type="submit" class="btn btn-primary" >
+                        <button type="submit" class="btn btn-primary">
                             确定
                         </button>
                     </div>
@@ -207,7 +214,7 @@
                 pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
                 search: false,                      //是否显示表格搜索
                 strictSearch: true,
-                showColumns: true,                  //是否显示所有的列（选择显示的列）
+                showColumns: false,                  //是否显示所有的列（选择显示的列）
                 showRefresh: false,                  //是否显示刷新按钮
                 minimumCountColumns: 2,             //最少允许的列数
                 clickToSelect: true,                //是否启用点击选中行
