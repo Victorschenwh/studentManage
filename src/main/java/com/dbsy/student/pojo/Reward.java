@@ -17,6 +17,7 @@ public class Reward {
     @ExcelProperty("加分")
     private Integer score;
 
+    @ExcelProperty("学期")
     private Integer studyTerm;
 
     public Integer getStudyTerm() {

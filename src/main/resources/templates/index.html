@@ -16,10 +16,47 @@
     <link rel="stylesheet" type="text/css" href="assets/vendor/daterangepicker/daterangepicker.css"/>
     <title></title>
 </head>
+<style>
+    html, body {
+        height: 100%;
+    }
 
+    .contain {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header {
+        height: 83px;
+    }
+
+    .main {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .left {
+        width: 264px;
+        height: 100%;
+        display: block;
+    }
+
+    .right {
+        flex: 1;
+        height: 100%;
+        background-color: white;
+        padding: 0 20px;
+    }
+
+    iframe {
+        height: 100%;
+    }
+</style>
 <body>
-<div class="dashboard-main-wrapper">
-    <div class="dashboard-header">
+<div class="contain">
+    <div class="header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
             <a class="navbar-brand" href="index.html">学生全过程监控系统</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -28,33 +65,19 @@
             </button>
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
-                    <!--                    <li class="nav-item">-->
-                    <!--                        <div id="custom-search" class="top-search-bar">-->
-                    <!--                            <input class="form-control" type="text" placeholder="Search..">-->
-                    <!--                        </div>-->
-                    <!--                    </li>-->
-                    <!--                    <li class="nav-item dropdown notification">-->
-                    <!--                        <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"-->
-                    <!--                           aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span-->
-                    <!--                                class="indicator"></span></a>-->
-                    <!--                    </li>-->
-                    <!--                    <li class="nav-item dropdown connection">-->
-                    <!--                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"-->
-                    <!--                           aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>-->
-                    <!--                    </li>-->
                     <li class="nav-item dropdown nav-user">
                         <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false" >
-                            <img src="images/user.png"  alt="" class="user-avatar-md rounded-circle">
+                           aria-haspopup="true" aria-expanded="false">
+                            <img src="images/user.png" alt="" class="user-avatar-md rounded-circle">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
                              aria-labelledby="navbarDropdownMenuLink2">
                             <div class="nav-user-info">
                                 <h5 class="mb-0 text-white nav-user-name">欢迎您，老师 </h5>
-<!--                                <span class="status"></span><span class="ml-2">Available</span>-->
+                                <!--                                <span class="status"></span><span class="ml-2">Available</span>-->
                             </div>
                             <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>修改密码</a>
-<!--                            <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>退出登录</a>-->
+                            <!--                            <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>退出登录</a>-->
                             <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>退出登录</a>
                         </div>
                     </li>
@@ -62,115 +85,121 @@
             </div>
         </nav>
     </div>
-    <div class="nav-left-sidebar sidebar-dark">
-        <div class="menu-list">
-            <nav class="navbar navbar-expand-lg navbar-light">
-<!--                <a class="d-xl-none d-lg-none" href="#">首页</a>-->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav flex-column">
-                        <li class="nav-divider">
-                            <a role="button" style="text-decoration: none;color: white;font-size: 17px"
-                               data-toggle="collapse"
-                               data-parent="#accordion" href="#" onclick="goto('/index/home')" aria-expanded="true"
-                               aria-controls="collapseS">
-                                首页
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false"
-                               data-target="#submenu-1" aria-controls="submenu-1">
-                                <i class="fa fa-fw fa-user-circle"></i>
-                                学生信息
-                                <span class="badge badge-success">6</span>
-                            </a>
-                            <div id="submenu-1" class="collapse submenu" style="">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" onclick="goto('/student')"
-                                           href="#student">基本信息</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" onclick="goto('/preWarning')"
-                                           href="#preWarning">学业预警</a>
-                                    </li>
-                                    <!--<li class="nav-item">
-                                        <a class="nav-link" href="index.html">家庭</a>
-                                    </li>-->
-                                    <li class="nav-item">
-                                        <a class="nav-link" onclick="goto('/retardation')"
-                                           href="#retardation">留级试读</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" onclick="goto('/suspension')"
-                                           href="#suspension">休学退学</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" onclick="goto('/transfer')"
-                                           href="#transfer">转专业</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" onclick="goto('/monitoring')"
-                                           href="#monitoring">学业监控</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                               data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>成绩管理</a>
-                            <div id="submenu-2" class="collapse submenu" style="">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a onclick="goto('/score')"
-                                           href="#score" class="nav-link">智育成绩</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a onclick="goto('/score/total')"
-                                           href="#assessment" class="nav-link">综合测评</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a onclick="goto('/bprank')"
-                                           href="#bprank" class="nav-link">绩点排名</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+    <div class="main">
+        <div class="left">
+            <div class="nav-left-sidebar sidebar-dark">
+                <div class="menu-list menu">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <!--                <a class="d-xl-none d-lg-none" href="#">首页</a>-->
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav flex-column">
+                                <li class="nav-divider">
+                                    <a role="button" style="text-decoration: none;color: white;font-size: 17px"
+                                       data-toggle="collapse"
+                                       data-parent="#accordion" href="#" onclick="goto('/index/home')"
+                                       aria-expanded="true"
+                                       aria-controls="collapseS">
+                                        首页
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false"
+                                       data-target="#submenu-1" aria-controls="submenu-1">
+                                        <i class="fa fa-fw fa-user-circle"></i>
+                                        学生信息
+                                        <span class="badge badge-success">6</span>
+                                    </a>
+                                    <div id="submenu-1" class="collapse submenu" style="">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link" onclick="goto('/student')"
+                                                   href="#student">基本信息</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" onclick="goto('/preWarning')"
+                                                   href="#preWarning">学业预警</a>
+                                            </li>
+                                            <!--<li class="nav-item">
+                                                <a class="nav-link" href="index.html">家庭</a>
+                                            </li>-->
+                                            <li class="nav-item">
+                                                <a class="nav-link" onclick="goto('/retardation')"
+                                                   href="#retardation">留级试读</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" onclick="goto('/suspension')"
+                                                   href="#suspension">休学退学</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" onclick="goto('/transfer')"
+                                                   href="#transfer">转专业</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" onclick="goto('/monitoring')"
+                                                   href="#monitoring">学业监控</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                                       data-target="#submenu-2" aria-controls="submenu-2"><i
+                                            class="fa fa-fw fa-rocket"></i>成绩管理</a>
+                                    <div id="submenu-2" class="collapse submenu" style="">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a onclick="goto('/score')"
+                                                   href="#score" class="nav-link">智育成绩</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a onclick="goto('/score/total')"
+                                                   href="#assessment" class="nav-link">综合测评</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a onclick="goto('/bprank')"
+                                                   href="#bprank" class="nav-link">绩点排名</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                               data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>奖助贷惩</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" onclick="goto('/employment')" href="#employment" data-toggle="collapse"
-                               aria-expanded="false"
-                               data-target="#submenu-4" aria-controls="submenu-4"><i class="fab fa-fw fa-wpforms"></i>就业情况</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                               data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-inbox"></i>办事机构</a>
-                        </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                                       data-target="#submenu-3" aria-controls="submenu-3"><i
+                                            class="fas fa-fw fa-chart-pie"></i>奖助贷惩</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="goto('/employment')" href="#employment"
+                                       data-toggle="collapse"
+                                       aria-expanded="false"
+                                       data-target="#submenu-4" aria-controls="submenu-4"><i
+                                            class="fab fa-fw fa-wpforms"></i>就业情况</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                                       data-target="#submenu-5" aria-controls="submenu-5"><i
+                                            class="fas fa-fw fa-inbox"></i>办事机构</a>
+                                </li>
 
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
-
-    <div class="dashboard-wrapper">
-        <div class="dashboard-finance">
-            <div class="container-fluid dashboard-content">
-                <div class="row">
-                    <iframe id="frame" src="/index/home" class="h-100 w-100" frameborder="0" scrolling="auto"
-                            style="min-height:600px;width:100%;height:100%;"
-                            seamless></iframe>
+                            </ul>
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
+
+        <div class="right">
+            <iframe id="frame" src="/index/home" frameborder="0" scrolling="auto"
+                    style="min-height:600px;width:100%;height:100%;"
+                    seamless></iframe>
+        </div>
+
     </div>
+
 </div>
 <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <!-- bootstap bundle js -->
@@ -215,26 +244,26 @@
         $("#frame").attr("src", url);
     }
 
+    /*
+        function calcPageHeight(doc) {
+            var cHeight = Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
+            var sHeight = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
+            var height = Math.max(cHeight, sHeight)
+            return height
+        }
 
-    function calcPageHeight(doc) {
-        var cHeight = Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
-        var sHeight = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
-        var height = Math.max(cHeight, sHeight)
-        return height
-    }
-
-    //根据ID获取iframe对象
-    var ifr = document.getElementById('frame')
-    ifr.onload = function () {
-        //解决打开高度太高的页面后再打开高度较小页面滚动条不收缩
-        ifr.style.height = '0px';
-        var iDoc = ifr.contentDocument || ifr.document
-        var height = calcPageHeight(iDoc)
-        // if (height < 850) {
-        //     height = 850;
-        // }
-        ifr.style.height = height + 'px'
-    }
+        //根据ID获取iframe对象
+        var ifr = document.getElementById('frame')
+        ifr.onload = function () {
+            //解决打开高度太高的页面后再打开高度较小页面滚动条不收缩
+            ifr.style.height = '0px';
+            var iDoc = ifr.contentDocument || ifr.document
+            var height = calcPageHeight(iDoc)
+            // if (height < 850) {
+            //     height = 850;
+            // }
+            ifr.style.height = height + 'px'
+        }*/
 </script>
 </body>
 </html>
