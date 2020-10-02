@@ -103,6 +103,11 @@ public class CourseServiceImp implements CourseService, ExcelSave {
     }
 
     @Override
+    public Course getCourseByName(String name) {
+        return courseMapper.getCourseByName(name);
+    }
+
+    @Override
     public int excelBatchInsert(List list) {
         return 0;
     }

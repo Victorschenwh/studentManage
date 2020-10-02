@@ -1,26 +1,43 @@
 package com.dbsy.student.pojo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.CourseNameToIdConverter;
+import com.dbsy.student.excel.StudentNumberToIdConverter;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Score {
+    @ExcelIgnore
     private Integer id;
 
+    @ExcelProperty(value = "学号", converter = StudentNumberToIdConverter.class)
     private Integer studentId;
 
+    @ExcelProperty(value = "课程名", converter = CourseNameToIdConverter.class)
     private Integer courseId;
 
+    @ExcelProperty("分数")
     private Double score;
 
+    @ExcelProperty("学分")
     private Double credit;
 
+    @ExcelProperty("学期")
     private Integer studyTerm;
 
+    @ExcelProperty("总学时")
     private Integer totalHours;
 
+    @ExcelProperty("理论学时")
     private Integer theoryHours;
 
+    @ExcelProperty("实践学时")
     private Integer experimentHours;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH-mm-ss")
+    @ExcelProperty("考试时间")
     private Date testTime;
 
     public Score(Integer id, Integer studentId, Integer courseId, Double score, Double credit, Integer studyTerm, Integer totalHours, Integer theoryHours, Integer experimentHours, Date testTime) {

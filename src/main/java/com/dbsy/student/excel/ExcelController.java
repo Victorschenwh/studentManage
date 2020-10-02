@@ -1,11 +1,7 @@
-package com.dbsy.student.controller;
+package com.dbsy.student.excel;
 
 import com.alibaba.excel.EasyExcel;
-import com.dbsy.student.excel.DataListener;
-import com.dbsy.student.pojo.Course;
-import com.dbsy.student.pojo.Employment;
-import com.dbsy.student.pojo.Score;
-import com.dbsy.student.pojo.Student;
+import com.dbsy.student.pojo.*;
 import com.dbsy.student.service.ScoreService;
 import com.dbsy.student.service.iml.*;
 import com.dbsy.student.util.News;
@@ -16,16 +12,16 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/excel")
@@ -55,6 +51,12 @@ public class ExcelController {
     CourseServiceImp courseServiceImp;
     @Autowired
     ScoreService scoreService;
+
+    @RequestMapping("/up")
+    public String excel() {
+        return "excel/upload";
+    }
+
 
     @PostMapping("/upload")
     @ResponseBody
@@ -173,5 +175,55 @@ public class ExcelController {
                 break;
         }
         return News.success();
+    }
+
+    @GetMapping("/download")
+    public void download(HttpServletResponse response, @RequestParam("type") String type, @RequestParam Map map) throws IOException {
+        // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+        String fileName = URLEncoder.encode(UUID.randomUUID().toString(), "UTF-8").replaceAll("\\+", "%20");
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+        switch (type) {
+            case "employment":
+                EasyExcel.write(response.getOutputStream(), Employment.class).sheet("就业表").doWrite(employmentServiceImp.list(map));
+                break;
+            case "student":
+                EasyExcel.write(response.getOutputStream(), Student.class).sheet("学生表").doWrite(studentServiceImp.list(map));
+                break;
+            case "department":
+                EasyExcel.write(response.getOutputStream(), Department.class).sheet("学院表").doWrite(departmentServiceImp.list(map));
+                break;
+            case "family":
+                EasyExcel.write(response.getOutputStream(), Family.class).sheet("家庭表").doWrite(familyServiceImp.list(map));
+                break;
+            case "major":
+                EasyExcel.write(response.getOutputStream(), Major.class).sheet("专业表").doWrite(majorServiceImp.list(map));
+                break;
+            case "transfer":
+                EasyExcel.write(response.getOutputStream(), Transfer.class).sheet("转专业表").doWrite(transferServiceImp.list(map));
+                break;
+            case "suspension":
+                EasyExcel.write(response.getOutputStream(), Suspension.class).sheet("就业表").doWrite(suspensionServiceImp.list(map));
+                break;
+            case "retardation":
+                EasyExcel.write(response.getOutputStream(), Retardation.class).sheet("就业表").doWrite(retardationServiceImp.list(map));
+                break;
+            case "reward":
+                EasyExcel.write(response.getOutputStream(), Reward.class).sheet("奖惩表").doWrite(rewardServiceImp.list(map));
+                break;
+            case "course":
+                EasyExcel.write(response.getOutputStream(), Course.class).sheet("课程表").doWrite(courseServiceImp.list(map));
+                break;
+            case "clazz":
+                EasyExcel.write(response.getOutputStream(), Clazz.class).sheet("就业表").doWrite(clazzServiceImp.list(map));
+                break;
+
+            case "score":
+                EasyExcel.write(response.getOutputStream(), Score.class).sheet("就业表").doWrite(null);
+                break;
+        }
+        //EasyExcel.write(response.getOutputStream(), DownloadData.class).sheet("模板").doWrite(data());
     }
 }
