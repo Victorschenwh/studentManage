@@ -10,22 +10,23 @@
     }
 </style>
 <body>
-<div><a href="/excel/up">上传</a></div>
 <div class="main">
     <div id="line" style="width: 1200px;height:600px;margin-bottom: 50px;"></div>
-    <div id="pie_cet" style="width: 400px;height:400px;"></div>
-    <div id="pie_score" style="width: 400px;height:400px;"></div>
-    <div id="pie_tran" style="width: 400px;height:400px;"></div>
+    <div id="pie_warning" style="width: 300px;height:400px;"></div>
+    <div id="pie_cet" style="width: 300px;height:400px;"></div>
+    <div id="pie_guake" style="width: 300px;height:400px;"></div>
+    <div id="pie_xiufutuixue" style="width: 300px;height:400px;"></div>
 
 </div>
 </body>
 <div th:replace="static :: script"></div>
 <script>
-    let myChart = echarts.init(document.getElementById('pie_cet'));
+    // 学业预警
+    let myChart = echarts.init(document.getElementById('pie_warning'));
     let option1 = {
         title: {
-            text: '某站点用户访问来源',
-            subtext: '纯属虚构',
+            text: '学业预警',
+            subtext: '东北石油大学',
             left: 'center'
         },
         tooltip: {
@@ -35,7 +36,7 @@
         legend: {
             orient: 'vertical',
             left: 'left',
-            data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+            data: ['未预警', '橙色预警', '黄色预警', '红色预警']
         },
         series: [
             {
@@ -44,11 +45,10 @@
                 radius: '55%',
                 center: ['50%', '60%'],
                 data: [
-                    {value: 335, name: '直接访问'},
-                    {value: 310, name: '邮件营销'},
-                    {value: 234, name: '联盟广告'},
-                    {value: 135, name: '视频广告'},
-                    {value: 1548, name: '搜索引擎'}
+                    {value: 335, name: '未预警'},
+                    {value: 310, name: '橙色预警'},
+                    {value: 234, name: '黄色预警'},
+                    {value: 135, name: '红色预警'}
                 ],
                 emphasis: {
                     itemStyle: {
@@ -61,12 +61,12 @@
         ]
     };
     myChart.setOption(option1);
-
-    myChart = echarts.init(document.getElementById('pie_score'));
+    //本学期挂科留级
+    myChart = echarts.init(document.getElementById('pie_cet'));
     option1 = {
         title: {
-            text: '某站点用户访问来源',
-            subtext: '纯属虚构',
+            text: '本学期挂科留级',
+            subtext: '东北石油大学',
             left: 'center'
         },
         tooltip: {
@@ -76,7 +76,7 @@
         legend: {
             orient: 'vertical',
             left: 'left',
-            data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+            data: ['无记录', '挂科', '留级']
         },
         series: [
             {
@@ -85,11 +85,9 @@
                 radius: '55%',
                 center: ['50%', '60%'],
                 data: [
-                    {value: 335, name: '直接访问'},
-                    {value: 310, name: '邮件营销'},
-                    {value: 234, name: '联盟广告'},
-                    {value: 135, name: '视频广告'},
-                    {value: 1548, name: '搜索引擎'}
+                    {value: 335, name: '无记录'},
+                    {value: 310, name: '挂科'},
+                    {value: 234, name: '留级'}
                 ],
                 emphasis: {
                     itemStyle: {
@@ -103,12 +101,12 @@
     };
     myChart.setOption(option1);
 
-
-    myChart = echarts.init(document.getElementById('pie_tran'));
+    //本学期四六级通过
+    myChart = echarts.init(document.getElementById('pie_guake'));
     option1 = {
         title: {
-            text: '某站点用户访问来源',
-            subtext: '纯属虚构',
+            text: '本学期四六级通过',
+            subtext: '东北石油大学',
             left: 'center'
         },
         tooltip: {
@@ -118,7 +116,7 @@
         legend: {
             orient: 'vertical',
             left: 'left',
-            data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+            data: ['未通过', '过四级', '过六级']
         },
         series: [
             {
@@ -127,11 +125,9 @@
                 radius: '55%',
                 center: ['50%', '60%'],
                 data: [
-                    {value: 335, name: '直接访问'},
-                    {value: 310, name: '邮件营销'},
-                    {value: 234, name: '联盟广告'},
-                    {value: 135, name: '视频广告'},
-                    {value: 1548, name: '搜索引擎'}
+                    {value: 335, name: '未通过'},
+                    {value: 310, name: '过四级'},
+                    {value: 234, name: '过六级'}
                 ],
                 emphasis: {
                     itemStyle: {
@@ -145,16 +141,61 @@
     };
     myChart.setOption(option1);
 
+
+    //修复退学
+    myChart = echarts.init(document.getElementById('pie_xiufutuixue'));
+    option1 = {
+        title: {
+            text: '本学期修复退学',
+            subtext: '东北石油大学',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['升学', '休学', '退学', '复学', '留级']
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [
+                    {value: 335, name: '升学'},
+                    {value: 310, name: '休学'},
+                    {value: 234, name: '退学'},
+                    {value: 310, name: '复学'},
+                    {value: 234, name: '留级'}
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    myChart.setOption(option1);
+
+
+    <!--折线图-->
     let myChart2 = echarts.init(document.getElementById('line'));
     let option2 = {
         title: {
-            text: '折线图堆叠'
+            text: '学生各学期情况'
         },
         tooltip: {
             trigger: 'axis'
         },
         legend: {
-            data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+            data: ['挂科', '学业预警', '四六级']
         },
         grid: {
             left: '3%',
@@ -170,41 +211,29 @@
         xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            data: ["第一学期", "第二学期", "第三学期", "第四学期", "第五学期", "第六学期", "第七学期", "第八学期"]
         },
         yAxis: {
             type: 'value'
         },
         series: [
             {
-                name: '邮件营销',
+                name: '挂科',
                 type: 'line',
                 stack: '总量',
-                data: [120, 132, 101, 134, 90, 230, 210]
+                data: [120, 132, 101, 134, 90, 230, 210, 120]
             },
             {
-                name: '联盟广告',
+                name: '学业预警',
                 type: 'line',
                 stack: '总量',
-                data: [220, 182, 191, 234, 290, 330, 310]
+                data: [220, 182, 191, 234, 290, 330, 310, 110]
             },
             {
-                name: '视频广告',
+                name: '四六级',
                 type: 'line',
                 stack: '总量',
-                data: [150, 232, 201, 154, 190, 330, 410]
-            },
-            {
-                name: '直接访问',
-                type: 'line',
-                stack: '总量',
-                data: [320, 332, 301, 334, 390, 330, 320]
-            },
-            {
-                name: '搜索引擎',
-                type: 'line',
-                stack: '总量',
-                data: [820, 932, 901, 934, 1290, 1330, 1320]
+                data: [150, 232, 201, 154, 190, 330, 410, 120]
             }
         ]
     };

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="static :: head"></head>
-    <style>
-        .select {
-            display: flex;
-            flex-direction: row;
-        }
+<style>
+    .select {
+        display: flex;
+        flex-direction: row;
+    }
 
-        .item {
-            flex: 1;
-        }
-    </style>
+    .item {
+        flex: 1;
+    }
+</style>
 <body>
 <div class="container-fluid">
 
@@ -20,38 +20,12 @@
         <li class="active">基本信息</li>
     </ol>
 
-<!--    <div class="form-group">-->
-<!--        <div class="col-md-3">-->
-<!--            <select id="departmentId" class="form-control">-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <div class="col-md-3">-->
-<!--            <select id="majorId" class="form-control"-->
-<!--                    required>-->
-<!--                <option value="">-->
-<!--                    &#45;&#45;请选择专业&#45;&#45;-->
-<!--                </option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <div class="col-md-3">-->
-<!--            <select id="grade" class="form-control">-->
-
-<!--            </select>-->
-<!--        </div>-->
-<!--        <div class="col-md-3">-->
-<!--            <select id="clazzId" class="form-control">-->
-<!--                <option value="">-->
-<!--                    &#45;&#45;请选择班级&#45;&#45;-->
-<!--                </option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--    </div>-->
     <div id="toolbar" class="btn-group">
-        <button id="btn_download" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
+        <button id="btn_download" type="button" class="btn btn-primary">
             <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载导入模板
         </button>
 
-        <button id="btn_upload" type="button" class="btn btn-primary" onclick="">
+        <button id="btn_upload" type="button" class="btn btn-primary" onclick="location.href='/excel/up'">
             <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传
         </button>
 
@@ -86,31 +60,31 @@
             </div>
         </div>
     </div>
-<!--    <div class="row">-->
-<!--        <div id="toolbar" class="btn-group ">-->
-<!--            <button id="btn_download" type="button" class="btn btn-primary" onclick="">-->
-<!--                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载导入模板-->
-<!--            </button>-->
+    <!--    <div class="row">-->
+    <!--        <div id="toolbar" class="btn-group ">-->
+    <!--            <button id="btn_download" type="button" class="btn btn-primary" onclick="">-->
+    <!--                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载导入模板-->
+    <!--            </button>-->
 
-<!--            <button id="btn_upload" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">-->
-<!--                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传-->
-<!--            </button>-->
+    <!--            <button id="btn_upload" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">-->
+    <!--                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传-->
+    <!--            </button>-->
 
-<!--            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">-->
-<!--                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加-->
-<!--            </button>-->
+    <!--            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">-->
+    <!--                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加-->
+    <!--            </button>-->
 
-<!--&lt;!&ndash;            <input type="text" id="search_key" placeholder="请输入关键字"/>&ndash;&gt;-->
-<!--            <div class="col-lg-2" style="float:right">-->
-<!--                <div class="input-group">-->
-<!--                    <input type="text" class="form-control" placeholder="请输入关键字">-->
-<!--                    <span class="input-group-btn">-->
-<!--                    <button class="btn btn-default" type="button">搜索</button>-->
-<!--                    </span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--&lt;!&ndash;            <input type="text" id="search_key" placeholder="请输入关键字"/>&ndash;&gt;-->
+    <!--            <div class="col-lg-2" style="float:right">-->
+    <!--                <div class="input-group">-->
+    <!--                    <input type="text" class="form-control" placeholder="请输入关键字">-->
+    <!--                    <span class="input-group-btn">-->
+    <!--                    <button class="btn btn-default" type="button">搜索</button>-->
+    <!--                    </span>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 
 
     <table id="table_student" data-mobile-responsive="true">
