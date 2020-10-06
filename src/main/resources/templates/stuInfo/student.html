@@ -90,7 +90,124 @@
     <table id="table_student" data-mobile-responsive="true">
     </table>
 
-    <!--模态框-->
+
+    <!--编辑模态框-->
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal" id="updata">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title">
+                            编辑
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <input id="id3" name="id" class="hidden">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">学号：</label>
+                            <div class="col-sm-8">
+                                <input name="number" id="number3" class="form-control" type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">姓名：</label>
+                            <div class="col-sm-8">
+                                <input name="name" id="name3" class="form-control" type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">民族：</label>
+                            <div class="col-sm-8">
+                                <input name="nation"  id="nation3" class="form-control" type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">身份证号：</label>
+                            <div class="col-sm-8">
+                                <input name="idCard" id="idCard3"class="form-control" type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所属院系：</label>
+                            <div class="col-sm-8">
+                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
+                                <select name="departmentId" class="form-control" id="departmentId3" required>
+                                    <option value="">
+                                        --请选择--
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所属专业：</label>
+                            <div class="col-sm-8">
+                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
+                                <select name="majorId" class="form-control" id="majorId3" required>
+                                    <option value="">
+                                        --请选择--
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所属班级：</label>
+                            <div class="col-sm-8">
+                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
+                                <select name="clazzId" class="form-control" id="clazzId3" required>
+                                    <option value="">
+                                        --请选择--
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">入学年份：</label>
+                            <div class="col-sm-8">
+                                <input name="admissionDate" id="admissionDate3" class="form-control" type="date">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">家庭住址：</label>
+                            <div class="col-sm-8">
+                                <input name="address" id="address3" class="form-control" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">联系电话：</label>
+                            <div class="col-sm-8">
+                                <input name="phoneNumber" id="phoneNumber3" class="form-control" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary" >
+                            确定
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--增加模态框-->
     <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -217,12 +334,13 @@
         grade();
         load();
         s(2);
+        s(3);
     })
-    $("#update").validate({
+    $("#updata").validate({
         rules: {},
         messages: {},
         submitHandler: function (form) {
-            update();
+            updata();
         }
     });
 
@@ -284,43 +402,51 @@
                 }, {
                     field: 'id',
                     title: '序号',
+                    align: 'center',
                 }, {
                     field: 'number',
                     title: '学号',
+                    align: 'center',
                 }, {
                     field: 'name',
                     title: '姓名',
+                    align: 'center',
                 }, {
                     field: 'nation',
                     title: '民族',
+                    align: 'center',
                 }, {
                     field: 'idCard',
                     title: '身份证号',
-                }, {
-                    field: 'departmentId',
-                    title: '学院',
-                    formatter: function (value, row, index) {
-                        var department = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/department/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        department = data.data;
-                                    }
-                                }
-                            });
-                        }
-                        return department != null ? department.name : "";
-                    }
-                }, {
+                    align: 'center',
+                },
+                //     {
+                //     field: 'departmentId',
+                //     title: '学院',
+                //     formatter: function (value, row, index) {
+                //         var department = {};
+                //         if (value != null) {
+                //             $.ajax({
+                //                 //cache: true,
+                //                 async: false,
+                //                 type: "POST",
+                //                 url: "/department/get/" + value,
+                //                 dataType: "json",
+                //                 data: {},
+                //                 success: function (data) {
+                //                     if (data.code == 1) {
+                //                         department = data.data;
+                //                     }
+                //                 }
+                //             });
+                //         }
+                //         return department != null ? department.name : "";
+                //     }
+                // },
+                    {
                     field: 'majorId',
                     title: '专业',
+                    align: 'center',
                     formatter: function (value, row, index) {
                         var major = {};
                         if (value != null) {
@@ -343,6 +469,7 @@
                 }, {
                     field: 'clazzId',
                     title: '班级',
+                    align: 'center',
                     formatter: function (value, row, index) {
                         var clazz = {};
                         if (value != null) {
@@ -366,25 +493,30 @@
                     {
                         field: 'admissionDate',
                         title: '入学年份',
+                        align: 'center',
                     }, {
                         field: 'nativePlace',
                         title: '生源地',
+                        align: 'center',
                     }, {
                         field: 'address',
                         title: '家庭住址',
+                        align: 'center',
                     }, {
                         field: 'phoneNumber',
                         title: '联系电话',
+                        align: 'center',
                     }, {
                         title: '操作',
                         field: 'id',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                            var e = '<a class="btn btn-primary btn-xs " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
+                            var d = '<a class="btn btn-warning btn-xs " href="#" title="删除"  mce_href="#" onclick="remove(\''
                                 + row.id
                                 + '\')">删除</a> ';
 
-                            return d;
+                            return e+d;
                         }
                     }]
             });
@@ -404,7 +536,7 @@
                 if (data.code == 1) {
                     var student = data.data;
                     for (var key in student) {
-                        $("#" + key).val(student[key]);
+                        $("#" + key + 3).val(student[key]);
                     }
                 }
             }
@@ -412,13 +544,13 @@
 
     }
 
-    $("#insert").validate({
-        rules: {},
-        messages: {},
-        submitHandler: function (form) {
-            insert();
-        }
-    });
+    // $("#insert").validate({
+    //     rules: {},
+    //     messages: {},
+    //     submitHandler: function (form) {
+    //         insert();
+    //     }
+    // });
 
     function insert() {
         $.ajax({
@@ -431,6 +563,26 @@
                 if (data.code == 1) {
                     //操作成功，关闭模态框
                     $('#add').modal('hide');
+                    reLoad()
+                    //alert("添加成功");
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+    }
+
+    function updata() {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/student/updata",
+            data: $('#updata').serialize(),
+            success: function (data) {
+                // console.log(data)
+                if (data.code == 1) {
+                    //操作成功，关闭模态框
+                    $('#edit').modal('hide');
                     reLoad()
                     //alert("添加成功");
                 } else {

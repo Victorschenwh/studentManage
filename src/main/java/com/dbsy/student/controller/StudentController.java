@@ -69,4 +69,13 @@ public class StudentController {
         }
         return News.fail("添加失败");
     }
+
+    @ResponseBody
+    @RequestMapping("/updata")
+    public Map updata(Student student) {
+        if (studentService.update(student) > 0) {
+            return News.success();
+        }
+        return News.fail("添加失败");
+    }
 }
