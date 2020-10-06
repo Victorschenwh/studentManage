@@ -58,6 +58,124 @@
     <table id="table_suspension" data-mobile-responsive="true">
     </table>
 
+    <!--编辑模态框-->
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal" id="updata">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title">
+                            编辑
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <input id="id3" name="id" class="hidden">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">学号：</label>
+                            <div class="col-sm-8">
+                                <input name="number" id="number3" class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">姓名：</label>
+                            <div class="col-sm-8">
+                                <input name="name" id="name3" class="form-control" type="text"  readonly="readonly">
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所属院系：</label>
+                            <div class="col-sm-8">
+                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
+                                <select name="departmentId" class="form-control" id="departmentId3" required>
+                                    <option value="">
+                                        --请选择--
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所属专业：</label>
+                            <div class="col-sm-8">
+                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
+                                <select name="majorId" class="form-control" id="majorId3" required>
+                                    <option value="">
+                                        --请选择--
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所属班级：</label>
+                            <div class="col-sm-8">
+                                <!--<input id="gender" name="gender" class="form-control" type="text">-->
+                                <select name="clazzId" class="form-control" id="clazzId3" required>
+                                    <option value="">
+                                        --请选择--
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">休退学日期：</label>
+                            <div class="col-sm-8">
+                                <input name="suspensionDate" id="suspensionDate3" class="form-control" type="date" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">休退学时长：</label>
+                            <div class="col-sm-8">
+                                <input name="duration" id="duration3" class="form-control" type="text" placeholder="单位：天" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">休退学原因：</label>
+                            <div class="col-sm-8">
+                                <input name="reason" id="reason3" class="form-control" type="text"  required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">复学日期：</label>
+                            <div class="col-sm-8">
+                                <input name="resumptionDate" id="resumptionDate3" class="form-control" type="date" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">备注：</label>
+                            <div class="col-sm-8">
+                                <input name="remarks" id="remarks3" class="form-control" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary" >
+                            确定
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 </div>
 
 
@@ -69,7 +187,16 @@
     $(document).ready(function () {
         department();
         grade();
-        load()
+        load();
+        s(3);
+
+        $("#updata").validate({
+            rules: {},
+            messages: {},
+            submitHandler: function (form) {
+                updata();
+            }
+        });
     })
 
 
@@ -120,11 +247,13 @@
                 columns: [{
                     checkbox: true,
                     visible: true   //是否显示复选框
-                }, {
-                    field: 'id',
-                    title: '序号',
-                    align: 'center',
-                }, {
+                },
+                //     {
+                //     field: 'id',
+                //     title: '序号',
+                //     align: 'center',
+                // },
+                    {
                     field: 'number',
                     title: '学号',
                     align: 'center',
@@ -202,7 +331,7 @@
                         return clazz != null ? clazz.name : "";
                     }
                 }, {
-                    field: 'suspension_date',
+                    field: 'suspensionDate',
                     title: '休退学日期',
                     align: 'center',
                 },{
@@ -214,15 +343,68 @@
                     title: '休退学原因',
                     align: 'center',
                 },{
-                    field: 'resumption_date',
+                    field: 'resumptionDate',
                     title: '复学日期',
                     align: 'center',
                 },{
                     field: 'remarks',
                     title: '备注',
                     align: 'center',
-                },]
+                },
+                    {
+                        title: '操作',
+                        field: 'id',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
+                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                                + row.id
+                                + '\')">删除</a> ';
+
+                            return e+d;
+                        }
+                    }
+                ]
             });
+    }
+
+    function get(id) {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/suspension/getSelf/" + id,
+            data: {},
+            success: function (data) {
+                if (data.code == 1) {
+                    var suspension = data.data;
+                    for (var key in suspension) {
+                        $("#" + key + 3).val(suspension[key]);
+
+                    }
+                }
+            }
+        });
+
+    }
+
+    function updata() {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/suspension/updata",
+            data: $('#updata').serialize(),
+            success: function (data) {
+                // console.log(data)
+                if (data.code == 1) {
+                    //操作成功，关闭模态框
+                    $('#edit').modal('hide');
+                    reLoad()
+                    //alert("添加成功");
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
     }
 
     function reLoad() {

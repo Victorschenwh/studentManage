@@ -69,6 +69,11 @@ public class SuspensionServiceImp implements SuspensionService, ExcelSave {
     }
 
     @Override
+    public Map getSelf(int id) {
+        return this.suspensionMapper.getSelf(id);
+    }
+
+    @Override
     @Transactional
     @CacheEvict(key = "#id")
     public int delete(int id) {

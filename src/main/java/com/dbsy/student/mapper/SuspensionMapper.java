@@ -24,6 +24,8 @@ public interface SuspensionMapper {
     @Select("select * from suspension where id = #{id}")
     Suspension get(int id);
 
+    Map getSelf(int id);
+
     @Delete("delete from suspension where id = #{id}")
     int delete(int id);
 

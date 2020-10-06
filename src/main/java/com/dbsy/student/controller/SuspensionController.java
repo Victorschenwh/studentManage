@@ -2,6 +2,7 @@ package com.dbsy.student.controller;
 
 import com.dbsy.student.annotation.Authority;
 import com.dbsy.student.myenum.Role;
+import com.dbsy.student.pojo.Student;
 import com.dbsy.student.pojo.Suspension;
 import com.dbsy.student.service.SuspensionService;
 import com.dbsy.student.util.News;
@@ -19,20 +20,20 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/suspension")
-@Authority({Role.Admin})
+//@Authority({Role.Admin})
 public class SuspensionController {
     @Autowired
     @Qualifier("SuspensionServiceImp")
     SuspensionService suspensionService;
 
-    @Authority({Role.Teacher})
+//    @Authority({Role.Teacher})
     @RequestMapping("")
     public String suspension() {
         return "stuInfo/suspension";
     }
 
 
-    @Authority({Role.Teacher})
+//    @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
     public Map list(@RequestParam Map map) {
@@ -71,7 +72,7 @@ public class SuspensionController {
     }
 
     @ResponseBody
-    @RequestMapping("/update")
+    @RequestMapping("/updata")
     public Map update(Suspension suspension) {
         if (suspensionService.update(suspension) > 0) {
             return News.success();
@@ -79,21 +80,31 @@ public class SuspensionController {
         return News.fail("添加失败");
     }
 
-    @Authority({Role.Teacher})
+//    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", suspensionService.get(id));
     }
 
-    @Authority({Role.Teacher})
+
+    @ResponseBody
+    @RequestMapping("/getSelf/{id}")
+    public Map getSelf(@PathVariable(value = "id") int id) {
+
+        System.out.println("--------------------suspensionService.getSelf(id) = " + suspensionService.getSelf(id));
+
+        return News.success("成功", suspensionService.getSelf(id));
+    }
+
+//    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getAll")
     public Map getAll() {
         return News.success("成功", suspensionService.getAll());
     }
 
-    @Authority({Role.Teacher})
+//    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getSuspensionByStudentId/{studentId}")
     public Map getSuspensionByStudentId(@PathVariable("studentId") int studentId){

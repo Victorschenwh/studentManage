@@ -19,6 +19,8 @@ public interface SuspensionService {
 
     Suspension get(int id);
 
+    Map getSelf(int id);
+
     int delete(int id);
 
     int update(Suspension suspension);

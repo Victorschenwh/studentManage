@@ -101,6 +101,12 @@
     </if>
   </select>
 
+
+  <select id="getSelf" resultType="HashMap">
+    SELECT  s.id id, s.duration duration, s.reason reason,s.remarks remarks,s.resumption_date resumptionDate,s.suspension_date suspensionDate,stu.`name` name,stu.number number,dp.`name` dpName,mj.`name` mjName,cl.`name` clName FROM suspension s LEFT JOIN student  stu ON stu.id=s.student_id LEFT JOIN department dp ON  stu.department_id=dp.id LEFT JOIN major mj ON mj.id=stu.major_id LEFT JOIN clazz cl ON cl.id=stu.clazz_id where s.id=#{id}
+  </select>
+
+
   <select id="listCount" resultType="int">
     select count(*) from suspension su join student s on s.id = su.student_id
     <where>
