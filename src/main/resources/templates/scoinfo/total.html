@@ -206,32 +206,33 @@
                 columns: [{
                     checkbox: true,
                     visible: true                  //是否显示复选框
-                }, {
-                    field: 'department_id',
-                    title: '院系',
-                    formatter: function (value, row, index) {
-                        var department = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/department/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        department = data.data;
-                                    }
-                                }
-                            });
-                        }
-                        return department != null ? department.name : "";
-                    }
-                },
+                 },
+                //     field: 'department_id',
+                //     title: '院系',
+                //     formatter: function (value, row, index) {
+                //         var department = {};
+                //         if (value != null) {
+                //             $.ajax({
+                //                 //cache: true,
+                //                 async: false,
+                //                 type: "POST",
+                //                 url: "/department/get/" + value,
+                //                 dataType: "json",
+                //                 data: {},
+                //                 success: function (data) {
+                //                     if (data.code == 1) {
+                //                         department = data.data;
+                //                     }
+                //                 }
+                //             });
+                //         }
+                //         return department != null ? department.name : "";
+                //     }
+                // },
                     {
                         field: 'major_id',
                         title: '专业',
+                        align: 'center',
                         formatter: function (value, row, index) {
                             var major = {};
                             if (value != null) {
@@ -254,6 +255,7 @@
                     }, {
                         field: 'clazz_id',
                         title: '班级',
+                        align: 'center',
                         formatter: function (value, row, index) {
                             var clazz = {};
                             if (value != null) {
@@ -276,34 +278,46 @@
                     }, {
                         field: 'number',
                         title: '学号',
+                        align: 'center',
                     }, {
                         field: 'name',
                         title: '姓名',
+                        align: 'center',
                     },
                     {
                         field: 'study_term',
-                        title: '学期'
+                        title: '学期',
+                        align: 'center',
                     },
                     {
                         field: 'avgAcademiRecoreds',
-                        title: '智育成绩'
+                        title: '智育成绩',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            return value.toFixed(2);
+                        }
                     },
                     {
                         field: 'addScore',
-                        title: '职务及活动加分'
+                        title: '职务及活动加分',
+                        align: 'center',
                     }, {
                         field: 'sys',
-                        title: '职务及活动加分细则'
+                        title: '职务及活动加分细则',
+                        align: 'center',
                     }, {
                         field: 'subScore',
-                        title: '行为规范加分'
+                        title: '行为规范加分',
+                        align: 'center',
                     }, {
                         field: 'sysSub',
-                        title: '行为规范加分细则'
+                        title: '行为规范加分细则',
+                        align: 'center',
                     },
                     {
                         field: 'total',
                         title: '综测成绩',
+                        align: 'center',
                         formatter: function (value, row, index) {
                             return value.toFixed(2);
                         }
@@ -311,6 +325,7 @@
                     {
                         field: 'id',
                         title: '综测排名',
+                        align: 'center',
                         formatter: function (value, row, index) {
                             return index + 1;
                         }

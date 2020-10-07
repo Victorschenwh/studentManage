@@ -207,12 +207,15 @@
                 }, {
                     field: 'number',
                     title: '学号',
+                    align: 'center',
                 }, {
                     field: 'name',
                     title: '姓名',
+                    align: 'center',
                 }, {
                     field: 'departmentId',
                     title: '学院',
+                    align: 'center',
                     formatter: function (value, row, index) {
                         var depart = {};
                         if (value != null) {
@@ -236,6 +239,7 @@
                 }, {
                     field: 'majorId',
                     title: '专业',
+                    align: 'center',
                     formatter: function (value, row, index) {
                         var major = {};
                         if (value != null) {
@@ -258,6 +262,7 @@
                 }, {
                     field: 'clazzId',
                     title: '班级',
+                    align: 'center',
                     formatter: function (value, row, index) {
                         var clazz = {};
                         if (value != null) {
@@ -281,18 +286,22 @@
                     {
                         field: 'isSign',
                         title: '是否就业/签订第三方协议',
+                        align: 'center',
                         formatter: function (value, row, index) {
                             return value ? "已就业/已签订" : "未就业/未签订";
                         }
                     }, {
                         field: 'company',
-                        title: '就业单位'
+                        title: '就业单位',
+                        align: 'center',
                     },{
                         field: 'phoneNumber',
-                        title: '联系方式'
+                        title: '联系方式',
+                        align: 'center',
                     }, {
                         field: 'remarks',
-                        title: '备注'
+                        title: '备注',
+                        align: 'center',
                     }, {
                         title: '操作',
                         field: 'id',
