@@ -29,7 +29,7 @@ public interface SuspensionMapper {
     @Delete("delete from suspension where id = #{id}")
     int delete(int id);
 
-    @Update("update suspension set student_id=#{studentId},suspension_date=#{suspensionDate},resumption_date=#{resumptionDate},duration=#{duration},reason=#{reason},remarks=#{remarks}  where id=#{id}")
+    @Update("update suspension set suspension_date=#{suspensionDate},resumption_date=#{resumptionDate},duration=#{duration},reason=#{reason},remarks=#{remarks}  where id=#{id}")
     int update(Suspension suspension);
 
     int batchRemove(int[] ids);

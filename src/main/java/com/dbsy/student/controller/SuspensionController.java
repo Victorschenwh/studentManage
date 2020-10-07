@@ -92,8 +92,6 @@ public class SuspensionController {
     @RequestMapping("/getSelf/{id}")
     public Map getSelf(@PathVariable(value = "id") int id) {
 
-        System.out.println("--------------------suspensionService.getSelf(id) = " + suspensionService.getSelf(id));
-
         return News.success("成功", suspensionService.getSelf(id));
     }
 

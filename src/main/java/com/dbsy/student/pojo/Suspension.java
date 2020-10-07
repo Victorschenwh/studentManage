@@ -1,5 +1,8 @@
 package com.dbsy.student.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Suspension {
@@ -7,8 +10,12 @@ public class Suspension {
 
     private Integer studentId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date suspensionDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date resumptionDate;
 
     private Integer duration;
@@ -85,5 +92,19 @@ public class Suspension {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+
+    @Override
+    public String toString() {
+        return "Suspension{" +
+                "id=" + id +
+                ", studentId=" + studentId +
+                ", suspensionDate=" + suspensionDate +
+                ", resumptionDate=" + resumptionDate +
+                ", duration=" + duration +
+                ", reason='" + reason + '\'' +
+                ", remarks='" + remarks + '\'' +
+                '}';
     }
 }

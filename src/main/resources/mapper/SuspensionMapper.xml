@@ -73,8 +73,8 @@
 
   <select id="list" resultType="HashMap">
     select su.id as id, s.number as number, s.name as name, s.department_id as departmentId, s.major_id
-    as majorId,s.clazz_id as clazzId, su.suspension_date as suspension_date, su.duration as duration,
-    su.reason as reason, su.resumption_date as resumption_date, su.remarks as remarks
+    as majorId,s.clazz_id as clazzId, su.suspension_date as suspensionDate, su.duration as duration,
+    su.reason as reason, su.resumption_date as resumptionDate, su.remarks as remarks
     from suspension su join student s on s.id = su.student_id
     <where>
       <if test="departmentId != null and departmentId != 0">
@@ -103,7 +103,7 @@
 
 
   <select id="getSelf" resultType="HashMap">
-    SELECT  s.id id, s.duration duration, s.reason reason,s.remarks remarks,s.resumption_date resumptionDate,s.suspension_date suspensionDate,stu.`name` name,stu.number number,dp.`name` dpName,mj.`name` mjName,cl.`name` clName FROM suspension s LEFT JOIN student  stu ON stu.id=s.student_id LEFT JOIN department dp ON  stu.department_id=dp.id LEFT JOIN major mj ON mj.id=stu.major_id LEFT JOIN clazz cl ON cl.id=stu.clazz_id where s.id=#{id}
+    SELECT  s.id id, s.duration duration, s.reason reason,s.remarks remarks,s.resumption_date resumptionDate,s.suspension_date suspensionDate,stu.`name` name,stu.number number,stu.id studentId, dp.`name` dpName,mj.`name` mjName,cl.`name` clName FROM suspension s LEFT JOIN student  stu ON stu.id=s.student_id LEFT JOIN department dp ON  stu.department_id=dp.id LEFT JOIN major mj ON mj.id=stu.major_id LEFT JOIN clazz cl ON cl.id=stu.clazz_id where s.id=#{id}
   </select>
 
 
