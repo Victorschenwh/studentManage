@@ -24,10 +24,13 @@ class StudentApplicationTests {
     @Qualifier("courseServiceImp")
     CourseService courseService;
 
+
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Test
     void contextLoads() {
+
+//        System.out.println("studentService.getSelf(1) = " + studentService.getSelf(1));
 //        try {
 //            //获取系统文档
 //            POIFSFileSystem fspoi = new POIFSFileSystem(new FileInputStream("C:\\Users\\Administrator\\Desktop\\给水161\\2016-2017-2+给水161班.xls"));
