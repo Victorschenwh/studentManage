@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="static :: head"></head>
 <style>
-    .main {
+    .main, .pie {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -10,12 +10,16 @@
     }
 </style>
 <body>
-<div class="main">
-    <div id="line" style="width: 1200px;height:600px;margin-bottom: 50px;"></div>
-    <div id="pie_warning" style="width: 300px;height:400px;"></div>
-    <div id="pie_cet" style="width: 300px;height:400px;"></div>
-    <div id="pie_guake" style="width: 300px;height:400px;"></div>
-    <div id="pie_xiufutuixue" style="width: 300px;height:400px;"></div>
+<div class="main container-fluid">
+    <div class="line">
+        <div id="line" style="width: 1200px;height:600px;margin-bottom: 50px;"></div>
+    </div>
+    <div class="pie">
+        <div id="pie_warning" style="width: 300px;height:400px;"></div>
+        <div id="pie_cet" style="width: 300px;height:400px;"></div>
+        <div id="pie_guake" style="width: 300px;height:400px;"></div>
+        <div id="pie_xiufutuixue" style="width: 300px;height:400px;"></div>
+    </div>
 
 </div>
 </body>

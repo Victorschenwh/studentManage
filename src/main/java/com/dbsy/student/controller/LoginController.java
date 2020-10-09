@@ -14,12 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -131,5 +133,27 @@ public class LoginController {
         return News.success();
     }
 
+
+    @RequestMapping("/logout")
+    public void logout(HttpSession session, HttpServletResponse response) {
+        session.removeAttribute("user");
+        try {
+            response.sendRedirect("/");
+        } catch (Exception e) {
+        }
+    }
+
+    @RequestMapping("/password")
+    @ResponseBody
+    public Map changePassword(String password, String newPassword, HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("user");
+        if (admin.getPassword().equals(password) && newPassword != null && !"".equals(newPassword)) {
+            admin.setPassword(newPassword);
+            adminService.update(admin);
+            session.removeAttribute("user");
+            return News.success();
+        }
+        return News.fail();
+    }
 
 }

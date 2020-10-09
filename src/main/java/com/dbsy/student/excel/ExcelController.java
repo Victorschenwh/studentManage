@@ -9,19 +9,19 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/excel")
@@ -225,5 +225,61 @@ public class ExcelController {
                 break;
         }
         //EasyExcel.write(response.getOutputStream(), DownloadData.class).sheet("模板").doWrite(data());
+    }
+
+    @GetMapping("/downloadExcel/{name}")
+    public void downloadExcel(HttpServletResponse response, @PathVariable("name") String name) {
+        try {
+
+            ClassPathResource resource = new ClassPathResource("excel" + File.separator + name);
+            // 获取文件
+            File file = resource.getFile();
+//            logger.info("文件名称：{}", file.getName());
+
+            String fileName = name;
+            // 配置文件下载
+            response.setContentType("application/vnd.ms-excel");
+            response.setCharacterEncoding("utf-8");
+            // 下载文件能正常显示中文
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+
+
+            // 实现文件下载
+            byte[] buffer = new byte[1024];
+            FileInputStream fis = null;
+            BufferedInputStream bis = null;
+            try {
+                fis = new FileInputStream(file);
+                response.setHeader("Content-Length", String.valueOf(fis.getChannel().size()));
+
+                bis = new BufferedInputStream(fis);
+                OutputStream os = response.getOutputStream();
+                int i = bis.read(buffer);
+                while (i != -1) {
+                    os.write(buffer, 0, i);
+                    i = bis.read(buffer);
+                }
+                //System.out.println("Download  successfully!");
+            } catch (Exception e) {
+                //System.out.println("Download  failed!");
+            } finally {
+                if (bis != null) {
+                    try {
+                        bis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

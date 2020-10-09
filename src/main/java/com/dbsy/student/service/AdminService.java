@@ -11,5 +11,6 @@ public interface AdminService {
     Admin selectByUsernameAndPassword(String username, String password);
 
     Admin selectByEmail(String email);
-    int changePWByUsername(Admin admin);
+
+    int update(Admin admin);
 }

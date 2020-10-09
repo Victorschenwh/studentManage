@@ -20,9 +20,6 @@ public interface AdminMapper {
     @Select("select * from admin where email = #{email}")
     Admin selectByEmail(String email);
 
-    @Update("update admin set password=#{password}  where username=#{username}")
-    int changePWByUsername(Admin admin);
-    @Select("")
-    List<Map> select(Map map);
+    int update(Admin admin);
 
 }

@@ -12,6 +12,41 @@
             <arg column="is_lock" javaType="java.lang.Boolean" jdbcType="BIT"/>
         </constructor>
     </resultMap>
+
+    <update id="update" parameterType="com.dbsy.student.pojo.Admin">
+        update admin
+        <set>
+            <if test="username != null">
+                username=#{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password=#{password,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                nickname=#{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                phone_number=#{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email=#{email,jdbcType=VARCHAR},
+            </if>
+            <if test="isLock != null">
+                is_lock=#{isLock,jdbcType=BIT},
+            </if>
+            <if test="foreignId != null">
+                foreign_id=#{foreignId},
+            </if>
+            <if test="role != null">
+                role=#{role},
+            </if>
+            <if test="departmentId != null">
+                department_id=#{departmentId},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
     <insert id="insert" parameterType="com.dbsy.student.pojo.Admin">
     insert into admin (id, username, password, 
       nickname, phone_number, email, 

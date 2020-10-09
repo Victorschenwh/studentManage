@@ -74,9 +74,10 @@ public class AuthorityAspect {
 
             }
 
-
             if (method.getReturnType().toString().equals("class java.lang.String")) {
                 response.sendRedirect("/");
+//                request.getRequestDispatcher("/").forward(request, response);
+                //return "login";
                 return null;
             }
             //一个角色的登录状态都不存在,拒绝访问

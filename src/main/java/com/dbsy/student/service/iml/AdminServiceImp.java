@@ -32,7 +32,9 @@ public class AdminServiceImp implements AdminService {
     }
 
     @Override
-    public int changePWByUsername(Admin admin) {
-        return this.adminMapper.changePWByUsername(admin);
+    public int update(Admin admin) {
+        return adminMapper.update(admin);
     }
+
+
 }
