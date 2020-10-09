@@ -102,21 +102,25 @@ public class TransferServiceImp implements TransferService, ExcelSave {
 
     @Override
     public List<Map> list(Map map) {
-        int page = Integer.parseInt(map.get("page") + "");
-        int pageSize = Integer.parseInt(map.get("pageSize") + "");
-        map.put("start", (page - 1) * pageSize);
-        map.put("pageSize", pageSize);
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("pageSize", pageSize);
+        }
 
         String state = (String) map.get("state");
         if ("已审核".equals(state)) {
             map.put("isPass", "0,1");
             if (map.get("department") != null && !"".equals(map.get("department")))
                 map.put("newDepartmentId", Integer.parseInt(map.get("department") + ""));
-        }  if ("我的申请".equals(state)) {
+        }
+        if ("我的申请".equals(state)) {
             if (map.get("department") != null && !"".equals(map.get("department")))
                 map.put("newDepartmentId", Integer.parseInt(map.get("department") + ""));
             map.put("isPass", "0,1");
-        }  if ("待审核".equals(state)) {
+        }
+        if ("待审核".equals(state)) {
             if (map.get("department") != null && !"".equals(map.get("department")))
                 map.put("oldDepartmentId", Integer.parseInt(map.get("department") + ""));
             map.put("isPass", "null");

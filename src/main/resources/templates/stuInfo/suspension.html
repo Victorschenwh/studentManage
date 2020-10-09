@@ -19,8 +19,8 @@
         <li class="active">休学退学</li>
     </ol>
     <div id="toolbar" class="btn-group">
-        <button id="btn_download" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载导入模板
+        <button id="btn_download" type="button" class="btn btn-primary" onclick="download()">
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载表格
         </button>
 
         <button id="btn_upload" type="button" class="btn btn-primary" onclick="">
@@ -83,74 +83,76 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">姓名：</label>
                             <div class="col-sm-8">
-                                <input name="name" id="name3" class="form-control" type="text"  readonly="readonly">
+                                <input name="name" id="name3" class="form-control" type="text" readonly="readonly">
                             </div>
                         </div>
-
 
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">所属院系：</label>
                             <div class="col-sm-8">
-                                <input id="dpName3" class="form-control" type="text"  readonly="readonly">
-<!--                                <select name="departmentId" class="form-control" id="departmentId3" required>-->
-<!--                                    <option value="">-->
-<!--                                        &#45;&#45;请选择&#45;&#45;-->
-<!--                                    </option>-->
-<!--                                </select>-->
+                                <input id="dpName3" class="form-control" type="text" readonly="readonly">
+                                <!--                                <select name="departmentId" class="form-control" id="departmentId3" required>-->
+                                <!--                                    <option value="">-->
+                                <!--                                        &#45;&#45;请选择&#45;&#45;-->
+                                <!--                                    </option>-->
+                                <!--                                </select>-->
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">所属专业：</label>
                             <div class="col-sm-8">
-                                <input id="mjName3" class="form-control" type="text"  readonly="readonly">
+                                <input id="mjName3" class="form-control" type="text" readonly="readonly">
 
-<!--                                <select name="majorId" class="form-control" id="majorId3" required>-->
-<!--                                    <option value="">-->
-<!--                                        &#45;&#45;请选择&#45;&#45;-->
-<!--                                    </option>-->
-<!--                                </select>-->
+                                <!--                                <select name="majorId" class="form-control" id="majorId3" required>-->
+                                <!--                                    <option value="">-->
+                                <!--                                        &#45;&#45;请选择&#45;&#45;-->
+                                <!--                                    </option>-->
+                                <!--                                </select>-->
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">所属班级：</label>
                             <div class="col-sm-8">
-                                <input id="clName3" class="form-control" type="text"  readonly="readonly">
-<!--                                <select name="clazzId" class="form-control" id="clazzId3" required>-->
-<!--                                    <option value="">-->
-<!--                                        &#45;&#45;请选择&#45;&#45;-->
-<!--                                    </option>-->
-<!--                                </select>-->
+                                <input id="clName3" class="form-control" type="text" readonly="readonly">
+                                <!--                                <select name="clazzId" class="form-control" id="clazzId3" required>-->
+                                <!--                                    <option value="">-->
+                                <!--                                        &#45;&#45;请选择&#45;&#45;-->
+                                <!--                                    </option>-->
+                                <!--                                </select>-->
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">休退学日期：</label>
                             <div class="col-sm-8">
-                                <input name="suspensionDate" id="suspensionDate3" class="form-control" type="date" required>
+                                <input name="suspensionDate" id="suspensionDate3" class="form-control" type="date"
+                                       required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">休退学时长：</label>
                             <div class="col-sm-8">
-                                <input name="duration" id="duration3" class="form-control" type="text" placeholder="单位：天" required>
+                                <input name="duration" id="duration3" class="form-control" type="text"
+                                       placeholder="单位：天" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">休退学原因：</label>
                             <div class="col-sm-8">
-                                <input name="reason" id="reason3" class="form-control" type="text"  required>
+                                <input name="reason" id="reason3" class="form-control" type="text" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">复学日期：</label>
                             <div class="col-sm-8">
-                                <input name="resumptionDate" id="resumptionDate3" class="form-control" type="date" required>
+                                <input name="resumptionDate" id="resumptionDate3" class="form-control" type="date"
+                                       required>
                             </div>
                         </div>
 
@@ -168,7 +170,7 @@
                         <button type="button" class="btn btn-default"
                                 data-dismiss="modal">关闭
                         </button>
-                        <button type="submit" class="btn btn-primary" >
+                        <button type="submit" class="btn btn-primary">
                             确定
                         </button>
                     </div>
@@ -200,6 +202,18 @@
         });
     })
 
+    let downParams
+
+    function download() {
+        let url = ""
+        for (let k in downParams) {
+            let value = downParams[k] != undefined ? downParams[k] : ''
+            url += `&${k}=${encodeURIComponent(value)}`
+        }
+
+        window.open("/excel/download?" + (url ? url.substring(1) : ''))
+    }
+
 
     function load() {
         $('#table_suspension')
@@ -230,8 +244,15 @@
                 detailView: false,                  //是否显示父子表
                 //得到查询的参数
                 queryParams: function (params) {
-                    console.log("list:" + params)
-                    //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+                    downParams = {
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        search_key: $("#search_key").val(),
+                        search: params.search,
+                        type: 'suspension'
+                    }
                     return {
                         pageSize: params.limit,                         //页面大小
                         page: (params.offset / params.limit) + 1,   //页码
@@ -249,109 +270,109 @@
                     checkbox: true,
                     visible: true   //是否显示复选框
                 },
-                //     {
-                //     field: 'id',
-                //     title: '序号',
-                //     align: 'center',
-                // },
+                    //     {
+                    //     field: 'id',
+                    //     title: '序号',
+                    //     align: 'center',
+                    // },
                     {
-                    field: 'number',
-                    title: '学号',
-                    align: 'center',
-                }, {
-                    field: 'name',
-                    title: '姓名',
-                    align: 'center',
-                }, {
-                    field: 'departmentId',
-                    title: '学院',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        var department = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/department/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        department = data.data;
+                        field: 'number',
+                        title: '学号',
+                        align: 'center',
+                    }, {
+                        field: 'name',
+                        title: '姓名',
+                        align: 'center',
+                    }, {
+                        field: 'departmentId',
+                        title: '学院',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var department = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/department/get/" + value,
+                                    dataType: "json",
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            department = data.data;
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                            return department != null ? department.name : "";
                         }
-                        return department != null ? department.name : "";
-                    }
-                }, {
-                    field: 'majorId',
-                    title: '专业',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        var major = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/major/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        major = data.data;
+                    }, {
+                        field: 'majorId',
+                        title: '专业',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var major = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/major/get/" + value,
+                                    dataType: "json",
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            major = data.data;
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                            return major != null ? major.name : "";
                         }
-                        return major != null ? major.name : "";
-                    }
-                }, {
-                    field: 'clazzId',
-                    title: '班级',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        var clazz = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/clazz/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        clazz = data.data;
+                    }, {
+                        field: 'clazzId',
+                        title: '班级',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var clazz = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/clazz/get/" + value,
+                                    dataType: "json",
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            clazz = data.data;
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                            return clazz != null ? clazz.name : "";
                         }
-                        return clazz != null ? clazz.name : "";
-                    }
-                }, {
-                    field: 'suspensionDate',
-                    title: '休退学日期',
-                    align: 'center',
-                },{
-                    field: 'duration',
-                    title: '休退学时长',
-                    align: 'center',
-                },{
-                    field: 'reason',
-                    title: '休退学原因',
-                    align: 'center',
-                },{
-                    field: 'resumptionDate',
-                    title: '复学日期',
-                    align: 'center',
-                },{
-                    field: 'remarks',
-                    title: '备注',
-                    align: 'center',
-                },
+                    }, {
+                        field: 'suspensionDate',
+                        title: '休退学日期',
+                        align: 'center',
+                    }, {
+                        field: 'duration',
+                        title: '休退学时长',
+                        align: 'center',
+                    }, {
+                        field: 'reason',
+                        title: '休退学原因',
+                        align: 'center',
+                    }, {
+                        field: 'resumptionDate',
+                        title: '复学日期',
+                        align: 'center',
+                    }, {
+                        field: 'remarks',
+                        title: '备注',
+                        align: 'center',
+                    },
                     {
                         title: '操作',
                         field: 'id',
@@ -362,7 +383,7 @@
                                 + row.id
                                 + '\')">删除</a> ';
 
-                            return e+d;
+                            return e + d;
                         }
                     }
                 ]

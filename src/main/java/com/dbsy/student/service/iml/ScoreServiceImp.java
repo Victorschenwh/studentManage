@@ -49,10 +49,12 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
      */
     @Override
     public List<Map> listRank(Map map) {
-        int page = Integer.parseInt(map.get("page") + "");
-        int pageSize = Integer.parseInt(map.get("pageSize") + "");
-        map.put("start", (page - 1) * pageSize);
-        map.put("pageSize", pageSize);
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("pageSize", pageSize);
+        }
         return scoreMapper.listRank(map);
     }
 

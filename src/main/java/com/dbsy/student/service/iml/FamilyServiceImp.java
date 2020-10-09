@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Service("familyServiceImp")
 @CacheConfig(cacheNames = "family")
-public class FamilyServiceImp implements FamilyService , ExcelSave {
+public class FamilyServiceImp implements FamilyService, ExcelSave {
 
     @Autowired
     FamilyMapper familyMapper;
@@ -45,11 +45,12 @@ public class FamilyServiceImp implements FamilyService , ExcelSave {
 
     @Override
     public List<Map> list(Map map) {
-        int page = Integer.parseInt(map.get("page") + "");
-        int pageSize = Integer.parseInt(map.get("pageSize") + "");
-        map.put("start", (page - 1) * pageSize);
-        map.put("end", pageSize);
-
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("end", pageSize);
+        }
         return this.familyMapper.list(map);
     }
 
