@@ -334,7 +334,7 @@
         grade();
         load();
         s(2);
-        s(3);
+        // s(3);
     })
     $("#updata").validate({
         rules: {},
@@ -399,11 +399,14 @@
                 columns: [{
                     checkbox: true,
                     visible: true                  //是否显示复选框
-                }, {
+                },
+                    {
                     field: 'id',
                     title: '序号',
                     align: 'center',
-                }, {
+                    visible: false,
+                },
+                    {
                     field: 'number',
                     title: '学号',
                     align: 'center',
@@ -420,29 +423,30 @@
                     title: '身份证号',
                     align: 'center',
                 },
-                //     {
-                //     field: 'departmentId',
-                //     title: '学院',
-                //     formatter: function (value, row, index) {
-                //         var department = {};
-                //         if (value != null) {
-                //             $.ajax({
-                //                 //cache: true,
-                //                 async: false,
-                //                 type: "POST",
-                //                 url: "/department/get/" + value,
-                //                 dataType: "json",
-                //                 data: {},
-                //                 success: function (data) {
-                //                     if (data.code == 1) {
-                //                         department = data.data;
-                //                     }
-                //                 }
-                //             });
-                //         }
-                //         return department != null ? department.name : "";
-                //     }
-                // },
+                    {
+                    field: 'departmentId',
+                    title: '学院',
+                    visible: false,
+                    formatter: function (value, row, index) {
+                        var department = {};
+                        if (value != null) {
+                            $.ajax({
+                                //cache: true,
+                                async: false,
+                                type: "POST",
+                                url: "/department/get/" + value,
+                                dataType: "json",
+                                data: {},
+                                success: function (data) {
+                                    if (data.code == 1) {
+                                        department = data.data;
+                                    }
+                                }
+                            });
+                        }
+                        return department != null ? department.name : "";
+                    }
+                },
                     {
                     field: 'majorId',
                     title: '专业',
@@ -511,8 +515,8 @@
                         field: 'id',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            var e = '<a class="btn btn-primary btn-xs " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
-                            var d = '<a class="btn btn-warning btn-xs " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                            var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
+                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
                                 + row.id
                                 + '\')">删除</a> ';
 
@@ -527,6 +531,8 @@
     }
 
     function get(id) {
+        // dpIndex(3);
+        s(3);
         $.ajax({
             //cache: true,
             type: "POST",
