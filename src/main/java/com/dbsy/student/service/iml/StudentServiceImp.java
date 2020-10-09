@@ -42,6 +42,11 @@ public class StudentServiceImp implements StudentService, ExcelSave {
     }
 
     @Override
+    public Map getSelf(int id) {
+        return this.studentMapper.getSelf(id);
+    }
+
+    @Override
     public int listCount(Map map) {
         return studentMapper.listCount(map);
     }

@@ -44,6 +44,13 @@ public class StudentController {
     }
 
     @ResponseBody
+    @RequestMapping("/getSelf/{id}")
+    public Map getSelf(@PathVariable(value = "id") int id) {
+
+        return News.success("成功", studentService.getSelf(id));
+    }
+
+    @ResponseBody
     @RequestMapping("/remove/{id}")
     public Map remove(@PathVariable("id") int id) {
         if (studentService.delete(id) > 0) {

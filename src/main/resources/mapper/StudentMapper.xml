@@ -218,6 +218,10 @@
         </where>
     </select>
 
+    <select id="getSelf" resultType="java.util.HashMap">
+        SELECT stu.* ,dp.name dpName, mj.name mjName,cl.name clName FROM student stu LEFT JOIN department dp ON stu.department_id=dp.id LEFT JOIN major mj ON stu.clazz_id=mj.id LEFT JOIN clazz cl ON stu.clazz_id=cl.id where stu.id=#{id}
+    </select>
+
     <delete id="batchRemove">
         delete from student where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
