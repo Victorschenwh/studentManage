@@ -6,6 +6,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.dbsy.student.excel.ClazzNameToIdConverter;
 import com.dbsy.student.excel.DepartmentNameToIdConverter;
 import com.dbsy.student.excel.MajorNameToIdConverter;
+import com.dbsy.student.excel.StringToBooleanConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,7 +21,7 @@ public class Student {
     private String number;
     @ExcelProperty("姓名")
     private String name;
-    @ExcelProperty("性别(0:女,1:男)")
+    @ExcelProperty(value = "性别(0:女,1:男)", converter = StringToBooleanConverter.class)
     private Boolean gender;
     @ExcelProperty("手机号")
     private String phoneNumber;

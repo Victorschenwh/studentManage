@@ -11,7 +11,7 @@ import com.dbsy.student.service.iml.ClazzServiceImp;
 public class ClazzNameToIdConverter implements Converter<Integer> {
 
 
-    ClazzService clazzService = new ClazzServiceImp();
+    ClazzService clazzService = (ClazzService) SpringContext.getApplicationContext().getBean("clazzServiceImp");
 
     @Override
     public Class supportJavaTypeKey() {
@@ -25,11 +25,16 @@ public class ClazzNameToIdConverter implements Converter<Integer> {
 
     @Override
     public Integer convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return clazzService.getByName(cellData.getStringValue()).getId();
+        if (cellData != null && cellData.getStringValue() != null)
+            return clazzService.getByName(cellData.getStringValue()).getId();
+        return null;
     }
 
     @Override
     public CellData convertToExcelData(Integer integer, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return new CellData(clazzService.get(integer).getName());
+        //System.out.println("------------------------" + integer + "---------------------------");
+        if (integer != null)
+            return new CellData(clazzService.get(integer).getName());
+        return null;
     }
 }

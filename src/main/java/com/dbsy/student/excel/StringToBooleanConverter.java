@@ -19,12 +19,16 @@ public class StringToBooleanConverter implements Converter<Boolean> {
 
     @Override
     public Boolean convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return cellData.getNumberValue().equals(1) ? true : false;
+        if (cellData != null && cellData.getNumberValue() != null)
+            return cellData.getNumberValue().equals(1) ? true : false;
+        return null;
 
     }
 
     @Override
     public CellData convertToExcelData(Boolean aBoolean, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return new CellData(aBoolean ? "1" : "0");
+        if (aBoolean != null)
+            return new CellData(aBoolean ? "1" : "0");
+        return null;
     }
 }

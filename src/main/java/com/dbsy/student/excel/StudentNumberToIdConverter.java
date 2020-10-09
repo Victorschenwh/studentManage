@@ -23,12 +23,16 @@ public class StudentNumberToIdConverter implements Converter<Integer> {
 
     @Override
     public Integer convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        System.out.println("cellData:" + cellData.getNumberValue().toString());
-        return studentService.selectByNumber(cellData.getNumberValue().toString().split("\\.")[0]).getId();
+        //System.out.println("cellData:" + cellData.getNumberValue().toString());
+        if (cellData != null && cellData.getNumberValue() != null)
+            return studentService.selectByNumber(cellData.getNumberValue().toString().split("\\.")[0]).getId();
+        return null;
     }
 
     @Override
     public CellData convertToExcelData(Integer i, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return new CellData(studentService.get(i).getNumber());
+        if (i != null)
+            return new CellData(studentService.get(i).getNumber());
+        return null;
     }
 }

@@ -28,11 +28,15 @@ public class DepartmentNameToIdConverter implements Converter<Integer> {
 
     @Override
     public Integer convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return departmentService.getByName(cellData.getStringValue().trim()).getId();
+        if (cellData != null && cellData.getStringValue() != null)
+            return departmentService.getByName(cellData.getStringValue().trim()).getId();
+        return null;
     }
 
     @Override
     public CellData convertToExcelData(Integer integer, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return new CellData(departmentService.get(integer).getName());
+        if (integer != null)
+            return new CellData(departmentService.get(integer).getName());
+        return null;
     }
 }

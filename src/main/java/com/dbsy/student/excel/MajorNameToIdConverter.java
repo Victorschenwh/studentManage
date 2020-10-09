@@ -24,11 +24,15 @@ public class MajorNameToIdConverter implements Converter<Integer> {
 
     @Override
     public Integer convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return majorService.getByName(cellData.getStringValue().trim()).getId();
+        if (cellData != null && cellData.getStringValue() != null)
+            return majorService.getByName(cellData.getStringValue().trim()).getId();
+        return null;
     }
 
     @Override
     public CellData convertToExcelData(Integer integer, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return new CellData(majorService.get(integer).getName());
+        if (integer != null)
+            return new CellData(majorService.get(integer).getName());
+        return null;
     }
 }

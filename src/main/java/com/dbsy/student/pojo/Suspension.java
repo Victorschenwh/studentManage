@@ -1,27 +1,36 @@
 package com.dbsy.student.pojo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.StudentNumberToIdConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 public class Suspension {
+    @ExcelIgnore
     private Integer id;
-
+    @ExcelProperty(value = "学生学号", converter = StudentNumberToIdConverter.class)
     private Integer studentId;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @ExcelProperty("休学日期")
     private Date suspensionDate;
 
+    @ExcelProperty("复学日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date resumptionDate;
 
+    @ExcelProperty("休学时长(天)")
     private Integer duration;
 
+    @ExcelProperty("休学原因")
     private String reason;
 
+    @ExcelProperty("备注")
     private String remarks;
 
     public Suspension(Integer id, Integer studentId, Date suspensionDate, Date resumptionDate, Integer duration, String reason, String remarks) {
