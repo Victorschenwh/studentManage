@@ -207,28 +207,29 @@
                     checkbox: true,
                     visible: true                  //是否显示复选框
                  },
-                //     field: 'department_id',
-                //     title: '院系',
-                //     formatter: function (value, row, index) {
-                //         var department = {};
-                //         if (value != null) {
-                //             $.ajax({
-                //                 //cache: true,
-                //                 async: false,
-                //                 type: "POST",
-                //                 url: "/department/get/" + value,
-                //                 dataType: "json",
-                //                 data: {},
-                //                 success: function (data) {
-                //                     if (data.code == 1) {
-                //                         department = data.data;
-                //                     }
-                //                 }
-                //             });
-                //         }
-                //         return department != null ? department.name : "";
-                //     }
-                // },
+                    {field: 'department_id',
+                    title: '院系',
+                    visible: false,
+                    formatter: function (value, row, index) {
+                        var department = {};
+                        if (value != null) {
+                            $.ajax({
+                                //cache: true,
+                                async: false,
+                                type: "POST",
+                                url: "/department/get/" + value,
+                                dataType: "json",
+                                data: {},
+                                success: function (data) {
+                                    if (data.code == 1) {
+                                        department = data.data;
+                                    }
+                                }
+                            });
+                        }
+                        return department != null ? department.name : "";
+                    }
+                },
                     {
                         field: 'number',
                         title: '学号',
