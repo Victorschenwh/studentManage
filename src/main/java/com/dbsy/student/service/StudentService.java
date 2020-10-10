@@ -14,6 +14,8 @@ public interface StudentService {
 
     Student get(int id);
 
+    Map getSelf(int id);
+
     int listCount(Map map);
 
     List<Student> list(Map map);

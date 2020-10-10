@@ -20,6 +20,8 @@ public interface StudentMapper {
     @Select("select * from student where id = #{id}")
     Student get(int id);
 
+    Map getSelf(int id);
+
     int listCount(Map map);
 
     List<Student> list(Map map);
