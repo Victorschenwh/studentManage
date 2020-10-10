@@ -12,6 +12,7 @@
         flex-wrap: wrap;
         justify-content: flex-start;
         height: 100%;
+        margin-right: 10px;
         /*align-items: stretch;*/
         /*align-content: space-between;*/
     }
@@ -21,8 +22,9 @@
         flex-wrap: wrap;
         justify-content: space-around;
         background-color: #eee;
-        width: 720px;
+        width: 50%;
         height: 80%;
+        margin-right: 10px;
     }
     .left{
         background-color: white;
@@ -46,12 +48,12 @@
 </div>
 <div class="main">
 
-    <div id="line" class="left" style="width: 750px;height:79%;"></div>
+    <div id="line" class="left" style="width: 50%;height:78%;"></div>
     <div class="right">
-        <div id="pie_warning" style="width: 350px;height:48%; background-color: white;"></div>
-        <div id="pie_cet" style="width: 350px;height:48%; background-color: white;"></div>
-        <div id="pie_guake" style="width: 350px;height:48%; background-color: white;"></div>
-        <div id="pie_xiufutuixue" style="width: 350px;height:48%; background-color: white;"></div>
+        <div id="pie_warning" style="width: 48%;height:48%; background-color: white;"></div>
+        <div id="pie_cet" style="width: 48%;height:48%; background-color: white;"></div>
+        <div id="pie_guake" style="width: 48%;height:48%; background-color: white;"></div>
+        <div id="pie_xiufutuixue" style="width: 48%;height:48%; background-color: white;"></div>
     </div>
 </div>
 </body>
@@ -78,8 +80,8 @@
             {
                 name: '访问来源',
                 type: 'pie',
-                radius: '55%',
-                center: ['50%', '60%'],
+                radius: '50%',
+                center: ['50%', '70%'],
                 data: [
                     {value: 335, name: '未预警'},
                     {value: 310, name: '橙色预警'},
@@ -118,8 +120,8 @@
             {
                 name: '访问来源',
                 type: 'pie',
-                radius: '55%',
-                center: ['50%', '60%'],
+                radius: '50%',
+                center: ['50%', '70%'],
                 data: [
                     {value: 335, name: '无记录'},
                     {value: 310, name: '挂科'},
@@ -158,8 +160,8 @@
             {
                 name: '访问来源',
                 type: 'pie',
-                radius: '55%',
-                center: ['50%', '60%'],
+                radius: '50%',
+                center: ['50%', '70%'],
                 data: [
                     {value: 335, name: '未通过'},
                     {value: 310, name: '过四级'},
@@ -199,8 +201,8 @@
             {
                 name: '访问来源',
                 type: 'pie',
-                radius: '55%',
-                center: ['50%', '60%'],
+                radius: '50%',
+                center: ['50%', '70%'],
                 data: [
                     {value: 335, name: '升学'},
                     {value: 310, name: '休学'},
@@ -237,10 +239,10 @@
             data: ['挂科', '学业预警', '四六级']
         },
         grid: {
-            top:'120',
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
+            top:'15%',
+            left: '10%',
+            right: '10%',
+            bottom: '5%',
             containLabel: true
         },
         toolbox: {
