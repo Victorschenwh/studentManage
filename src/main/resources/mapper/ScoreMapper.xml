@@ -192,6 +192,7 @@
                 and sc.study_term = #{studyTerm},
             </if>
         </where>
+        GROUP BY s.id, sc.study_term ORDER BY avgAcademiRecoreds desc
     </select>
 
 
