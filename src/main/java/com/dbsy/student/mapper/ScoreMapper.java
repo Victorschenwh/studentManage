@@ -41,11 +41,13 @@ public interface ScoreMapper {
     Score getByStudentIdAndCourseId(int studentId, int courseId);
 
     @Select("select * from score where student_id = #{studentId} and course_id = #{courseId} and study_term = #{studyTerm}")
-    Score getByStudentIdCourseIdAndStudyTerm(int studentId, int courseId,int studyTerm);
+    Score getByStudentIdCourseIdAndStudyTerm(int studentId, int courseId, int studyTerm);
 
     List<Map> listRank(Map map);
 
     List<Map> listTotal(Map map);
+
+    int countTotal(Map map);
 
     int countRank(Map map);
 

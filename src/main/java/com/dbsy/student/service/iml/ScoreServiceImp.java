@@ -53,7 +53,7 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
             int page = Integer.parseInt(map.get("page") + "");
             int pageSize = Integer.parseInt(map.get("pageSize") + "");
             map.put("start", (page - 1) * pageSize);
-            map.put("pageSize", pageSize);
+            map.put("pageSize",pageSize);
         }
         return scoreMapper.listRank(map);
     }
@@ -66,6 +66,12 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
      */
     @Override
     public List<Map> listTotal(Map map) {
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("pageSize",pageSize);
+        }
         return scoreMapper.listTotal(map);
     }
 
@@ -115,6 +121,11 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
     @Override
     public int countRank(Map map) {
         return this.scoreMapper.countRank(map);
+    }
+
+    @Override
+    public int countTotal(Map map) {
+        return this.scoreMapper.countTotal(map);
     }
 
 

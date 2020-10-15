@@ -117,42 +117,31 @@
     </delete>
 
     <select id="listRank" parameterType="Map" resultType="Map">
-        select sc.student_id as s_id,avg(sc.score) as avg_score,sum(sc.score * sc.credit)/sum(sc.credit) as
-        avgAcademiRecoreds,sum(sc.score * sc.credit) as totalAcademiRecoreds,sum(sc.credit) as totalCredit,
-        sc.study_term as study_term,s.department_id as
-        department_id,s.major_id as major_id,s.grade as grade,s.clazz_id as clazz_id,s.number as number,sc.id as id,
-        s.name as name
-        from score sc left join student s on s.id=sc.student_id
+        select * from view_sc_student_mrank
         <where>
             <if test="departmentId!=null and departmentId!=0">
-                and s.department_id = #{departmentId},
+                and department_id = #{departmentId},
             </if>
             <if test="majorId!=null and majorId!=0">
-                and s.major_id = #{majorId},
+                and major_id = #{majorId},
             </if>
             <if test="grade!=null and grade!=0">
-                and s.grade = #{grade},
+                and grade = #{grade},
             </if>
             <if test="clazzId!=null and clazzId!=0">
-                and s.clazz_id = #{clazzId},
+                and clazz_id = #{clazzId},
             </if>
             <if test="studyTerm!=null">
-                and sc.study_term = #{studyTerm},
+                and study_term = #{studyTerm},
             </if>
         </where>
-        GROUP BY s.id, sc.study_term ORDER BY avgAcademiRecoreds desc
         <if test="start!=null">
             limit #{start},#{pageSize}
         </if>
     </select>
 
     <select id="listTotal" parameterType="Map" resultType="Map">
-        select sc.student_id as s_id,avg(sc.score) as avg_score,sum(sc.score * sc.credit)/sum(sc.credit) as
-        avgAcademiRecoreds,sum(sc.score * sc.credit) as totalAcademiRecoreds,sum(sc.credit) as totalCredit,
-        sc.study_term as study_term,s.department_id as
-        department_id,s.major_id as major_id,s.grade as grade,s.clazz_id as clazz_id,s.number as number,sc.id as id,
-        s.name as name
-        from score sc left join student s on s.id=sc.student_id
+        select * from view_student_score_reward_mrank
         <where>
             <if test="departmentId!=null and departmentId!=0">
                 and s.department_id = #{departmentId},
@@ -170,11 +159,35 @@
                 and sc.study_term = #{studyTerm},
             </if>
         </where>
-        GROUP BY s.id, sc.study_term ORDER BY avgAcademiRecoreds desc
+        <if test="start!=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+
+    <select id="countTotal" parameterType="Map" resultType="int">
+        select count(*) from view_student_score_reward_mrank
+        <where>
+            <if test="departmentId!=null and departmentId!=0">
+                and s.department_id = #{departmentId},
+            </if>
+            <if test="majorId!=null and majorId!=0">
+                and s.major_id = #{majorId},
+            </if>
+            <if test="grade!=null and grade!=0">
+                and s.grade = #{grade},
+            </if>
+            <if test="clazzId!=null and clazzId!=0">
+                and s.clazz_id = #{clazzId},
+            </if>
+            <if test="studyTerm!=null">
+                and sc.study_term = #{studyTerm},
+            </if>
+        </where>
     </select>
 
     <select id="countRank" parameterType="Map" resultType="int">
-        select count(DISTINCT(score.student_id)) from score
+        select count(*) from view_sc_student_mrank
         <where>
             <if test="departmentId!=null and departmentId!=0">
                 and s.department_id = #{departmentId},
@@ -192,7 +205,6 @@
                 and sc.study_term = #{studyTerm},
             </if>
         </where>
-        GROUP BY s.id, sc.study_term ORDER BY avgAcademiRecoreds desc
     </select>
 
 

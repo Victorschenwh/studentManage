@@ -31,4 +31,6 @@ public interface ScoreService {
 
     List<Map> listTotal(Map map);
 
+    public int countTotal(Map map);
+
 }

@@ -55,8 +55,8 @@ public class ScoreController {
     @ResponseBody
     public Map totalList(@RequestParam Map map) {
         Map m = new HashMap();
-        // m.put("total", scoreService.countRank(map));
-        m.put("data", scoreService.listTotal(map));
+        m.put("total", scoreService.countTotal(map));
+        m.put("rows", scoreService.listTotal(map));
         return m;
     }
 
