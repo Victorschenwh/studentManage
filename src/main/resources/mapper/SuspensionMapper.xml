@@ -72,11 +72,12 @@
 
 
   <select id="list" resultType="HashMap">
-    select su.id as id, s.number as number, s.name as name, s.department_id as departmentId, s.major_id
+    select su.id as id, student_id studentId,s.number as number, s.name as name, s.department_id as departmentId, s.major_id
     as majorId,s.clazz_id as clazzId, su.suspension_date as suspensionDate, su.duration as duration,
     su.reason as reason, su.resumption_date as resumptionDate, su.remarks as remarks
     from suspension su join student s on s.id = su.student_id
     <where>
+        s.isDel = 1
       <if test="departmentId != null and departmentId != 0">
         and department_id=#{departmentId}
       </if>
@@ -103,7 +104,20 @@
 
 
   <select id="getSelf" resultType="HashMap">
-    SELECT  s.id id, s.duration duration, s.reason reason,s.remarks remarks,s.resumption_date resumptionDate,s.suspension_date suspensionDate,stu.`name` name,stu.number number,stu.id studentId, dp.`name` dpName,mj.`name` mjName,cl.`name` clName FROM suspension s LEFT JOIN student  stu ON stu.id=s.student_id LEFT JOIN department dp ON  stu.department_id=dp.id LEFT JOIN major mj ON mj.id=stu.major_id LEFT JOIN clazz cl ON cl.id=stu.clazz_id where s.id=#{id}
+    SELECT  s.id id, student_id studentId,s.duration duration, s.reason reason,s.remarks remarks,s.resumption_date resumptionDate,s.suspension_date suspensionDate,stu.`name` name,stu.number number,stu.id studentId, dp.`name` dpName,mj.`name` mjName,cl.`name` clName FROM suspension s LEFT JOIN student  stu ON stu.id=s.student_id LEFT JOIN department dp ON  stu.department_id=dp.id LEFT JOIN major mj ON mj.id=stu.major_id LEFT JOIN clazz cl ON cl.id=stu.clazz_id where  s.id=#{id}
+  </select>
+  <select id="getByText" resultType="HashMap">
+--         SELECT s.id id, student_id studentId, stu.`name` stuName,stu.number number,dp.`name` dpName,mj.`name` mjName,cl.`name`clName,s.duration duration, s.reason reason,s.remarks remarks,s.resumption_date resumptionDate,s.suspension_date suspensionDate from student stu LEFT JOIN suspension s ON s.student_id=stu.id LEFT JOIN department dp ON  stu.department_id=dp.id LEFT JOIN major mj on stu.major_id=mj.id LEFT JOIN clazz cl ON stu.clazz_id=cl.id
+    SELECT stu.id studentId,stu.`name` stuName,stu.number number,dp.`name` dpName,mj.`name` mjName,cl.`name`clName FROM student stu LEFT JOIN department dp ON  stu.department_id=dp.id LEFT JOIN major mj on stu.major_id=mj.id LEFT JOIN clazz cl ON stu.clazz_id=cl.id
+    <where>
+          stu.isDel = 0  and
+          (<if test="text !=null">
+             stu.`name` LIKE CONCAT('%',#{text},'%')
+          </if>
+          <if test="text != null">
+            or stu.number = #{text}
+          </if>)
+        </where>
   </select>
 
 

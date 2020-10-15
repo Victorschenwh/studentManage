@@ -64,12 +64,18 @@ public class SuspensionServiceImp implements SuspensionService, ExcelSave {
     }
 
     @Override
+    public List<Map> getByText(String text) {
+        return this.suspensionMapper.getByText(text);
+    }
+
+    @Override
     @Cacheable(key = "#id", unless = "#result == null")
     public Suspension get(int id) {
         return this.suspensionMapper.get(id);
     }
 
     @Override
+    @Cacheable(key = "#id", unless = "#result == null")
     public Map getSelf(int id) {
         return this.suspensionMapper.getSelf(id);
     }
@@ -83,10 +89,30 @@ public class SuspensionServiceImp implements SuspensionService, ExcelSave {
 
     @Override
     @Transactional
+    @CacheEvict(key = "#id")
+    public int reback(int id) {
+
+        this.suspensionMapper.reback(id);
+        return this.suspensionMapper.delete(id);
+    }
+
+
+    @Override
+    @Transactional
     @CachePut(key = "#suspension.id", unless = "#suspension == null")
     public int update(Suspension suspension) {
         return this.suspensionMapper.update(suspension);
     }
+
+    @Override
+    @Transactional
+    public int updateLogic(Suspension suspension) {
+
+       this.suspensionMapper.updateLogicStu(suspension);
+
+        return this.suspensionMapper.updateLogicSuspen(suspension);
+    }
+
 
     @Override
     public int batchRemove(int[] ids) {

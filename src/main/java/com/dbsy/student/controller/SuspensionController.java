@@ -4,6 +4,7 @@ import com.dbsy.student.annotation.Authority;
 import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Student;
 import com.dbsy.student.pojo.Suspension;
+import com.dbsy.student.service.StudentService;
 import com.dbsy.student.service.SuspensionService;
 import com.dbsy.student.util.News;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +28,7 @@ public class SuspensionController {
     @Qualifier("SuspensionServiceImp")
     SuspensionService suspensionService;
 
+
 //    @Authority({Role.Teacher})
     @RequestMapping("")
     public String suspension() {
@@ -37,6 +40,8 @@ public class SuspensionController {
     @RequestMapping("/list")
     @ResponseBody
     public Map list(@RequestParam Map map) {
+
+        System.out.println("map = " + map);
         Map m = new HashMap();
         m.put("total", suspensionService.listCount(map));
         m.put("rows", suspensionService.list(map));
@@ -44,10 +49,44 @@ public class SuspensionController {
     }
 
     @ResponseBody
+    @RequestMapping("/getBySearchText/{text}")
+    public Map getBySearchText(@PathVariable("text") String input) {
+
+        if(!StringUtils.isEmpty(input)){
+            input= StringUtils.trim(input);
+//            System.out.println("text------------->"+input);
+            List<Map> mapList = suspensionService.getByText(input);
+            if(mapList.isEmpty()){
+                return News.fail("查无此人" );
+            }
+            else {
+                return News.success("成功", mapList);
+            }
+
+        }
+        else{
+            return News.fail("请重新搜索");
+        }
+
+    }
+
+
+
+    @ResponseBody
     @RequestMapping("/remove/{id}")
     public Map remove(@PathVariable("id") int id) {
         if (suspensionService.delete(id) > 0) {
             return News.success();
+        }
+        return News.fail("删除失败");
+    }
+
+    @ResponseBody
+    @RequestMapping("/reback/{id}")
+    public Map reback(@PathVariable("id") int id) {
+
+        if (suspensionService.reback(id) > 0) {
+            return News.success("成功");
         }
         return News.fail("删除失败");
     }
@@ -79,6 +118,17 @@ public class SuspensionController {
         }
         return News.fail("添加失败");
     }
+
+    @ResponseBody
+    @RequestMapping("/updateSearch")
+    public Map  updateSearch(Suspension suspension) {
+        if (suspensionService.updateLogic(suspension) > 0) {
+            return News.success("成功");
+        }
+        return News.fail("添加失败");
+    }
+
+
 
 //    @Authority({Role.Teacher})
     @ResponseBody

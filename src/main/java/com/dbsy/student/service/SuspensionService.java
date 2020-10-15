@@ -17,13 +17,19 @@ public interface SuspensionService {
 
     List<Map> list(Map map);
 
+    List<Map> getByText(String text);
+
     Suspension get(int id);
 
     Map getSelf(int id);
 
     int delete(int id);
 
+    int reback(int id);
+
     int update(Suspension suspension);
+
+    int  updateLogic(Suspension suspension);
 
     int batchRemove(int[] ids);
 
