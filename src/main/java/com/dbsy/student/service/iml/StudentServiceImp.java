@@ -17,8 +17,8 @@ public class StudentServiceImp implements StudentService, ExcelSave {
 
     @Override
     public int insert(Student record) {
-
-        return studentMapper.insert(record);
+        studentMapper.insert(record);
+        return record.getId();
     }
 
     @Override

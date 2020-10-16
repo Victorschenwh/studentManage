@@ -30,13 +30,15 @@ public class DepartmentServiceImp implements DepartmentService, ExcelSave {
     @Override
     @Transactional
     public int insert(Department record) {
-        return departmentMapper.insert(record);
+        departmentMapper.insert(record);
+        return record.getId();
     }
 
     @Override
     @Transactional
     public int insertSelective(Department record) {
-        return departmentMapper.insertSelective(record);
+        departmentMapper.insertSelective(record);
+        return record.getId();
     }
 
     @Override

@@ -29,13 +29,15 @@ public class MajorServiceImp implements MajorService, ExcelSave {
     @Override
     @Transactional
     public int insert(Major record) {
-        return majorMapper.insert(record);
+        majorMapper.insert(record);
+        return record.getId();
     }
 
     @Override
     @Transactional
     public int insertSelective(Major record) {
-        return majorMapper.insertSelective(record);
+        majorMapper.insertSelective(record);
+        return record.getId();
     }
 
     @Override

@@ -13,7 +13,8 @@
         </constructor>
     </resultMap>
 
-    <insert id="insert" parameterType="com.dbsy.student.pojo.Clazz">
+    <insert id="insert" parameterType="com.dbsy.student.pojo.Clazz" useGeneratedKeys="true"
+            keyProperty="id">
     insert into clazz (id, name, introduce,
       major_id, teacher_id, grade,
       department_id)
@@ -21,7 +22,8 @@
       #{majorId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER},
       #{departmentId,jdbcType=INTEGER})
   </insert>
-    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Clazz">
+    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Clazz" useGeneratedKeys="true"
+            keyProperty="id">
         insert into clazz
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

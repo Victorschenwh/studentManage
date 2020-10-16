@@ -30,13 +30,15 @@ public class ClazzServiceImp implements ClazzService, ExcelSave {
     @Override
     @Transactional
     public int insert(Clazz record) {
-        return this.clazzMapper.insert(record);
+        this.clazzMapper.insert(record);
+        return record.getId();
     }
 
     @Override
     @Transactional
     public int insertSelective(Clazz record) {
-        return this.clazzMapper.insertSelective(record);
+        this.clazzMapper.insertSelective(record);
+        return record.getId();
     }
 
     @Override
