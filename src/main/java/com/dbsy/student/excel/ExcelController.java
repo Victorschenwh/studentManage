@@ -2,6 +2,7 @@ package com.dbsy.student.excel;
 
 import com.alibaba.excel.EasyExcel;
 import com.dbsy.student.pojo.*;
+import com.dbsy.student.service.ImportStudentInfoService;
 import com.dbsy.student.service.ScoreService;
 import com.dbsy.student.service.iml.*;
 import com.dbsy.student.util.News;
@@ -53,6 +54,9 @@ public class ExcelController {
     @Autowired
     ScoreService scoreService;
 
+    @Autowired
+    ImportStudentInfoService importStudentInfoService;
+
     @RequestMapping("/up")
     public String excel() {
         return "excel/upload";
@@ -68,17 +72,17 @@ public class ExcelController {
                 EasyExcel.read(file.getInputStream(), Employment.class, new DataListener(employmentServiceImp)).sheet().doRead();
                 break;
             case "student":
-                EasyExcel.read(file.getInputStream(), Student.class, new DataListener(studentServiceImp)).sheet().doRead();
+                EasyExcel.read(file.getInputStream(), ImportStudentInfo.class, new DataListener(importStudentInfoService)).sheet().doRead();
                 break;
-            case "department":
-                EasyExcel.read(file.getInputStream(), Employment.class, new DataListener(departmentServiceImp)).sheet().doRead();
-                break;
-            case "family":
-                EasyExcel.read(file.getInputStream(), Student.class, new DataListener(familyServiceImp)).sheet().doRead();
-                break;
-            case "major":
-                EasyExcel.read(file.getInputStream(), Student.class, new DataListener(majorServiceImp)).sheet().doRead();
-                break;
+//            case "department":
+//                EasyExcel.read(file.getInputStream(), Employment.class, new DataListener(departmentServiceImp)).sheet().doRead();
+//                break;
+//            case "family":
+//                EasyExcel.read(file.getInputStream(), Student.class, new DataListener(familyServiceImp)).sheet().doRead();
+//                break;
+//            case "major":
+//                EasyExcel.read(file.getInputStream(), Student.class, new DataListener(majorServiceImp)).sheet().doRead();
+//                break;
             case "transfer":
                 EasyExcel.read(file.getInputStream(), Student.class, new DataListener(transferServiceImp)).sheet().doRead();
                 break;
@@ -94,9 +98,9 @@ public class ExcelController {
             case "course":
                 EasyExcel.read(file.getInputStream(), Student.class, new DataListener(courseServiceImp)).sheet().doRead();
                 break;
-            case "clazz":
-                EasyExcel.read(file.getInputStream(), Student.class, new DataListener(clazzServiceImp)).sheet().doRead();
-                break;
+//            case "clazz":
+//                EasyExcel.read(file.getInputStream(), Student.class, new DataListener(clazzServiceImp)).sheet().doRead();
+//                break;
 
             case "score":
                 try {

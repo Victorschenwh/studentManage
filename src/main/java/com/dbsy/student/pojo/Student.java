@@ -61,6 +61,9 @@ public class Student {
     @ExcelProperty("地址")
     private String address;
 
+    public Student() {
+        super();
+    }
 
     public Student(Integer id, String number, String name,
                    Boolean gender, String phoneNumber, String email,
@@ -98,9 +101,6 @@ public class Student {
         this.address = address;
     }
 
-    public Student() {
-        super();
-    }
 
     public Integer getId() {
         return id;

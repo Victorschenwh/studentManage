@@ -8,13 +8,15 @@
             <arg column="introduce" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>-->
-    <insert id="insert" parameterType="com.dbsy.student.pojo.Department">
+    <insert id="insert" parameterType="com.dbsy.student.pojo.Department" useGeneratedKeys="true"
+            keyProperty="id">
     insert into department (id, name, introduce
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}
       )
   </insert>
-    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Department">
+    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Department" useGeneratedKeys="true"
+            keyProperty="id">
         insert into department
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
