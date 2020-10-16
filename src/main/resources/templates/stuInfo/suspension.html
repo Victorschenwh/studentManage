@@ -109,10 +109,21 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="clazzId1"  class="col-sm-3 control-label">所属班级：</label>
+                            <label for="clazzId1"  class="col-sm-3 control-label">转入班级：</label>
                             <div class="col-sm-8">
 <!--                                <input id="clName1" class="form-control" type="text" required>-->
                                 <select name="clazzId" class="form-control" id="clazzId1" required>
+                                    <option value="">
+                                        --请选择--
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="grade1"  class="col-sm-3 control-label">转入年级：</label>
+                            <div class="col-sm-8">
+                                <!--                                <input id="clName1" class="form-control" type="text" required>-->
+                                <select name="grade" id="grade1" class="form-control"  required>
                                     <option value="">
                                         --请选择--
                                     </option>
@@ -328,6 +339,13 @@
                                 <!--                                        &#45;&#45;请选择&#45;&#45;-->
                                 <!--                                    </option>-->
                                 <!--                                </select>-->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="grade3" class="col-sm-3 control-label">所属年级：</label>
+                            <div class="col-sm-8">
+                                <input id="grade3" name="grade" class="form-control" type="text" readonly="readonly">
                             </div>
                         </div>
 
@@ -698,8 +716,9 @@
             data: {},
             success: function (data) {
                 if (data.code == 1) {
-                    var clNameList=data.data.clNameList
+                    var clNameList=data.data.clNameList;
                     var suspension = data.data.stuInfo;
+                    let gradeList= data.data.gradeList
                     for (var key in suspension) {
                         $("#" + key + 1).val(suspension[key]);
 
@@ -711,6 +730,15 @@
                         for(let index in clNameList){
                             let option = "<option value='" + clNameList[index].id + "'>" + clNameList[index].clName + "</option>";
                             $("#clazzId1").append(option);
+                        }
+                    }
+
+                    $("#grade1").empty();
+                    $("#grade1").append("<option value=''>--请选择转入年级--</option>");
+                    if(gradeList.length>0){
+                        for(let index in gradeList){
+                            let option = "<option value='" + gradeList[index].grade + "'>" + gradeList[index].grade + "</option>";
+                            $("#grade1").append(option);
                         }
                     }
 
@@ -756,7 +784,34 @@
                 if (data.code == 1) {
                     var suspension = data.data.stuInfo;
                     for (var key in suspension) {
-                        $("#" + key + 3).val(suspension[key]);
+                        // if(key === 'grade')
+                        // {
+                        //     switch (suspension[key]) {
+                        //         case 1:
+                        //             $("#grade3").val('大一');
+                        //             break;
+                        //         case 2:
+                        //             $("#grade3").val('大二');
+                        //             break;
+                        //         case 3:
+                        //             $("#grade3").val('大三');
+                        //             break;
+                        //         case 4:
+                        //             $("#grade3").val('大四');
+                        //             break;
+                        //         default:
+                        //             $("#grade3").val(suspension[key]);
+                        //             break;
+                        //
+                        //     }
+                        //
+                        //
+                        // }
+                        // else{
+
+                            $("#" + key + 3).val(suspension[key]);
+                        // }
+
 
                     }
                 }

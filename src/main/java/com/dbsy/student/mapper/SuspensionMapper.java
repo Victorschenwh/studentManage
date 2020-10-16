@@ -29,6 +29,10 @@ public interface SuspensionMapper {
     @Select("SELECT  cl.id id,cl.`name` clName FROM student stu LEFT JOIN clazz cl ON cl.department_id=stu.department_id AND cl.major_id=stu.major_id WHERE stu.id = #{stuId}")
     List<Map> listClName(int stuId);
 
+    @Select("SELECT DISTINCT grade FROM clazz")
+    List<Map> listGrade();
+
+
     List<Map> getByText(String text);
 
     @Delete("delete from suspension where id = #{id}")
@@ -40,7 +44,7 @@ public interface SuspensionMapper {
     @Delete("delete from suspension where id = #{id}")
     int deleteR(Map map);
 
-    @Update("UPDATE  student stu  LEFT JOIN suspension s ON stu.id=s.student_id  set stu.isDel=0, stu.clazz_id=#{clazzId} WHERE stu.isDel=1 AND s.id=#{id}")
+    @Update("UPDATE  student stu  LEFT JOIN suspension s ON stu.id=s.student_id  set stu.isDel=0, stu.clazz_id=#{clazzId},stu.grade=#{grade} WHERE stu.isDel=1 AND s.id=#{id}")
     int rebackR(Map map);
 
 

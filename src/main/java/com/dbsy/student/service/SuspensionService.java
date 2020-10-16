@@ -25,6 +25,8 @@ public interface SuspensionService {
 
     List<Map> listClName(int stuId);
 
+    List<Map> listGrade();
+
     int delete(int id);
 
 //    int reback(int id);

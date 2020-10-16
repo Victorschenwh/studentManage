@@ -154,7 +154,9 @@ public class SuspensionController {
 
         Map map= new HashMap<>();
         map.put("stuInfo",suspensionService.getSelf(id));
+//        System.out.println("suspensionService.getSelf(id) = " + suspensionService.getSelf(id));
         map.put("clNameList",suspensionService.listClName(stuId));
+        map.put("gradeList",suspensionService.listGrade());
 
         return News.success("成功",map) ;
     }
