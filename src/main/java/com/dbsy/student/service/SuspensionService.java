@@ -23,9 +23,12 @@ public interface SuspensionService {
 
     Map getSelf(int id);
 
+    List<Map> listClName(int stuId);
+
     int delete(int id);
 
-    int reback(int id);
+//    int reback(int id);
+    int reback(Map map);
 
     int update(Suspension suspension);
 

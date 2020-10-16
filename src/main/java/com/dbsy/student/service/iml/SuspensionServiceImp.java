@@ -81,19 +81,32 @@ public class SuspensionServiceImp implements SuspensionService, ExcelSave {
     }
 
     @Override
+    public List<Map> listClName(int stuId) {
+        return this.suspensionMapper.listClName(stuId);
+    }
+
+    @Override
     @Transactional
     @CacheEvict(key = "#id")
     public int delete(int id) {
         return this.suspensionMapper.delete(id);
     }
 
+//    @Override
+//    @Transactional
+//    @CacheEvict(key = "#id")
+//    public int reback(int id) {
+//
+//        this.suspensionMapper.reback(id);
+//        return this.suspensionMapper.delete(id);
+//    }
+
     @Override
     @Transactional
-    @CacheEvict(key = "#id")
-    public int reback(int id) {
+    public int reback(Map map) {
 
-        this.suspensionMapper.reback(id);
-        return this.suspensionMapper.delete(id);
+        this.suspensionMapper.rebackR(map);
+        return this.suspensionMapper.deleteR(map);
     }
 
 

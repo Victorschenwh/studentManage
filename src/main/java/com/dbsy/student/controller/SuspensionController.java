@@ -81,11 +81,21 @@ public class SuspensionController {
         return News.fail("删除失败");
     }
 
-    @ResponseBody
-    @RequestMapping("/reback/{id}")
-    public Map reback(@PathVariable("id") int id) {
+//    @ResponseBody
+//    @RequestMapping("/reback/{id}")
+//    public Map reback(@PathVariable("id") int id) {
+//
+//        if (suspensionService.reback(id) > 0) {
+//            return News.success("成功");
+//        }
+//        return News.fail("删除失败");
+//    }
 
-        if (suspensionService.reback(id) > 0) {
+    @ResponseBody
+    @RequestMapping("/reback")
+    public Map reback(@RequestParam Map map) {
+
+        if (suspensionService.reback(map) > 0) {
             return News.success("成功");
         }
         return News.fail("删除失败");
@@ -139,10 +149,14 @@ public class SuspensionController {
 
 
     @ResponseBody
-    @RequestMapping("/getSelf/{id}")
-    public Map getSelf(@PathVariable(value = "id") int id) {
+    @RequestMapping("/getSelf/{id}/{stuId}")
+    public Map getSelf(@PathVariable(value = "id",required = false) int id,@PathVariable(value="stuId" ,required = false) int stuId) {
 
-        return News.success("成功", suspensionService.getSelf(id));
+        Map map= new HashMap<>();
+        map.put("stuInfo",suspensionService.getSelf(id));
+        map.put("clNameList",suspensionService.listClName(stuId));
+
+        return News.success("成功",map) ;
     }
 
 //    @Authority({Role.Teacher})
