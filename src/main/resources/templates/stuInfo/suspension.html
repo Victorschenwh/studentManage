@@ -750,11 +750,11 @@
         $.ajax({
             //cache: true,
             type: "POST",
-            url: "/suspension/getSelf/" + id,
+            url: "/suspension/getSelf/" + id +'/'+ 0,
             data: {},
             success: function (data) {
                 if (data.code == 1) {
-                    var suspension = data.data;
+                    var suspension = data.data.stuInfo;
                     for (var key in suspension) {
                         $("#" + key + 3).val(suspension[key]);
 
