@@ -24,7 +24,6 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/major")
-@Authority({Role.Admin})
 public class MajorController {
     @Autowired
     @Qualifier("majorServiceImp")
@@ -84,14 +83,14 @@ public class MajorController {
         return News.fail("添加失败");
     }
 
-    @Authority({Role.Teacher,Role.Student})
+
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", majorService.get(id));
     }
 
-    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping(value = "/getAll")
     public Map getAll() {

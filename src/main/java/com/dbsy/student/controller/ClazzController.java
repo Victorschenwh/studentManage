@@ -18,7 +18,6 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/clazz")
-@Authority({Role.Admin})
 public class ClazzController {
 
     @Autowired
@@ -82,21 +81,21 @@ public class ClazzController {
         return News.fail("添加失败");
     }
 
-    @Authority({Role.Teacher,Role.Student})
+
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", clazzService.get(id));
     }
 
-    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getAll")
     public Map getAll() {
         return News.success("成功", clazzService.getAll());
     }
 
-    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getClazzByMajorId/{majorId}")
     public Map getClazzBymajorId(@PathVariable("majorId") int majorId){

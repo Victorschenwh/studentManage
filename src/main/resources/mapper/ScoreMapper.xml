@@ -120,19 +120,19 @@
         select * from view_sc_student_mrank
         <where>
             <if test="departmentId!=null and departmentId!=0">
-                and department_id = #{departmentId},
+                and department_id = #{departmentId}
             </if>
             <if test="majorId!=null and majorId!=0">
-                and major_id = #{majorId},
+                and major_id = #{majorId}
             </if>
             <if test="grade!=null and grade!=0">
-                and grade = #{grade},
+                and grade = #{grade}
             </if>
             <if test="clazzId!=null and clazzId!=0">
-                and clazz_id = #{clazzId},
+                and clazz_id = #{clazzId}
             </if>
             <if test="studyTerm!=null">
-                and study_term = #{studyTerm},
+                and study_term = #{studyTerm}
             </if>
         </where>
         <if test="start!=null">
@@ -144,19 +144,19 @@
         select * from view_student_score_reward_mrank
         <where>
             <if test="departmentId!=null and departmentId!=0">
-                and s.department_id = #{departmentId},
+                and department_id = #{departmentId}
             </if>
             <if test="majorId!=null and majorId!=0">
-                and s.major_id = #{majorId},
+                and major_id = #{majorId}
             </if>
             <if test="grade!=null and grade!=0">
-                and s.grade = #{grade},
+                and grade = #{grade}
             </if>
             <if test="clazzId!=null and clazzId!=0">
-                and s.clazz_id = #{clazzId},
+                and clazz_id = #{clazzId}
             </if>
             <if test="studyTerm!=null">
-                and sc.study_term = #{studyTerm},
+                and study_term = #{studyTerm}
             </if>
         </where>
         <if test="start!=null">
@@ -169,19 +169,19 @@
         select count(*) from view_student_score_reward_mrank
         <where>
             <if test="departmentId!=null and departmentId!=0">
-                and s.department_id = #{departmentId},
+                and department_id = #{departmentId}
             </if>
             <if test="majorId!=null and majorId!=0">
-                and s.major_id = #{majorId},
+                and major_id = #{majorId}
             </if>
             <if test="grade!=null and grade!=0">
-                and s.grade = #{grade},
+                and grade = #{grade}
             </if>
             <if test="clazzId!=null and clazzId!=0">
-                and s.clazz_id = #{clazzId},
+                and clazz_id = #{clazzId}
             </if>
             <if test="studyTerm!=null">
-                and sc.study_term = #{studyTerm},
+                and study_term = #{studyTerm}
             </if>
         </where>
     </select>
@@ -189,20 +189,20 @@
     <select id="countRank" parameterType="Map" resultType="int">
         select count(*) from view_sc_student_mrank
         <where>
-            <if test="departmentId!=null and departmentId!=0">
-                and s.department_id = #{departmentId},
+            <if test="departmentId != null and departmentId != 0">
+                and department_id = #{departmentId}
             </if>
             <if test="majorId!=null and majorId!=0">
-                and s.major_id = #{majorId},
+                and major_id = #{majorId}
             </if>
             <if test="grade!=null and grade!=0">
-                and s.grade = #{grade},
+                and grade = #{grade}
             </if>
             <if test="clazzId!=null and clazzId!=0">
-                and s.clazz_id = #{clazzId},
+                and clazz_id = #{clazzId}
             </if>
             <if test="studyTerm!=null">
-                and sc.study_term = #{studyTerm},
+                and study_term = #{studyTerm}
             </if>
         </where>
     </select>

@@ -8,10 +8,7 @@ import com.dbsy.student.util.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +39,7 @@ public class ScoreController {
     }
 
     //   @Authority({Role.Teacher})
-    @RequestMapping("/list")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Map list(@RequestParam Map map) {
         Map m = new HashMap();
@@ -51,7 +48,7 @@ public class ScoreController {
         return m;
     }
 
-    @RequestMapping("/totalList")
+    @RequestMapping(value = "/totalList", method = RequestMethod.GET)
     @ResponseBody
     public Map totalList(@RequestParam Map map) {
         Map m = new HashMap();

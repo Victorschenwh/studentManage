@@ -1,5 +1,6 @@
 var department = function () {
     $.ajax({
+        async: false,
         cache: false,
         type: "POST",
         url: "/select/department/getAll",
@@ -49,11 +50,13 @@ var major = function () {
 
 
 var grade = function () {
-    $("#grade").append("<option value='0'>--请选择年级--</option>");
-    $("#grade").append("<option value='1'>大一</option>");
-    $("#grade").append("<option value='2'>大二</option>");
-    $("#grade").append("<option value='3'>大三</option>");
-    $("#grade").append("<option value='4'>大四</option>");
+    let date = new Date()
+    let year = date.getFullYear()
+    $("#grade").append("<option value=''>--请选择年级--</option>");
+    $("#grade").append("<option value='" + year + "'>" + year + "级</option>");
+    $("#grade").append("<option value='" + (year - 1) + "'>" + (year - 1) + "级</option>");
+    $("#grade").append("<option value='" + (year - 2) + "'>" + (year - 2) + "级</option>");
+    $("#grade").append("<option value='" + (year - 3) + "'>" + (year - 3) + "级</option>");
 }
 
 
@@ -63,8 +66,7 @@ var clazz = function () {
         cache: false,
         type: "GET",
         url: "/select/clazz?departmentId=" + $("#departmentId").val() + "&grade=" + $("#grade").val() + "&majorId=" + $("#majorId").val(),
-        data: {
-        },
+        data: {},
         dataType: "json",
         success: function (data) {
             if (data.code == 1) {
@@ -85,6 +87,8 @@ var clazz = function () {
 
 
 $("#departmentId").change(function () {
+    //console.log("--监听--")
+
     $("#majorId").empty();
     $("#majorId").append("<option value=''>--请选择专业--</option>");
 
@@ -111,7 +115,7 @@ $("#grade").change(function () {
     reLoad();
 })
 
-$("#clazz").change(function () {
+$("#clazzId").change(function () {
     reLoad()
 })
 
