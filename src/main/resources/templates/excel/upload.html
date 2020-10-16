@@ -18,11 +18,7 @@
         <div class="left col-md-2">
             <ul class="menu nav nav-pills nav-stacked">
                 <li role="presentation"><a href="javascript:window.history.go(-1)">返回</a></li>
-                <li role="presentation"><a href="#department">学院</a></li>
-                <li role="presentation"><a href="#major">专业</a></li>
-                <li role="presentation"><a href="#clazz">班级</a></li>
                 <li role="presentation"><a href="#student">学生</a></li>
-                <li role="presentation"><a href="#family">家庭</a></li>
                 <li role="presentation"><a href="#course">课程</a></li>
                 <li role="presentation"><a href="#employment">就业</a></li>
                 <li role="presentation"><a href="#transfer">转专业</a></li>
@@ -34,58 +30,7 @@
         </div>
         <div class="main col-md-10">
             <div class="row">
-                <div id="department" class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">学院</div>
-                        <div class="panel-body">
-                            <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>上传</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <input name="type" type="text" class="hidden" value="department">
-                                <input type="submit" value="上传" class="btn btn-default">
-                                <a href="/excel/downloadExcel/学院表模板.xlsx">学院模板,点击下载</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
 
-
-                <div id="major" class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">专业</div>
-                        <div class="panel-body">
-                            <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>上传</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <input name="type" type="text" class="hidden" value="major">
-                                <input type="submit" value="上传" class="btn btn-default">
-                                <a href="/excel/downloadExcel/专业表模板.xlsx">专业表模板,点击下载</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div id="clazz" class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">班级</div>
-                        <div class="panel-body">
-                            <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>上传</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <input name="type" type="text" class="hidden" value="clazz">
-                                <input type="submit" value="上传" class="btn btn-default">
-                                <a href="/excel/downloadExcel/班级表模板.xlsx">班级表模板,点击下载</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
 
                 <div id="student" class="col-sm-6">
                     <div class="panel panel-info">
@@ -99,23 +44,6 @@
                                 <input name="type" type="text" class="hidden" value="student">
                                 <input type="submit" value="上传" class="btn btn-default">
                                 <a href="/excel/downloadExcel/学生基本信息表模板.xlsx">学生基本信息表模板,点击下载</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="family" class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">家庭成员</div>
-                        <div class="panel-body">
-                            <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>上传</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <input name="type" type="text" class="hidden" value="family">
-                                <input type="submit" value="上传" class="btn btn-default">
-                                <a href="/excel/downloadExcel/家庭成员表.xlsx">家庭成员表,点击下载</a>
                             </form>
                         </div>
                     </div>
