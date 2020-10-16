@@ -85,11 +85,39 @@
 <script src="/js/utils.js"></script>
 <script src="/js/smallSelect.js"></script>
 <script>
+    $(document).ready(function () {
+        department();
+        grade();
+    })
+</script>
+<div th:if="${session.user!=null && session.user.departmentId != null}">
+    <script>
+        $(document).ready(function () {
+            $("#departmentId").val([[${session.user.departmentId}]])
+            $('#departmentId').attr("disabled", true);
+            major()
+        })
+    </script>
+</div>
+<div th:if="${session.user!=null && session.user.role > 1000 }">
+    <script>
+        $(document).ready(function () {
+            $("#grade").val([[${session.user.role}]])
+            $('#grade').attr("disabled", true);
+        })
+    </script>
+</div>
+<script>
+    $(document).ready(function () {
+        load()
+        s(3)
+        s(4)
+    })
+
+
+
     let state = "我的申请";
     let utils = new Utils();
-
-
-
 
     function myApply(id) {
         let row = $('#table_transfer2').bootstrapTable('getRowByUniqueId', id)
@@ -99,17 +127,6 @@
         $("#check_new_department_name2").val(row.new_department_name)
         $("#check_new_major_name2").val(row.new_major_name)
     }
-
-
-
-    $(document).ready(function () {
-
-        load();
-        s(4);
-        s(3);
-
-
-    });
 
 
     function load() {

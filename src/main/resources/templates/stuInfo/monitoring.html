@@ -67,9 +67,31 @@
 <script src="/js/select.js"></script>
 <script>
 
+    <script>
     $(document).ready(function () {
         department();
         grade();
+    })
+</script>
+<div th:if="${session.user!=null && session.user.departmentId != null}">
+    <script>
+        $(document).ready(function () {
+            $("#departmentId").val([[${session.user.departmentId}]])
+            $('#departmentId').attr("disabled", true);
+            major()
+        })
+    </script>
+</div>
+<div th:if="${session.user!=null && session.user.role > 1000 }">
+    <script>
+        $(document).ready(function () {
+            $("#grade").val([[${session.user.role}]])
+            $('#grade').attr("disabled", true);
+        })
+    </script>
+</div>
+<script>
+    $(document).ready(function () {
         load()
     })
 

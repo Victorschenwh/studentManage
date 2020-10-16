@@ -206,17 +206,34 @@
 <script src="/js/select.js"></script>
 <script src="/js/smallSelect.js"></script>
 <script>
-
+    <script>
     $(document).ready(function () {
         department();
         grade();
-        load();
-        up();
-        s(2);
-
-
-    });
-
+    })
+</script>
+<div th:if="${session.user!=null && session.user.departmentId != null}">
+    <script>
+        $(document).ready(function () {
+            $("#departmentId").val([[${session.user.departmentId}]])
+            $('#departmentId').attr("disabled", true);
+            major()
+        })
+    </script>
+</div>
+<div th:if="${session.user!=null && session.user.role > 1000 }">
+    <script>
+        $(document).ready(function () {
+            $("#grade").val([[${session.user.role}]])
+            $('#grade').attr("disabled", true);
+        })
+    </script>
+</div>
+<script>
+    $(document).ready(function () {
+        load()
+        s(2)
+    })
 
     function load() {
         $('#table_warning')
