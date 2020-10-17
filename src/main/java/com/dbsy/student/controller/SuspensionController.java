@@ -41,7 +41,7 @@ public class SuspensionController {
     @ResponseBody
     public Map list(@RequestParam Map map) {
 
-        System.out.println("map = " + map);
+//        System.out.println("map = " + map);
         Map m = new HashMap();
         m.put("total", suspensionService.listCount(map));
         m.put("rows", suspensionService.list(map));
