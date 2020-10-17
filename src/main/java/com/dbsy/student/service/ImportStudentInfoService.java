@@ -64,7 +64,7 @@ public class ImportStudentInfoService implements ExcelSave {
                             importStudentInfo.getPhoneNumber(), importStudentInfo.getEmail(), importStudentInfo.getIdCard(),
                             importStudentInfo.getNativePlace(), null, importStudentInfo.getAdmissionDate(), importStudentInfo.getBirthday(),
                             null, importStudentInfo.getScore(), clazz.getId(), major.getId(), department.getId(), clazz.getGrade(),
-                            importStudentInfo.getAge(), importStudentInfo.getNation(), importStudentInfo.getAddress());
+                            importStudentInfo.getAge(), importStudentInfo.getNation(), importStudentInfo.getAddress(),importStudentInfo.getRoom(),importStudentInfo.getStatus());
                     studentServiceImp.insert(student);
                 }
 

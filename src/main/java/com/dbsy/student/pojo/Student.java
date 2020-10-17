@@ -61,6 +61,11 @@ public class Student {
     @ExcelProperty("地址")
     private String address;
 
+    @ExcelProperty("宿舍号")
+    private Integer room;
+    @ExcelProperty("政治面貌")
+    private String status;
+
     public Student() {
         super();
     }
@@ -70,7 +75,7 @@ public class Student {
                    String idCard, String nativePlace, String photo,
                    Date admissionDate, Date birthday, String password, Float score,
                    Integer clazzId, Integer majorId, Integer departmentId, Integer grade,
-                   Integer age, String nation, String address) {
+                   Integer age, String nation, String address,Integer room,String status) {
         this.id = id;
         this.number = number;
         this.name = name;
@@ -91,7 +96,10 @@ public class Student {
         this.age = age;
         this.nation = nation;
         this.address = address;
+        this.room = room;
+        this.status= status;
     }
+
 
     public String getAddress() {
         return address;
@@ -254,6 +262,22 @@ public class Student {
         this.nation = nation == null ? null : nation.trim();
     }
 
+    public Integer getRoom() {
+        return room;
+    }
+
+    public void setRoom(Integer room) {
+        this.room = room;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -277,6 +301,11 @@ public class Student {
                 ", age=" + age +
                 ", nation='" + nation + '\'' +
                 ", address='" + address + '\'' +
-                '}';
+                ", room ='" + room +'\''+
+                ",status ='"+status+'\''+
+                '}'
+                ;
     }
+
+
 }

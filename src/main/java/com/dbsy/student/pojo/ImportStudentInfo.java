@@ -74,7 +74,10 @@ public class ImportStudentInfo {
     private String address;
 
     @ExcelProperty("寝室号")
-    private String room;
+    private Integer room;
+
+    @ExcelProperty("政治面貌")
+    private String status;
 
     @ExcelProperty("家庭成员1")
     private String f1Name;
@@ -290,11 +293,11 @@ public class ImportStudentInfo {
         this.address = address;
     }
 
-    public String getRoom() {
+    public Integer getRoom() {
         return room;
     }
 
-    public void setRoom(String room) {
+    public void setRoom(Integer room) {
         this.room = room;
     }
 
@@ -408,5 +411,13 @@ public class ImportStudentInfo {
 
     public void setF3Phone(String f3Phone) {
         this.f3Phone = f3Phone;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

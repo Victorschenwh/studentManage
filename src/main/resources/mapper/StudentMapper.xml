@@ -33,14 +33,14 @@
       admission_date, birthday, password, 
       score, clazz_id, major_id, 
       department_id, grade, age, 
-      nation,address)
+      nation,address,room,status)
     values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{gender,jdbcType=BIT}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{idCard,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
       #{admissionDate,jdbcType=DATE}, #{birthday,jdbcType=DATE}, #{password,jdbcType=VARCHAR}, 
       #{score,jdbcType=REAL}, #{clazzId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, 
-      #{departmentId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
-      #{nation,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR})
+      #{departmentId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, #{age,jdbcType=INTEGER},
+      #{nation,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{room,jdbcType=INTEGER},#{status,jdbcType=VARCHAR})
   </insert>
 
     <!--批量增加-->
@@ -51,7 +51,7 @@
         admission_date, birthday, password,
         score, clazz_id, major_id,
         department_id, grade, age,
-        nation,address)
+        nation,address,room,status)
         VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.id,jdbcType=INTEGER}, #{item.number,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR},
@@ -60,7 +60,7 @@
             #{item.admissionDate,jdbcType=DATE}, #{item.birthday,jdbcType=DATE}, #{item.password,jdbcType=VARCHAR},
             #{item.score,jdbcType=REAL}, #{item.clazzId,jdbcType=INTEGER}, #{item.majorId,jdbcType=INTEGER},
             #{item.departmentId,jdbcType=INTEGER}, #{item.grade,jdbcType=INTEGER}, #{item.age,jdbcType=INTEGER},
-            #{item.nation,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR})
+            #{item.nation,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR}, #{item.room,jdbcType=INTEGER},#{item.status,jdbcType=VARCHAR})
         </foreach>
     </insert>
 
@@ -128,6 +128,12 @@
             <if test="address != null">
                 address,
             </if>
+            <if test="room != null">
+                address,
+            </if>
+            <if test="status != null">
+                address,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -188,6 +194,12 @@
                 #{nation,jdbcType=VARCHAR},
             </if>
             <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="room != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
                 #{address,jdbcType=VARCHAR},
             </if>
         </trim>
