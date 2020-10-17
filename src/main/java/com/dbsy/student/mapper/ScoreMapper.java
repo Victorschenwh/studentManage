@@ -51,4 +51,11 @@ public interface ScoreMapper {
 
     int countRank(Map map);
 
+    List<Map> studentScore(int id);
+
+    List<Map> studentTotal(int id);
+
+    //学生挂科数
+    int fail(int id);
+
 }

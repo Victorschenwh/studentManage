@@ -207,5 +207,22 @@
         </where>
     </select>
 
+    <select id="studentScore" resultType="Map">
+        select major_rank,avgAcademiRecoreds,study_term from view_sc_student_mrank
+       where id= #{id}
+       order by study_term
+    </select>
+
+
+    <select id="studentTotal" resultType="Map">
+        select major_rank,total,study_term from view_student_score_reward_mrank
+            where  id = #{id}
+      order by study_term
+    </select>
+
+    <select id="fail" resultType="int">
+        select count(*) from score
+            where  id = #{id} and score = 0
+    </select>
 
 </mapper>
