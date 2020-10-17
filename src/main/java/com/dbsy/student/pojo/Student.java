@@ -62,7 +62,7 @@ public class Student {
     private String address;
 
     @ExcelProperty("宿舍号")
-    private Integer room;
+    private String room;
     @ExcelProperty("政治面貌")
     private String status;
 
@@ -75,7 +75,7 @@ public class Student {
                    String idCard, String nativePlace, String photo,
                    Date admissionDate, Date birthday, String password, Float score,
                    Integer clazzId, Integer majorId, Integer departmentId, Integer grade,
-                   Integer age, String nation, String address,Integer room,String status) {
+                   Integer age, String nation, String address,String room,String status) {
         this.id = id;
         this.number = number;
         this.name = name;
@@ -262,11 +262,11 @@ public class Student {
         this.nation = nation == null ? null : nation.trim();
     }
 
-    public Integer getRoom() {
+    public String getRoom() {
         return room;
     }
 
-    public void setRoom(Integer room) {
+    public void setRoom(String room) {
         this.room = room;
     }
 

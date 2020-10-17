@@ -23,6 +23,8 @@
             <arg column="age" javaType="java.lang.Integer" jdbcType="INTEGER"/>
             <arg column="nation" javaType="java.lang.String" jdbcType="VARCHAR"/>
             <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="room" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>
     <insert id="insert" parameterType="com.dbsy.student.pojo.Student" useGeneratedKeys="true"
@@ -40,7 +42,7 @@
       #{admissionDate,jdbcType=DATE}, #{birthday,jdbcType=DATE}, #{password,jdbcType=VARCHAR}, 
       #{score,jdbcType=REAL}, #{clazzId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, 
       #{departmentId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, #{age,jdbcType=INTEGER},
-      #{nation,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{room,jdbcType=INTEGER},#{status,jdbcType=VARCHAR})
+      #{nation,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{room,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR})
   </insert>
 
     <!--批量增加-->
@@ -60,7 +62,7 @@
             #{item.admissionDate,jdbcType=DATE}, #{item.birthday,jdbcType=DATE}, #{item.password,jdbcType=VARCHAR},
             #{item.score,jdbcType=REAL}, #{item.clazzId,jdbcType=INTEGER}, #{item.majorId,jdbcType=INTEGER},
             #{item.departmentId,jdbcType=INTEGER}, #{item.grade,jdbcType=INTEGER}, #{item.age,jdbcType=INTEGER},
-            #{item.nation,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR}, #{item.room,jdbcType=INTEGER},#{item.status,jdbcType=VARCHAR})
+            #{item.nation,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR}, #{item.room,jdbcType=VARCHAR},#{item.status,jdbcType=VARCHAR})
         </foreach>
     </insert>
 
@@ -129,10 +131,10 @@
                 address,
             </if>
             <if test="room != null">
-                address,
+                room,
             </if>
             <if test="status != null">
-                address,
+                status,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -197,10 +199,10 @@
                 #{address,jdbcType=VARCHAR},
             </if>
             <if test="room != null">
-                #{address,jdbcType=VARCHAR},
+                #{room,jdbcType=VARCHAR},
             </if>
             <if test="status != null">
-                #{address,jdbcType=VARCHAR},
+                #{status,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
