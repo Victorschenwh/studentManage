@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>监控信息表</title>
+    <style>
+
+        html, body {
+            width: 100%;
+        }
+
+        .biaoti {
+            font-family: "Microsoft Himalaya";
+            font-size: 15px;
+            color: black;
+
+        }
+
+        .btgn {
+            font-family: "Microsoft YaHei UI";
+            font-size: 2px;
+            font-weight: bold;
+            color: black;
+            background-color: white;
+            text-align: center;
+        }
+
+        .b {
+            font-family: "Microsoft YaHei UI";
+            font-size: 2px;
+            color: black;
+            background-color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<button type="button" id="renderPdf" value="转成pdf">转成pdf</button>
+<div style="margin:0 auto; width:60%;" id="contain">
+    <table align="center" width="80%" border="1" cellspacing="0" cellpadding="4">
+        <tr>
+            <th align="center" class="biaoti" colspan="10">东北石油大学学生学业监控信息表</th>
+        </tr>
+        <tr>
+            <td class="btgn" width="10%">姓名</td>
+            <td class="b" th:if="${exportStudentInfo}" th:text="${exportStudentInfo.student.name}"></td>
+            <td class="btgn">性别</td>
+            <td class="b" th:text="${exportStudentInfo.student.gender}"></td>
+            <td class="btgn">民族</td>
+            <td class="b" th:text="${exportStudentInfo.student.nation}"></td>
+            <td class="btgn" colspan="4" rowspan="4"><img th:src="${exportStudentInfo.student.photo}"/></td>
+        </tr>
+        <tr>
+            <td class="btgn">身份证号</td>
+            <td class="b" th:text="${exportStudentInfo.student.idCard}">&nbsp;</td>
+            <td class="btgn">入学时间</td>
+            <td class="b" th:text="${#dates.format(exportStudentInfo.student.admissionDate,'yyyy-MM-dd')}"></td>
+            <td class="btgn">学号</td>
+            <td class="b" th:text="${exportStudentInfo.student.number}"></td>
+        </tr>
+        <tr>
+            <td class="btgn">学院</td>
+            <td class="b" th:text="${exportStudentInfo.department.name}"></td>
+            <td class="btgn">专业</td>
+            <td class="b" th:text="${exportStudentInfo.major.name}"></td>
+            <td class="btgn">班级</td>
+            <td class="b" th:text="${exportStudentInfo.clazz.name}">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="btgn">政治面貌</td>
+            <td class="b">&nbsp;</td>
+            <td class="btgn">宿舍号</td>
+            <td class="b">&nbsp;</td>
+            <td class="btgn">联系方式</td>
+            <td class="b" th:text="${exportStudentInfo.student.phoneNumber}">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="btgn" colspan="10">家庭状况</td>
+        </tr>
+        <tr th:if="${exportStudentInfo.families.size()>0}">
+            <td class="btgn">家庭成员</td>
+            <td class="btgn">姓名</td>
+            <td class="btgn" colspan="4">工作单位</td>
+            <td class="btgn" colspan="4">联系电话</td>
+        </tr>
+        <tr th:each="family : ${exportStudentInfo.families}">
+            <td class="btgn" th:text="${family.relationship}">父亲</td>
+            <td class="b" th:text="${family.name}">&nbsp;</td>
+            <td class="b" colspan="4" th:text="${family.work}">&nbsp;</td>
+            <td class="b" colspan="4" th:text="${family.phoneNumber}">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="btgn">家庭住址</td>
+            <td class="b" colspan="9" th:text="${exportStudentInfo.student.address}">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="btgn" colspan="10">奖惩</td>
+        </tr>
+        <tr>
+            <td class="b" colspan="5">&nbsp;</td>
+            <td class="b" colspan="5">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="btgn" colspan="10">综合评价</td>
+        </tr>
+        <tr>
+            <td class="b">&nbsp;</td>
+            <td class="btgn">智育成绩</td>
+            <td class="btgn">智育排名</td>
+            <td class="btgn">综测成绩</td>
+            <td class="btgn">综测排名</td>
+            <td class="b">&nbsp;</td>
+            <td class="btgn">智育成绩</td>
+            <td class="btgn">智育排名</td>
+            <td class="btgn">综测成绩</td>
+            <td class="btgn">综测排名</td>
+        </tr>
+        <tr th:each="i:${#numbers.sequence(1,4)}">
+            <td class="btgn" th:text="${'第'+ (i) + '学期'}"></td>
+            <td class="b"
+                th:text="${exportStudentInfo.score.size()>=i ? #numbers.formatDecimal(exportStudentInfo.score.get(i-1).get('avgAcademiRecoreds'), 0, 2) :''}">
+                &nbsp;
+            </td>
+            <td class="b"
+                th:text="${exportStudentInfo.score.size()>=i ? exportStudentInfo.score.get(i-1).get('major_rank'):''}">
+                &nbsp;
+            </td>
+            <td class="b"
+                th:text="${exportStudentInfo.total.size()>=i ? #numbers.formatDecimal(exportStudentInfo.total.get(i-1).get('total'), 0, 2):''}">
+                &nbsp;
+            </td>
+            <td class="b"
+                th:text="${exportStudentInfo.total.size()>=i ? exportStudentInfo.total.get(i-1).get('major_rank'):''}">
+                &nbsp;
+            </td>
+
+            <td class="btgn" th:text="${'第'+ (i + 4) + '学期'}"></td>
+            <td class="b"
+                th:text="${exportStudentInfo.score.size()>=(i+4) ? #numbers.formatDecimal(exportStudentInfo.score.get(i+4-1).get('avgAcademiRecoreds'), 0, 2):''}">
+                &nbsp;
+            </td>
+            <td class="b"
+                th:text="${exportStudentInfo.score.size()>=(i+4) ? exportStudentInfo.score.get(i+4-1).get('major_rank'):''}">
+                &nbsp;
+            </td>
+            <td class="b"
+                th:text="${exportStudentInfo.total.size()>=(i+4) ? #numbers.formatDecimal(exportStudentInfo.total.get(i+4-1).get('total'), 0, 2):''}">
+                &nbsp;
+            </td>
+            <td class="b"
+                th:text="${exportStudentInfo.total.size()>=(i+4) ? exportStudentInfo.total.get(i+4-1).get('major_rank'):''}">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td class="btgn" colspan="2">CET4</td>
+            <td class="btgn" colspan="2">CET6</td>
+            <td class="btgn" colspan="2">累计挂科</td>
+            <td class="btgn" colspan="2">成绩绩点</td>
+            <td class="btgn" colspan="2">绩点排名</td>
+        </tr>
+        <tr>
+            <td class="b" colspan="2">&nbsp;</td>
+            <td class="b" colspan="2">&nbsp;</td>
+            <td class="b" colspan="2" th:text="${exportStudentInfo.fail}">&nbsp;</td>
+            <td class="b" colspan="2">&nbsp;</td>
+            <td class="b" colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="b" colspan="5" height="100px">&nbsp;</td>
+            <td class="b" colspan="5" height="100px">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript" src="/js/html2canvas.js"></script>
+<script type="text/javascript" src="/js/jsPDF.js"></script>
+<script type="text/javascript">
+    var downPdf = document.getElementById("renderPdf");
+    downPdf.onclick = function () {
+        var ele = document.getElementById("contain")
+        let eleW = ele.offsetWidth // 获得该容器的宽
+
+        //   let eleH = ele.offsetHeight // 获得该容器的高
+
+        let eleH = ele.scrollHeight  // 获得该容器的高
+        let eleOffsetTop = ele.offsetTop  // 获得该容器到文档顶部的距离
+        let eleOffsetLeft = ele.offsetLeft  // 获得该容器到文档最左的距离
+        var canvas = document.createElement("canvas")
+
+        var abs = 0
+
+        let win_in = document.documentElement.clientWidth || document.body.clientWidth   // 获得当前可视窗口的宽度（不包含滚动条）
+
+        let win_out = window.innerWidth// 获得当前窗口的宽度（包含滚动条）
+
+        if (win_out > win_in) {
+            // abs = (win_o - win_i)/2;    // 获得滚动条长度的一半
+            abs = (win_out - win_in) / 2  // 获得滚动条宽度的一半
+        }
+
+        canvas.width = eleW * 2   // 将画布宽&&高放大两倍
+
+        canvas.height = eleH * 2
+
+
+        var context = canvas.getContext("2d")
+
+        context.scale(2, 2)   // 增强图片清晰度
+
+        context.translate(-eleOffsetLeft - abs, -eleOffsetTop)
+
+        html2canvas(ele, {
+            useCORS: true,
+            background: "#fff",
+            dpi: 300,
+        }).then(canvas => {
+
+            var contentWidth = canvas.width
+
+            var contentHeight = canvas.height
+
+            //一页pdf显示html页面生成的canvas高度;
+
+            var pageHeight = (contentWidth / 592.28) * 841.89   // 这样写的目的在于保持宽高比例一致 pageHeight/canvas.width = a4纸高度/a4纸宽度
+            // 宽度和canvas.width保持一致
+
+            //未生成pdf的html页面高度
+
+            var leftHeight = contentHeight
+
+            //页面偏移
+            var position = 0
+
+            //a4纸的尺寸[595.28,841.89],单位像素，html页面生成的canvas在pdf中图片的宽高
+
+            var imgWidth = 595.28
+
+            var imgHeight = (595.28 / contentWidth) * contentHeight
+
+            var pageData = canvas.toDataURL("image/jpeg", 1.0)
+            var pdf = new jsPDF("", "pt", "a4")
+            //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
+            //当内容未超过pdf一页显示的范围，无需分页
+            if (leftHeight < pageHeight) {
+                //在pdf.addImage(pageData, 'JPEG', 左，上，宽度，高度)设置在pdf中显示；
+                pdf.addImage(pageData, "JPEG", 0, 50, imgWidth, imgHeight)
+                // pdf.addImage(pageData, 'JPEG', 20, 40, imgWidth, imgHeight);
+            } else {
+                // 分页
+                while (leftHeight > 0) {
+                    pdf.addImage(pageData, "JPEG", 5, position, imgWidth, imgHeight)
+                    leftHeight -= pageHeight
+                    position -= 841.89
+                    //避免添加空白页
+                    if (leftHeight > 0) {
+                        pdf.addPage()
+                    }
+                }
+            }
+            pdf.save(new Date().getTime() + ".pdf")
+
+        })
+
+    }
+</script>
+
+</html>

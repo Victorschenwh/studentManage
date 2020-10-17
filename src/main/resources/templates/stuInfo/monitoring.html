@@ -94,7 +94,6 @@
     })
 
 
-
     function load() {
         $('#table_monitoring')
             .bootstrapTable({
@@ -226,17 +225,16 @@
                     title: '学业监控',
                     align: 'center',
                     formatter: function (value, row, index) {
-
-                        var d = '<a class="btn btn-warning btn-sm " href="#" onclick="exportWord(\'' + row.id + '\')">导出word</a> ';
-
-                        return d;
+                        return '<a  class="btn btn-warning btn-sm"   href="#" title="删除"  mce_href="#" onclick="pdf(\''
+                            + row.id
+                            + '\')">个人学业</a> ';
                     }
                 },]
             });
     }
 
-    function exportWord() {
-
+    function pdf(id) {
+        window.location.href = "/monitoring/pdf/" + id
     }
 
     function reLoad() {
