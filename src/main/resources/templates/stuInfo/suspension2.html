@@ -53,7 +53,7 @@
                     </option>
                 </select>
             </div>
-            <button  align="right"  class="btn btn-warning" onclick="reLoadStu()">重置搜索</button>
+<!--            <button  align="right"  class="btn btn-warning" onclick="reLoadStu()">重置搜索</button>-->
         </div>
 
 
@@ -585,6 +585,8 @@
     $().ready(function () {
         load();
 
+        $("#table_student").pl
+
 
         // s(3);
         // $("#table_suspension").bootstrapTable().initSearchText();
@@ -645,7 +647,10 @@
                 pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
                 search: true,                      //是否显示表格搜索
                 showSearchButton: true,
-                strictSearch: true,
+                showSearchClearButton:true,         //显示清除搜索按钮
+                // searchOnEnterKey: true,
+                // searchText:"请输入姓名或学号", //初始化搜索文本
+                strictSearch: true,             //严格搜索
                 showColumns: true,           //是否显示所有的列（选择显示的列）
                 showRefresh: false,          //是否显示刷新按钮
                 minimumCountColumns: 2,      //最少允许的列数
@@ -810,8 +815,10 @@
 
                             return e + m;
                         }
-                    }]
-
+                    }],
+                formatSearch: function () {
+                    return '请输入姓名或学号';
+                }
             });
     }
 
@@ -1269,6 +1276,7 @@
 
     function reLoadStu() {
         $('#table_student').bootstrapTable('resetSearch');
+
     }
 </script>
 </html>

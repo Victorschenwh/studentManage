@@ -509,6 +509,7 @@
                 pageSize: 10,                     //每页的记录行数（*）
                 pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
                 search: true,                      //是否显示表格搜索
+                showSearchClearButton: true,
                 showSearchButton: true,
                 strictSearch: true,
                 showColumns: true,                  //是否显示所有的列（选择显示的列）
@@ -668,7 +669,10 @@
                             return e + d;
                         }
                     }
-                ]
+                ],
+                formatSearch: function () {
+                    return '请输入姓名或学号';
+                }
 
             // onSearch: function (text) {
             //
