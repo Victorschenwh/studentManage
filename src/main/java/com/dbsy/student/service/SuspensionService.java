@@ -1,5 +1,6 @@
 package com.dbsy.student.service;
 
+import com.dbsy.student.pojo.Student;
 import com.dbsy.student.pojo.Suspension;
 
 
@@ -14,10 +15,15 @@ public interface SuspensionService {
     int batchInsert(List list);
 
     int listCount(Map map);
+    int listCountStu(Map map);
 
     List<Map> list(Map map);
 
+    List<Student> listStu(Map map);
+
     List<Map> getByText(String text);
+
+    Map  getSuspension(int id);
 
     Suspension get(int id);
 

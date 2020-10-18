@@ -2,6 +2,7 @@ package com.dbsy.student.service.iml;
 
 import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.SuspensionMapper;
+import com.dbsy.student.pojo.Student;
 import com.dbsy.student.pojo.Suspension;
 import com.dbsy.student.service.SuspensionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,11 @@ public class SuspensionServiceImp implements SuspensionService, ExcelSave {
     }
 
     @Override
+    public int listCountStu(Map map) {
+        return this.suspensionMapper.listCountStu(map);
+    }
+
+    @Override
     public List<Map> list(Map map) {
         if (map.get("page") != null) {
             int page = Integer.parseInt(map.get("page") + "");
@@ -64,8 +70,25 @@ public class SuspensionServiceImp implements SuspensionService, ExcelSave {
     }
 
     @Override
+    public List<Student> listStu(Map map) {
+
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("end", pageSize);
+        }
+        return this.suspensionMapper.listStu(map);
+    }
+
+    @Override
     public List<Map> getByText(String text) {
         return this.suspensionMapper.getByText(text);
+    }
+
+    @Override
+    public Map getSuspension(int id) {
+        return null;
     }
 
     @Override

@@ -35,6 +35,11 @@ public class SuspensionController {
         return "stuInfo/suspension";
     }
 
+    @RequestMapping("/page2")
+    public String suspension2() {
+        return "stuInfo/suspension2";
+    }
+
 
 //    @Authority({Role.Teacher})
     @RequestMapping("/list")
@@ -45,6 +50,17 @@ public class SuspensionController {
         Map m = new HashMap();
         m.put("total", suspensionService.listCount(map));
         m.put("rows", suspensionService.list(map));
+        return m;
+    }
+
+    @RequestMapping("/listStu")
+    @ResponseBody
+    public Map listStu(@RequestParam Map map) {
+
+//        System.out.println("map = " + map);
+        Map m = new HashMap();
+        m.put("total", suspensionService.listCountStu(map));
+        m.put("rows", suspensionService.listStu(map));
         return m;
     }
 
@@ -69,7 +85,22 @@ public class SuspensionController {
         }
 
     }
+    @ResponseBody
+    @RequestMapping("/getSuspension/{id}")
+    public Map getSuspension(@PathVariable("id") int id) {
 
+
+            Map mapList =  suspensionService.getSuspension(id);
+            if(mapList.isEmpty()){
+                return News.fail("失败" );
+            }
+            else {
+                return News.success("成功", mapList);
+            }
+
+
+
+    }
 
 
     @ResponseBody

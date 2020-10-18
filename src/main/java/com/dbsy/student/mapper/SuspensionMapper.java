@@ -1,5 +1,6 @@
 package com.dbsy.student.mapper;
 
+import com.dbsy.student.pojo.Student;
 import com.dbsy.student.pojo.Suspension;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,8 +22,14 @@ public interface SuspensionMapper {
 
     List<Map> list(Map map);
 
+    List<Student> listStu(Map map);
+
+    int listCountStu(Map map);
+
     @Select("select * from suspension where id = #{id}")
     Suspension get(int id);
+
+    Map  getSuspension(int id);
 
     Map getSelf(int id);
 
@@ -53,10 +60,10 @@ public interface SuspensionMapper {
 
 
 //    1==休学 ；0==正常
-    @Update("update student set isDel= 1 where id=#{studentId}")
+    @Update("update student set isDel= 1 where id=#{id}")
     int updateLogicStu(Suspension suspension);
 
-    @Update("insert into  suspension set suspension_date=#{suspensionDate},resumption_date=#{resumptionDate},duration=#{duration},reason=#{reason},remarks=#{remarks} ,student_id=#{studentId}")
+    @Update("insert into  suspension set suspension_date=#{suspensionDate},resumption_date=#{resumptionDate},duration=#{duration},reason=#{reason},remarks=#{remarks} ,student_id=#{id}")
     int updateLogicSuspen(Suspension suspension);
 
 
