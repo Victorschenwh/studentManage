@@ -37,6 +37,11 @@ public class SuspensionController {
         return "stuInfo/suspension2";
     }
 
+    @RequestMapping("/dropSchool")
+    public String dropSchool() {
+        return "stuInfo/dropSchoolList";
+    }
+
 
 //    @Authority({Role.Teacher})
     @RequestMapping("/list")
@@ -58,6 +63,17 @@ public class SuspensionController {
         Map m = new HashMap();
         m.put("total", suspensionService.listCountStu(map));
         m.put("rows", suspensionService.listStu(map));
+        return m;
+    }
+
+    @RequestMapping("/listDrop")
+    @ResponseBody
+    public Map listDrop(@RequestParam Map map) {
+
+//        System.out.println("map = " + map);
+        Map m = new HashMap();
+        m.put("total", suspensionService.listCountDrop(map));
+        m.put("rows", suspensionService.listDropSchool(map));
         return m;
     }
 
@@ -200,6 +216,21 @@ public class SuspensionController {
     @RequestMapping("/delSelf")
     public Map delSelf(@RequestParam Map map){
         int result=  suspensionService.delSelf(map);
+        if(result>0){
+            return News.success("成功");
+        }
+        else{
+
+            return  News.fail("失败");
+        }
+
+
+    }
+
+    @ResponseBody
+    @RequestMapping("/reDelSelf")
+    public Map reDelSelf(@RequestParam Map map){
+        int result=  suspensionService.redelSelf(map);
         if(result>0){
             return News.success("成功");
         }

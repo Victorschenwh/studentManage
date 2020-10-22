@@ -16,8 +16,11 @@ public interface SuspensionService {
 
     int listCount(Map map);
     int listCountStu(Map map);
+    int listCountDrop(Map map);
 
     List<Map> list(Map map);
+
+    List<Map> listDropSchool(Map map);
 
     List<Student> listStu(Map map);
 
@@ -35,6 +38,7 @@ public interface SuspensionService {
 
     int delete(int id);
     int delSelf(Map map);
+    int redelSelf(Map map);
 
 //    int reback(int id);
     int reback(Map map);

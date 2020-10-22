@@ -22,9 +22,12 @@ public interface SuspensionMapper {
 
     List<Map> list(Map map);
 
+    List<Map> listDropSchool(Map map);
+
     List<Student> listStu(Map map);
 
     int listCountStu(Map map);
+    int listCountDrop(Map map);
 
     @Select("select * from suspension where id = #{id}")
     Suspension get(int id);
@@ -56,6 +59,10 @@ public interface SuspensionMapper {
 
     @Update("UPDATE  student  set isDel=2 WHERE isDel=0 and id=#{id}")
     int delSelf(Map map);
+
+
+    @Update("UPDATE  student  set isDel=0 WHERE isDel=2 and id=#{id}")
+    int redelSelf(Map map);
 
 
 

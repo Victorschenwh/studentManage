@@ -59,6 +59,11 @@ public class SuspensionServiceImp implements SuspensionService, ExcelSave {
     }
 
     @Override
+    public int listCountDrop(Map map) {
+        return this.suspensionMapper.listCountDrop(map);
+    }
+
+    @Override
     public List<Map> list(Map map) {
         if (map.get("page") != null) {
             int page = Integer.parseInt(map.get("page") + "");
@@ -67,6 +72,18 @@ public class SuspensionServiceImp implements SuspensionService, ExcelSave {
             map.put("end", pageSize);
         }
         return this.suspensionMapper.list(map);
+    }
+
+    @Override
+    public List<Map> listDropSchool(Map map) {
+
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("end", pageSize);
+        }
+        return this.suspensionMapper.listDropSchool(map) ;
     }
 
     @Override
@@ -123,6 +140,11 @@ public class SuspensionServiceImp implements SuspensionService, ExcelSave {
     @Override
     public int delSelf(Map map) {
         return this.suspensionMapper.delSelf(map);
+    }
+
+    @Override
+    public int redelSelf(Map map) {
+        return this.suspensionMapper.redelSelf(map);
     }
 
 //    @Override

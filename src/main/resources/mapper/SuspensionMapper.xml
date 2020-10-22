@@ -139,6 +139,41 @@
     </if>
   </select>
 
+
+  <select id="listDropSchool" resultType="HashMap">
+    select * from student
+    <where>
+      isDel = 2
+      <if test="departmentId != null and departmentId != 0">
+        and department_id=#{departmentId}
+      </if>
+
+      <if test="majorId != null and majorId != 0">
+        and major_id=#{majorId}
+      </if>
+
+      <if test="clazzId != null and clazzId != 0">
+        and clazz_id=#{clazzId}
+      </if>
+
+      <if test="grade != null and grade != 0">
+        and grade=#{grade}
+      </if>
+      <if test="search != null">
+        and name like CONCAT('%',#{search},'%')
+      </if>
+      <if test="search != null">
+        or number=#{search}
+      </if>
+    </where>
+    <if test="start !=null and end != null">
+      limit #{start},#{end}
+    </if>
+  </select>
+
+
+
+
   <select id="getSuspension" resultType="HashMap">
     SELECT stu.id studentId,stu.`name` stuName,stu.number number,dp.`name` dpName,mj.`name` mjName,cl.`name`clName FROM student stu LEFT JOIN department dp ON  stu.department_id=dp.id LEFT JOIN major mj on stu.major_id=mj.id LEFT JOIN clazz cl ON stu.clazz_id=cl.id
   </select>
@@ -193,6 +228,37 @@
     select count(*) from student
     <where>
         isDel = 0
+      <if test="departmentId != null and departmentId != 0">
+        and department_id=#{departmentId}
+      </if>
+
+      <if test="majorId != null and majorId != 0">
+        and major_id=#{majorId}
+      </if>
+
+      <if test="clazzId != null and clazzId != 0">
+        and clazz_id=#{clazzId}
+      </if>
+
+      <if test="grade != null and grade != 0">
+        and grade=#{grade}
+      </if>
+
+      <if test="search != null">
+        and name like CONCAT('%',#{search},'%')
+      </if>
+      <if test="search != null">
+        or number=#{search}
+      </if>
+    </where>
+  </select>
+
+
+
+  <select id="listCountDrop" resultType="int">
+    select count(*) from student
+    <where>
+      isDel = 2
       <if test="departmentId != null and departmentId != 0">
         and department_id=#{departmentId}
       </if>
