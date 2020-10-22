@@ -12,9 +12,344 @@
     }
 </style>
 <body>
- <iframe id="frame" src="/suspension/page2" frameborder="0" style="min-height:400px;width:100%;height:100%;" scrolling="auto" >
+<!-- <iframe id="frame" src="/suspension/page2" frameborder="0" style="min-height:400px;width:100%;height:100%;" scrolling="auto" >-->
 
- </iframe>
+<!-- </iframe>-->
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li>首页</li>
+        <li>学生信息</li>
+        <li class="active">未休学</li>
+    </ol>
+    <div id="toolbar2" class="btn-group">
+        <div class="select">
+            <div class="item">
+                <select id="departmentId" class="form-control">
+                </select>
+            </div>
+            <div class="item">
+                <select id="majorId" class="form-control"
+                        required>
+                    <option value="">
+                        --请选择专业--
+                    </option>
+                </select>
+            </div>
+            <div class="item">
+                <select id="grade" class="form-control">
+
+                </select>
+            </div>
+            <div class="item">
+                <select id="clazzId" class="form-control">
+                    <option value="">
+                        --请选择班级--
+                    </option>
+                </select>
+            </div>
+            <!--            <button  align="right"  class="btn btn-warning" onclick="reLoadStu()">重置搜索</button>-->
+        </div>
+
+
+    </div>
+
+
+    <!--休退学模态框-->
+    <div class="modal fade" id="searchContent2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal" id="searchUpdate">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title">
+                            休学信息编辑
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <input id="id5" name="id" class="hidden">
+                        <input id="studentId5" name="studentId" class="hidden">
+                        <div class="form-group">
+                            <label for="number5" class="col-sm-3 control-label">学号：</label>
+                            <div class="col-sm-8">
+
+                                <input name="number" id="number5" class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name5" class="col-sm-3 control-label">姓名：</label>
+                            <div class="col-sm-8">
+
+                                <input name="name" id="name5" class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="dpName5" class="col-sm-3 control-label">所属院系：</label>
+                            <div class="col-sm-8">
+                                <input id="dpName5" class="form-control" type="text" readonly="readonly">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mjName5" class="col-sm-3 control-label">所属专业：</label>
+                            <div class="col-sm-8">
+                                <input id="mjName5" class="form-control" type="text" readonly="readonly">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clName5"  class="col-sm-3 control-label">所属班级：</label>
+                            <div class="col-sm-8">
+                                <input id="clName5" class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  for="suspensionDate5" class="col-sm-3 control-label">休学日期：</label>
+                            <div class="col-sm-8">
+                                <input name="suspensionDate" id="suspensionDate5" placeholder="请选择" class="form-control" type="date"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="duration5"  class="col-sm-3 control-label">休学时长：</label>
+                            <div class="col-sm-8">
+                                <input name="duration" id="duration5" class="form-control" type="text"
+                                       placeholder="单位：天" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reason5" class="col-sm-3 control-label">休学原因：</label>
+                            <div class="col-sm-8">
+                                <input name="reason" id="reason5" class="form-control" type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="resumptionDate5"  class="col-sm-3 control-label">复学日期：</label>
+                            <div class="col-sm-8">
+                                <input name="resumptionDate" id="resumptionDate5" placeholder="请选择" class="form-control" type="date"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="remarks5" class="col-sm-3 control-label">备注：</label>
+                            <div class="col-sm-8">
+                                <input name="remarks" id="remarks5" placeholder="请输入" class="form-control" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            休学提交
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+    <!--详细信息模态框-->
+    <div class="modal fade " id="moreInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form >
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title">
+                            学生详细信息
+                        </h4>
+                    </div>
+                    <!--                    <span class="input-group-addon">@</span>-->
+                    <!--                    <div class="form-group">-->
+                    <!--                        <label class="col-sm-3 control-label">学号：</label>-->
+                    <!--                        <div class="col-sm-8">-->
+                    <!--                            <input name="number" id="number3" class="form-control" type="text" required>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <div class="modal-body" >
+                        <div class="form-row">
+                            <input id="id2" name="id" class="hidden">
+                        </div>
+                        <hr>
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="number2">学号：</label>
+                                <input name="number" id="number2" class="form-control" type="text" readonly="readonly">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label  for="name2">姓名：</label>
+                                <input name="name" id="name2" class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <!--                            <div class="col-auto">-->
+                        <!--                                <label class="sr-only" for="photo4">照片：</label>-->
+                        <!--                                <input name="photo" id="photo4" class="form-control" type="image" readonly="readonly">-->
+                        <!--                            </div>-->
+                        <div  class="form-row">
+                            <div class="form-group col-sm-4">
+                                <label  for="gender2">性别：</label>
+                                <input name="gender"  id="gender2" class="form-control" type="text" readonly="readonly">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="age2" >年龄：</label>
+                                <input name="age"  id="age2" class="form-control" type="text" readonly="readonly">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label  for="nation2">民族：</label>
+                                <input name="nation"  id="nation2" class="form-control" type="text" readonly="readonly">
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group col-sm-6">
+                                <label for="birthday2">出生日期：</label>
+                                <input name="birthday" id="birthday2"class="form-control" type="text" readonly="readonly">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="id_card2">身份证号：</label>
+                                <input name="idCard" id="id_card2"class="form-control" type="text" readonly="readonly">
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="dpName2">院系：</label>
+                                <input name="dpName" id="dpName2"class="form-control" type="text" readonly="readonly">
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="mjName2">专业：</label>
+                                <input name="mjName" id="mjName2"class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="clName2">班级：</label>
+                                <input name="clName" id="clName2"class="form-control" type="text" readonly="readonly">
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="term2">学期：</label>
+                                <input name="term" id="term2"class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="admission_date2">入学年份：</label>
+                                <input name="admissionDate" id="admission_date2"class="form-control" type="text" readonly="readonly">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="grade2">年级：</label>
+                                <input name="grade" id="grade2"class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="native_place2">籍贯：</label>
+                                <input name="nativePlace" id="native_place2" class="form-control" type="text" readonly="readonly">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="address2">家庭住址：</label>
+                                <input name="address" id="address2" class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="phone_number2">联系电话：</label>
+                                <input name="phoneNumber" id="phone_number2" class="form-control" type="text" readonly="readonly">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="email2">邮箱：</label>
+                                <input name="email" id="email2" class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer" >
+                        <button type="button" class="btn btn-primary"
+                                data-dismiss="modal">关闭
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+<!--    退学提示模态框-->
+    <div  class="modal fade" id="delWarning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form class="form-horizontal" id="delUpdate">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">退学申请详情</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input id="id6" name="id" class="hidden">
+
+                        <div class="form-group">
+                            <label for="number6" class="col-sm-2 control-label">学号：</label>
+                            <div class="col-sm-3">
+                                <input name="number" id="number6" class="form-control" type="text" readonly="readonly">
+                            </div>
+
+                            <label for="name6" class="col-sm-2 control-label">姓名：</label>
+                            <div class="col-sm-3">
+                                <input name="name" id="name6" class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <strong >将要被退学，请确认。</strong>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        <button id="delBtn"  type="submit" class="btn btn-danger">确认退学</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+ <table id="table_suspension2" data-mobile-responsive="true">
+ </table>
+
+
+</div>
+
  <hr>
 <hr>
 <div class="container-fluid">
@@ -31,33 +366,6 @@
         <button id="btn_upload" type="button" class="btn btn-primary" onclick="">
             <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传
         </button>
-
-<!--        <div class="select">-->
-<!--            <div class="item">-->
-<!--                <select id="departmentId" class="form-control">-->
-<!--                </select>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <select id="majorId" class="form-control"-->
-<!--                        required>-->
-<!--                    <option value="">-->
-<!--                        &#45;&#45;请选择专业&#45;&#45;-->
-<!--                    </option>-->
-<!--                </select>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <select id="grade" class="form-control">-->
-
-<!--                </select>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <select id="clazzId" class="form-control">-->
-<!--                    <option value="">-->
-<!--                        &#45;&#45;请选择班级&#45;&#45;-->
-<!--                    </option>-->
-<!--                </select>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
 
     <table id="table_suspension" data-mobile-responsive="true">
@@ -171,115 +479,6 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <!--搜索模态框-->
-    <div class="modal fade" id="searchContent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form class="form-horizontal" id="searchUpdate">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"
-                                aria-hidden="true">×
-                        </button>
-                        <h4 class="modal-title">
-                            休退学信息编辑
-                        </h4>
-                    </div>
-                    <div class="modal-body">
-                        <input id="id4" name="id" class="hidden">
-                        <input id="studentId4" name="studentId" class="hidden">
-                        <div class="form-group">
-                            <label for="number4" class="col-sm-3 control-label">学号：</label>
-                            <div class="col-sm-8">
-
-                                <input name="number" id="number4" class="form-control" type="text" readonly="readonly">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="stuName4" class="col-sm-3 control-label">姓名：</label>
-                            <div class="col-sm-8">
-
-                                <input name="name" id="stuName4" class="form-control" type="text" readonly="readonly">
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="dpName4" class="col-sm-3 control-label">所属院系：</label>
-                            <div class="col-sm-8">
-                                <input id="dpName4" class="form-control" type="text" readonly="readonly">
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="mjName4" class="col-sm-3 control-label">所属专业：</label>
-                            <div class="col-sm-8">
-                                <input id="mjName4" class="form-control" type="text" readonly="readonly">
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="clName4"  class="col-sm-3 control-label">所属班级：</label>
-                            <div class="col-sm-8">
-                                <input id="clName4" class="form-control" type="text" readonly="readonly">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label  for="suspensionDate4" class="col-sm-3 control-label">休退学日期：</label>
-                            <div class="col-sm-8">
-                                <input name="suspensionDate" id="suspensionDate4" placeholder="请选择" class="form-control" type="date"
-                                       required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="duration4"  class="col-sm-3 control-label">休退学时长：</label>
-                            <div class="col-sm-8">
-                                <input name="duration" id="duration4" class="form-control" type="text"
-                                       placeholder="单位：天" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="reason4" class="col-sm-3 control-label">休退学原因：</label>
-                            <div class="col-sm-8">
-                                <input name="reason" id="reason4" class="form-control" type="text" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="resumptionDate4"  class="col-sm-3 control-label">复学日期：</label>
-                            <div class="col-sm-8">
-                                <input name="resumptionDate" id="resumptionDate4" placeholder="请选择" class="form-control" type="date"
-                                       required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="remarks4" class="col-sm-3 control-label">备注：</label>
-                            <div class="col-sm-8">
-                                <input name="remarks" id="remarks4" placeholder="请输入" class="form-control" type="text">
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default"
-                                data-dismiss="modal">关闭
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                            休学提交
-                        </button>
-                    </div>
-                </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 
     <!--编辑模态框-->
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -291,7 +490,7 @@
                                 aria-hidden="true">×
                         </button>
                         <h4 class="modal-title">
-                            编辑
+                            已休学学生信息编辑
                         </h4>
                     </div>
                     <div class="modal-body">
@@ -448,11 +647,12 @@
 <script>
     $().ready(function () {
         load();
+        load2();
 
 
         // s(3);
         // $("#table_suspension").bootstrapTable().initSearchText();
-        // 编辑模态框
+        // 编辑模态框，已休学，编辑模态框数据修改
         $("#updata").validate({
             rules: {},
             messages: {},
@@ -476,6 +676,13 @@
                 rebackUpdate();
             }
         });
+        $("#delUpdate").validate({
+            rules: {},
+            messages: {},
+            submitHandler: function (form) {
+                delSelf();
+            }
+        });
 
     })
 
@@ -490,6 +697,200 @@
         }
 
         window.open("/excel/download?" + (url ? url.substring(1) : ''))
+    }
+
+
+    function load2() {
+        $('#table_suspension2')
+            .bootstrapTable({
+                url: "/suspension/listStu",                      //请求后台的URL（*）
+                method: 'GET',                      //请求方式（*）
+                toolbar: '#toolbar2',              //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+                pageSize: 10,                     //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                      //是否显示表格搜索
+                showSearchButton: true,
+                showSearchClearButton:true,         //显示清除搜索按钮
+                // searchOnEnterKey: true,
+                // searchText:"请输入姓名或学号", //初始化搜索文本
+                strictSearch: true,             //严格搜索
+                showColumns: true,           //是否显示所有的列（选择显示的列）
+                showRefresh: false,          //是否显示刷新按钮
+                minimumCountColumns: 2,      //最少允许的列数
+                clickToSelect: true,         //是否启用点击选中行
+                //height: 500,               //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "id",              //每一行的唯一标识，一般为主键列
+                showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                  //是否显示父子表
+                //得到查询的参数
+                queryParams: function (params) {
+                    downParams = {
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        search_key: $("#search_key").val(),
+                        search: params.search,
+                        type: 'student'
+                    }
+                    return {
+                        pageSize: params.limit,  //页面大小
+                        page: (params.offset / params.limit) + 1,   //页码
+                        //sort: params.sort,      //排序列名
+                        //sortOrder: params.order //排位命令（desc，asc）
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        // search_key: $("#search_key").val(),
+                        search: params.search
+                        // search: params.search==null ? '!' : params.search
+                    }
+                },
+                columns: [{
+                    checkbox: true,
+                    visible: true                  //是否显示复选框
+                },
+                    {
+                        field: 'id',
+                        title: '序号',
+                        align: 'center',
+                        visible: false,
+                    },
+                    {
+                        field: 'number',
+                        title: '学号',
+                        align: 'center',
+                    }, {
+                        field: 'name',
+                        title: '姓名',
+                        align: 'center',
+                    }, {
+                        field: 'nation',
+                        title: '民族',
+                        align: 'center',
+                    },
+                    {
+                        field: 'idCard',
+                        title: '身份证号',
+                        align: 'center',
+                    },
+                    {
+                        field: 'departmentId',
+                        title: '学院',
+                        visible: false,
+                        formatter: function (value, row, index) {
+                            var department = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/department/get/" + value,
+                                    dataType: "json",
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            department = data.data;
+                                        }
+                                    }
+                                });
+                            }
+                            return department != null ? department.name : "";
+                        }
+                    },
+                    {
+                        field: 'majorId',
+                        title: '专业',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var major = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/major/get/" + value,
+                                    dataType: "json",
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            major = data.data;
+                                        }
+                                    }
+                                });
+                            }
+                            return major != null ? major.name : "";
+                        }
+                    }, {
+                        field: 'clazzId',
+                        title: '班级',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var clazz = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/clazz/get/" + value,
+                                    dataType: "json",
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            clazz = data.data;
+                                        }
+                                    }
+                                });
+                            }
+                            return clazz != null ? clazz.name : "";
+                        }
+                    },
+                    {
+                        field: 'admissionDate',
+                        title: '入学年份',
+                        align: 'center',
+                    },
+                    {
+                        field: 'nativePlace',
+                        title: '生源地',
+                        align: 'center',
+                    }, {
+                        field: 'address',
+                        title: '家庭住址',
+                        align: 'center',
+                    }, {
+                        field: 'phoneNumber',
+                        title: '联系电话',
+                        align: 'center',
+                    },
+                    {
+                        title: '操作',
+                        field: 'id',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var e = '<a class="btn btn-warning btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#searchContent2" title="休学申请" onclick="getSelfStu(' + row.id + ',' + 5 + ')">休学</a> ';
+                            // var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                            //     + row.id
+                            //     + '\')">删除</a> ';
+                            var d = '<a type="button" class="btn btn-danger btn-sm " title="退学申请" data-toggle="modal" data-target="#delWarning" onclick="getSelfStu(' + row.id + ',' + 6 + ')">退学</a> ';
+                            var m='<a type="button" class="btn btn-info btn-sm" title="学生详细信息" data-toggle="modal" data-target="#moreInfo" onclick="getSelfStu(' + row.id+',' + 2 + ')"> <span class="glyphicon glyphicon-user"  ></span> </a>';
+
+                            return e + d + m;
+                        }
+                    }],
+                formatSearch: function () {
+                    return '请输入姓名或学号';
+                }
+            });
     }
 
 
@@ -663,9 +1064,6 @@
                             //     + row.id
                             //     + '\')">复学</a> ';
                             var d = '<a class="btn btn-warning btn-sm " href="#" title="申请复学" data-toggle="modal" data-target="#rebackModal"  mce_href="#" onclick="getR(' + row.id+',' +row.studentId + ')">复学</a> ';
-                            // rebackModal
-
-                            // console.log("stuID==="+row.studentId)
                             return e + d;
                         }
                     }
@@ -684,41 +1082,96 @@
             });
     }
 
-    function getBySearchText(text) {
+    // function getBySearchText(text) {
+    //     $.ajax({
+    //         //cache: true,
+    //         // async: false,
+    //         type: "POST",
+    //         url: "/suspension/getBySearchText/"+ text,
+    //         data: {},
+    //         success: function (data) {
+    //             if (data.code == 1) {
+    //                 let suspension = data.data;
+    //                 if(suspension.length>1){
+    //                     alert("出现重名学生，请使用学号搜索！！！")
+    //                 }
+    //                 else{
+    //
+    //                     for (let key of suspension) {
+    //                         // console.log(key);
+    //                         let temp = key
+    //                         for(let item in temp){
+    //                             $("#" + item + 4).val(temp[item]);
+    //                         }
+    //                     }
+    //                     $("#searchContent").modal('show');
+    //                 }
+    //
+    //             }
+    //             else{
+    //                 alert(data.msg);
+    //             }
+    //
+    //         }
+    //     });
+    //
+    // }
+
+
+    function delSelf() {
+
+            $.ajax({
+                type: 'POST',
+                url: "/suspension/delSelf/",
+                data: $('#delUpdate').serialize(),
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 1) {
+                        $('#delWarning').modal('hide');
+                        reLoad()
+                        //alert("删除成功");
+                    } else {
+                        alert("退学失败");
+                    }
+                }
+            });
+
+
+
+    }
+
+
+
+
+    function getSelfStu(id,index) {
         $.ajax({
             //cache: true,
-            // async: false,
             type: "POST",
-            url: "/suspension/getBySearchText/"+ text,
+            url: "/student/getSelf/" + id,
             data: {},
             success: function (data) {
                 if (data.code == 1) {
-                    let suspension = data.data;
-                    if(suspension.length>1){
-                        alert("出现重名学生，请使用学号搜索！！！")
-                    }
-                    else{
-
-                        for (let key of suspension) {
-                            // console.log(key);
-                            let temp = key
-                            for(let item in temp){
-                                $("#" + item + 4).val(temp[item]);
+                    var student = data.data;
+                    for (var key in student) {
+                        if(key==='gender') {
+                            if(student[key]==1){
+                                $("#" + key + index).val('男');
                             }
+                            if(student[key]==0){
+                                $("#" + key + index).val('女');
+                            }
+
                         }
-                        $("#searchContent").modal('show');
+                        else{
+                            $("#" + key + index).val(student[key]);
+                        }
+
                     }
-
                 }
-                else{
-                    alert(data.msg);
-                }
-
             }
         });
 
     }
-
 
 
     function getR(id,stuId) {
@@ -766,6 +1219,8 @@
 
     }
 
+
+
     function rebackUpdate() {
 
         $.ajax({
@@ -780,7 +1235,7 @@
                     reLoad()
                     //alert("删除成功");
                 } else {
-                    alert("删除失败");
+                    alert("复学失败");
                 }
             }
         });
@@ -799,35 +1254,7 @@
                 if (data.code == 1) {
                     var suspension = data.data.stuInfo;
                     for (var key in suspension) {
-                        // if(key === 'grade')
-                        // {
-                        //     switch (suspension[key]) {
-                        //         case 1:
-                        //             $("#grade3").val('大一');
-                        //             break;
-                        //         case 2:
-                        //             $("#grade3").val('大二');
-                        //             break;
-                        //         case 3:
-                        //             $("#grade3").val('大三');
-                        //             break;
-                        //         case 4:
-                        //             $("#grade3").val('大四');
-                        //             break;
-                        //         default:
-                        //             $("#grade3").val(suspension[key]);
-                        //             break;
-                        //
-                        //     }
-                        //
-                        //
-                        // }
-                        // else{
-
-                            $("#" + key + 3).val(suspension[key]);
-                        // }
-
-
+                        $("#" + key + 3).val(suspension[key]);
                     }
                 }
                 else {
@@ -838,6 +1265,7 @@
 
     }
 
+    //未休学，休学模态框 修改数据提交
     function updateSearch() {
         $.ajax({
             //cache: true,
@@ -848,7 +1276,7 @@
                 // console.log(data)
                 if (data.code == 1) {
                     //操作成功，关闭模态框
-                    $('#searchContent').modal('hide');
+                    $('#searchContent2').modal('hide');
                     reLoad();
                     //alert("添加成功");
                 } else {
@@ -858,6 +1286,7 @@
         });
     }
 
+    //已休学，编辑模态框数据修改
     function updata() {
         $.ajax({
             //cache: true,
@@ -878,44 +1307,47 @@
         });
     }
 
-    function remove(id) {
-        $.ajax({
-            type: 'POST',
-            data: {},
-            url: "/suspension/remove/" + id,
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 1) {
-                    reLoad()
-                    //alert("删除成功");
-                } else {
-                    alert("删除失败");
-                }
-            }
-        });
-    }
+    //休学表原删除
+    // function remove(id) {
+    //     $.ajax({
+    //         type: 'POST',
+    //         data: {},
+    //         url: "/suspension/remove/" + id,
+    //         dataType: "json",
+    //         success: function (data) {
+    //             if (data.code == 1) {
+    //                 reLoad()
+    //                 //alert("删除成功");
+    //             } else {
+    //                 alert("删除失败");
+    //             }
+    //         }
+    //     });
+    // }
 
-    function reback(id) {
-        $.ajax({
-            type: 'POST',
-            data: {},
-            url: "/suspension/reback/" + id,
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 1) {
-                    reLoad()
-                    //alert("删除成功");
-                } else {
-                    alert("删除失败");
-                }
-            }
-        });
-    }
+    //原复学
+    // function reback(id) {
+    //     $.ajax({
+    //         type: 'POST',
+    //         data: {},
+    //         url: "/suspension/reback/" + id,
+    //         dataType: "json",
+    //         success: function (data) {
+    //             if (data.code == 1) {
+    //                 reLoad()
+    //                 //alert("删除成功");
+    //             } else {
+    //                 alert("删除失败");
+    //             }
+    //         }
+    //     });
+    // }
 
     function reLoad() {
         $('#table_suspension').bootstrapTable('refresh');
-        let frame1=document.getElementById('frame');
-        frame1.contentWindow.window.$('#table_student').bootstrapTable('refresh');
+        $('#table_suspension2').bootstrapTable('refresh');
+        // let frame1=document.getElementById('frame');
+        // frame1.contentWindow.window.$('#table_student').bootstrapTable('refresh');
         // frame1.contentWindow.document.getElementById('tabel_student').bootstrapTable('refresh');
     }
 </script>

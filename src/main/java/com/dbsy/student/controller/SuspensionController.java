@@ -10,10 +10,7 @@ import com.dbsy.student.util.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.HashMap;
@@ -186,10 +183,32 @@ public class SuspensionController {
         Map map= new HashMap<>();
         map.put("stuInfo",suspensionService.getSelf(id));
 //        System.out.println("suspensionService.getSelf(id) = " + suspensionService.getSelf(id));
-        map.put("clNameList",suspensionService.listClName(stuId));
+        if(stuId != 0){
+            map.put("clNameList",suspensionService.listClName(stuId));
+        }
+        else{
+            map.put("clNameList",null);
+        }
+
         map.put("gradeList",suspensionService.listGrade());
 
         return News.success("成功",map) ;
+    }
+
+    //退学
+    @ResponseBody
+    @RequestMapping("/delSelf")
+    public Map delSelf(@RequestParam Map map){
+        int result=  suspensionService.delSelf(map);
+        if(result>0){
+            return News.success("成功");
+        }
+        else{
+
+            return  News.fail("失败");
+        }
+
+
     }
 
 //    @Authority({Role.Teacher})

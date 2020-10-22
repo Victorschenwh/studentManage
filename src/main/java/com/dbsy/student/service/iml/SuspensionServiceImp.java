@@ -98,7 +98,7 @@ public class SuspensionServiceImp implements SuspensionService, ExcelSave {
     }
 
     @Override
-    @Cacheable(key = "#id", unless = "#result == null")
+//    @Cacheable(key = "#id", unless = "#result == null")
     public Map getSelf(int id) {
         return this.suspensionMapper.getSelf(id);
     }
@@ -118,6 +118,11 @@ public class SuspensionServiceImp implements SuspensionService, ExcelSave {
     @CacheEvict(key = "#id")
     public int delete(int id) {
         return this.suspensionMapper.delete(id);
+    }
+
+    @Override
+    public int delSelf(Map map) {
+        return this.suspensionMapper.delSelf(map);
     }
 
 //    @Override

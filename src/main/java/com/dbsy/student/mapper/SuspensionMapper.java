@@ -54,6 +54,10 @@ public interface SuspensionMapper {
     @Update("UPDATE  student stu  LEFT JOIN suspension s ON stu.id=s.student_id  set stu.isDel=0, stu.clazz_id=#{clazzId},stu.grade=#{grade} WHERE stu.isDel=1 AND s.id=#{id}")
     int rebackR(Map map);
 
+    @Update("UPDATE  student  set isDel=2 WHERE isDel=0 and id=#{id}")
+    int delSelf(Map map);
+
+
 
     @Update("update suspension set suspension_date=#{suspensionDate},resumption_date=#{resumptionDate},duration=#{duration},reason=#{reason},remarks=#{remarks}  where id=#{id}")
     int update(Suspension suspension);

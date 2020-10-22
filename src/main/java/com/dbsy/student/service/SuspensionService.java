@@ -34,6 +34,7 @@ public interface SuspensionService {
     List<Map> listGrade();
 
     int delete(int id);
+    int delSelf(Map map);
 
 //    int reback(int id);
     int reback(Map map);
