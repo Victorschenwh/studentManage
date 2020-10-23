@@ -5,18 +5,19 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 
-
-public class PinYin {
-    public static void main(String[] args) {
-        System.out.println(toFirstChar("汉字转换为拼音(hello)"));
-//        System.out.println(toFirstChar("首字母尝试大写（hello）").toUpperCase());//转为首字母大写
-        System.out.println(toPinyin("汉字转换为拼音(hello)"));
-        System.out.println(PinYin.chineseToPinyin("你好(hello),世界(world)"));
-
-    }
+@Component
+public class PinYinUtil {
+//    public static void main(String[] args) {
+//        System.out.println(toFirstChar("汉字转换为拼音(hello)"));
+////        System.out.println(toFirstChar("首字母尝试大写（hello）").toUpperCase());//转为首字母大写
+//        System.out.println(toPinyin("汉字转换为拼音(hello)"));
+//        System.out.println(PinYinUtil.chineseToPinyin("你好(hello),世界(world)"));
+//
+//    }
     /**
      * 获取字符串拼音的第一个字母
      * @param chinese
