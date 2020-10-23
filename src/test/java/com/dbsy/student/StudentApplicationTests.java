@@ -3,6 +3,7 @@ package com.dbsy.student;
 import com.dbsy.student.service.CourseService;
 import com.dbsy.student.service.ScoreService;
 import com.dbsy.student.service.StudentService;
+import com.dbsy.student.util.PinYinUtil;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +25,16 @@ class StudentApplicationTests {
     @Qualifier("courseServiceImp")
     CourseService courseService;
 
+    @Autowired
+    PinYinUtil pinYinUtil;
+
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Test
     void contextLoads() {
+
+//        System.out.println("pinYinUtil.toFirstChar(\"王琦\") = " + pinYinUtil.toFirstChar("王琦"));
 
 //        System.out.println("studentService.getSelf(1) = " + studentService.getSelf(1));
 //        try {

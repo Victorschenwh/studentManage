@@ -92,6 +92,10 @@
         and name like CONCAT('%',#{search},'%')
       </if>
 
+      <if test="abbrName != null">
+        and abbr_name like CONCAT('%',#{abbrName},'%')
+      </if>
+
       <if test="search != null">
         or number =#{search}
       </if>
@@ -129,6 +133,9 @@
       </if>
       <if test="search != null">
         and s.name like CONCAT('%',#{search},'%')
+      </if>
+      <if test="abbrName != null">
+        and s.abbr_name like CONCAT('%',#{abbrName},'%')
       </if>
       <if test="search != null">
         or number=#{search}
@@ -217,6 +224,9 @@
       <if test="search_key != null">
         and s.name like CONCAT('%',#{search},'%')
       </if>
+      <if test="abbrName != null">
+        and s.abbr_name like CONCAT('%',#{abbrName},'%')
+      </if>
       <if test="search != null">
         or number=#{search}
       </if>
@@ -246,6 +256,9 @@
 
       <if test="search != null">
         and name like CONCAT('%',#{search},'%')
+      </if>
+      <if test="abbrName != null">
+        and abbr_name like CONCAT('%',#{abbrName},'%')
       </if>
       <if test="search != null">
         or number=#{search}

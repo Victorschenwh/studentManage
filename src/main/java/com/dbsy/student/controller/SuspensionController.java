@@ -7,6 +7,7 @@ import com.dbsy.student.pojo.Suspension;
 import com.dbsy.student.service.StudentService;
 import com.dbsy.student.service.SuspensionService;
 import com.dbsy.student.util.News;
+import com.dbsy.student.util.PinYinUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ public class SuspensionController {
     @Autowired
     @Qualifier("SuspensionServiceImp")
     SuspensionService suspensionService;
+
+    @Autowired
+    PinYinUtil pinYinUtil;
 
 
 //    @Authority({Role.Teacher})
@@ -49,6 +53,11 @@ public class SuspensionController {
     public Map list(@RequestParam Map map) {
 
 //        System.out.println("map = " + map);
+        String str= (String) map.get("search");
+        if(str.matches("[a-zA-Z]+")){
+            map.put("abbrName",str);
+            map.put("search","");
+        }
         Map m = new HashMap();
         m.put("total", suspensionService.listCount(map));
         m.put("rows", suspensionService.list(map));
@@ -59,7 +68,11 @@ public class SuspensionController {
     @ResponseBody
     public Map listStu(@RequestParam Map map) {
 
-//        System.out.println("map = " + map);
+        String str= (String) map.get("search");
+        if(str.matches("[a-zA-Z]+")){
+            map.put("abbrName",str);
+            map.put("search","");
+        }
         Map m = new HashMap();
         m.put("total", suspensionService.listCountStu(map));
         m.put("rows", suspensionService.listStu(map));
