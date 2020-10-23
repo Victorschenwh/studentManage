@@ -703,7 +703,7 @@
                 showRefresh: false,          //是否显示刷新按钮
                 minimumCountColumns: 2,      //最少允许的列数
                 clickToSelect: true,         //是否启用点击选中行
-                //height: 500,               //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                // height: 500,               //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
                 uniqueId: "id",              //每一行的唯一标识，一般为主键列
                 showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
@@ -757,13 +757,13 @@
                         align: 'center',
                     },
                     {
-                        field: 'idCard',
+                        field: 'id_card',
                         title: '身份证号',
                         align: 'center',
                     },
                     {
-                        field: 'departmentId',
-                        title: '学院',
+                        field: 'department_id',
+                        title: '原学院',
                         visible: false,
                         formatter: function (value, row, index) {
                             var department = {};
@@ -786,8 +786,8 @@
                         }
                     },
                     {
-                        field: 'majorId',
-                        title: '专业',
+                        field: 'major_id',
+                        title: '原专业',
                         align: 'center',
                         formatter: function (value, row, index) {
                             var major = {};
@@ -809,8 +809,8 @@
                             return major != null ? major.name : "";
                         }
                     }, {
-                        field: 'clazzId',
-                        title: '班级',
+                        field: 'clazz_id',
+                        title: '原班级',
                         align: 'center',
                         formatter: function (value, row, index) {
                             var clazz = {};
@@ -833,12 +833,12 @@
                         }
                     },
                     {
-                        field: 'admissionDate',
+                        field: 'admission_date',
                         title: '入学年份',
                         align: 'center',
                     },
                     {
-                        field: 'nativePlace',
+                        field: 'native_place',
                         title: '生源地',
                         align: 'center',
                     }, {
@@ -846,7 +846,7 @@
                         title: '家庭住址',
                         align: 'center',
                     }, {
-                        field: 'phoneNumber',
+                        field: 'phone_number',
                         title: '联系电话',
                         align: 'center',
                     },
