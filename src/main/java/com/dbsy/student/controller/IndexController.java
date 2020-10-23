@@ -26,7 +26,7 @@ public class IndexController {
     @RequestMapping("/home")
     //@Authority({Role.Teacher, Role.Admin})
     public String home(Model model) {
-        return "home/home";
+        return "home/start";
     }
 
 }

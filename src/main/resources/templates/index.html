@@ -10,11 +10,10 @@
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <link rel="stylesheet" href="assets/vendor/vector-map/jqvmap.css">
     <link rel="stylesheet" href="assets/vendor/jvectormap/jquery-jvectormap-2.0.2.css">
-    <link rel="stylesheet" href="assets/vendor/charts/chartist-bundle/chartist.css">
     <link rel="stylesheet" href="assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet" href="assets/vendor/charts/morris-bundle/morris.css">
     <link rel="stylesheet" type="text/css" href="assets/vendor/daterangepicker/daterangepicker.css"/>
-    <title></title>
+    <title>首页</title>
 </head>
 <style>
     html, body {
@@ -129,48 +128,6 @@
             </div>
         </div>
     </div>
-
-    <!--修改密码-->
-    <!--   <div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            aria-hidden="true">
-           <div class="modal-dialog">
-               <div class="modal-content">
-                   <form class="form-horizontal" id="password">
-                       <div class="modal-header">
-                           <button type="button" class="close" data-dismiss="modal"
-                                   aria-hidden="true">×
-                           </button>
-                           <h4 class="modal-title">
-                               修改密码
-                           </h4>
-                       </div>
-                       <div class="modal-body">
-                           <div class="form-group">
-                               <label class="col-sm-3 control-label">原密码</label>
-                               <div class="col-sm-8">
-                                   <input name="password" class="form-control" type="password" required>
-                               </div>
-                           </div>
-                           <div class="form-group">
-                               <label class="col-sm-3 control-label">新密码</label>
-                               <div class="col-sm-8">
-                                   <input name="newPassword" class="form-control" type="password" required>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="modal-footer">
-                           <button type="button" class="btn btn-default"
-                                   data-dismiss="modal">关闭
-                           </button>
-                           <button type="submit" class="btn btn-primary">
-                               确定
-                           </button>
-                       </div>
-                   </form>
-               </div>&lt;!&ndash; /.modal-content &ndash;&gt;
-           </div>&lt;!&ndash; /.modal-dialog &ndash;&gt;
-       </div>&lt;!&ndash; /.modal &ndash;&gt;-->
-
 
     <div class="main">
         <div class="left">
@@ -303,23 +260,14 @@
 <!-- sparkline js -->
 <script src="assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
 <!-- dashboard finance js -->
-<script src="assets/libs/js/dashboard-finance.js"></script>
 <!-- main js -->
 <script src="assets/libs/js/main-js.js"></script>
 <!-- gauge js -->
 <script src="assets/vendor/gauge/gauge.min.js"></script>
 <!-- morris js -->
 <script src="assets/vendor/charts/morris-bundle/raphael.min.js"></script>
-<script src="assets/vendor/charts/morris-bundle/morris.js"></script>
-<script src="assets/vendor/charts/morris-bundle/morrisjs.html"></script>
 <script>
     $(function () {
-        $('input[name="daterange"]').daterangepicker({
-            opens: 'left'
-        }, function (start, end, label) {
-            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-        });
-
         $("#password").validate({
             rules: {},
             messages: {},
@@ -332,17 +280,6 @@
     function goto(url) {
         $("#frame").attr("src", url);
     }
-
-
-   /* function doUpdate() {
-        $("#password").validate({
-            rules: {},
-            messages: {},
-            submitHandler: function (form) {
-                update()
-            }
-        });
-    }*/
 
 
     function update() {
@@ -365,27 +302,6 @@
             }
         });
     }
-
-    /*
-        function calcPageHeight(doc) {
-            var cHeight = Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
-            var sHeight = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
-            var height = Math.max(cHeight, sHeight)
-            return height
-        }
-
-        //根据ID获取iframe对象
-        var ifr = document.getElementById('frame')
-        ifr.onload = function () {
-            //解决打开高度太高的页面后再打开高度较小页面滚动条不收缩
-            ifr.style.height = '0px';
-            var iDoc = ifr.contentDocument || ifr.document
-            var height = calcPageHeight(iDoc)
-            // if (height < 850) {
-            //     height = 850;
-            // }
-            ifr.style.height = height + 'px'
-        }*/
 </script>
 </body>
 </html>

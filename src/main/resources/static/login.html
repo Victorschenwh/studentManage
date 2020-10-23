@@ -33,9 +33,6 @@
     <!-- vue.js -->
     <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
 
-    <!-- vue-resource.min.js -->
-    <script
-            src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -59,11 +56,11 @@
             <div v-if="isLogin">
                 <p>
                     <i class="icon icon-user"></i>
-                    <input type="text"  placeholder="用户名/邮箱/手机号" id="inputEmail3" v-model:value="username">
+                    <input type="text" placeholder="请输入工号" id="inputEmail3" v-model:value="username">
                 </p>
                 <p>
                     <i class="icon icon-pass"></i>
-                    <input type="password" placeholder="密码" id="inputPassword3" v-model:value="password">
+                    <input type="password" placeholder="请输入密码" id="inputPassword3" v-model:value="password">
                     <!--<a href="javascript:;" class="aui-forget">忘记密码？</a>-->
                 </p>
             </div>
@@ -77,20 +74,31 @@
                 <p>
                     <!--                <div class="input-group">-->
                     <i class="icon icon-code"></i>
-                    <input type="text"  placeholder="验证码" id="captcha" name="captcha" v-model:value="captcha">
+                    <input type="text" placeholder="验证码" id="captcha" name="captcha" v-model:value="captcha">
                     <span>
-                        <button  class="aui-button" type="button" @click="send()">获取验证码</button>
+                        <button class="aui-button" type="button" @click="send()">获取验证码</button>
                     </span>
                 </p>
                 <!--                </div>-->
             </div>
 
             <div>
-                <a @click="isLogin = !isLogin">{{isLogin ? '忘记密码？' : '用户名密码登录'}}</a>
+                <a href="#" @click="isShow=true">忘记密码</a>
+                <span style="color: red" v-if="isShow">请联系管理员</span>
             </div>
             <button type="button" class="aui-button-go" @click="login">登录</button>
 
         </form>
+    </div>
+    <div class="container">
+        <div class="navbar-fixed-bottom hidden-xs hidden-sm">
+            <p class="text-danger text-center">
+
+                本站所有资源均收集于互联网,如侵犯到您的权利,请联系我们,我们将及时删除&nbsp;&nbsp;邮箱:3286408344@qq.com&nbsp;&nbsp;ICP备案号:<a
+                    href="http://www.beian.miit.gov.cn">赣ICP备20002774号</a>
+
+            </p>
+        </div>
     </div>
 </div>
 </body>
@@ -101,6 +109,7 @@
     var page = new Vue({
         el: '#page',
         data: {
+            isShow: false,
             isLogin: true,
             password: "123",
             username: "feng",

@@ -41,4 +41,5 @@ public interface StudentMapper {
             "grade=#{grade},age=#{age},nation=#{nation},address=#{address},room=#{room},status=#{status} where id=#{id}")
     int update (Student student);
 
+
 }
