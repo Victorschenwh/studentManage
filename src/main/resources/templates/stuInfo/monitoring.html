@@ -140,10 +140,6 @@
                     checkbox: true,
                     visible: true   //是否显示复选框
                 }, {
-                    //     field: 'id',
-                    //     title: '序号',
-                    //     align: 'center',
-                    // }, {
                     field: 'number',
                     title: '学号',
                     align: 'center',
@@ -221,13 +217,11 @@
                         return clazz != null ? clazz.name : "";
                     }
                 }, {
-                    field: 'study_monitoring',
+                    field: 'id',
                     title: '学业监控',
                     align: 'center',
                     formatter: function (value, row, index) {
-                        return '<a  class="btn btn-warning btn-sm"   href="#" title="删除"  mce_href="#" onclick="pdf(\''
-                            + row.id
-                            + '\')">个人学业</a> ';
+                        return '<a  class="btn btn-warning btn-sm" target="_self" href="/monitoring/pdf/' + value + '">个人学业</a> ';
                     }
                 },]
             });

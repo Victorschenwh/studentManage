@@ -143,5 +143,21 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
         return scoreMapper.fail(id);
     }
 
+    @Override
+    public List<Map> preWarming(Map map) {
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("pageSize", pageSize);
+        }
+        return scoreMapper.preWarming(map);
+    }
+
+    @Override
+    public int preWarmingCount(Map map) {
+        return scoreMapper.preWarmingCount(map);
+    }
+
 
 }

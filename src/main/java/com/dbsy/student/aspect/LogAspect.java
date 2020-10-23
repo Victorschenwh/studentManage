@@ -31,7 +31,7 @@ public class LogAspect {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         // 记录下请求内容
-        log.info("ARGS: " + Arrays.toString(joinPoint.getArgs()) + "\t url: " + request.getRequestURL().toString() + "\t method: " + request.getMethod() + "\t ip: " + request.getRemoteAddr() + "\tClassName.method: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+        log.info("ARGS: " + Arrays.toString(joinPoint.getArgs()) + "\n url: " + request.getRequestURL().toString() + "\n method: " + request.getMethod() + "\n ip: " + request.getRemoteAddr() + "\n ClassName.method: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
     }
 
     @AfterReturning(returning = "ret", pointcut = "webLog()")

@@ -6,6 +6,9 @@ import com.dbsy.student.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service("adminServiceImp")
 public class AdminServiceImp implements AdminService {
     @Autowired
@@ -36,5 +39,14 @@ public class AdminServiceImp implements AdminService {
         return adminMapper.update(admin);
     }
 
+    @Override
+    public List<Map> findAdmin(Map map) {
+        return adminMapper.findAdmin(map);
+    }
+
+    @Override
+    public int findAdminCount(Map map) {
+        return adminMapper.findAdminCount(map);
+    }
 
 }

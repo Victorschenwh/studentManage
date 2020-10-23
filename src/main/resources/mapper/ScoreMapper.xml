@@ -225,4 +225,50 @@
             where  id = #{id} and score = 0
     </select>
 
+    <select id="preWarming" parameterType="Map" resultType="Map">
+        select * from view_student_fail
+        <where>
+            <if test="departmentId != null and departmentId != 0">
+                and department_id = #{departmentId}
+            </if>
+            <if test="majorId!=null and majorId!=0">
+                and major_id = #{majorId}
+            </if>
+            <if test="grade!=null and grade!=0">
+                and grade = #{grade}
+            </if>
+            <if test="clazzId!=null and clazzId!=0">
+                and clazz_id = #{clazzId}
+            </if>
+            <if test="studyTerm!=null">
+                and study_term = #{studyTerm}
+            </if>
+        </where>
+        <if test="start!=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+    <select id="preWarmingCount" parameterType="Map" resultType="int">
+        select count(*) from view_student_fail
+        <where>
+            <if test="departmentId != null and departmentId != 0">
+                and department_id = #{departmentId}
+            </if>
+            <if test="majorId!=null and majorId!=0">
+                and major_id = #{majorId}
+            </if>
+            <if test="grade!=null and grade!=0">
+                and grade = #{grade}
+            </if>
+            <if test="clazzId!=null and clazzId!=0">
+                and clazz_id = #{clazzId}
+            </if>
+            <if test="studyTerm!=null">
+                and study_term = #{studyTerm}
+            </if>
+        </where>
+    </select>
+
+
 </mapper>

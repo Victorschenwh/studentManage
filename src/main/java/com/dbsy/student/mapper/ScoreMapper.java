@@ -58,4 +58,8 @@ public interface ScoreMapper {
     //学生挂科数
     int fail(int id);
 
+    List<Map> preWarming(Map map);
+
+    int preWarmingCount(Map map);
+
 }

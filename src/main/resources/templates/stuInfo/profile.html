@@ -4,31 +4,26 @@
     <meta charset="UTF-8">
     <title>监控信息表</title>
     <style>
-
-        html, body {
-            width: 100%;
-        }
-
         .biaoti {
             font-family: "Microsoft Himalaya";
-            font-size: 15px;
-            color: black;
+            font-size: 35px;
+            color: red;
 
         }
 
         .btgn {
             font-family: "Microsoft YaHei UI";
-            font-size: 2px;
+            font-size: 20px;
             font-weight: bold;
-            color: black;
+            color: red;
             background-color: white;
             text-align: center;
         }
 
         .b {
             font-family: "Microsoft YaHei UI";
-            font-size: 2px;
-            color: black;
+            font-size: 20px;
+            color: red;
             background-color: white;
             text-align: center;
         }
@@ -36,7 +31,7 @@
 </head>
 <body>
 <button type="button" id="renderPdf" value="转成pdf">转成pdf</button>
-<div style="margin:0 auto; width:60%;" id="contain">
+<div style="margin:0 auto; width:80%;" id="contain">
     <table align="center" width="80%" border="1" cellspacing="0" cellpadding="4">
         <tr>
             <th align="center" class="biaoti" colspan="10">东北石油大学学生学业监控信息表</th>
@@ -68,9 +63,9 @@
         </tr>
         <tr>
             <td class="btgn">政治面貌</td>
-            <td class="b">&nbsp;</td>
+            <td class="b" th:text="${exportStudentInfo.student.status}">&nbsp;</td>
             <td class="btgn">宿舍号</td>
-            <td class="b">&nbsp;</td>
+            <td class="b" th:text="${exportStudentInfo.student.room}">&nbsp;</td>
             <td class="btgn">联系方式</td>
             <td class="b" th:text="${exportStudentInfo.student.phoneNumber}">&nbsp;</td>
         </tr>
@@ -174,95 +169,92 @@
     </table>
 </div>
 </body>
-<script type="text/javascript" src="/js/html2canvas.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/html2canvas/0.4.0/html2canvas.min.js"></script>
 <script type="text/javascript" src="/js/jsPDF.js"></script>
 <script type="text/javascript">
     var downPdf = document.getElementById("renderPdf");
     downPdf.onclick = function () {
         var ele = document.getElementById("contain")
+
         let eleW = ele.offsetWidth // 获得该容器的宽
-
         //   let eleH = ele.offsetHeight // 获得该容器的高
-
         let eleH = ele.scrollHeight  // 获得该容器的高
         let eleOffsetTop = ele.offsetTop  // 获得该容器到文档顶部的距离
         let eleOffsetLeft = ele.offsetLeft  // 获得该容器到文档最左的距离
-        var canvas = document.createElement("canvas")
 
-        var abs = 0
-
+        let abs = 0
         let win_in = document.documentElement.clientWidth || document.body.clientWidth   // 获得当前可视窗口的宽度（不包含滚动条）
-
         let win_out = window.innerWidth// 获得当前窗口的宽度（包含滚动条）
-
         if (win_out > win_in) {
             // abs = (win_o - win_i)/2;    // 获得滚动条长度的一半
             abs = (win_out - win_in) / 2  // 获得滚动条宽度的一半
         }
 
-        canvas.width = eleW * 2   // 将画布宽&&高放大两倍
+        let canvas2 = document.createElement("canvas")
 
-        canvas.height = eleH * 2
+        canvas2.width = eleW * 2   // 将画布宽&&高放大两倍
+        canvas2.height = eleH * 2
 
-
-        var context = canvas.getContext("2d")
-
+        let context = canvas2.getContext("2d")
         context.scale(2, 2)   // 增强图片清晰度
-
         context.translate(-eleOffsetLeft - abs, -eleOffsetTop)
 
-        html2canvas(ele, {
-            useCORS: true,
-            background: "#fff",
-            dpi: 300,
-        }).then(canvas => {
+        setTimeout(()=>{
 
-            var contentWidth = canvas.width
+            html2canvas(ele, {
+                background: "#fff",
+                canvas:canvas2
+            }).then(canvas => {
 
-            var contentHeight = canvas.height
+                var contentWidth = canvas.width
 
-            //一页pdf显示html页面生成的canvas高度;
+                var contentHeight = canvas.height
 
-            var pageHeight = (contentWidth / 592.28) * 841.89   // 这样写的目的在于保持宽高比例一致 pageHeight/canvas.width = a4纸高度/a4纸宽度
-            // 宽度和canvas.width保持一致
+                //一页pdf显示html页面生成的canvas高度;
 
-            //未生成pdf的html页面高度
+                var pageHeight = (contentWidth / 592.28) * 841.89   // 这样写的目的在于保持宽高比例一致 pageHeight/canvas.width = a4纸高度/a4纸宽度
+                // 宽度和canvas.width保持一致
 
-            var leftHeight = contentHeight
+                //未生成pdf的html页面高度
 
-            //页面偏移
-            var position = 0
+                var leftHeight = contentHeight
 
-            //a4纸的尺寸[595.28,841.89],单位像素，html页面生成的canvas在pdf中图片的宽高
+                //页面偏移
+                var position = 0
 
-            var imgWidth = 595.28
+                //a4纸的尺寸[595.28,841.89],单位像素，html页面生成的canvas在pdf中图片的宽高
 
-            var imgHeight = (595.28 / contentWidth) * contentHeight
+                var imgWidth = 595.28
 
-            var pageData = canvas.toDataURL("image/jpeg", 1.0)
-            var pdf = new jsPDF("", "pt", "a4")
-            //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
-            //当内容未超过pdf一页显示的范围，无需分页
-            if (leftHeight < pageHeight) {
-                //在pdf.addImage(pageData, 'JPEG', 左，上，宽度，高度)设置在pdf中显示；
-                pdf.addImage(pageData, "JPEG", 0, 50, imgWidth, imgHeight)
-                // pdf.addImage(pageData, 'JPEG', 20, 40, imgWidth, imgHeight);
-            } else {
-                // 分页
-                while (leftHeight > 0) {
-                    pdf.addImage(pageData, "JPEG", 5, position, imgWidth, imgHeight)
-                    leftHeight -= pageHeight
-                    position -= 841.89
-                    //避免添加空白页
-                    if (leftHeight > 0) {
-                        pdf.addPage()
+                var imgHeight = (595.28 / contentWidth) * contentHeight
+
+                var pageData = canvas.toDataURL("image/jpeg", 1.0)
+
+                // document.body.appendChild(pageData)
+                // console.log(pageData)
+                var pdf = new jsPDF("", "pt", "a4")
+                //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
+                //当内容未超过pdf一页显示的范围，无需分页
+                if (leftHeight < pageHeight) {
+                    //在pdf.addImage(pageData, 'JPEG', 左，上，宽度，高度)设置在pdf中显示；
+                    pdf.addImage(pageData, "JPEG", 0, 50, imgWidth, imgHeight)
+                    // pdf.addImage(pageData, 'JPEG', 20, 40, imgWidth, imgHeight);
+                } else {
+                    // 分页
+                    while (leftHeight > 0) {
+                        pdf.addImage(pageData, "JPEG", 5, position, imgWidth, imgHeight)
+                        leftHeight -= pageHeight
+                        position -= 841.89
+                        //避免添加空白页
+                        if (leftHeight > 0) {
+                            pdf.addPage()
+                        }
                     }
                 }
-            }
-            pdf.save(new Date().getTime() + ".pdf")
+                pdf.save(new Date().getTime() + ".pdf")
+            })
 
-        })
-
+        },1000)
     }
 </script>
 

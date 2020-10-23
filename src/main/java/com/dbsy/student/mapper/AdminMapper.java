@@ -22,4 +22,13 @@ public interface AdminMapper {
 
     int update(Admin admin);
 
+    int findAdminCount(Map map);
+
+    List<Map> findAdmin(Map map);
+
+
+    int findAssistantCount(Map map);
+
+    List<Map> findAssistant(Map map);
+
 }
