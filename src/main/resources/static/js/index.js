@@ -278,7 +278,7 @@
   var myChart = echarts.init(document.querySelector(".bar1 .chart"));
 
   var data = [70, 34, 60, 78, 69];
-  var titlename = ["HTML5", "CSS3", "javascript", "VUE", "NODE"];
+  var titlename = ["土木学院", "计信学院", "经济学院", "石油学院", "马克思学院"];
   var valdata = [702, 350, 610, 793, 664];
   var myColor = ["#1089E7", "#F57474", "#56D0E3", "#F8B448", "#8B78F6"];
   option = {
