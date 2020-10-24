@@ -23,13 +23,10 @@
       {
         type: "category",
         data: [
-          "旅游行业",
-          "教育培训",
-          "游戏行业",
-          "医疗行业",
-          "电商行业",
-          "社交行业",
-          "金融行业"
+          "土木学院",
+          "计信学院",
+          "经济学院",
+          "石油学院",
         ],
         axisTick: {
           alignWithLabel: true
@@ -73,7 +70,7 @@
         name: "直接访问",
         type: "bar",
         barWidth: "35%",
-        data: [200, 300, 300, 900, 1500, 1200, 600],
+        data: [200, 300, 300, 900,],
         itemStyle: {
           barBorderRadius: 5
         }
@@ -188,7 +185,7 @@
     },
     series: [
       {
-        name: "新增粉丝",
+        name: "新增四级",
         type: "line",
         stack: "总量",
         // 是否让线条圆滑显示
@@ -196,7 +193,7 @@
         data: data.year[0]
       },
       {
-        name: "新增游客",
+        name: "新增六级",
         type: "line",
         stack: "总量",
         smooth: true,

@@ -244,6 +244,7 @@
                 and study_term = #{studyTerm}
             </if>
         </where>
+        order by fail desc
         <if test="start!=null">
             limit #{start},#{pageSize}
         </if>

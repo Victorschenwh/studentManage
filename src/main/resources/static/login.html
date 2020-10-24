@@ -84,16 +84,15 @@
 
             <div>
                 <a href="#" @click="isShow=true">忘记密码</a>
-                <span style="color: red" v-if="isShow">请联系管理员</span>
+                <span style="color: blue;display: inline-block;width: 100px;" v-if="isShow">请联系管理员</span>
             </div>
-            <button type="button" class="aui-button-go" @click="login">登录</button>
+            <button type="button" class="aui-button-go" style="margin-top: 10px" @click="login">登录</button>
 
         </form>
     </div>
     <div class="container">
         <div class="navbar-fixed-bottom hidden-xs hidden-sm">
-            <p class="text-danger text-center">
-
+            <p class="text-center" style="color:white">
                 本站所有资源均收集于互联网,如侵犯到您的权利,请联系我们,我们将及时删除&nbsp;&nbsp;邮箱:3286408344@qq.com&nbsp;&nbsp;ICP备案号:<a
                     href="http://www.beian.miit.gov.cn">赣ICP备20002774号</a>
 
