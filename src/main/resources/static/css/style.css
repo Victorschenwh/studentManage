@@ -62,10 +62,10 @@ img {
 }
 
 body {
-    background: -webkit-linear-gradient(#163cc8, #395cdd); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(#163cc8, #395cdd); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(#163cc8, #395cdd); /* Firefox 3.6 - 15 */
-    background: linear-gradient(#163cc8, #395cdd); /* 标准的语法 */
+    background: -webkit-linear-gradient(to left, #56ccf2, #2f80ed); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(to left, #56ccf2, #2f80ed); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(to left, #56ccf2, #2f80ed); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to left, #56ccf2, #2f80ed); /* 标准的语法 */
     background-color: #1c41cb;
     color: #666;
     font: 12px/150% Arial,Verdana, "microsoft yahei";
@@ -282,7 +282,7 @@ table.aui-tab-data tr td {
     cursor: pointer;
 }
 .aui-button-go {
-    background: #325cdc;
+    background: #2F80ED;
     font-size: 16px;
     width: 100%;
     border: none;
