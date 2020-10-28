@@ -53,6 +53,7 @@
     iframe {
         height: 100%;
     }
+
     .showTime {
         float: right;
         /*position: absolute;*/
@@ -99,19 +100,19 @@
                                 "月" +
                                 day +
                                 "日"
-                                // h +
-                                // "时" +
-                                // m +
-                                // "分" +
-                                // s +
-                                // "秒"
-                                ;
+                            // h +
+                            // "时" +
+                            // m +
+                            // "分" +
+                            // s +
+                            // "秒"
+                            ;
                             t = setTimeout(time, 1000); //设定定时器，循环运行
                         }
                     </script>
                     <div class="nav-user-info">
                         <h5 class="mb-0 text-white nav-user-name" th:if="${session.user}"
-                            th:text="'欢迎您,' + ${session.user.username} + '老师'"> </h5>
+                            th:text="'欢迎您,' + ${session.user.username} + '老师'"></h5>
                         <!--                                <span class="status"></span><span class="ml-2">Available</span>-->
                     </div>
                     <div class="showTime">2020年10月28日</div>
@@ -198,6 +199,36 @@
                                         首页
                                     </a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                                       data-target="#submenu-4" aria-controls="submenu-4"><i
+                                            class="fa fa-fw fa-rocket"></i>权限管理</a>
+                                    <div id="submenu-4" class="collapse submenu" style="">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a onclick="goto('/user/student')"
+                                                   href="#score" class="nav-link">学生账号</a>
+                                            </li>
+                                            <li class="nav-item"
+                                                th:if="${session.user!=null&&session.user.role <= 20}">
+                                                <a onclick="goto('/user/assistant')"
+                                                   href="#assessment" class="nav-link">院辅导员账号</a>
+                                            </li>
+                                            <li class="nav-item" th:if="${session.user!=null&&session.user.role <= 10}">
+                                                <a onclick="goto('/user/depLead')"
+                                                   href="#assessment" class="nav-link">院领导</a>
+                                            </li>
+                                            <li class="nav-item" th:if="${session.user!=null&&session.user.role < 10}">
+                                                <a onclick="goto('/user/scLead')"
+                                                   href="#assessment" class="nav-link">校领导</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </li>
+
+
                                 <li class="nav-item ">
                                     <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false"
                                        data-target="#submenu-1" aria-controls="submenu-1">
@@ -331,7 +362,7 @@
 
 
     function update() {
-        if (! $("#password").valid()) {
+        if (!$("#password").valid()) {
             return;
         }
         $.ajax({
