@@ -15,7 +15,6 @@
 <div class="container-fluid">
 
     <ol class="breadcrumb">
-        <li>首页</li>
         <li>权限管理</li>
         <li>学生账号管理</li>
     </ol>
@@ -53,6 +52,7 @@
     </table>
 </div>
 <div th:replace="static :: script"></div>
+<script src="/js/select.js"></script>
 </body>
 <script>
     $(document).ready(function () {
@@ -80,12 +80,18 @@
 <script>
     $(document).ready(function () {
         load()
+        window.onkeydown = function (e) {
+            if (e.keyCode == 13) {
+                let search = document.getElementsByClassName("search-input")[0]
+                console.log(search.value)
+            }
+        }
     })
 
     function load() {
         $('#table')
             .bootstrapTable({
-                url: "/admin/list",                      //请求后台的URL（*）
+                url: "/user/studentList",                      //请求后台的URL（*）
                 method: 'GET',                      //请求方式（*）
                 toolbar: '#toolbar',              //工具按钮用哪个容器
                 striped: true,                      //是否显示行间隔色
@@ -111,18 +117,20 @@
                 detailView: false,                  //是否显示父子表
                 //得到查询的参数
                 queryParams: function (params) {
-                    downParams = {
+                    return {
                         departmentId: $("#departmentId").val(),
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
-                        search_key: $("#search_key").val(),
                         search: params.search,
+                        pageSize: params.limit,
+                        page: (params.offset / params.limit) + 1,
                     }
-                    return {
-                        pageSize: params.limit,  //页面大小
-                        page: (params.offset / params.limit) + 1,   //页码
-                    }
+                },
+                onPreBody: function (data) {
+                },
+                onSearch(text) {
+
                 },
                 columns: [{
                     checkbox: true,

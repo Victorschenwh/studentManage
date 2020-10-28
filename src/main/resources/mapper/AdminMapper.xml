@@ -2,30 +2,67 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.AdminMapper">
 
-
     <select id="findAssistantCount" parameterType="Map" resultType="int">
-        select count(*) from admin where role > 1000
-    </select>
-
-    <select id="findAssistant" parameterType="Map" resultType="Map">
-        select * from admin where role > 1000
-    </select>
-
-    <select id="findAdmin" parameterType="Map" resultType="Map">
-        select a.*,student.* from
-        (select * from admin where role=40) a left join student on a.freign_id=student.id
+        select count(*) from admin where role > 2000
         <where>
             <if test="departmentId != null and departmentId != 0">
                 and department_id = #{departmentId}
             </if>
+        </where>
+    </select>
+
+    <select id="findAssistant" parameterType="Map" resultType="Map">
+        select * from admin where role > 2000
+        <where>
+            <if test="departmentId != null and departmentId != 0">
+                and department_id = #{departmentId}
+            </if>
+        </where>
+        <if test="start!=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+
+    <select id="findDepartLeaderCount" parameterType="Map" resultType="int">
+        select count(*) from admin where role = 20
+    </select>
+
+    <select id="findDepartLeader" parameterType="Map" resultType="Map">
+        select * from admin where role = 20
+        <if test="start!=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+
+    <select id="findSchoolLeaderCount" parameterType="Map" resultType="int">
+        select count(*) from admin where role = 10
+    </select>
+
+    <select id="findSchoolLeader" parameterType="Map" resultType="Map">
+        select * from admin where role = 10
+        <if test="start!=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+
+    <select id="findAdmin" parameterType="Map" resultType="Map">
+        select a.*,s.* from
+        (select * from admin where role=40) a left join student s on a.foreign_id=s.id
+        <where>
+            <if test="departmentId != null and departmentId != 0">
+                and s.department_id = #{departmentId}
+            </if>
             <if test="majorId!=null and majorId!=0">
-                and major_id = #{majorId}
+                and s.major_id = #{majorId}
             </if>
             <if test="grade!=null and grade!=0">
-                and grade = #{grade}
+                and s.grade = #{grade}
             </if>
             <if test="clazzId!=null and clazzId!=0">
-                and clazz_id = #{clazzId}
+                and s.clazz_id = #{clazzId}
             </if>
         </where>
         <if test="start!=null">
@@ -35,19 +72,19 @@
 
     <select id="findAdminCount" parameterType="Map" resultType="int">
         select count(*) from
-        (select * from admin where role=40) a left join student on a.freign_id=student.id
+        (select * from admin where role=40) a left join student s on a.foreign_id=s.id
         <where>
             <if test="departmentId != null and departmentId != 0">
-                and department_id = #{departmentId}
+                and s.department_id = #{departmentId}
             </if>
             <if test="majorId!=null and majorId!=0">
-                and major_id = #{majorId}
+                and s.major_id = #{majorId}
             </if>
             <if test="grade!=null and grade!=0">
-                and grade = #{grade}
+                and s.grade = #{grade}
             </if>
             <if test="clazzId!=null and clazzId!=0">
-                and clazz_id = #{clazzId}
+                and s.clazz_id = #{clazzId}
             </if>
         </where>
     </select>

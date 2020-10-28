@@ -1,5 +1,6 @@
 package com.dbsy.student;
 
+import com.dbsy.student.service.AdminService;
 import com.dbsy.student.service.CourseService;
 import com.dbsy.student.service.ScoreService;
 import com.dbsy.student.service.StudentService;
@@ -28,11 +29,16 @@ class StudentApplicationTests {
     @Autowired
     PinYinUtil pinYinUtil;
 
+    @Autowired
+    AdminService adminService;
+
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Test
     void contextLoads() {
+
+
 
 //        System.out.println("pinYinUtil.toFirstChar(\"王琦\") = " + pinYinUtil.toFirstChar("王琦"));
 

@@ -21,4 +21,18 @@ public interface AdminService {
 
     int findAdminCount(Map map);
 
+
+    int findAssistantCount(Map map);
+
+    List<Map> findAssistant(Map map);
+
+    int findDepartLeaderCount(Map map);
+
+    List<Map> findDepartLeader(Map map);
+
+
+    int findSchoolLeaderCount(Map map);
+
+    List<Map> findSchoolLeader(Map map);
+
 }

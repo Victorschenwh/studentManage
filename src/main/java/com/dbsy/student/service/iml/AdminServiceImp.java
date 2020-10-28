@@ -49,4 +49,52 @@ public class AdminServiceImp implements AdminService {
         return adminMapper.findAdminCount(map);
     }
 
+    @Override
+    public int findAssistantCount(Map map) {
+        return adminMapper.findAssistantCount(map);
+    }
+
+    @Override
+    public List<Map> findAssistant(Map map) {
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("pageSize", pageSize);
+        }
+        return adminMapper.findAssistant(map);
+    }
+
+    @Override
+    public int findDepartLeaderCount(Map map) {
+        return adminMapper.findDepartLeaderCount(map);
+    }
+
+    @Override
+    public List<Map> findDepartLeader(Map map) {
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("pageSize", pageSize);
+        }
+        return adminMapper.findDepartLeader(map);
+    }
+
+    @Override
+    public int findSchoolLeaderCount(Map map) {
+        return adminMapper.findSchoolLeaderCount(map);
+    }
+
+    @Override
+    public List<Map> findSchoolLeader(Map map) {
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("pageSize", pageSize);
+        }
+        return adminMapper.findSchoolLeader(map);
+    }
+
 }

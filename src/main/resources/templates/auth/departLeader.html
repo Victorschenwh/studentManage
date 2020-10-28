@@ -32,7 +32,7 @@
     function load() {
         $('#table')
             .bootstrapTable({
-                url: "/user/assistantList",                      //请求后台的URL（*）
+                url: "/user/departList",                      //请求后台的URL（*）
                 method: 'GET',                      //请求方式（*）
                 toolbar: '#toolbar',              //工具按钮用哪个容器
                 striped: true,                      //是否显示行间隔色
@@ -59,7 +59,6 @@
                 //得到查询的参数
                 queryParams: function (params) {
                     return {
-                        departmentId: [[${session.user!=null?session.user.departmentId:null}]],
                         search: params.search,
                         pageSize: params.limit,
                         page: (params.offset / params.limit) + 1,
