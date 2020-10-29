@@ -47,7 +47,7 @@
                     </option>
                 </select>
             </div>
-            <!--            <button  align="right"  class="btn btn-warning" onclick="reLoadStu()">重置搜索</button>-->
+<!--                        <button  align="right"  class="btn btn-warning" onclick="test()">搜索</button>-->
         </div>
 
 
@@ -343,10 +343,10 @@
             </div>
         </div>
     </div>
-
- <table id="table_suspension2" data-mobile-responsive="true">
- </table>
-
+<div id="table2">
+     <table id="table_suspension2" data-mobile-responsive="true">
+     </table>
+</div>
 
 </div>
 
@@ -372,9 +372,10 @@
             </svg>
         </a>
     </div>
-
-    <table id="table_suspension" data-mobile-responsive="true">
-    </table>
+    <div id="table1">
+        <table id="table_suspension" data-mobile-responsive="true">
+        </table>
+    </div>
 
 
     <!--复学模态框-->
@@ -650,13 +651,51 @@
     </script>
 </div>
 <script>
+
+    let downParams
+    let downParams2
+    var searchParams=null
     $().ready(function () {
+        //休学table
         load();
+        //总体学生table
         load2();
+        $("#table2").keydown(function (e) {
+            if(e.keyCode==13){
+                let temp=null
+                var contentList=document.getElementsByClassName('search-input')
+                temp=contentList[0].value
+                // console.log(temp)
+                if(temp != null){
+                    downParams2['search']=temp
+                }
+                // console.log(downParams2)
+                $('#table_suspension2').bootstrapTable('refresh',{query: downParams2})
+                // alert("keydown")
+            }
 
+        });
+        $("#table1").keydown(function (e) {
+            if(e.keyCode==13){
+                let temp=null
+                var contentList=document.getElementsByClassName('search-input')
+                temp=contentList[1].value
+                // console.log(temp)
+                if(temp != null){
+                    downParams['search']=temp
+                }
 
-        // s(3);
-        // $("#table_suspension").bootstrapTable().initSearchText();
+                $('#table_suspension').bootstrapTable('refresh',{query: downParams})
+
+            }
+
+        });
+        // var re=document.getElementsByClassName("form-control search-input");
+        // $("form-control search-input").keydown(function (){
+        //     var re=document.getElementsByClassName("form-control search-input");
+        //     alert(re[0].value)
+        // })
+
         // 编辑模态框，已休学，编辑模态框数据修改
         $("#updata").validate({
             rules: {},
@@ -689,10 +728,17 @@
             }
         });
 
+
+
+
     })
 
+    // function test(){
+    //   // var  option=$("#table_suspension2").bootstrapTable('getOptions')
+    //     var re=document.getElementsByClassName("form-control search-input");
+    //
+    // }
 
-    let downParams
 
     function download() {
         let url = ""
@@ -722,9 +768,10 @@
                 pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
                 search: true,                      //是否显示表格搜索
                 showSearchButton: true,
-                showSearchClearButton:true,         //显示清除搜索按钮
-                // searchOnEnterKey: true,
+                // showSearchClearButton:true,         //显示清除搜索按钮
+                // searchOnEnterKey: false,
                 // searchText:"请输入姓名或学号", //初始化搜索文本
+                trimOnSearch: true,
                 strictSearch: true,             //严格搜索
                 showColumns: true,           //是否显示所有的列（选择显示的列）
                 showRefresh: false,          //是否显示刷新按钮
@@ -737,7 +784,7 @@
                 detailView: false,                  //是否显示父子表
                 //得到查询的参数
                 queryParams: function (params) {
-                    downParams = {
+                    downParams2 = {
                         departmentId: $("#departmentId").val(),
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
@@ -907,7 +954,10 @@
                     }],
                 formatSearch: function () {
                     return '姓名(汉字/拼音)或学号';
-                }
+                },
+                // onSearch: function (text) {
+                //     console.log(text)
+                // }
             });
     }
 
@@ -928,7 +978,7 @@
                 pageSize: 10,                     //每页的记录行数（*）
                 pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
                 search: true,                      //是否显示表格搜索
-                showSearchClearButton: true,
+                // showSearchClearButton: true,
                 showSearchButton: true,
                 strictSearch: true,
                 showColumns: true,                  //是否显示所有的列（选择显示的列）
@@ -1089,7 +1139,10 @@
                 ],
                 formatSearch: function () {
                     return '姓名(汉字/拼音)或学号';
-                }
+                },
+                // onSearch:function (text) {
+                //     console.log(text)
+                // }
 
             // onSearch: function (text) {
             //

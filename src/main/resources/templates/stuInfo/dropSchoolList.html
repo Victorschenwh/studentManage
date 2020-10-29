@@ -58,9 +58,11 @@
 
 
     </div>
-
+<div id="table1">
     <table id="table_student" data-mobile-responsive="true">
     </table>
+</div>
+
 
 
     <!--复学模态框-->
@@ -662,6 +664,21 @@
                 reDelSelf();
             }
         });
+        $("#table1").keydown(function (e) {
+            if(e.keyCode==13){
+                let temp=null
+                var contentList=document.getElementsByClassName('search-input')
+                temp=contentList[0].value
+                // console.log(temp)
+                if(temp != null){
+                    downParams['search']=temp
+                }
+
+                $('#table_student').bootstrapTable('refresh',{query: downParams})
+
+            }
+
+        });
 
     })
 
@@ -695,7 +712,7 @@
                 pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
                 search: true,                      //是否显示表格搜索
                 showSearchButton: true,
-                showSearchClearButton:true,         //显示清除搜索按钮
+                // showSearchClearButton:true,         //显示清除搜索按钮
                 // searchOnEnterKey: true,
                 // searchText:"请输入姓名或学号", //初始化搜索文本
                 strictSearch: true,             //严格搜索
