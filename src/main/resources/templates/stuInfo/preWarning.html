@@ -57,8 +57,11 @@
         </div>
     </div>
 
-    <table id="table_warning" data-mobile-responsive="true">
-    </table>
+    <div id="table1">
+        <table id="table_warning" data-mobile-responsive="true">
+        </table>
+    </div>
+
 
 
 </div>
@@ -96,6 +99,25 @@
         load()
     })
 
+
+    let downParams
+
+    $("#table1").keydown(function (e) {
+        if(e.keyCode==13){
+            let temp=null
+            var contentList=document.getElementsByClassName('search-input')
+            temp=contentList[0].value
+            // console.log(temp)
+            if(temp != null){
+                downParams['search']=temp
+            }
+
+            $('#table_warning').bootstrapTable('refresh',{query: downParams})
+
+        }
+
+    });
+
     function load() {
         $('#table_warning')
             .bootstrapTable({
@@ -126,6 +148,15 @@
                 //得到查询的参数
                 queryParams: function (params) {
                     //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+                    downParams = {
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        search_key: $("#search_key").val(),
+                        search: params.search,
+                        type: 'student'
+                    }
                     return {
                         pageSize: params.limit,                         //页面大小
                         page: (params.offset / params.limit) + 1,   //页码
@@ -247,7 +278,10 @@
                             return "<span style='color: green'>绿色</span>"
                         }
                     }
-                ]
+                ],
+                formatSearch: function () {
+                    return '姓名(汉字/拼音)或学号';
+                },
 
             });
     }

@@ -210,12 +210,30 @@
     <select id="list" resultType="com.dbsy.student.pojo.Student">
         select * from student
         <where>
-            <if test="number != null">
-                or name like concat('%',#{name},'%')
+            isDel =0
+            <if test="departmentId != null and departmentId != 0">
+                and department_id=#{departmentId}
             </if>
 
-            <if test="search_key != null">
-                and name like CONCAT('%',#{search_key},'%')
+            <if test="majorId != null and majorId != 0">
+                and major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and clazz_id=#{clazzId}
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and grade=#{grade}
+            </if>
+            <if test="search != null">
+                and name like CONCAT('%',#{search},'%')
+            </if>
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or number=#{search}
             </if>
         </where>
         <if test="start !=null and end != null">
@@ -226,8 +244,30 @@
     <select id="listCount" resultType="int">
         select count(*) from student
         <where>
-            <if test="number != null">
-                or name like concat('%',#{name},'%')
+            isDel =0
+            <if test="departmentId != null and departmentId != 0">
+                and department_id=#{departmentId}
+            </if>
+
+            <if test="majorId != null and majorId != 0">
+                and major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and clazz_id=#{clazzId}
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and grade=#{grade}
+            </if>
+            <if test="search != null">
+                and name like CONCAT('%',#{search},'%')
+            </if>
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or number=#{search}
             </if>
         </where>
     </select>

@@ -159,25 +159,29 @@
 
         <where>
             <if test="departmentId != null and departmentId != 0">
-                and s.department_id=#{departmentId}
+                and department_id=#{departmentId}
             </if>
 
             <if test="majorId != null and majorId != 0">
-                and s.major_id=#{majorId}
+                and major_id=#{majorId}
             </if>
 
             <if test="clazzId != null and clazzId != 0">
-                and s.clazz_id=#{clazzId}
+                and clazz_id=#{clazzId}
             </if>
 
             <if test="grade != null and grade != 0">
-                and s.grade=#{grade}
+                and grade=#{grade}
             </if>
-
-            <if test="search_key != null">
-                and s.name like CONCAT('%',#{search_key},'%')
+            <if test="search != null">
+                and s.name like CONCAT('%',#{search},'%')
             </if>
-
+            <if test="abbrName != null">
+                and s.abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or number=#{search}
+            </if>
         </where>
 
         <if test="start !=null and end != null">
@@ -202,6 +206,15 @@
 
             <if test="grade != null and grade != 0">
                 and grade=#{grade}
+            </if>
+            <if test="search != null">
+                and s.name like CONCAT('%',#{search},'%')
+            </if>
+            <if test="abbrName != null">
+                and s.abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or number=#{search}
             </if>
         </where>
     </select>

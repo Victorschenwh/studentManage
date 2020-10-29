@@ -134,6 +134,16 @@
             <if test="studyTerm!=null">
                 and study_term = #{studyTerm}
             </if>
+
+            <if test="search != null">
+                and name like CONCAT('%',#{search},'%')
+            </if>
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or number=#{search}
+            </if>
         </where>
         <if test="start!=null">
             limit #{start},#{pageSize}
@@ -157,6 +167,16 @@
             </if>
             <if test="studyTerm!=null">
                 and study_term = #{studyTerm}
+            </if>
+
+            <if test="search != null">
+                and name like CONCAT('%',#{search},'%')
+            </if>
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or number=#{search}
             </if>
         </where>
         <if test="start!=null">
@@ -183,6 +203,16 @@
             <if test="studyTerm!=null">
                 and study_term = #{studyTerm}
             </if>
+
+            <if test="search != null">
+                and name like CONCAT('%',#{search},'%')
+            </if>
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or number=#{search}
+            </if>
         </where>
     </select>
 
@@ -203,6 +233,16 @@
             </if>
             <if test="studyTerm!=null">
                 and study_term = #{studyTerm}
+            </if>
+
+            <if test="search != null">
+                and name like CONCAT('%',#{search},'%')
+            </if>
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or number=#{search}
             </if>
         </where>
     </select>
@@ -243,6 +283,16 @@
             <if test="studyTerm!=null">
                 and study_term = #{studyTerm}
             </if>
+
+            <if test="search != null">
+                and name like CONCAT('%',#{search},'%')
+            </if>
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or number=#{search}
+            </if>
         </where>
         order by fail desc
         <if test="start!=null">
@@ -267,6 +317,16 @@
             </if>
             <if test="studyTerm!=null">
                 and study_term = #{studyTerm}
+            </if>
+
+            <if test="search != null">
+                and name like CONCAT('%',#{search},'%')
+            </if>
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or number=#{search}
             </if>
         </where>
     </select>

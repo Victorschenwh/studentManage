@@ -56,8 +56,11 @@
         </div>
     </div>
 
-    <table id="table_monitoring" data-mobile-responsive="true">
-    </table>
+
+    <div id="table1">
+        <table id="table_monitoring" data-mobile-responsive="true">
+        </table>
+    </div>
 
 </div>
 
@@ -93,6 +96,24 @@
         load()
     })
 
+    let downParams
+
+    $("#table1").keydown(function (e) {
+        if(e.keyCode==13){
+            let temp=null
+            var contentList=document.getElementsByClassName('search-input')
+            temp=contentList[0].value
+            // console.log(temp)
+            if(temp != null){
+                downParams['search']=temp
+            }
+
+            $('#table_monitoring').bootstrapTable('refresh',{query: downParams})
+
+        }
+
+    });
+
 
     function load() {
         $('#table_monitoring')
@@ -123,6 +144,15 @@
                 detailView: false,                     //是否显示父子表
                 //得到查询的参数
                 queryParams: function (params) {
+                    downParams = {
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        search_key: $("#search_key").val(),
+                        search: params.search,
+                        type: 'student'
+                    }
                     return {
                         pageSize: params.limit,                         //页面大小
                         page: (params.offset / params.limit) + 1,   //页码
@@ -223,7 +253,10 @@
                     formatter: function (value, row, index) {
                         return '<a  class="btn btn-warning btn-sm" target="_self" href="/monitoring/pdf/' + value + '">个人学业</a> ';
                     }
-                },]
+                },],
+                formatSearch: function () {
+                    return '姓名(汉字/拼音)或学号';
+                },
             });
     }
 

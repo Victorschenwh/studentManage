@@ -61,8 +61,10 @@
         </div>
     </div>
 
-    <table id="table_student" data-mobile-responsive="true">
-    </table>
+    <div id="table1">
+        <table id="table_student" data-mobile-responsive="true">
+        </table>
+    </div>
 
 <!--详细信息模态框-->
     <div class="modal fade " id="moreInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -473,6 +475,22 @@
 
     let downParams
 
+    $("#table1").keydown(function (e) {
+        if(e.keyCode==13){
+            let temp=null
+            var contentList=document.getElementsByClassName('search-input')
+            temp=contentList[0].value
+            // console.log(temp)
+            if(temp != null){
+                downParams['search']=temp
+            }
+
+            $('#table_student').bootstrapTable('refresh',{query: downParams})
+
+        }
+
+    });
+
     function download() {
         let url = ""
         for (let k in downParams) {
@@ -490,6 +508,7 @@
             updata();
         }
     });
+
 
     $("#insert").validate({
         rules: {},
@@ -680,8 +699,12 @@
 
                             return e + d + m;
                         }
-                    }]
+                    }],
+                formatSearch: function () {
+                    return '姓名(汉字/拼音)或学号';
+                },
             });
+
     }
 
     function reLoad() {
