@@ -22,9 +22,9 @@ import java.util.Date;
  * LogAspect  用于日志记录
  */
 
-@Component
-@Aspect
-@Order(1)
+//@Component
+//@Aspect
+//@Order(1)
 public class LogAspect {
 
     @Autowired
