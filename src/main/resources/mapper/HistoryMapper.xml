@@ -9,10 +9,10 @@
                 ip=#{ip,jdbcType=VARCHAR},
             </if>
             <if test="adminId != null">
-                admin_id=#{adminId,jdbcType=VARCHAR},
+                admin_id=#{adminId},
             </if>
             <if test="insertTime != null">
-                insert_time=#{insertTime,jdbcType=VARCHAR},
+                insert_time=#{insertTime},
             </if>
             <if test="url != null">
                 url=#{url,jdbcType=VARCHAR},
@@ -30,7 +30,8 @@
         where id=#{id}
     </update>
 
-    <insert id="insert" parameterType="com.dbsy.student.pojo.History">
+    <insert id="insert" parameterType="com.dbsy.student.pojo.History" useGeneratedKeys="true"
+            keyProperty="id">
         insert into history
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -66,11 +67,11 @@
             <if test="ip != null">
                 #{ip,jdbcType=VARCHAR},
             </if>
-            <if test="admin_id != null">
-                #{adminId,jdbcType=VARCHAR},
+            <if test="adminId != null">
+                #{adminId},
             </if>
-            <if test="insert_time != null">
-                #{insertTime,jdbcType=VARCHAR},
+            <if test="insertTime != null">
+                #{insertTime},
             </if>
             <if test="url != null">
                 #{url,jdbcType=VARCHAR},
@@ -86,4 +87,18 @@
             </if>
         </trim>
     </insert>
+
+
+    <select id="list" resultType="com.dbsy.student.pojo.History">
+        select * from history
+
+        <if test="page!=null and pageSize != null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from history
+
+    </select>
 </mapper>

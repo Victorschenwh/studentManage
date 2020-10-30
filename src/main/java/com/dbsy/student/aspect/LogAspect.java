@@ -22,9 +22,9 @@ import java.util.Date;
  * LogAspect  用于日志记录
  */
 
-//@Component
-//@Aspect
-//@Order(1)
+@Component
+@Aspect
+@Order(1)
 public class LogAspect {
 
     @Autowired
@@ -40,7 +40,9 @@ public class LogAspect {
     public Object around(ProceedingJoinPoint pJoinPoint) throws Throwable {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        log.info("ARGS: " + Arrays.toString(pJoinPoint.getArgs()) + "\n url: " + request.getRequestURL().toString() + "\n method: " + request.getMethod() + "\n ip: " + request.getRemoteAddr() + "\n ClassName.method: " + pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName());
+        log.info("ARGS: " + Arrays.toString(pJoinPoint.getArgs()) + "\n url: " + request.getRequestURL().toString() +
+                "\n method: " + request.getMethod() + "\n ip: " + request.getRemoteAddr() + "\n ClassName.method: " +
+                pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName());
         Object o = pJoinPoint.proceed();
         log.info(o.toString());
         historyService.insert(new History(null, request.getRemoteAddr(), ((Admin) (request.getSession().getAttribute("user"))).getId(),

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="static :: head"></head>
+<style>
+    .select {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .item {
+        flex: 1;
+    }
+</style>
+<body>
+<div class="container-fluid">
+
+    <ol class="breadcrumb">
+        <li>历史</li>
+        <li>历史记录</li>
+    </ol>
+
+    <table id="table" data-mobile-responsive="true">
+    </table>
+
+</div>
+<div th:replace="static :: script"></div>
+<script src="/js/select.js"></script>
+</body>
+<script>
+    $(document).ready(function () {
+        load()
+    })
+
+    function load() {
+        $('#table')
+            .bootstrapTable({
+                url: "/history/list",         //请求后台的URL（*）
+                method: 'GET',                     //请求方式（*）
+                toolbar: '#toolbar',              //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+                pageSize: 10,                     //每页的记录行数（*）
+                pageList: [10, 20, 30],        //可供选择的每页的行数（*）
+                search: true,                      //是否显示表格搜索
+                showSearchButton: true,
+                strictSearch: true,
+                showColumns: true,           //是否显示所有的列（选择显示的列）
+                showRefresh: false,          //是否显示刷新按钮
+                minimumCountColumns: 2,      //最少允许的列数
+                clickToSelect: true,         //是否启用点击选中行
+                //height: 500,               //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "id",              //每一行的唯一标识，一般为主键列
+                showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                  //是否显示父子表
+                //得到查询的参数
+                queryParams: function (params) {
+                    return {
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        search: params.search,
+                        pageSize: params.limit,
+                        page: (params.offset / params.limit) + 1,
+                    }
+                },
+                onPreBody: function (data) {
+                },
+                onSearch(text) {
+
+                },
+                columns: [{
+                    checkbox: true,
+                    visible: true                  //是否显示复选框
+                },
+                    {
+                        field: 'ip',
+                        title: 'IP地址',
+                        align: 'center',
+                    }, {
+                        field: 'adminId',
+                        title: '用户编号',
+                        align: 'center',
+                    },
+                    {
+                        field: 'insertTime',
+                        title: '操作时间',
+                        align: 'center',
+                    },
+                    {
+                        field: 'url',
+                        title: '访问地址',
+                        align: 'center',
+                    },
+                    {
+                        field: 'args',
+                        title: '访问参数',
+                        align: 'center',
+                    },
+                    {
+                        field: 'ret',
+                        title: '返回值',
+                        align: 'center',
+                    },
+                    {
+                        field: 'method',
+                        title: '访问接口',
+                        align: 'center',
+                    },
+
+                    {
+                        title: '操作',
+                        field: 'id',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
+                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                                + row.id
+                                + '\')">删除</a> ';
+                            var m = '<a type="button" class="btn btn-info btn-sm" title="详细信息" data-toggle="modal" data-target="#moreInfo" onclick="getSelf(' + row.id + ')"> <span class="glyphicon glyphicon-user"  ></span> </a>';
+
+                            return e + d + m;
+                        }
+                    }]
+            });
+    }
+
+    function reLoad() {
+        $('#table').bootstrapTable('refresh');
+    }
+
+
+
+</script>
+</html>
