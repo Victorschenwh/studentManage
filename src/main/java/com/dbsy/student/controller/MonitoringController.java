@@ -48,6 +48,11 @@ public class MonitoringController {
     @ResponseBody
     public Map list(@RequestParam Map map) {
         Map m = new HashMap();
+        String str= (String) map.get("search");
+        if(str.matches("[a-zA-Z]+")){
+            map.put("abbrName",str);
+            map.put("search","");
+        }
         m.put("total", studentService.listCount(map));
         m.put("rows", studentService.list(map));
         return m;

@@ -31,6 +31,11 @@ public class PreWarningController {
     @RequestMapping("/list")
     @ResponseBody
     public Map list(@RequestParam Map map) {
+        String str= (String) map.get("search");
+        if(str.matches("[a-zA-Z]+")){
+            map.put("abbrName",str);
+            map.put("search","");
+        }
         Map m = new HashMap();
         m.put("total", scoreService.preWarmingCount(map));
         m.put("rows", scoreService.preWarming(map));

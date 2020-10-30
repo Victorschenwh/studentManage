@@ -141,7 +141,7 @@
 
             <if test="clazzId != null and clazzId != 0">
                 and clazz_id=#{clazzId}
-            </if>
+            </if> 
 
             <if test="grade != null and grade != 0">
                 and grade=#{grade}

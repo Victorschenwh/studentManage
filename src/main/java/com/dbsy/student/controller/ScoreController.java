@@ -42,6 +42,11 @@ public class ScoreController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Map list(@RequestParam Map map) {
+        String str= (String) map.get("search");
+        if(str.matches("[a-zA-Z]+")){
+            map.put("abbrName",str);
+            map.put("search","");
+        }
         Map m = new HashMap();
         m.put("total", scoreService.countRank(map));
         m.put("rows", scoreService.listRank(map));
@@ -51,6 +56,11 @@ public class ScoreController {
     @RequestMapping(value = "/totalList", method = RequestMethod.GET)
     @ResponseBody
     public Map totalList(@RequestParam Map map) {
+        String str= (String) map.get("search");
+        if(str.matches("[a-zA-Z]+")){
+            map.put("abbrName",str);
+            map.put("search","");
+        }
         Map m = new HashMap();
         m.put("total", scoreService.countTotal(map));
         m.put("rows", scoreService.listTotal(map));
