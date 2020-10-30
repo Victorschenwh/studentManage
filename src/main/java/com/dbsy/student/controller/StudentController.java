@@ -30,6 +30,11 @@ public class StudentController {
     @RequestMapping("/list")
     @ResponseBody
     public Map list(@RequestParam Map map) {
+        String str= (String) map.get("search");
+        if(str.matches("[a-zA-Z]+")){
+            map.put("abbrName",str);
+            map.put("search","");
+        }
         Map m = new HashMap();
         m.put("total", studentService.listCount(map));
         m.put("rows", studentService.list(map));

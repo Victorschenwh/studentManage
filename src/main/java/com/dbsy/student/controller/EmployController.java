@@ -31,6 +31,11 @@ public class EmployController {
     @RequestMapping("/list")
     @ResponseBody
     public Map list(@RequestParam Map map) {
+        String str= (String) map.get("search");
+        if(str.matches("[a-zA-Z]+")){
+            map.put("abbrName",str);
+            map.put("search","");
+        }
         Map m = new HashMap();
         m.put("total", employmentService.listCount(map));
         m.put("rows", employmentService.list(map));
