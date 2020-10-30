@@ -1,10 +1,14 @@
 package com.dbsy.student.aspect;
 
+import com.dbsy.student.pojo.Admin;
+import com.dbsy.student.pojo.History;
+import com.dbsy.student.service.HistoryService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -12,6 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * LogAspect  用于日志记录
@@ -21,6 +26,9 @@ import java.util.Arrays;
 @Aspect
 @Order(1)
 public class LogAspect {
+
+    @Autowired
+    HistoryService historyService;
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -35,6 +43,9 @@ public class LogAspect {
         log.info("ARGS: " + Arrays.toString(pJoinPoint.getArgs()) + "\n url: " + request.getRequestURL().toString() + "\n method: " + request.getMethod() + "\n ip: " + request.getRemoteAddr() + "\n ClassName.method: " + pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName());
         Object o = pJoinPoint.proceed();
         log.info(o.toString());
+        historyService.insert(new History(null, request.getRemoteAddr(), ((Admin) (request.getSession().getAttribute("user"))).getId(),
+                new Date(), request.getRequestURL().toString(), Arrays.toString(pJoinPoint.getArgs()), o.toString(),
+                pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName()));
         return o;
     }
 

@@ -1,5 +1,7 @@
 package com.dbsy.student.aspect;
 
+import com.dbsy.student.annotation.Permission;
+import com.dbsy.student.pojo.Admin;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -29,6 +31,11 @@ public class PermissoinAspect {
         String name = pJoinPoint.getSignature().getName();
         Class<?>[] parameterTypes = ((MethodSignature) pJoinPoint.getSignature()).getParameterTypes();
         Method method = aClass.getMethod(name, parameterTypes);//通过反射获得该方法
+
+        Permission permission = method.getAnnotation(Permission.class);
+        Admin admin = (Admin) request.getSession().getAttribute("user");
+
+
 
         return null;
     }
