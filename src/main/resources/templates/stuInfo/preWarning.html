@@ -268,14 +268,14 @@
                         align: 'center',
                         formatter: function (value, row, index) {
                             if (row.fail > 4) {
-                                return "<span style='color: red'>红色</span>"
+                                return "<span style='color: #f00000'>红色</span>"
                             }
 
                             if (row.fail > 2) {
-                                return "<span style='color: yellow'>黄色</span>"
+                                return "<span style='color: #F2C94C'>黄色</span>"
                             }
 
-                            return "<span style='color: green'>绿色</span>"
+                            return "<span style='color: #45B649'>绿色</span>"
                         }
                     }
                 ],
