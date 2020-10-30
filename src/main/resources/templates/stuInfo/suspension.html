@@ -675,6 +675,28 @@
             }
 
         });
+        $("button[name='search']").click(function () {
+
+            let temp1=null
+            let temp2=null
+            var contentList=document.getElementsByClassName('search-input')
+            // console.log(contentList)
+            temp1=contentList[0].value
+            temp2=contentList[1].value
+            // console.log(temp1,temp2)
+            if(temp1 == ''){
+                $('#table_suspension').bootstrapTable('refresh')
+                // alert('1')
+            }
+            if(temp2 == ''){
+                $('#table_suspension2').bootstrapTable('refresh')
+                // alert('2')
+            }
+            // console.log(downParams2)
+            //
+            // alert('click')
+        });
+
         $("#table1").keydown(function (e) {
             if(e.keyCode==13){
                 let temp=null
@@ -956,6 +978,7 @@
                     return '姓名(汉字/拼音)或学号';
                 },
                 // onSearch: function (text) {
+                //     alert('ddd')
                 //     console.log(text)
                 // }
             });
