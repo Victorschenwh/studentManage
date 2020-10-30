@@ -60,7 +60,7 @@
                 </p>
                 <p>
                     <i class="icon icon-pass"></i>
-                    <input type="password" placeholder="请输入密码" id="inputPassword3" v-model:value="password">
+                    <input type="password" placeholder="请输入密码" id="inputPassword3" v-model:value="password" @keyup.enter="login">
                     <!--<a href="javascript:;" class="aui-forget">忘记密码？</a>-->
                 </p>
             </div>
