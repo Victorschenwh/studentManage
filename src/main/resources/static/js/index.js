@@ -70,7 +70,7 @@
         name: "直接访问",
         type: "bar",
         barWidth: "35%",
-        data: [200, 300, 300, 900,],
+        data: [100, 500, 500, 900],
         itemStyle: {
           barBorderRadius: 5
         }
@@ -85,9 +85,11 @@
   });
 
   // 数据变化
-  var dataAll = [
-    { year: "2019", data: [200, 300, 300, 900, 1500, 1200, 600] },
-    { year: "2020", data: [300, 400, 350, 800, 1800, 1400, 700] }
+  let dataAll = [
+    { year: "2017", data: [100, 500, 500, 900] },
+    { year: "2018", data: [200, 500, 600, 700] },
+    { year: "2019", data: [200, 300, 300, 600] },
+    { year: "2020", data: [300, 400, 350, 800] }
   ];
 
   $(".bar h2 ").on("click", "a", function() {
@@ -95,6 +97,11 @@
     myChart.setOption(option);
   });
 })();
+
+
+
+
+
 
 // 折线图定制
 (function() {
