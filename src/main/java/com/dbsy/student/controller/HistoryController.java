@@ -16,12 +16,13 @@ public class HistoryController {
     @Autowired
     HistoryService historyService;
 
-    @RequestMapping("/list")
+    @RequestMapping("")
     String history() {
         return "history/history";
     }
 
     @RequestMapping("/list")
+    @ResponseBody
     Map list(@RequestParam Map map) {
         Map m = new HashMap();
         m.put("total", historyService.count(map));

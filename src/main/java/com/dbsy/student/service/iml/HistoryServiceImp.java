@@ -40,6 +40,7 @@ public class HistoryServiceImp implements HistoryService {
             int page = Integer.parseInt(map.get("page") + "");
             int pageSize = Integer.parseInt(map.get("pageSize") + "");
             map.put("start", (page - 1) * pageSize);
+            map.put("pageSize", Integer.parseInt(map.get("pageSize") + ""));
         }
         return historyMapper.list(map);
     }

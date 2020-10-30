@@ -91,7 +91,6 @@
 
     <select id="list" resultType="com.dbsy.student.pojo.History">
         select * from history
-
         <if test="page!=null and pageSize != null">
             limit #{start},#{pageSize}
         </if>
@@ -99,6 +98,5 @@
 
     <select id="count" resultType="int">
         select count(*) from history
-
     </select>
 </mapper>
