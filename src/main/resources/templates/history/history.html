@@ -102,16 +102,26 @@
                         field: 'args',
                         title: '访问参数',
                         align: 'center',
+                        formatter: (value, row, index) => {
+                            return value.length > 10 ? value.substr(0, 10) : value
+                        }
                     },
                     {
                         field: 'ret',
                         title: '返回值',
                         align: 'center',
+                        formatter: (value, row, index) => {
+                            return value.length > 10 ? value.substr(0, 10) : value
+                        }
                     },
                     {
                         field: 'method',
                         title: '访问接口',
                         align: 'center',
+                        formatter: (value, row, index) => {
+                            let arr = value.split(".")
+                            return arr[arr.length - 2] + "." + arr[arr.length - 1]
+                        }
                     },
 
                     {
@@ -134,7 +144,6 @@
     function reLoad() {
         $('#table').bootstrapTable('refresh');
     }
-
 
 
 </script>

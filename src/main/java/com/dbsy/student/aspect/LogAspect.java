@@ -40,14 +40,12 @@ public class LogAspect {
     public Object around(ProceedingJoinPoint pJoinPoint) throws Throwable {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        log.info("ARGS: " + Arrays.toString(pJoinPoint.getArgs()) + "\n url: " + request.getRequestURL().toString() +
-                "\n method: " + request.getMethod() + "\n ip: " + request.getRemoteAddr() + "\n ClassName.method: " +
-                pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName());
         Object o = pJoinPoint.proceed();
-        log.info(o.toString());
-        historyService.insert(new History(null, request.getRemoteAddr(), ((Admin) (request.getSession().getAttribute("user"))).getId(),
-                new Date(), request.getRequestURL().toString(), Arrays.toString(pJoinPoint.getArgs()), o.toString(),
-                pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName()));
+        Admin admin = (Admin) request.getSession().getAttribute("user");
+        if (admin != null && o != null)
+            historyService.insert(new History(null, request.getRemoteAddr(), admin.getId(),
+                    new Date(), request.getRequestURL().toString(), Arrays.toString(pJoinPoint.getArgs()), o.toString(),
+                    pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName()));
         return o;
     }
 
@@ -55,16 +53,16 @@ public class LogAspect {
     @Before("webLog()")
     public void deBefore(JoinPoint joinPoint) throws Throwable {
         // 接收到请求，记录请求内容
-//        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//        HttpServletRequest request = attributes.getRequest();
-//        // 记录下请求内容
-//        log.info("ARGS: " + Arrays.toString(joinPoint.getArgs()) + "\n url: " + request.getRequestURL().toString() + "\n method: " + request.getMethod() + "\n ip: " + request.getRemoteAddr() + "\n ClassName.method: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        // 记录下请求内容
+        log.info("ARGS: " + Arrays.toString(joinPoint.getArgs()) + "\n url: " + request.getRequestURL().toString() + "\n method: " + request.getMethod() + "\n ip: " + request.getRemoteAddr() + "\n ClassName.method: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
     }
 
     @AfterReturning(returning = "ret", pointcut = "webLog()")
     public void doAfterReturning(Object ret) throws Throwable {
         // 处理完请求，返回内容
-        //log.info("方法的返回值 : " + ret);
+        log.info("方法的返回值 : " + ret);
     }
 
     //后置异常通知
@@ -76,7 +74,7 @@ public class LogAspect {
     //后置最终通知,final增强，不管是抛出异常或者正常退出都会执行
     @After("webLog()")
     public void after(JoinPoint jp) {
-        //log.info("请求执行完毕......");
+        log.info("请求执行完毕......");
     }
 
 }
