@@ -23,7 +23,7 @@ public class MyWebConfig implements WebMvcConfigurer {
         FilterRegistrationBean frBean = new FilterRegistrationBean();
         frBean.setFilter(new LoginFilter());
         List list = new ArrayList<String>();
-        list.add("/index");
+        list.add("/index/*");
         frBean.setUrlPatterns(list);
         return frBean;
     }

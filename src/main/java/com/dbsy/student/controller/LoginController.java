@@ -78,6 +78,7 @@ public class LoginController {
                 httpSession.setAttribute("user", admin);
                 return News.success();
             }
+
             //学生登录
             Map map = new HashMap<String, String>();
             map.put("studentId", admin.getForeignId());

@@ -24,7 +24,7 @@ import java.util.Date;
 
 @Component
 @Aspect
-@Order(1)
+//@Order(1)
 public class LogAspect {
 
     @Autowired
@@ -40,12 +40,15 @@ public class LogAspect {
     public Object around(ProceedingJoinPoint pJoinPoint) throws Throwable {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
+
         Object o = pJoinPoint.proceed();
         Admin admin = (Admin) request.getSession().getAttribute("user");
-        if (admin != null && o != null)
-            historyService.insert(new History(null, request.getRemoteAddr(), admin.getId(),
-                    new Date(), request.getRequestURL().toString(), Arrays.toString(pJoinPoint.getArgs()), o.toString(),
-                    pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName()));
+//        if (admin != null && o != null)
+//            historyService.insert(new History(null, request.getRemoteAddr(), admin.getId(),
+//                    new Date(), request.getRequestURL().toString(), Arrays.toString(pJoinPoint.getArgs()), o.toString(),
+//                    pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName()));
+
+        log.info("log:" + o.toString());
         return o;
     }
 

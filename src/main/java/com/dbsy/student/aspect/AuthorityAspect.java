@@ -23,7 +23,7 @@ import java.util.*;
 
 @Component
 @Aspect
-@Order(2)
+//@Order(2)
 public class AuthorityAspect {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
