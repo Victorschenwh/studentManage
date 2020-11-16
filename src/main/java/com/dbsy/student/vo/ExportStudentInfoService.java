@@ -1,6 +1,6 @@
-package com.dbsy.student.service;
+package com.dbsy.student.vo;
 
-import com.dbsy.student.pojo.ExportStudentInfo;
+import com.dbsy.student.service.ScoreService;
 import com.dbsy.student.service.iml.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

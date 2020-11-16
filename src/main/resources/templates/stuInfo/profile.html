@@ -27,23 +27,33 @@
             background-color: white;
             text-align: center;
         }
+
+        #cc {
+            margin: 0 auto;
+            width: 80%;
+        }
     </style>
 </head>
 <body>
-<button type="button" id="renderPdf" value="转成pdf">转成pdf</button>
-<div style="margin:0 auto; width:80%;" id="contain">
-    <table align="center" width="80%" border="1" cellspacing="0" cellpadding="4">
+<div id="cc">
+    <table width="80%" align="center" cellspacing="0" cellpadding="4" border="1">
+        <thead>
         <tr>
             <th align="center" class="biaoti" colspan="10">东北石油大学学生学业监控信息表</th>
         </tr>
+        </thead>
+        <tbody>
         <tr>
             <td class="btgn" width="10%">姓名</td>
             <td class="b" th:if="${exportStudentInfo}" th:text="${exportStudentInfo.student.name}"></td>
             <td class="btgn">性别</td>
-            <td class="b" th:text="${exportStudentInfo.student.gender}"></td>
+            <td class="b" th:text="${exportStudentInfo.student.gender ? '男': '女'}"></td>
             <td class="btgn">民族</td>
             <td class="b" th:text="${exportStudentInfo.student.nation}"></td>
-            <td class="btgn" colspan="4" rowspan="4"><img th:src="${exportStudentInfo.student.photo}"/></td>
+            <td class="btgn" colspan="4" rowspan="4">
+                <img th:src="${exportStudentInfo.student.photo != null ? exportStudentInfo.student.photo :  '/images/mao.jpg' }"
+                     style="height: 100px;width: 100px"/>
+            </td>
         </tr>
         <tr>
             <td class="btgn">身份证号</td>
@@ -166,15 +176,18 @@
             <td class="b" colspan="5" height="100px">&nbsp;</td>
             <td class="b" colspan="5" height="100px">&nbsp;</td>
         </tr>
+        </tbody>
     </table>
+
+    <button type="button" id="renderPdf" value="转成pdf">转成pdf</button>
 </div>
 </body>
 <script src="https://cdn.bootcdn.net/ajax/libs/html2canvas/0.4.0/html2canvas.min.js"></script>
 <script type="text/javascript" src="/js/jsPDF.js"></script>
 <script type="text/javascript">
-    var downPdf = document.getElementById("renderPdf");
+    let downPdf = document.getElementById("renderPdf");
     downPdf.onclick = function () {
-        var ele = document.getElementById("contain")
+        let ele = document.getElementById("cc")
 
         let eleW = ele.offsetWidth // 获得该容器的宽
         //   let eleH = ele.offsetHeight // 获得该容器的高
@@ -199,62 +212,62 @@
         context.scale(2, 2)   // 增强图片清晰度
         context.translate(-eleOffsetLeft - abs, -eleOffsetTop)
 
-        setTimeout(()=>{
+        html2canvas(document.getElementById("cc"), {
+            background: "#fff",
+            canvas: canvas2,
+            allowTaint: true,
+            useCORS: true
+        }).then(can => {
 
-            html2canvas(ele, {
-                background: "#fff",
-                canvas:canvas2
-            }).then(canvas => {
+            let contentWidth = can.width
 
-                var contentWidth = canvas.width
+            let contentHeight = can.height
 
-                var contentHeight = canvas.height
+            //一页pdf显示html页面生成的canvas高度;
 
-                //一页pdf显示html页面生成的canvas高度;
+            let pageHeight = (contentWidth / 592.28) * 841.89   // 这样写的目的在于保持宽高比例一致 pageHeight/canvas.width = a4纸高度/a4纸宽度
+            // 宽度和canvas.width保持一致
 
-                var pageHeight = (contentWidth / 592.28) * 841.89   // 这样写的目的在于保持宽高比例一致 pageHeight/canvas.width = a4纸高度/a4纸宽度
-                // 宽度和canvas.width保持一致
+            //未生成pdf的html页面高度
 
-                //未生成pdf的html页面高度
+            let leftHeight = contentHeight
 
-                var leftHeight = contentHeight
+            //页面偏移
+            let position = 0
 
-                //页面偏移
-                var position = 0
+            //a4纸的尺寸[595.28,841.89],单位像素，html页面生成的canvas在pdf中图片的宽高
 
-                //a4纸的尺寸[595.28,841.89],单位像素，html页面生成的canvas在pdf中图片的宽高
+            let imgWidth = 595.28
 
-                var imgWidth = 595.28
+            let imgHeight = (595.28 / contentWidth) * contentHeight
 
-                var imgHeight = (595.28 / contentWidth) * contentHeight
+            let pageData = can.toDataURL("image/jpeg", 1.0)
 
-                var pageData = canvas.toDataURL("image/jpeg", 1.0)
-
-                // document.body.appendChild(pageData)
-                // console.log(pageData)
-                var pdf = new jsPDF("", "pt", "a4")
-                //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
-                //当内容未超过pdf一页显示的范围，无需分页
-                if (leftHeight < pageHeight) {
-                    //在pdf.addImage(pageData, 'JPEG', 左，上，宽度，高度)设置在pdf中显示；
-                    pdf.addImage(pageData, "JPEG", 0, 50, imgWidth, imgHeight)
-                    // pdf.addImage(pageData, 'JPEG', 20, 40, imgWidth, imgHeight);
-                } else {
-                    // 分页
-                    while (leftHeight > 0) {
-                        pdf.addImage(pageData, "JPEG", 5, position, imgWidth, imgHeight)
-                        leftHeight -= pageHeight
-                        position -= 841.89
-                        //避免添加空白页
-                        if (leftHeight > 0) {
-                            pdf.addPage()
-                        }
+            // document.body.appendChild(pageData)
+            // console.log(pageData)
+            let pdf = new jsPDF("", "pt", "a4")
+            //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
+            //当内容未超过pdf一页显示的范围，无需分页
+            if (leftHeight < pageHeight) {
+                //在pdf.addImage(pageData, 'JPEG', 左，上，宽度，高度)设置在pdf中显示；
+                pdf.addImage(pageData, "JPEG", 0, 50, imgWidth, imgHeight)
+                // pdf.addImage(pageData, 'JPEG', 20, 40, imgWidth, imgHeight);
+            } else {
+                // 分页
+                while (leftHeight > 0) {
+                    pdf.addImage(pageData, "JPEG", 5, position, imgWidth, imgHeight)
+                    leftHeight -= pageHeight
+                    position -= 841.89
+                    //避免添加空白页
+                    if (leftHeight > 0) {
+                        pdf.addPage()
                     }
                 }
-                pdf.save(new Date().getTime() + ".pdf")
-            })
+            }
+            pdf.save(new Date().getTime() + ".pdf")
+        })
 
-        },1000)
+
     }
 </script>
 

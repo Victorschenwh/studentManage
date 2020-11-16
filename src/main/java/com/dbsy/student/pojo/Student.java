@@ -63,6 +63,7 @@ public class Student {
 
     @ExcelProperty("宿舍号")
     private String room;
+
     @ExcelProperty("政治面貌")
     private String status;
 

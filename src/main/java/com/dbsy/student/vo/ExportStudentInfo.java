@@ -1,4 +1,6 @@
-package com.dbsy.student.pojo;
+package com.dbsy.student.vo;
+
+import com.dbsy.student.pojo.*;
 
 import java.util.List;
 import java.util.Map;

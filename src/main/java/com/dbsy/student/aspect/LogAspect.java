@@ -48,7 +48,6 @@ public class LogAspect {
 //                    new Date(), request.getRequestURL().toString(), Arrays.toString(pJoinPoint.getArgs()), o.toString(),
 //                    pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName()));
 
-        log.info("log:" + o.toString());
         return o;
     }
 

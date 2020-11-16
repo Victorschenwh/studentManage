@@ -1,4 +1,4 @@
-package com.dbsy.student.pojo;
+package com.dbsy.student.vo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
