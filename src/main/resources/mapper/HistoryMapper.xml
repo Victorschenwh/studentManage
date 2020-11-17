@@ -26,6 +26,10 @@
             <if test="method != null">
                 method=#{method,jdbcType=VARCHAR},
             </if>
+
+            <if test="remarks != null">
+                remarks=#{remarks,jdbcType=VARCHAR},
+            </if>
         </set>
         where id=#{id}
     </update>
@@ -59,6 +63,10 @@
             <if test="method != null">
                 method,
             </if>
+
+            <if test="remarks != null">
+                remarks,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -84,6 +92,10 @@
             </if>
             <if test="method != null">
                 #{method,jdbcType=VARCHAR},
+            </if>
+
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>

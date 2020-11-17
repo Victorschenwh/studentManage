@@ -1,11 +1,13 @@
 package com.dbsy.student.aspect;
 
+import com.dbsy.student.annotation.Remarks;
 import com.dbsy.student.pojo.Admin;
 import com.dbsy.student.pojo.History;
 import com.dbsy.student.service.HistoryService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -41,12 +44,27 @@ public class LogAspect {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
+        Class<?> aClass = pJoinPoint.getTarget().getClass();
+
+        String name = pJoinPoint.getSignature().getName();
+        Class<?>[] parameterTypes = ((MethodSignature) pJoinPoint.getSignature()).getParameterTypes();
+        Method method = aClass.getMethod(name, parameterTypes);//通过反射获得该方法
+
+        Remarks remarks = method.getAnnotation(Remarks.class);
+
+
         Object o = pJoinPoint.proceed();
         Admin admin = (Admin) request.getSession().getAttribute("user");
-//        if (admin != null && o != null)
-//            historyService.insert(new History(null, request.getRemoteAddr(), admin.getId(),
-//                    new Date(), request.getRequestURL().toString(), Arrays.toString(pJoinPoint.getArgs()), o.toString(),
-//                    pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName()));
+
+        History history = new History(null, request.getRemoteAddr(), admin.getId(),
+                new Date(), request.getRequestURL().toString(), Arrays.toString(pJoinPoint.getArgs()), o.toString(),
+                pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName());
+        if (remarks != null) {
+            history.setRemarks(remarks.value());
+        }
+
+        if (admin != null && o != null)
+            historyService.insert(history);
 
         return o;
     }

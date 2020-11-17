@@ -24,6 +24,16 @@ public class History {
 
     String method;
 
+    String remarks;
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
     public History() {
     }
 
@@ -36,6 +46,18 @@ public class History {
         this.args = args;
         this.ret = ret;
         this.method = method;
+    }
+
+    public History(Integer id, String ip, Integer adminId, Date insertTime, String url, String args, String ret, String method, String remarks) {
+        this.id = id;
+        this.ip = ip;
+        this.adminId = adminId;
+        this.insertTime = insertTime;
+        this.url = url;
+        this.args = args;
+        this.ret = ret;
+        this.method = method;
+        this.remarks = remarks;
     }
 
     public Integer getId() {
