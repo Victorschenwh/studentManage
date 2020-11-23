@@ -12,6 +12,9 @@ import java.util.Map;
 
 @Mapper
 public interface ScoreMapper {
+
+    List<Map> slip(Map map);
+
     int insert(Score record);
 
     int insertSelective(Score record);

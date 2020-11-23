@@ -4,6 +4,8 @@ import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.ScoreMapper;
 import com.dbsy.student.pojo.Score;
 import com.dbsy.student.service.ScoreService;
+import com.dbsy.student.slip.Slip;
+import com.dbsy.student.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,18 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
 
 //    @Autowired
 //    RedisTemplate redisTemplate;
+
+    /**
+     * 成绩下滑
+     *
+     * @param map
+     * @return
+     */
+
+    @Override
+    public List<Map> slip(Map map) {
+        return new Slip(scoreMapper.slip(QueryUtil.query(map))).getList();
+    }
 
     @Override
     @Transactional
@@ -49,13 +63,13 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
      */
     @Override
     public List<Map> listRank(Map map) {
-        if (map.get("page") != null) {
+       /* if (map.get("page") != null) {
             int page = Integer.parseInt(map.get("page") + "");
             int pageSize = Integer.parseInt(map.get("pageSize") + "");
             map.put("start", (page - 1) * pageSize);
             map.put("pageSize", pageSize);
-        }
-        return scoreMapper.listRank(map);
+        }*/
+        return scoreMapper.listRank(QueryUtil.query(map));
     }
 
     /**
@@ -66,13 +80,13 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
      */
     @Override
     public List<Map> listTotal(Map map) {
-        if (map.get("page") != null) {
+      /*  if (map.get("page") != null) {
             int page = Integer.parseInt(map.get("page") + "");
             int pageSize = Integer.parseInt(map.get("pageSize") + "");
             map.put("start", (page - 1) * pageSize);
             map.put("pageSize", pageSize);
-        }
-        return scoreMapper.listTotal(map);
+        }*/
+        return scoreMapper.listTotal(QueryUtil.query(map));
     }
 
     @Override
@@ -138,20 +152,32 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
         return scoreMapper.studentTotal(id);
     }
 
+    /**
+     * 挂科
+     *
+     * @param id
+     * @return
+     */
     @Override
     public int fail(int id) {
         return scoreMapper.fail(id);
     }
 
+    /**
+     * 学业预警
+     *
+     * @param map
+     * @return
+     */
     @Override
     public List<Map> preWarming(Map map) {
-        if (map.get("page") != null) {
+       /* if (map.get("page") != null) {
             int page = Integer.parseInt(map.get("page") + "");
             int pageSize = Integer.parseInt(map.get("pageSize") + "");
             map.put("start", (page - 1) * pageSize);
             map.put("pageSize", pageSize);
-        }
-        return scoreMapper.preWarming(map);
+        }*/
+        return scoreMapper.preWarming(QueryUtil.query(map));
     }
 
     @Override

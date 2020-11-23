@@ -17,6 +17,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/department")
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School, Role.Student})
 public class DepartmentController {
 
     @Autowired
@@ -25,7 +26,7 @@ public class DepartmentController {
 
 
     @RequestMapping("")
-    @Authority(Role.Teacher)
+
     public String department() {
         return "baseInfo/department";
     }
@@ -33,7 +34,7 @@ public class DepartmentController {
 
     @RequestMapping("/list")
     @ResponseBody
-    @Authority(Role.Teacher)
+
     public Map list(Map map) {
         Map m = new HashMap();
         m.put("total", departmentService.listCount(map));

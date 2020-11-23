@@ -16,8 +16,8 @@ public class Teacher {
 
     private Boolean gender;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")//前台字符串->后台Date()
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")//后台Date()->前台字符串
+    @DateTimeFormat(pattern = "yyyy-MM-dd")// 前台字符串->后台Date()
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")// 后台Date()->前台字符串
     private Date birthday;
 
     private Integer titleId;
@@ -25,6 +25,52 @@ public class Teacher {
     private Integer departmentId;
 
     private String post;
+
+    private String phoneNumber;
+
+    private String email;
+
+    private Boolean isLock;
+
+    private Integer level;
+    // role
+
+
+    private String remarks;
+
+    public Boolean getLock() {
+        return isLock;
+    }
+
+    public void setLock(Boolean lock) {
+        isLock = lock;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Teacher(Integer id, String username, String password, String name, Boolean gender, Date birthday, Integer titleId,
+                   Integer departmentId, String post, String phoneNumber, String email, Boolean isLock, Integer level, String remarks) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.titleId = titleId;
+        this.departmentId = departmentId;
+        this.post = post;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.isLock = isLock;
+        this.level = level;
+        this.remarks = remarks;
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -42,15 +88,9 @@ public class Teacher {
         this.email = email;
     }
 
-
-    private String phoneNumber;
-
-    private String email;
-
-    private Boolean isLock;
-
-
-    public Teacher(Integer id, String username, String password, String name, Boolean gender, Date birthday, Integer titleId, Integer departmentId, String post, String phoneNumber, String email, Boolean isLock) {
+    public Teacher(Integer id, String username, String password, String name,
+                   Boolean gender, Date birthday, Integer titleId, Integer departmentId, String post,
+                   String phoneNumber, String email, Boolean isLock) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -63,6 +103,32 @@ public class Teacher {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.isLock = isLock;
+    }
+
+    public Teacher(Integer id, String username, String password, String name, Boolean gender, Date birthday,
+                   Integer titleId, Integer departmentId, String post, String phoneNumber, String email, Boolean isLock, String remarks) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.titleId = titleId;
+        this.departmentId = departmentId;
+        this.post = post;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.isLock = isLock;
+        this.remarks = remarks;
+    }
+
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
     public Boolean getIsLock() {

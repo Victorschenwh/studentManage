@@ -56,12 +56,18 @@ public class LogAspect {
         Object o = pJoinPoint.proceed();
         Admin admin = (Admin) request.getSession().getAttribute("user");
 
-        History history = new History(null, request.getRemoteAddr(), admin.getId(),
-                new Date(), request.getRequestURL().toString(), Arrays.toString(pJoinPoint.getArgs()), o.toString(),
-                pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName());
-        if (remarks != null) {
-            history.setRemarks(remarks.value());
+        History history = null;
+
+        if (admin != null && o != null) {
+            history = new History(null, request.getRemoteAddr(), admin.getId(),
+                    new Date(), request.getRequestURL().toString(), Arrays.toString(pJoinPoint.getArgs()), o.toString(),
+                    pJoinPoint.getSignature().getDeclaringTypeName() + "." + pJoinPoint.getSignature().getName());
+
+            if (remarks != null) {
+                history.setRemarks(remarks.value());
+            }
         }
+
 
         if (admin != null && o != null)
             historyService.insert(history);

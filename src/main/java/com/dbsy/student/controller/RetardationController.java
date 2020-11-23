@@ -22,20 +22,19 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/retardation")
-//@Authority({Role.Admin})
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School})
 public class RetardationController {
     @Autowired
     @Qualifier("retardationServiceImp")
     RetardationService retardationService;
 
-    //@Authority({Role.Teacher})
+
     @RequestMapping("")
     public String transfer() {
         return "stuInfo/retardation";
     }
 
 
-    //@Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
     public Map list(@RequestParam Map map) {
@@ -101,21 +100,20 @@ public class RetardationController {
         return News.fail("添加失败");
     }
 
-    //@Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", retardationService.get(id));
     }
 
-    //@Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getAll")
     public Map getAll() {
         return News.success("成功", retardationService.getAll());
     }
 
-    //@Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getRetardationByStudentId/{studentId}")
     public Map getRetardationByStudentId(@PathVariable("studentId") int studentId){
@@ -127,7 +125,7 @@ public class RetardationController {
         return News.fail("查找失败");
     }
 
-    //@Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getRetardationByOldDepartmentId/{oldDepartmentId}")
     public Map getRetardationByOldDepartmentId(@PathVariable("oldDepartmentId") int oldDepartmentId){
@@ -139,7 +137,7 @@ public class RetardationController {
         return News.fail("查找失败");
     }
 
-    //@Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getRetardationByOldMajorId/{oldMajorId}")
     public Map getRetardationByOldMajorId(@PathVariable("oldMajorId") int oldMajorId){
@@ -163,7 +161,7 @@ public class RetardationController {
         return News.fail("查找失败");
     }
 
-    //@Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getRetardationByNewDepartmentId/{newDepartmentId}")
     public Map getRetardationByNewDepartmentId(@PathVariable("newDepartmentId") int newDepartmentId) {
@@ -187,7 +185,7 @@ public class RetardationController {
         return News.fail("查找失败");
     }
 
-    //@Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getRetardationByNewClazzId/{newClazzId}")
     public Map getRetardationByNewClazzId(@PathVariable("newClazzId") int newClazzId) {
@@ -212,7 +210,7 @@ public class RetardationController {
 
     @ResponseBody
     @RequestMapping("/updateSelective")
-    Map updateSelective(Retardation retardation) {
+    public Map updateSelective(Retardation retardation) {
         log.info(retardation.toString());
         retardation.getSaveDate();
         int i = retardationService.updateSelective(retardation);

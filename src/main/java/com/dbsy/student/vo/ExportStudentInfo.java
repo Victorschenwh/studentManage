@@ -16,6 +16,7 @@ public class ExportStudentInfo {
     public List<Map> total;//综测
     public int fail;//挂科
 
+
     public ExportStudentInfo() {
 
     }

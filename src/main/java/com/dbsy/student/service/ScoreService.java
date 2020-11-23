@@ -44,4 +44,6 @@ public interface ScoreService {
 
     int preWarmingCount(Map map);
 
+    List<Map> slip(Map map);
+
 }

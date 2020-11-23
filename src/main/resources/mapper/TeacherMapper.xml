@@ -6,11 +6,11 @@
     insert into teacher (id, username, password, 
       name, gender, birthday, title_id, 
       department_id, post,phone_number, email,
-      is_lock)
+      is_lock,remarks,level)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{gender,jdbcType=BIT}, #{birthday,jdbcType=DATE}, #{titleId,jdbcType=INTEGER}, 
       #{departmentId,jdbcType=INTEGER}, #{post,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
-      #{isLock,jdbcType=BIT})
+      #{isLock,jdbcType=BIT},#{remarks},#{level})
   </insert>
     <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Teacher">
         insert into teacher
@@ -51,6 +51,12 @@
             <if test="isLock != null">
                 is_lock,
             </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -88,6 +94,13 @@
             </if>
             <if test="isLock != null">
                 #{isLock,jdbcType=BIT},
+            </if>
+
+            <if test="remarks != null">
+                #{remarks},
+            </if>
+            <if test="level != null">
+                #{level},
             </if>
         </trim>
     </insert>

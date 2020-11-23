@@ -3,6 +3,7 @@ package com.dbsy.student.service.iml;
 import com.dbsy.student.mapper.HistoryMapper;
 import com.dbsy.student.pojo.History;
 import com.dbsy.student.service.HistoryService;
+import com.dbsy.student.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,13 +37,7 @@ public class HistoryServiceImp implements HistoryService {
 
     @Override
     public List<History> list(Map map) {
-        if (map.get("page") != null) {
-            int page = Integer.parseInt(map.get("page") + "");
-            int pageSize = Integer.parseInt(map.get("pageSize") + "");
-            map.put("start", (page - 1) * pageSize);
-            map.put("pageSize", Integer.parseInt(map.get("pageSize") + ""));
-        }
-        return historyMapper.list(map);
+        return historyMapper.list(QueryUtil.query(map));
     }
 
     @Override

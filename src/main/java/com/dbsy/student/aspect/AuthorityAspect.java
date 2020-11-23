@@ -57,7 +57,7 @@ public class AuthorityAspect {
             Admin admin = (Admin) request.getSession().getAttribute("user");
             if (admin != null) {
                 for (Role role : roleList) {
-                    //学生访问
+                    // 学生访问
                     if (role.getRole() == Role.Student.getRole()) {
                         String token = request.getParameter("token");
                         if (JWTUtils.checkToken(token)) {
@@ -69,6 +69,10 @@ public class AuthorityAspect {
 
 
                     if (admin.getRole() == role.getRole()) {
+                        return pJoinPoint.proceed();
+                    } else if (role.getRole() == Role.Assistant.getRole() && admin.getRole() > 1000) {
+                        return pJoinPoint.proceed();
+                    } else if (role.getRole() == Role.Admin.getRole() && admin.getRole() < 10) {
                         return pJoinPoint.proceed();
                     }
                 }

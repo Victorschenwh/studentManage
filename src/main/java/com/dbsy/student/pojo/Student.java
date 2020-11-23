@@ -85,16 +85,54 @@ public class Student {
     @ExcelProperty("政治面貌")
     private String status;
 
+    private Integer isdel;
+
+    private String abbrName;
+
+    private Integer cet4;
+
+    private Integer cet6;
+
+    public Integer getIsdel() {
+        return isdel;
+    }
+
+    public void setIsdel(Integer isdel) {
+        this.isdel = isdel;
+    }
+
+    public String getAbbrName() {
+        return abbrName;
+    }
+
+    public void setAbbrName(String abbrName) {
+        this.abbrName = abbrName;
+    }
+
+    public Integer getCet4() {
+        return cet4;
+    }
+
+    public void setCet4(Integer cet4) {
+        this.cet4 = cet4;
+    }
+
+    public Integer getCet6() {
+        return cet6;
+    }
+
+    public void setCet6(Integer cet6) {
+        this.cet6 = cet6;
+    }
+
     public Student() {
         super();
     }
 
-    public Student(Integer id, String number, String name,
-                   Boolean gender, String phoneNumber, String email,
-                   String idCard, String nativePlace, String photo,
-                   Date admissionDate, Date birthday, String password, Float score,
-                   Integer clazzId, Integer majorId, Integer departmentId, Integer grade,
-                   Integer age, String nation, String address,String room,String status) {
+    public Student(Integer id, String number, String name, Boolean gender, String phoneNumber, String email, String idCard, String nativePlace,
+                   String photo, Date admissionDate, Date birthday, String password, Float score, Integer clazzId, Integer majorId, Integer departmentId,
+                   Integer grade, Integer age, String nation,
+                   String address, String room, String status, Integer isdel, String abbrName, Integer cet4, Integer cet6) {
         this.id = id;
         this.number = number;
         this.name = name;
@@ -116,7 +154,41 @@ public class Student {
         this.nation = nation;
         this.address = address;
         this.room = room;
-        this.status= status;
+        this.status = status;
+        this.isdel = isdel;
+        this.abbrName = abbrName;
+        this.cet4 = cet4;
+        this.cet6 = cet6;
+    }
+
+    public Student(Integer id, String number, String name,
+                   Boolean gender, String phoneNumber, String email,
+                   String idCard, String nativePlace, String photo,
+                   Date admissionDate, Date birthday, String password, Float score,
+                   Integer clazzId, Integer majorId, Integer departmentId, Integer grade,
+                   Integer age, String nation, String address, String room, String status) {
+        this.id = id;
+        this.number = number;
+        this.name = name;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.idCard = idCard;
+        this.nativePlace = nativePlace;
+        this.photo = photo;
+        this.admissionDate = admissionDate;
+        this.birthday = birthday;
+        this.password = password;
+        this.score = score;
+        this.clazzId = clazzId;
+        this.majorId = majorId;
+        this.departmentId = departmentId;
+        this.grade = grade;
+        this.age = age;
+        this.nation = nation;
+        this.address = address;
+        this.room = room;
+        this.status = status;
     }
 
 
@@ -320,8 +392,8 @@ public class Student {
                 ", age=" + age +
                 ", nation='" + nation + '\'' +
                 ", address='" + address + '\'' +
-                ", room ='" + room +'\''+
-                ",status ='"+status+'\''+
+                ", room ='" + room + '\'' +
+                ",status ='" + status + '\'' +
                 '}'
                 ;
     }

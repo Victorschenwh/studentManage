@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="static :: head">
-</head>
+<head th:replace="static :: head"></head>
 <style>
     .select {
         display: flex;
@@ -14,12 +13,14 @@
 </style>
 <body>
 <div class="container-fluid">
+
     <ol class="breadcrumb">
         <li>学生信息</li>
-        <li class="active">学业监控</li>
+        <li class="active">排名下滑</li>
     </ol>
+
     <div id="toolbar" class="btn-group">
-        <button id="btn_download" type="button" class="btn btn-primary" onclick="download()">
+        <button id="btn_download" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
             <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载表格
         </button>
 
@@ -55,16 +56,15 @@
         </div>
     </div>
 
-
     <div id="table1">
-        <table id="table_monitoring" data-mobile-responsive="true">
+        <table id="table_score" data-mobile-responsive="true">
         </table>
     </div>
 
+
 </div>
-
-
 <div th:replace="static :: script"></div>
+
 </body>
 <script src="/js/select.js"></script>
 <script>
@@ -98,26 +98,25 @@
     let downParams
 
     $("#table1").keydown(function (e) {
-        if(e.keyCode==13){
-            let temp=null
-            var contentList=document.getElementsByClassName('search-input')
-            temp=contentList[0].value
+        if (e.keyCode == 13) {
+            let temp = null
+            var contentList = document.getElementsByClassName('search-input')
+            temp = contentList[0].value
             // console.log(temp)
-            if(temp != null){
-                downParams['search']=temp
+            if (temp != null) {
+                downParams['search'] = temp
             }
 
-            $('#table_monitoring').bootstrapTable('refresh',{query: downParams})
+            $('#table_score').bootstrapTable('refresh', {query: downParams})
 
         }
 
     });
 
-
     function load() {
-        $('#table_monitoring')
+        $('#table_score')
             .bootstrapTable({
-                url: "/monitoring/list",                      //请求后台的URL（*）
+                url: "/score/slipList",                      //请求后台的URL（*）
                 method: 'GET',                      //请求方式（*）
                 toolbar: '#toolbar',              //工具按钮用哪个容器
                 striped: true,                      //是否显示行间隔色
@@ -128,19 +127,19 @@
                 sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
                 pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
                 pageSize: 10,                     //每页的记录行数（*）
-                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                pageList: [10, 20, 30],        //可供选择的每页的行数（*）
                 search: true,                      //是否显示表格搜索
                 showSearchButton: true,
                 strictSearch: true,
                 showColumns: true,                  //是否显示所有的列（选择显示的列）
                 showRefresh: false,                  //是否显示刷新按钮
                 minimumCountColumns: 2,             //最少允许的列数
-                clickToSelect: true,                //是否启用点击选中行
+                clickToSelect: false,                //是否启用点击选中行
                 //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
                 uniqueId: "id",                     //每一行的唯一标识，一般为主键列
                 showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
-                detailView: false,                     //是否显示父子表
+                detailView: false,                  //是否显示父子表
                 //得到查询的参数
                 queryParams: function (params) {
                     downParams = {
@@ -161,13 +160,18 @@
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
-                        search_key: $("#search_key").val(),
                         search: params.search
                     };
                 },
+                onSearch: function (text) {
+                    //alert(text)
+                },
+                onPreBody: function (data) {
+                },
+
                 columns: [{
                     checkbox: true,
-                    visible: true   //是否显示复选框
+                    visible: true                  //是否显示复选框
                 }, {
                     field: 'number',
                     title: '学号',
@@ -177,7 +181,7 @@
                     title: '姓名',
                     align: 'center',
                 }, {
-                    field: 'departmentId',
+                    field: 'department_id',
                     title: '学院',
                     align: 'center',
                     formatter: function (value, row, index) {
@@ -199,72 +203,234 @@
                         }
                         return department != null ? department.name : "";
                     }
-                }, {
-                    field: 'majorId',
-                    title: '专业',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        var major = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/major/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        major = data.data;
+                },
+                    {
+                        field: 'major_id',
+                        title: '专业',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var major = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/major/get/" + value,
+                                    dataType: "json",
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            major = data.data;
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                            return major != null ? major.name : "";
                         }
-                        return major != null ? major.name : "";
-                    }
-                }, {
-                    field: 'clazzId',
-                    title: '班级',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        var clazz = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/clazz/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        clazz = data.data;
+                    }, {
+                        field: 'clazz_id',
+                        title: '班级',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var clazz = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/clazz/get/" + value,
+                                    dataType: "json",
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            clazz = data.data;
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                            return clazz != null ? clazz.name : "";
                         }
-                        return clazz != null ? clazz.name : "";
-                    }
-                }, {
-                    field: 'id',
-                    title: '学业监控',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        return '<a  class="btn btn-warning btn-sm" target="_self" href="/monitoring/pdf/' + value + '">个人学业</a> ';
-                    }
-                },],
+                    },
+
+                    {
+                        field: 'slip',
+                        title: '下滑名次',
+                        align: 'center'
+                    },
+                ],
                 formatSearch: function () {
                     return '姓名(汉字/拼音)或学号';
                 },
             });
     }
 
-    function pdf(id) {
-        window.location.href = "/monitoring/pdf/" + id
+    function reLoad() {
+        $('#table_score').bootstrapTable('refresh');
     }
 
-    function reLoad() {
-        $('#table_family').bootstrapTable('refresh');
-    }
+
 </script>
+<!-- if (data.length > 0) {
+data.forEach(function (row, i, data) {
+var rewards = null;
+if (row.s_id != null) {
+$.ajax({
+//cache: true,
+async: false,
+type: "POST",
+url: "/reward/getRewardsByStudentIdAndStudyTerm/" + row.s_id + "/" + row.study_term,
+dataType: "json",
+data: {},
+success: function (data1) {
+if (data1.code == 1) {
+rewards = data1.data;
+}
+}
+});
+}
+row.sys = "";
+row.addScore = 0;
+
+row.sysSub = ""
+row.subScore = 100
+rewards.forEach(function (a, b, c) {
+if (a.score > 0) {
+row.addScore += a.score
+
+if (a.synopsis != null)
+if (row.sys == "")
+row.sys = row.sys + a.synopsis;
+else
+row.sys = row.sys + "、" + a.synopsis;
+} else {
+row.subScore += a.score
+
+if (a.synopsis != null)
+if (row.sysSub == "")
+row.sysSub = row.sysSub + a.synopsis;
+else
+row.sysSub = row.sysSub + "、" + a.synopsis;
+}
+
+})
+
+if (row.sys == "") row.sys = "无"
+//上限100分
+if (row.addScore > 100) row.addScore = 100
+
+if (row.sysSub == "") row.sysSub = "表现良好"
+
+row.total = row.avgAcademiRecoreds * 0.85 + row.addScore * 0.1 + row.subScore * 0.05
+
+})
+
+data.sort(function (obj1, obj2) {
+let val1 = obj1.total;
+let val2 = obj2.total;
+if (val1 < val2) {
+return 1;
+} else if (val1 > val2) {
+return -1;
+} else {
+return 0;
+}
+})
+
+/!* data.forEach((item, index) => {
+item.rank = index + 1
+})*!/
+return data;
+} -->
+<!-- {
+field: 's_id',
+title: '加分减分说明',
+formatter: function (value, row, index) {
+var rewards;
+if (value != null) {
+$.ajax({
+//cache: true,
+async: false,
+type: "POST",
+url: "/reward/getRewardsByStudentId/" + value,
+dataType: "json",
+data: {},
+success: function (data) {
+if (data.code == 1) {
+rewards = data.data;
+}
+}
+});
+}
+var sys = "";
+if (rewards != null && rewards.length > 0) {
+rewards.forEach(function (rew, i, rews) {
+if (sys == "")
+sys = sys + rew.synopsis;
+else
+sys = sys + "、" + rew.synopsis;
+});
+}
+return sys != "" ? sys : "无";
+}
+}, {
+field: 's_id',
+title: '加分减分总数',
+formatter: function (value, row, index) {
+var rewards;
+if (value != null) {
+$.ajax({
+//cache: true,
+async: false,
+type: "POST",
+url: "/reward/getRewardsByStudentId/" + value,
+dataType: "json",
+data: {},
+success: function (data) {
+if (data.code == 1) {
+rewards = data.data;
+}
+}
+});
+}
+var total = 0;
+if (rewards != null && rewards.length > 0) {
+rewards.forEach(function (rew, i, rews) {
+total = total + rew.score;
+});
+}
+return total > 0 ? total : "无";
+}
+},
+{
+field: 's_id',
+title: '综合成绩',
+formatter: function (value, row, index) {
+var rewards;
+if (value != null) {
+$.ajax({
+//cache: true,
+async: false,
+type: "POST",
+url: "/reward/getRewardsByStudentId/" + value,
+dataType: "json",
+data: {},
+success: function (data) {
+if (data.code == 1) {
+rewards = data.data;
+}
+}
+});
+}
+var total = 0;
+if (rewards != null && rewards.length > 0) {
+rewards.forEach(function (rew, i, rews) {
+total = total + rew.score;
+});
+}
+return total > 0 ? total + row.sum_score : row.sum_score;
+
+}
+},-->
+
 </html>
+

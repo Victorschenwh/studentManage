@@ -11,6 +11,9 @@ import java.util.Map;
 
 @Mapper
 public interface TeacherMapper {
+    @Select("select * from teacher where username = #{username}")
+    Teacher selectByUsername(String username);
+
     int insert(Teacher record);
 
     int insertSelective(Teacher record);

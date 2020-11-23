@@ -1,196 +1,181 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>监控信息表</title>
-    <style>
-       /* .biaoti {
-            font-family: "Microsoft Himalaya";
-            font-size: 35px;
-            color: red;
-
-        }
-
-        .btgn {
-            font-family: "Microsoft YaHei UI";
-            font-size: 20px;
-            font-weight: bold;
-            color: red;
-            background-color: white;
-            text-align: center;
-        }
-
-        .b {
-            font-family: "Microsoft YaHei UI";
-            font-size: 20px;
-            color: red;
-            background-color: white;
-            text-align: center;
-        }
-
-        #cc {
-            margin: 0 auto;
-            width: 80%;
-        }*/
-
-
-
-    </style>
-</head>
+<head th:replace="static :: head"></head>
+<style>
+    ol {
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+</style>
 <body>
-<div id="cc">
-    <table width="80%" align="center" cellspacing="0" cellpadding="4" border="1">
-        <thead>
+<div class="container">
+    <ol class="breadcrumb">
+        <li>学生信息</li>
+        <li>学业监控</li>
+        <li class="active">个人档案</li>
+    </ol>
+
+    <table id="table" class="table  table-bordered text-center">
+
         <tr>
-            <th align="center" class="biaoti" colspan="10">东北石油大学学生学业监控信息表</th>
+            <th colspan="10" class="text-info text-center lead">东北石油大学学生学业监控信息表</th>
         </tr>
-        </thead>
-        <tbody>
+
         <tr>
-            <td class="btgn" width="10%">姓名</td>
-            <td class="b" th:if="${exportStudentInfo}" th:text="${exportStudentInfo.student.name}"></td>
-            <td class="btgn">性别</td>
-            <td class="b" th:text="${exportStudentInfo.student.gender ? '男': '女'}"></td>
-            <td class="btgn">民族</td>
-            <td class="b" th:text="${exportStudentInfo.student.nation}"></td>
-            <td class="btgn" colspan="4" rowspan="4">
-                <img th:src="${exportStudentInfo.student.photo != null ? exportStudentInfo.student.photo :  '/images/mao.jpg' }"
-                     style="height: 100px;width: 100px"/>
+            <td>姓名</td>
+            <td th:if="${exportStudentInfo}" th:text="${exportStudentInfo.student.name}"></td>
+            <td>性别</td>
+            <td th:text="${exportStudentInfo.student.gender ? '男': '女'}"></td>
+            <td>民族</td>
+            <td th:text="${exportStudentInfo.student.nation}"></td>
+            <td colspan="4" rowspan="4">
+                <div class="">
+                    <img th:src="${exportStudentInfo.student.photo != null ? exportStudentInfo.student.photo :  '/images/mao.jpg' }"
+                         style="width: 160px;height: 160px;" class="img-thumbnail center-block"/>
+                </div>
             </td>
         </tr>
         <tr>
-            <td class="btgn">身份证号</td>
-            <td class="b" th:text="${exportStudentInfo.student.idCard}">&nbsp;</td>
-            <td class="btgn">入学时间</td>
-            <td class="b" th:text="${#dates.format(exportStudentInfo.student.admissionDate,'yyyy-MM-dd')}"></td>
-            <td class="btgn">学号</td>
-            <td class="b" th:text="${exportStudentInfo.student.number}"></td>
+            <td>身份证号</td>
+            <td th:text="${exportStudentInfo.student.idCard}">&nbsp;</td>
+            <td>入学时间</td>
+            <td th:text="${#dates.format(exportStudentInfo.student.admissionDate,'yyyy-MM-dd')}"></td>
+            <td>学号</td>
+            <td th:text="${exportStudentInfo.student.number}"></td>
         </tr>
         <tr>
-            <td class="btgn">学院</td>
-            <td class="b" th:text="${exportStudentInfo.department.name}"></td>
-            <td class="btgn">专业</td>
-            <td class="b" th:text="${exportStudentInfo.major.name}"></td>
-            <td class="btgn">班级</td>
-            <td class="b" th:text="${exportStudentInfo.clazz.name}">&nbsp;</td>
+            <td>学院</td>
+            <td th:text="${exportStudentInfo.department.name}"></td>
+            <td>专业</td>
+            <td th:text="${exportStudentInfo.major.name}"></td>
+            <td>班级</td>
+            <td th:text="${exportStudentInfo.clazz.name}">&nbsp;</td>
         </tr>
         <tr>
-            <td class="btgn">政治面貌</td>
-            <td class="b" th:text="${exportStudentInfo.student.status}">&nbsp;</td>
-            <td class="btgn">宿舍号</td>
-            <td class="b" th:text="${exportStudentInfo.student.room}">&nbsp;</td>
-            <td class="btgn">联系方式</td>
-            <td class="b" th:text="${exportStudentInfo.student.phoneNumber}">&nbsp;</td>
+            <td>政治面貌</td>
+            <td th:text="${exportStudentInfo.student.status}">&nbsp;</td>
+            <td>宿舍号</td>
+            <td th:text="${exportStudentInfo.student.room}">&nbsp;</td>
+            <td>联系方式</td>
+            <td th:text="${exportStudentInfo.student.phoneNumber}">&nbsp;</td>
         </tr>
         <tr>
-            <td class="btgn" colspan="10">家庭状况</td>
+            <td colspan="10" class="text-info text-center">家庭状况</td>
         </tr>
         <tr th:if="${exportStudentInfo.families.size()>0}">
-            <td class="btgn">家庭成员</td>
-            <td class="btgn">姓名</td>
-            <td class="btgn" colspan="4">工作单位</td>
-            <td class="btgn" colspan="4">联系电话</td>
+            <td>家庭成员</td>
+            <td>姓名</td>
+            <td colspan="4">工作单位</td>
+            <td colspan="4">联系电话</td>
         </tr>
         <tr th:each="family : ${exportStudentInfo.families}">
-            <td class="btgn" th:text="${family.relationship}">父亲</td>
-            <td class="b" th:text="${family.name}">&nbsp;</td>
-            <td class="b" colspan="4" th:text="${family.work}">&nbsp;</td>
-            <td class="b" colspan="4" th:text="${family.phoneNumber}">&nbsp;</td>
+            <td th:text="${family.relationship}">父亲</td>
+            <td th:text="${family.name}">&nbsp;</td>
+            <td colspan="4" th:text="${family.work}">&nbsp;</td>
+            <td colspan="4" th:text="${family.phoneNumber}">&nbsp;</td>
         </tr>
 
         <tr>
-            <td class="btgn">家庭住址</td>
-            <td class="b" colspan="9" th:text="${exportStudentInfo.student.address}">&nbsp;</td>
+            <td>家庭住址</td>
+            <td colspan="9" th:text="${exportStudentInfo.student.address}">&nbsp;</td>
         </tr>
         <tr>
-            <td class="btgn" colspan="10">奖惩</td>
+            <td colspan="10" class="text-info text-center">奖惩</td>
         </tr>
         <tr>
-            <td class="b" colspan="5">&nbsp;</td>
-            <td class="b" colspan="5">&nbsp;</td>
+            <td colspan="5">
+                <div id="reward"></div>
+            </td>
+            <td colspan="5" class="danger">
+                <div id="punishment"></div>
+            </td>
         </tr>
         <tr>
-            <td class="btgn" colspan="10">综合评价</td>
+            <td colspan="10" class="text-info text-center">综合评价</td>
         </tr>
         <tr>
-            <td class="b">&nbsp;</td>
-            <td class="btgn">智育成绩</td>
-            <td class="btgn">智育排名</td>
-            <td class="btgn">综测成绩</td>
-            <td class="btgn">综测排名</td>
-            <td class="b">&nbsp;</td>
-            <td class="btgn">智育成绩</td>
-            <td class="btgn">智育排名</td>
-            <td class="btgn">综测成绩</td>
-            <td class="btgn">综测排名</td>
+            <td>学期</td>
+            <td>智育成绩</td>
+            <td>智育排名</td>
+            <td>综测成绩</td>
+            <td>综测排名</td>
+            <td>学期</td>
+            <td>智育成绩</td>
+            <td>智育排名</td>
+            <td>综测成绩</td>
+            <td>综测排名</td>
         </tr>
         <tr th:each="i:${#numbers.sequence(1,4)}">
-            <td class="btgn" th:text="${'第'+ (i) + '学期'}"></td>
-            <td class="b"
-                th:text="${exportStudentInfo.score.size()>=i ? #numbers.formatDecimal(exportStudentInfo.score.get(i-1).get('avgAcademiRecoreds'), 0, 2) :''}">
-                &nbsp;
+            <td th:text="${'第'+ (i) + '学期'}"></td>
+            <td
+                    th:text="${exportStudentInfo.score.size()>=i ? #numbers.formatDecimal(exportStudentInfo.score.get(i-1).get('avgAcademiRecoreds'), 0, 2) :''}">
             </td>
-            <td class="b"
-                th:text="${exportStudentInfo.score.size()>=i ? exportStudentInfo.score.get(i-1).get('major_rank'):''}">
-                &nbsp;
+            <td
+                    th:text="${exportStudentInfo.score.size()>=i ? exportStudentInfo.score.get(i-1).get('major_rank'):''}">
             </td>
-            <td class="b"
-                th:text="${exportStudentInfo.total.size()>=i ? #numbers.formatDecimal(exportStudentInfo.total.get(i-1).get('total'), 0, 2):''}">
-                &nbsp;
+            <td
+                    th:text="${exportStudentInfo.total.size()>=i ? #numbers.formatDecimal(exportStudentInfo.total.get(i-1).get('total'), 0, 2):''}">
             </td>
-            <td class="b"
-                th:text="${exportStudentInfo.total.size()>=i ? exportStudentInfo.total.get(i-1).get('major_rank'):''}">
-                &nbsp;
+            <td
+                    th:text="${exportStudentInfo.total.size()>=i ? exportStudentInfo.total.get(i-1).get('major_rank'):''}">
             </td>
 
-            <td class="btgn" th:text="${'第'+ (i + 4) + '学期'}"></td>
-            <td class="b"
-                th:text="${exportStudentInfo.score.size()>=(i+4) ? #numbers.formatDecimal(exportStudentInfo.score.get(i+4-1).get('avgAcademiRecoreds'), 0, 2):''}">
-                &nbsp;
+            <td th:text="${'第'+ (i + 4) + '学期'}"></td>
+            <td
+                    th:text="${exportStudentInfo.score.size()>=(i+4) ? #numbers.formatDecimal(exportStudentInfo.score.get(i+4-1).get('avgAcademiRecoreds'), 0, 2):''}">
             </td>
-            <td class="b"
-                th:text="${exportStudentInfo.score.size()>=(i+4) ? exportStudentInfo.score.get(i+4-1).get('major_rank'):''}">
-                &nbsp;
+            <td
+                    th:text="${exportStudentInfo.score.size()>=(i+4) ? exportStudentInfo.score.get(i+4-1).get('major_rank'):''}">
             </td>
-            <td class="b"
-                th:text="${exportStudentInfo.total.size()>=(i+4) ? #numbers.formatDecimal(exportStudentInfo.total.get(i+4-1).get('total'), 0, 2):''}">
-                &nbsp;
+            <td
+                    th:text="${exportStudentInfo.total.size()>=(i+4) ? #numbers.formatDecimal(exportStudentInfo.total.get(i+4-1).get('total'), 0, 2):''}">
             </td>
-            <td class="b"
-                th:text="${exportStudentInfo.total.size()>=(i+4) ? exportStudentInfo.total.get(i+4-1).get('major_rank'):''}">
-                &nbsp;
+            <td
+                    th:text="${exportStudentInfo.total.size()>=(i+4) ? exportStudentInfo.total.get(i+4-1).get('major_rank'):''}">
             </td>
         </tr>
         <tr>
-            <td class="btgn" colspan="2">CET4</td>
-            <td class="btgn" colspan="2">CET6</td>
-            <td class="btgn" colspan="2">累计挂科</td>
-            <td class="btgn" colspan="2">成绩绩点</td>
-            <td class="btgn" colspan="2">绩点排名</td>
+            <td colspan="2">CET4</td>
+            <td colspan="2">CET6</td>
+            <td colspan="2">累计挂科</td>
+            <td colspan="2">成绩绩点</td>
+            <td colspan="2">绩点排名</td>
         </tr>
         <tr>
-            <td class="b" colspan="2">&nbsp;</td>
-            <td class="b" colspan="2">&nbsp;</td>
-            <td class="b" colspan="2" th:text="${exportStudentInfo.fail}">&nbsp;</td>
-            <td class="b" colspan="2">&nbsp;</td>
-            <td class="b" colspan="2">&nbsp;</td>
+            <td colspan="2"
+                th:text="${exportStudentInfo.student.cet4 != null ? exportStudentInfo.student.cet4  : '暂无'}"></td>
+            <td colspan="2"
+                th:text="${exportStudentInfo.student.cet6 != null ? exportStudentInfo.student.cet6 : '暂无'}"></td>
+            <td colspan="2" th:text="${exportStudentInfo.fail}" class="danger">&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
         </tr>
         <tr>
-            <td class="b" colspan="5" height="100px">&nbsp;</td>
-            <td class="b" colspan="5" height="100px">&nbsp;</td>
+            <td colspan="5">
+                <div id="score" style="height: 360px;width: 400px" class="center-block"></div>
+            </td>
+            <td colspan="5">
+                <div id="rank" style="height: 360px;width: 400px" class="center-block"></div>
+            </td>
         </tr>
-        </tbody>
+
     </table>
 
-    <button type="button" id="renderPdf" value="转成pdf">转成pdf</button>
+
+    <button type="button" id="renderPdf" class="btn btn-info pull-right">pdf下载
+        <span class="glyphicon glyphicon-arrow-down" aria-hidden="true">
+        </span>
+    </button>
 </div>
 </body>
+<script src="/js/jquery.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/html2canvas/0.4.0/html2canvas.min.js"></script>
 <script type="text/javascript" src="/js/jsPDF.js"></script>
-<script type="text/javascript">
-    let downPdf = document.getElementById("renderPdf");
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    let downPdf = document.getElementById("renderPdf")
     downPdf.onclick = function () {
-        let ele = document.getElementById("cc")
+        let ele = document.getElementById("table")
 
         let eleW = ele.offsetWidth // 获得该容器的宽
         //   let eleH = ele.offsetHeight // 获得该容器的高
@@ -215,11 +200,16 @@
         context.scale(2, 2)   // 增强图片清晰度
         context.translate(-eleOffsetLeft - abs, -eleOffsetTop)
 
-        html2canvas(document.getElementById("cc"), {
+        window.pageYoffset = 0;
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+
+        html2canvas(ele, {
             background: "#fff",
             canvas: canvas2,
             allowTaint: true,
-            useCORS: true
+            useCORS: true,
+            // scale: 1.5
         }).then(can => {
 
             let contentWidth = can.width
@@ -253,7 +243,7 @@
             //当内容未超过pdf一页显示的范围，无需分页
             if (leftHeight < pageHeight) {
                 //在pdf.addImage(pageData, 'JPEG', 左，上，宽度，高度)设置在pdf中显示；
-                pdf.addImage(pageData, "JPEG", 0, 50, imgWidth, imgHeight)
+                pdf.addImage(pageData, "JPEG", 0, 20, imgWidth, imgHeight)
                 // pdf.addImage(pageData, 'JPEG', 20, 40, imgWidth, imgHeight);
             } else {
                 // 分页
@@ -272,6 +262,71 @@
 
 
     }
+    let total = [[${exportStudentInfo.total}]]
+    let x = []
+    let totalScore = []
+    let totalRank = []
+    for (let i = 0; i < total.length; i++) {
+        x[i] = i + 1
+        totalScore[i] = total[i].total
+        totalRank[i] = total[i].major_rank
+    }
+    let option = {
+        xAxis: {
+            type: 'category',
+            data: x
+            // ['第一学期', '第二学期', '第三学期', '第四学期', '第五学期', '第六学期', '第七学期', '第八学期']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: totalScore,
+            type: 'line'
+        }]
+    }
+
+
+    let rewards = [[${exportStudentInfo.rewards}]]
+    let reward = ""
+    let punishment = ""
+    for (let i = 0; i < rewards.length; i++) {
+        if (rewards[i].score > 0) {
+            if (reward == '')
+                reward += rewards[i].synopsis
+            else
+                reward = reward + "、" + rewards[i].synopsis
+        } else {
+            if (punishment == '')
+                punishment += rewards[i].synopsis
+            else
+                punishment = punishment + "、" + rewards[i].synopsis
+        }
+    }
+    if (reward.length == 0) reward = "暂无"
+    if (punishment.length == 0) punishment = "暂无"
+    $("#reward").append(reward)
+    $("#punishment").append(punishment)
+
+
+    let myChart = echarts.init(document.getElementById('score'))
+    myChart.setOption(option)
+    myChart = echarts.init(document.getElementById('rank'))
+    option = {
+        xAxis: {
+            type: 'category',
+            data: x
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: totalRank,
+            type: 'line'
+        }]
+    };
+    myChart.setOption(option)
+
 </script>
 
 </html>

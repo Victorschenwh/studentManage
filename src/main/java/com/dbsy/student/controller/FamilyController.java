@@ -19,20 +19,19 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/family")
-@Authority({Role.Admin})
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School, Role.Student})
 public class FamilyController {
     @Autowired
     @Qualifier("familyServiceImp")
     FamilyService familyService;
 
-    @Authority({Role.Teacher})
     @RequestMapping("")
     public String family() {
         return "stuInfo/family";
     }
 
 
-    @Authority({Role.Teacher})
+
     @RequestMapping("/list")
     @ResponseBody
     public Map list(@RequestParam Map map) {
@@ -79,21 +78,21 @@ public class FamilyController {
         return News.fail("添加失败");
     }
 
-    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", familyService.get(id));
     }
 
-    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getAll")
     public Map getAll() {
         return News.success("成功", familyService.getAll());
     }
 
-    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getFamilyByStudentId/{studentId}")
     public Map getFamilyByStudentId(@PathVariable("studentId") int studentId) {

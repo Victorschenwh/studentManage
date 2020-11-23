@@ -1,11 +1,15 @@
 package com.dbsy.student.service;
 
 import com.dbsy.student.pojo.Teacher;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
 
 public interface TeacherService {
+
+    Teacher selectByUsername(String username);
+
     int insert(Teacher record);
 
     int insertSelective(Teacher record);
@@ -27,5 +31,6 @@ public interface TeacherService {
     Teacher selectByUsernameAndPassword(String username, String password);
 
     Teacher selectByEmail(String email);
+
     int changePWByUsername(Teacher teacher);
 }

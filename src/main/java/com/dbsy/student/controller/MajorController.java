@@ -24,19 +24,19 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/major")
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School, Role.Student})
 public class MajorController {
     @Autowired
     @Qualifier("majorServiceImp")
     MajorService majorService;
 
-    @Authority({Role.Teacher})
+
     @RequestMapping("")
     public String major() {
         return "baseInfo/major";
     }
 
 
-    @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
     public Map list(Map map) {
@@ -99,7 +99,6 @@ public class MajorController {
     }
 
 
-    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getMajorsByDpartmentId/{departmentId}")
     public Map getMajorsByDpartmentId(@PathVariable("departmentId") int departmentId){

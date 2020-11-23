@@ -1,8 +1,15 @@
 server:
   port: 80
 
-#  数据库连接配置
+
 spring:
+  # 热部署
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main
+
+  # 数据库连接配置
   datasource:
     username: root
     password: root

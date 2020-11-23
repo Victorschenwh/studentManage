@@ -5,6 +5,7 @@ import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Score;
 import com.dbsy.student.service.ScoreService;
 import com.dbsy.student.util.News;
+import com.dbsy.student.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -16,11 +17,29 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/score")
-//@Authority({Role.Admin})
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School})
 public class ScoreController {
     @Autowired
     @Qualifier("scoreServiceImp")
     ScoreService scoreService;
+
+
+    @RequestMapping("/slip")
+    public String slip() {
+        return "stuInfo/slip";
+    }
+
+    @RequestMapping("/slipList")
+    @ResponseBody
+    public Map slipList(@RequestParam Map map) {
+        // 获取全部下滑学生
+        List list = scoreService.slip(map);
+        Map m = new HashMap();
+        m.put("total", list.size());
+        m.put("rows", list.subList(Integer.parseInt(map.get("start") + ""), (Integer.parseInt(map.get("start") + "") + Integer.parseInt(map.get("pageSize") + ""))
+                > list.size() ? list.size() : (Integer.parseInt(map.get("start") + "") + Integer.parseInt(map.get("pageSize") + ""))));
+        return m;
+    }
 
     //   @Authority({Role.Teacher})
     @RequestMapping("")
@@ -42,10 +61,10 @@ public class ScoreController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Map list(@RequestParam Map map) {
-        String str= (String) map.get("search");
-        if(str.matches("[a-zA-Z]+")){
-            map.put("abbrName",str);
-            map.put("search","");
+        String str = (String) map.get("search");
+        if (str.matches("[a-zA-Z]+")) {
+            map.put("abbrName", str);
+            map.put("search", "");
         }
         Map m = new HashMap();
         m.put("total", scoreService.countRank(map));
@@ -56,10 +75,10 @@ public class ScoreController {
     @RequestMapping(value = "/totalList", method = RequestMethod.GET)
     @ResponseBody
     public Map totalList(@RequestParam Map map) {
-        String str= (String) map.get("search");
-        if(str.matches("[a-zA-Z]+")){
-            map.put("abbrName",str);
-            map.put("search","");
+        String str = (String) map.get("search");
+        if (str.matches("[a-zA-Z]+")) {
+            map.put("abbrName", str);
+            map.put("search", "");
         }
         Map m = new HashMap();
         m.put("total", scoreService.countTotal(map));

@@ -1,5 +1,7 @@
 package com.dbsy.student.controller;
 
+import com.dbsy.student.annotation.Authority;
+import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Employment;
 
 import com.dbsy.student.pojo.Student;
@@ -18,6 +20,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/employment")
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School, Role.Student})
 public class EmployController {
     @Autowired
     @Qualifier("employmentServiceImp")

@@ -10,6 +10,12 @@
     .item {
         flex: 1;
     }
+
+    ol {
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
 </style>
 <body>
 <div class="container-fluid">
@@ -19,8 +25,38 @@
         <li>学生账号管理</li>
     </ol>
 
+    <div id="toolbar" class="btn-group">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加
+        </button>
+    </div>
+
     <table id="table" data-mobile-responsive="true">
     </table>
+
+    <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">添加</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="请输入教师工号" id="insertNumber">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="insert()">提交</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 <div th:replace="static :: script"></div>
 </body>
@@ -59,7 +95,7 @@
                 //得到查询的参数
                 queryParams: function (params) {
                     return {
-                        departmentId: [[${session.user!=null?session.user.departmentId:null}]],
+                        departmentId: [[${session.user != null ? (session.user.departmentId != null ? session.user.departmentId : 0 ) : 0}]],
                         search: params.search,
                         pageSize: params.limit,
                         page: (params.offset / params.limit) + 1,
@@ -126,13 +162,17 @@
                         field: 'id',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
-                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                            let e = '<a class="btn btn-primary btn-sm" title="编辑" onclick="initPassword(' + row.id + ')">初始化密码</a> ';
+                            let a
+                            if (row.is_lock)
+                                a = '<a class="btn btn-primary btn-sm" title="编辑" onclick="lock(' + row.id + ')">激活账号</a> ';
+                            else
+                                a = '<a class="btn btn-primary btn-sm" title="编辑" onclick="lock(' + row.id + ')">锁定账号</a> ';
+
+                            let d = '<a class="btn btn-warning btn-sm" title="删除" onclick="drop(\''
                                 + row.id
                                 + '\')">删除</a> ';
-                            var m = '<a type="button" class="btn btn-info btn-sm" title="详细信息" data-toggle="modal" data-target="#moreInfo" onclick="getSelf(' + row.id + ')"> <span class="glyphicon glyphicon-user"  ></span> </a>';
-
-                            return e + d + m;
+                            return a + e + d;
                         }
                     }]
             });
@@ -142,145 +182,67 @@
         $('#table').bootstrapTable('refresh');
     }
 
-    function get(id) {
-        // dpIndex(3);
-        s(3);
+    function initPassword(id) {
         $.ajax({
-            //cache: true,
-            type: "POST",
-            url: "/student/get/" + id,
-            data: {},
-            success: function (data) {
-                if (data.code == 1) {
-                    var student = data.data;
-                    for (var key in admin) {
-                        $("#" + key + 3).val(admin[key]);
-                    }
+            type: "GET",
+            url: "/user/initPassword/" + id,
+            success: function (res) {
+                if (res.code == 1) {
+                    reLoad()
+                    alert("密码初始化完成")
+                } else {
+                    alert(res.msg);
                 }
             }
         });
-
-    }
-
-
-    function getSelf(id) {
-        $.ajax({
-            //cache: true,
-            type: "POST",
-            url: "/student/getSelf/" + id,
-            data: {},
-            success: function (data) {
-                if (data.code == 1) {
-                    var student = data.data;
-                    for (var key in admin) {
-                        if (key === 'gender') {
-                            if (admin[key] == 1) {
-                                $("#" + key + 4).val('男');
-                            }
-                            if (admin[key] == 0) {
-                                $("#" + key + 4).val('女');
-                            }
-
-                        } else {
-                            $("#" + key + 4).val(admin[key]);
-                        }
-
-                    }
-                }
-            }
-        });
-
     }
 
 
     function insert() {
         $.ajax({
-            //cache: true,
-            type: "POST",
-            url: "/student/insert",
-            data: $('#insert').serialize(),
-            success: function (data) {
-                console.log(data)
-                if (data.code == 1) {
+            type: "GET",
+            url: "/user/studentInsert/" + $("#insertNumber").val(),
+            success: function (res) {
+                if (res.code == 1) {
                     //操作成功，关闭模态框
                     $('#add').modal('hide');
                     reLoad()
-                    //alert("添加成功");
                 } else {
-                    alert(data.msg);
+                    alert(res.msg);
                 }
             }
         });
     }
 
-    function updata() {
+    function drop(id) {
         $.ajax({
-            //cache: true,
-            type: "POST",
-            url: "/student/updata",
-            data: $('#updata').serialize(),
-            success: function (data) {
-                // console.log(data)
-                if (data.code == 1) {
-                    //操作成功，关闭模态框
-                    $('#edit').modal('hide');
+            type: "GET",
+            url: "/user/delete/" + id,
+            success: function (res) {
+                if (res.code == 1) {
                     reLoad()
-                    //alert("添加成功");
+                    alert("账号删除成功")
                 } else {
-                    alert(data.msg);
+                    alert(res.msg)
                 }
             }
         });
     }
 
-    function remove(id) {
+    function lock(id) {
         $.ajax({
-            type: 'POST',
-            data: {},
-            url: "/student/remove/" + id,
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 1) {
+            type: "GET",
+            url: "/user/nagation/" + id,
+            success: function (res) {
+                if (res.code == 1) {
+                    alert("账号操作完成")
                     reLoad()
-                    //alert("删除成功");
                 } else {
-                    alert("删除失败");
+                    alert(res.msg)
                 }
             }
         });
     }
-
-    function batchRemove() {
-        var rows = $('#table_student').bootstrapTable('getSelections');
-        if (rows == null) {
-            alert("请选中操作的行")
-            return;
-        }
-        //.log(rows);
-        var ids = [];
-        for (var i = 0; i < rows.length; i++) {
-            ids[i] = rows[i].id;
-        }
-        //console.log(ids)
-        $.ajax({
-            type: 'POST',
-            data: {
-                ids: ids
-            },
-            url: "/student/batchRemove",
-            traditional: true,//向后台传递数组时加上
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 1) {
-                    reLoad()
-                    //alert("删除成功");
-                } else {
-                    alert("删除失败");
-                }
-            }
-        });
-    }
-
 
 </script>
 </html>

@@ -3,6 +3,7 @@ package com.dbsy.student.vo;
 import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.pojo.*;
 import com.dbsy.student.service.iml.*;
+import com.dbsy.student.util.PinYinUtil;
 import com.dbsy.student.vo.ImportStudentInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class ImportStudentInfoService implements ExcelSave {
 
     @Autowired
     ClazzServiceImp clazzServiceImp;
+
+    @Autowired
+    AdminServiceImp adminServiceImp;
 
     @Override
     public int excelBatchInsert(List list) {
@@ -65,8 +69,11 @@ public class ImportStudentInfoService implements ExcelSave {
                             importStudentInfo.getPhoneNumber(), importStudentInfo.getEmail(), importStudentInfo.getIdCard(),
                             importStudentInfo.getNativePlace(), null, importStudentInfo.getAdmissionDate(), importStudentInfo.getBirthday(),
                             null, importStudentInfo.getScore(), clazz.getId(), major.getId(), department.getId(), clazz.getGrade(),
-                            importStudentInfo.getAge(), importStudentInfo.getNation(), importStudentInfo.getAddress(),importStudentInfo.getRoom(),importStudentInfo.getStatus());
+                            importStudentInfo.getAge(), importStudentInfo.getNation(), importStudentInfo.getAddress(), importStudentInfo.getRoom(),
+                            importStudentInfo.getStatus());
+                    student.setAbbrName(PinYinUtil.chineseToPinyin(student.getName()) + PinYinUtil.toFirstChar(student.getName()));
                     studentServiceImp.insert(student);
+                    adminServiceImp.insert(Admin.student(student));
                 }
 
                 // List<Family> families = familyServiceImp.getFamilyByStudentId(student.getId());

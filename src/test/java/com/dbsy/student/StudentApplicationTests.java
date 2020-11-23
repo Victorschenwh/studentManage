@@ -1,9 +1,11 @@
 package com.dbsy.student;
 
+import com.dbsy.student.mapper.ScoreMapper;
 import com.dbsy.student.service.AdminService;
 import com.dbsy.student.service.CourseService;
 import com.dbsy.student.service.ScoreService;
 import com.dbsy.student.service.StudentService;
+import com.dbsy.student.slip.Slip;
 import com.dbsy.student.util.PinYinUtil;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -11,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.HashMap;
 
 @SpringBootTest
 class StudentApplicationTests {
@@ -32,12 +36,20 @@ class StudentApplicationTests {
     @Autowired
     AdminService adminService;
 
+    @Autowired
+    ScoreMapper scoreMapper;
+
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
+
+    @Test
+    void test() {
+        log.info(scoreMapper.slip(new HashMap()) + "");
+    }
+
     @Test
     void contextLoads() {
-
 
 
 //        System.out.println("pinYinUtil.toFirstChar(\"王琦\") = " + pinYinUtil.toFirstChar("王琦"));

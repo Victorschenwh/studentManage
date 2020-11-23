@@ -20,19 +20,19 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/reward")
-//@Authority({Role.Admin})
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School})
 public class RewardController {
     @Autowired
     @Qualifier("rewardServiceImp")
     RewardService rewardService;
 
-    //    @Authority({Role.Teacher})
+
     @RequestMapping("")
     public String reward() {
         return "rewinfo/reward";
     }
 
-    //    @Authority({Role.Teacher})
+
     @RequestMapping("/list")
     @ResponseBody
     public Map list(Map map) {

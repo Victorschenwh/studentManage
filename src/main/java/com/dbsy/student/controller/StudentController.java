@@ -1,5 +1,7 @@
 package com.dbsy.student.controller;
 
+import com.dbsy.student.annotation.Authority;
+import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Student;
 import com.dbsy.student.service.StudentService;
 import com.dbsy.student.util.News;
@@ -16,6 +18,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/student")
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School})
 public class StudentController {
 
     @Autowired

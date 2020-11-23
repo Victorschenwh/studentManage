@@ -7,9 +7,11 @@ public enum Role {
     // 辅导员  2018  2017
     //学生 40
     User(),
-    Teacher(1),
     Admin(0),
-    Student(5);
+    School(10),
+    Department(20),
+    Assistant(30),
+    Student(40);
     private Integer role;
 
     private Role() {

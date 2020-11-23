@@ -1,5 +1,7 @@
 package com.dbsy.student.controller;
 
+import com.dbsy.student.annotation.Authority;
+import com.dbsy.student.myenum.Role;
 import com.dbsy.student.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,18 +14,19 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/history")
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School})
 public class HistoryController {
     @Autowired
     HistoryService historyService;
 
     @RequestMapping("")
-    String history() {
+    public String history() {
         return "history/history";
     }
 
     @RequestMapping("/list")
     @ResponseBody
-    Map list(@RequestParam Map map) {
+    public Map list(@RequestParam Map map) {
         Map m = new HashMap();
         m.put("total", historyService.count(map));
         m.put("rows", historyService.list(map));

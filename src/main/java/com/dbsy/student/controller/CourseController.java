@@ -19,21 +19,21 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/course")
-@Authority({Role.Admin})
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School, Role.Student})
 public class CourseController {
 
     @Autowired
     @Qualifier("courseServiceImp")
     CourseService courseService;
 
-    @Authority({Role.Teacher})
+
     @RequestMapping("")
     public String course() {
         return "baseInfo/course";
     }
 
 
-    @Authority({Role.Teacher})
+
     @RequestMapping("/list")
     @ResponseBody
     public Map list(Map map) {
@@ -83,21 +83,21 @@ public class CourseController {
         return News.fail("添加失败");
     }
 
-    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", courseService.get(id));
     }
 
-    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getAll")
     public Map getAll() {
         return News.success("成功", courseService.getAll());
     }
 
-    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getCourseByDepartmentId/{departmentId}")
     public Map getCourseBydepartmentId(@PathVariable("departmentId") int departmentId){

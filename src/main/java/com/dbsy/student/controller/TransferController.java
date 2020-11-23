@@ -28,7 +28,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/transfer")
-//@Authority({Role.Admin})
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School})
 public class TransferController {
     @Autowired
     @Qualifier("transferServiceImp")
@@ -36,7 +36,7 @@ public class TransferController {
     @Autowired
     DepartmentService departmentService;
 
-    //    @Authority({Role.Teacher})
+
     @RequestMapping("")
     public String transfer(Model model, HttpSession session) {
         Admin admin = (Admin) session.getAttribute("user");
@@ -56,10 +56,9 @@ public class TransferController {
     }
 
 
-    //    @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
-    public Map list(@RequestParam Map map,String state) {
+    public Map list(@RequestParam Map map, String state) {
         Map m = new HashMap();
         m.put("total", transferService.listCount(map));
         m.put("rows", transferService.list(map));
@@ -105,21 +104,20 @@ public class TransferController {
         return News.fail("添加失败");
     }
 
-    //    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", transferService.get(id));
     }
 
-    //    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/getAll")
     public Map getAll() {
         return News.success("成功", transferService.getAll());
     }
 
-    //    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getTransferByStudentId/{studentId}")
     public Map getTransferByStudentId(@PathVariable("studentId") int studentId) {
@@ -131,7 +129,7 @@ public class TransferController {
         return News.fail("查找失败");
     }
 
-    //    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getTransferByOldDepartmentId/{oldDepartmentId}")
     public Map getTransferByOldDepartmentId(@PathVariable("oldDepartmentId") int oldDepartmentId) {
@@ -143,7 +141,7 @@ public class TransferController {
         return News.fail("查找失败");
     }
 
-    //    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getTransferByOldMajorId/{oldMajorId}")
     public Map getTransferByOldMajorId(@PathVariable("oldMajorId") int oldMajorId) {
@@ -155,7 +153,7 @@ public class TransferController {
         return News.fail("查找失败");
     }
 
-    //    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getTransferByOldClazzId/{oldClazzId}")
     public Map getTransferByOldClazzId(@PathVariable("oldClazzId") int oldClazzId) {
@@ -167,7 +165,7 @@ public class TransferController {
         return News.fail("查找失败");
     }
 
-    //    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getTransferByNewDepartmentId/{newDepartmentId}")
     public Map getTransferByNewDepartmentId(@PathVariable("newDepartmentId") int newDepartmentId) {
@@ -179,7 +177,7 @@ public class TransferController {
         return News.fail("查找失败");
     }
 
-    //    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getTransferByNewMajorId/{newMajorId}")
     public Map getTransferByNewMajorId(@PathVariable("newMajorId") int newMajorId) {
@@ -191,7 +189,7 @@ public class TransferController {
         return News.fail("查找失败");
     }
 
-    //    @Authority({Role.Teacher})
+
     @ResponseBody
     @RequestMapping("/getTransferByNewClazzId/{newClazzId}")
     public Map getTransferByNewClazzId(@PathVariable("newClazzId") int newClazzId) {
@@ -226,7 +224,7 @@ public class TransferController {
      */
     @ResponseBody
     @RequestMapping("/examine")
-    Map examine(Transfer transfer) {
+    public Map examine(Transfer transfer) {
         transfer.setNewInDate(new Date());
         int i = transferService.updateSelective(transfer);
         if (i > 0) {
@@ -245,7 +243,7 @@ public class TransferController {
 
     @ResponseBody
     @RequestMapping("/updateExamine")
-    Map updateExamine(Transfer transfer) {
+    public Map updateExamine(Transfer transfer) {
         Transfer old_transfer = transferService.get(transfer.getId());
         transfer.setNewInDate(new Date());
         //这次同意
@@ -279,7 +277,7 @@ public class TransferController {
         //这次不同意
         else {
             //上次同意，这次不同意
-            if(old_transfer.getIsPass()){
+            if (old_transfer.getIsPass()) {
                 int i = transferService.updateSelective(transfer);
                 if (i > 0) {
                     Student student = studentService.get(old_transfer.getStudentId());

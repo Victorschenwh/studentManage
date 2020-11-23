@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/index")
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School, Role.Student})
 public class IndexController {
     @Autowired
     DepartmentService departmentService;

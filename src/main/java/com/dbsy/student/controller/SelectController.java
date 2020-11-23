@@ -1,5 +1,7 @@
 package com.dbsy.student.controller;
 
+import com.dbsy.student.annotation.Authority;
+import com.dbsy.student.myenum.Role;
 import com.dbsy.student.service.ClazzService;
 import com.dbsy.student.service.DepartmentService;
 import com.dbsy.student.service.MajorService;
@@ -19,6 +21,7 @@ import java.util.Map;
 @Controller
 @ResponseBody
 @RequestMapping("/select")
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School})
 public class SelectController {
 
 

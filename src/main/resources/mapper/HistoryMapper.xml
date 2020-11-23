@@ -102,7 +102,7 @@
 
 
     <select id="list" resultType="com.dbsy.student.pojo.History">
-        select * from history
+        select * from history  order by id desc
         <if test="page!=null and pageSize != null">
             limit #{start},#{pageSize}
         </if>

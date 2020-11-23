@@ -23,13 +23,13 @@ public class TitleController {
     @Qualifier("titleServiceImp")
     TitleService titleService;
 
-    @Authority({Role.Teacher})
+
     @RequestMapping("")
     public String title() {
         return "baseInfo/title";
     }
 
-    @Authority({Role.Teacher})
+
     @RequestMapping("/list")
     @ResponseBody
     public Map list(Map map) {
@@ -77,14 +77,13 @@ public class TitleController {
         return News.fail("编辑失败");
     }
 
-    @Authority({Role.Teacher})
     @ResponseBody
     @RequestMapping("/get/{id}")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", titleService.get(id));
     }
 
-    @Authority({Role.Teacher})
+
     @RequestMapping("/getAll")
     @ResponseBody
     public Map getAll() {

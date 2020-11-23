@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface AdminService {
+    Admin select(Integer id);
+
+    Admin findByRoleAndForeignId(Integer role, Integer foreignId);
 
     int insert(Admin record);
 
@@ -35,4 +38,5 @@ public interface AdminService {
 
     List<Map> findSchoolLeader(Map map);
 
+    int delete(Integer id);
 }

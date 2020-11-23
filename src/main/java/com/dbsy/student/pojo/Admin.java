@@ -21,6 +21,28 @@ public class Admin {
 
     private Integer departmentId;
 
+    /**
+     * 学生用户初始化
+     *
+     * @param student
+     * @return
+     */
+    public static Admin student(Student student) {
+        return new Admin(null, student.getNumber(), student.getIdCard().substring(student.getIdCard().length() - 6), student.getName(),
+                student.getPhoneNumber(), student.getEmail(), false, 40, student.getId(), null);
+    }
+
+    /**
+     * 教师用户初始化
+     *
+     * @param teacher
+     * @return
+     */
+    public static Admin teacher(Teacher teacher) {
+        return new Admin(null, teacher.getUsername(), teacher.getPhoneNumber().substring(teacher.getPhoneNumber().length() - 6),
+                teacher.getName(), teacher.getPhoneNumber(), teacher.getEmail(), false, teacher.getLevel(), teacher.getId(), teacher.getDepartmentId());
+    }
+
     public Admin(Integer id, String username, String password, String nickname, String phoneNumber, String email,
                  Boolean isLock, Integer role, Integer foreignId, Integer departmentId) {
         this.id = id;

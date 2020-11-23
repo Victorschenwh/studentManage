@@ -1,5 +1,6 @@
 package com.dbsy.student.service.iml;
 
+import com.dbsy.student.annotation.Authority;
 import com.dbsy.student.mapper.AdminMapper;
 import com.dbsy.student.pojo.Admin;
 import com.dbsy.student.service.AdminService;
@@ -10,9 +11,20 @@ import java.util.List;
 import java.util.Map;
 
 @Service("adminServiceImp")
+@Authority({})
 public class AdminServiceImp implements AdminService {
     @Autowired
     AdminMapper adminMapper;
+
+    @Override
+    public Admin select(Integer id) {
+        return adminMapper.select(id);
+    }
+
+    @Override
+    public Admin findByRoleAndForeignId(Integer role, Integer foreignId) {
+        return adminMapper.findByRoleAndForeignId(role, foreignId);
+    }
 
     @Override
     public int insert(Admin record) {
@@ -95,6 +107,11 @@ public class AdminServiceImp implements AdminService {
             map.put("pageSize", pageSize);
         }
         return adminMapper.findSchoolLeader(map);
+    }
+
+    @Override
+    public int delete(Integer id) {
+        return adminMapper.delete(id);
     }
 
 }

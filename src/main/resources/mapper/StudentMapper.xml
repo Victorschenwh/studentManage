@@ -1,32 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.StudentMapper">
-    <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Student">
-        <constructor>
-            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="number" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="gender" javaType="java.lang.Boolean" jdbcType="BIT"/>
-            <arg column="phone_number" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="id_card" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="native_place" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="photo" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="admission_date" javaType="java.util.Date" jdbcType="DATE"/>
-            <arg column="birthday" javaType="java.util.Date" jdbcType="DATE"/>
-            <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="score" javaType="java.lang.Float" jdbcType="REAL"/>
-            <arg column="clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="major_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="department_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="grade" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="age" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="nation" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="room" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        </constructor>
-    </resultMap>
+
     <insert id="insert" parameterType="com.dbsy.student.pojo.Student" useGeneratedKeys="true"
             keyProperty="id">
     insert into student (id, number, name, 
@@ -35,14 +10,15 @@
       admission_date, birthday, password, 
       score, clazz_id, major_id, 
       department_id, grade, age, 
-      nation,address,room,status)
+      nation,address,room,status,isDel,abbr_name,CET4,CET6)
     values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{gender,jdbcType=BIT}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{idCard,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
       #{admissionDate,jdbcType=DATE}, #{birthday,jdbcType=DATE}, #{password,jdbcType=VARCHAR}, 
       #{score,jdbcType=REAL}, #{clazzId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, 
       #{departmentId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, #{age,jdbcType=INTEGER},
-      #{nation,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{room,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR})
+      #{nation,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{room,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR},#{isdel},#{abbrName},#{cet4},#{cet6})
   </insert>
 
     <!--批量增加-->
@@ -53,7 +29,7 @@
         admission_date, birthday, password,
         score, clazz_id, major_id,
         department_id, grade, age,
-        nation,address,room,status)
+        nation,address,room,status,isDel,abbr_name,CET4,CET6)
         VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.id,jdbcType=INTEGER}, #{item.number,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR},
@@ -62,7 +38,8 @@
             #{item.admissionDate,jdbcType=DATE}, #{item.birthday,jdbcType=DATE}, #{item.password,jdbcType=VARCHAR},
             #{item.score,jdbcType=REAL}, #{item.clazzId,jdbcType=INTEGER}, #{item.majorId,jdbcType=INTEGER},
             #{item.departmentId,jdbcType=INTEGER}, #{item.grade,jdbcType=INTEGER}, #{item.age,jdbcType=INTEGER},
-            #{item.nation,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR}, #{item.room,jdbcType=VARCHAR},#{item.status,jdbcType=VARCHAR})
+            #{item.nation,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR}, #{item.room,jdbcType=VARCHAR},
+            #{item.status,jdbcType=VARCHAR},#{item.isdel},#{item.abbrName},#{item.cet4},#{item.cet6})
         </foreach>
     </insert>
 
@@ -136,6 +113,18 @@
             <if test="status != null">
                 status,
             </if>
+            <if test="isdel != null">
+                isDel,
+            </if>
+            <if test="abbrName != null">
+                abbr_name,
+            </if>
+            <if test="cet4 != null">
+                CET4,
+            </if>
+            <if test="cet6 != null">
+                CET6,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -203,6 +192,18 @@
             </if>
             <if test="status != null">
                 #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="isdel != null">
+                #{isdel},
+            </if>
+            <if test="abbrName != null">
+                #{abbrName},
+            </if>
+            <if test="cet4 != null">
+                #{cet4},
+            </if>
+            <if test="cet6 != null">
+                #{cet6},
             </if>
         </trim>
     </insert>

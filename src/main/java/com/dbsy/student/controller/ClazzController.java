@@ -18,21 +18,20 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/clazz")
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School, Role.Student})
 public class ClazzController {
 
     @Autowired
     @Qualifier("clazzServiceImp")
     ClazzService clazzService;
 
-    @Authority({Role.Teacher})
+
     @RequestMapping("")
     public String clazz() {
         return "baseInfo/clazz";
     }
 
 
-
-    @Authority({Role.Teacher})
     @RequestMapping("/list")
     @ResponseBody
     public Map list(Map map) {
@@ -41,7 +40,6 @@ public class ClazzController {
         m.put("rows", clazzService.list(map));
         return m;
     }
-
 
 
     @ResponseBody
@@ -98,10 +96,10 @@ public class ClazzController {
 
     @ResponseBody
     @RequestMapping("/getClazzByMajorId/{majorId}")
-    public Map getClazzBymajorId(@PathVariable("majorId") int majorId){
+    public Map getClazzBymajorId(@PathVariable("majorId") int majorId) {
         List list = clazzService.getClazzByMajorId(majorId);
         if (list != null) {
-            return News.success("成功",list);
+            return News.success("成功", list);
 
         }
         return News.fail("查找失败");

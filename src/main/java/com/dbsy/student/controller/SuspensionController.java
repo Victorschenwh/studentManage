@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/suspension")
-//@Authority({Role.Admin})
+@Authority({Role.Admin, Role.Department, Role.Assistant, Role.School})
 public class SuspensionController {
     @Autowired
     @Qualifier("SuspensionServiceImp")

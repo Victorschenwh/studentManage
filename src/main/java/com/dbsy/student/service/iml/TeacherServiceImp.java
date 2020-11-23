@@ -26,6 +26,11 @@ public class TeacherServiceImp implements TeacherService {
 
 
     @Override
+    public Teacher selectByUsername(String username) {
+        return teacherMapper.selectByUsername(username);
+    }
+
+    @Override
     @Transactional
     public int insert(Teacher record) {
         return teacherMapper.insert(record);
