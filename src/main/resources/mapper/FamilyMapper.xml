@@ -108,7 +108,7 @@
                 and grade=#{grade}
             </if>
         </where>
-        <if test="start !=null and end != null">
+        <if test="start !=null and pageSize != null">
             limit #{start},#{end}
         </if>
     </select>

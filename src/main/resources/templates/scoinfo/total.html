@@ -15,7 +15,6 @@
 <div class="container-fluid">
 
     <ol class="breadcrumb">
-        <li>首页</li>
         <li>成绩管理</li>
         <li class="active">综合测评</li>
     </ol>
@@ -99,17 +98,16 @@
     let downParams
 
     $("#table1").keydown(function (e) {
-        if(e.keyCode==13){
-            let temp=null
-            var contentList=document.getElementsByClassName('search-input')
-            temp=contentList[0].value
+        if (e.keyCode == 13) {
+            let temp = null
+            var contentList = document.getElementsByClassName('search-input')
+            temp = contentList[0].value
             // console.log(temp)
-            if(temp != null){
-                downParams['search']=temp
+            if (temp != null && temp != "") {
+                downParams['search'] = temp
+                downParams.page = 1
+                $('#table_score').bootstrapTable('refresh', {query: downParams})
             }
-
-            $('#table_score').bootstrapTable('refresh',{query: downParams})
-
         }
 
     });
@@ -149,9 +147,8 @@
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
-                        search_key: $("#search_key").val(),
                         search: params.search,
-                        type: 'student'
+                        pageSize: params.limit,
                     }
                     return {
                         pageSize: params.limit,                         //页面大小

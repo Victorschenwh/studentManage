@@ -1,6 +1,7 @@
 package com.dbsy.student.controller;
 
 import com.dbsy.student.annotation.Authority;
+import com.dbsy.student.annotation.Remarks;
 import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Student;
 import com.dbsy.student.vo.ExportStudentInfoService;
@@ -32,11 +33,13 @@ public class MonitoringController {
     ExportStudentInfoService exportStudentInfoService;
 
     @RequestMapping("")
+    @Remarks("学业监控页面")
     public String monitoring() {
         return "stuInfo/monitoring";
     }
 
     @RequestMapping("/pdf/{id}")
+    @Remarks("个人学业监控表格")
     public String pdf(@PathVariable("id") int id, Model model) {
         model.addAttribute("exportStudentInfo",exportStudentInfoService.get(id));
         return "stuInfo/profile";
@@ -45,51 +48,12 @@ public class MonitoringController {
 
     @RequestMapping("/list")
     @ResponseBody
+    @Remarks("学业监控列表")
     public Map list(@RequestParam Map map) {
         Map m = new HashMap();
-        String str= (String) map.get("search");
-        if(str.matches("[a-zA-Z]+")){
-            map.put("abbrName",str);
-            map.put("search","");
-        }
         m.put("total", studentService.listCount(map));
         m.put("rows", studentService.list(map));
         return m;
     }
 
-
-    @ResponseBody
-    @RequestMapping("/remove/{id}")
-    public Map remove(@PathVariable("id") int id) {
-        if (studentService.delete(id) > 0) {
-            return News.success();
-        }
-        return News.fail("删除失败");
-    }
-
-    @ResponseBody
-    @RequestMapping("/batchRemove")
-    public Map batchRemove(int[] ids) {
-        if (studentService.batchRemove(ids) == ids.length) {
-            return News.success();
-        }
-        return News.fail("删除失败");
-    }
-
-    @ResponseBody
-    @RequestMapping("/insert")
-    public Map insert(Student student) {
-        if (studentService.insert(student) > 0) {
-            return News.success();
-        }
-        return News.fail("添加失败");
-    }
-
-
-    @ResponseBody
-    @RequestMapping("/get/{id}")
-    public Map get(@PathVariable("id") int id) {
-        Student student = studentService.get(id);
-        return student != null ? News.success("OK", student) : News.fail("不存在");
-    }
 }

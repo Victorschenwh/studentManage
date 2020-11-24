@@ -50,16 +50,10 @@ public class RetardationController {
             map.put("isPass", false);
         }
 
-        String str= (String) map.get("search");
-        if(str.matches("[a-zA-Z]+")){
-            map.put("abbrName",str);
-            map.put("search","");
-        }
         Map m = new HashMap();
         m.put("total", retardationService.listCount(map));
         m.put("rows", retardationService.list(map));
 
-        log.info(m.toString());
         return m;
     }
 

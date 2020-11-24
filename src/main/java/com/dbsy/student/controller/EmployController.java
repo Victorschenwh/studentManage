@@ -1,6 +1,7 @@
 package com.dbsy.student.controller;
 
 import com.dbsy.student.annotation.Authority;
+import com.dbsy.student.annotation.Remarks;
 import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Employment;
 
@@ -33,12 +34,8 @@ public class EmployController {
 
     @RequestMapping("/list")
     @ResponseBody
+    @Remarks("获取就业信息列表")
     public Map list(@RequestParam Map map) {
-        String str= (String) map.get("search");
-        if(str.matches("[a-zA-Z]+")){
-            map.put("abbrName",str);
-            map.put("search","");
-        }
         Map m = new HashMap();
         m.put("total", employmentService.listCount(map));
         m.put("rows", employmentService.list(map));
@@ -47,6 +44,7 @@ public class EmployController {
 
     @ResponseBody
     @RequestMapping("/get/{id}")
+    @Remarks("获取个人就业信息")
     public Map get(@PathVariable("id") int id) {
         Employment employment = employmentService.get(id);
         return employment != null ? News.success("OK", employment) : News.fail("学生不存在");
@@ -54,6 +52,7 @@ public class EmployController {
 
     @ResponseBody
     @RequestMapping("/remove/{id}")
+    @Remarks("移除个人就业信息")
     public Map remove(@PathVariable("id") int id) {
         if (employmentService.delete(id) > 0) {
             return News.success();
@@ -63,6 +62,7 @@ public class EmployController {
 
     @ResponseBody
     @RequestMapping("/batchRemove")
+    @Remarks("批量移除个人就业信息")
     public Map batchRemove(int[] ids) {
         if (employmentService.batchRemove(ids) == ids.length) {
             return News.success();
@@ -72,6 +72,7 @@ public class EmployController {
 
     @ResponseBody
     @RequestMapping("/insert")
+    @Remarks("增加个人就业信息")
     public Map insert(Employment employment) {
         if (employmentService.insert(employment) > 0) {
             return News.success();
@@ -81,6 +82,7 @@ public class EmployController {
 
     @ResponseBody
     @RequestMapping("/update")
+    @Remarks("修改个人就业信息")
     public Map update(Employment employment) {
         if (employmentService.update(employment) > 0) {
             return News.success();

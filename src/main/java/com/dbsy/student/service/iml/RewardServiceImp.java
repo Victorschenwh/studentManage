@@ -1,21 +1,11 @@
 package com.dbsy.student.service.iml;
 
 import com.dbsy.student.excel.ExcelSave;
-import com.dbsy.student.mapper.FamilyMapper;
 import com.dbsy.student.mapper.RewardMapper;
-import com.dbsy.student.mapper.ScoreMapper;
-import com.dbsy.student.pojo.Family;
 import com.dbsy.student.pojo.Reward;
-import com.dbsy.student.pojo.Score;
-import com.dbsy.student.service.FamilyService;
 import com.dbsy.student.service.RewardService;
-import com.dbsy.student.service.ScoreService;
+import com.dbsy.student.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,12 +41,12 @@ public class RewardServiceImp implements RewardService, ExcelSave {
 
     @Override
     public int listCount(Map map) {
-        return rewardMapper.listCount(map);
+        return rewardMapper.listCount(QueryUtil.query(map));
     }
 
     @Override
-    public List<Reward> list(Map map) {
-        return rewardMapper.list(map);
+    public List<Map> list(Map map) {
+        return rewardMapper.list(QueryUtil.query(map));
     }
 
     @Override

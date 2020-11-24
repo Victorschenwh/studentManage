@@ -1,6 +1,7 @@
 package com.dbsy.student.controller;
 
 import com.dbsy.student.annotation.Authority;
+import com.dbsy.student.annotation.Remarks;
 import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Family;
 import com.dbsy.student.service.FamilyService;
@@ -31,9 +32,9 @@ public class FamilyController {
     }
 
 
-
     @RequestMapping("/list")
     @ResponseBody
+    @Remarks("获取家庭信息列表")
     public Map list(@RequestParam Map map) {
         Map m = new HashMap();
         m.put("total", familyService.listCount(map));
@@ -43,6 +44,7 @@ public class FamilyController {
 
     @ResponseBody
     @RequestMapping("/remove/{id}")
+    @Remarks("移除家庭信息")
     public Map remove(@PathVariable("id") int id) {
         if (familyService.delete(id) > 0) {
             return News.success();
@@ -52,6 +54,7 @@ public class FamilyController {
 
     @ResponseBody
     @RequestMapping("/batchRemove")
+    @Remarks("批量移除家庭信息")
     public Map batchRemove(int[] ids) {
 
         if (familyService.batchRemove(ids) == ids.length) {
@@ -62,6 +65,7 @@ public class FamilyController {
 
     @ResponseBody
     @RequestMapping("/insert")
+    @Remarks("增加家庭信息")
     public Map insert(Family family) {
         if (familyService.insert(family) > 0) {
             return News.success();
@@ -71,6 +75,7 @@ public class FamilyController {
 
     @ResponseBody
     @RequestMapping("/update")
+    @Remarks("修改家庭信息")
     public Map update(Family family) {
         if (familyService.update(family) > 0) {
             return News.success();
@@ -81,6 +86,7 @@ public class FamilyController {
 
     @ResponseBody
     @RequestMapping("/get/{id}")
+    @Remarks("获取单条家庭信息")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", familyService.get(id));
     }
@@ -88,6 +94,7 @@ public class FamilyController {
 
     @ResponseBody
     @RequestMapping("/getAll")
+    @Remarks("获取全部家庭信息")
     public Map getAll() {
         return News.success("成功", familyService.getAll());
     }
@@ -95,6 +102,7 @@ public class FamilyController {
 
     @ResponseBody
     @RequestMapping("/getFamilyByStudentId/{studentId}")
+    @Remarks("获取学生家庭信息")
     public Map getFamilyByStudentId(@PathVariable("studentId") int studentId) {
         List list = familyService.getFamilyByStudentId(studentId);
         if (list != null) {

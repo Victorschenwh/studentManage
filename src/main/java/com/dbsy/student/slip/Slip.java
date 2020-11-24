@@ -25,11 +25,20 @@ public class Slip {
                 if (id == Integer.parseInt(map.get("id") + "")) {
                     slip = Integer.parseInt(map.get("major_rank") + "") - rank;
                     rank = Integer.parseInt(map.get("major_rank") + "");
-                } else {
-                    if (slip != 0 && slip > 0) {
+
+                    if (slip > 0) {
                         list.get(i - 1).put("slip", slip);
+                        if (this.list.size() > 0 && id == Integer.parseInt(this.list.get(this.list.size() - 1).get("id") + "")) {
+                            this.list.remove(this.list.size() - 1);
+                        }
                         this.list.add(list.get(i - 1));
                     }
+
+                } else {
+                  /*  if (slip > 0) {
+                        list.get(i - 1).put("slip", slip);
+                        this.list.add(list.get(i - 1));
+                    }*/
                     id = Integer.parseInt(map.get("id") + "");
                     rank = Integer.parseInt(map.get("major_rank") + "");
                     slip = 0;

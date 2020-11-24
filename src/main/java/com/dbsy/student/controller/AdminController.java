@@ -1,6 +1,7 @@
 package com.dbsy.student.controller;
 
 import com.dbsy.student.annotation.Authority;
+import com.dbsy.student.annotation.Remarks;
 import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Admin;
 import com.dbsy.student.pojo.Student;
@@ -28,20 +29,24 @@ public class AdminController {
     AdminService adminService;
 
     @RequestMapping("/student")
+    @Remarks("权限管理/学生")
     public String stu() {
         return "auth/student";
     }
 
     @RequestMapping("/assistant")
+    @Remarks("权限管理/辅导员")
     public String ass() {
         return "auth/assistant";
     }
 
     @RequestMapping("/depLead")
+    @Remarks("权限管理/院领导")
     public String deLead() {
         return "auth/departLeader";
     }
 
+    @Remarks("权限管理/校领导")
     @RequestMapping("/scLead")
     public String admin() {
         return "auth/schLeader";
@@ -49,13 +54,14 @@ public class AdminController {
 
     @RequestMapping("/studentList")
     @ResponseBody
+    @Remarks("权限管理/学生账号列表")
     public Map list(@RequestParam Map map) {
         Map m = new HashMap();
         m.put("total", adminService.findAdminCount(map));
         m.put("rows", adminService.findAdmin(map));
         return m;
     }
-
+    @Remarks("权限管理/管理员账号列表")
     @RequestMapping("/assistantList")
     @ResponseBody
     public Map assList(@RequestParam Map map) {
@@ -66,6 +72,7 @@ public class AdminController {
     }
 
     @RequestMapping("/departList")
+    @Remarks("权限管理/院领导账号列表")
     @ResponseBody
     public Map deList(@RequestParam Map map) {
         Map m = new HashMap();
@@ -75,6 +82,7 @@ public class AdminController {
     }
 
     @RequestMapping("/schList")
+    @Remarks("权限管理/校领导账号列表")
     @ResponseBody
     public Map scList(@RequestParam Map map) {
         Map m = new HashMap();
@@ -89,6 +97,7 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping("/studentInsert/{number}")
+    @Remarks("权限管理/新增学生账号")
     public Map insertStudent(@PathVariable("number") String number, HttpSession httpSession) {
         Student student = studentService.selectByNumber(number);
         Admin admin = (Admin) httpSession.getAttribute("user");
@@ -120,6 +129,7 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping("/teacherInsert/{number}")
+    @Remarks("权限管理/新增老师账号")
     public Map insertTeacher(@PathVariable("number") String number, HttpSession httpSession) {
         Teacher teacher = (Teacher) teacherService.selectByUsername(number);
 
@@ -161,6 +171,7 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping("/initPassword/{id}")
+    @Remarks("权限管理/密码初始化")
     public Map initPassword(@PathVariable("id") Integer id, HttpSession httpSession) {
 
         Admin loginUser = (Admin) httpSession.getAttribute("user");
@@ -215,6 +226,7 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping("/nagation/{id}")
+    @Remarks("权限管理/激活、锁定账号")
     public Map negation(@PathVariable("id") Integer id, HttpSession httpSession) {
 
         Admin loginUser = (Admin) httpSession.getAttribute("user");
@@ -270,6 +282,7 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping("/delete/{id}")
+    @Remarks("权限管理/账号删除")
     public Map delete(@PathVariable("id") Integer id, HttpSession httpSession) {
 
         Admin loginUser = (Admin) httpSession.getAttribute("user");

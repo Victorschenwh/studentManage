@@ -103,14 +103,12 @@
             var contentList = document.getElementsByClassName('search-input')
             temp = contentList[0].value
             // console.log(temp)
-            if (temp != null) {
+            if (temp != null && temp != "") {
                 downParams['search'] = temp
+                downParams.page = 1
+                $('#table_score').bootstrapTable('refresh', {query: downParams})
             }
-
-            $('#table_score').bootstrapTable('refresh', {query: downParams})
-
         }
-
     });
 
     function load() {
@@ -147,15 +145,14 @@
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
-                        search_key: $("#search_key").val(),
+                        pageSize: params.limit,
                         search: params.search,
-                        type: 'student'
                     }
                     return {
-                        pageSize: params.limit,                         //页面大小
-                        page: (params.offset / params.limit) + 1,   //页码
-                        //sort: params.sort,      //排序列名
-                        //sortOrder: params.order //排位命令（desc，asc）
+                        pageSize: params.limit, // 页面大小
+                        page: (params.offset / params.limit) + 1, // 页码
+                        //sort: params.sort,      // 排序列名
+                        //sortOrder: params.order // 排位命令（desc，asc）
                         departmentId: $("#departmentId").val(),
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),

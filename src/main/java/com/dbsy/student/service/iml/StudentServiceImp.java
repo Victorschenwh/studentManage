@@ -4,6 +4,7 @@ import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.StudentMapper;
 import com.dbsy.student.pojo.Student;
 import com.dbsy.student.service.StudentService;
+import com.dbsy.student.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,18 +49,12 @@ public class StudentServiceImp implements StudentService, ExcelSave {
 
     @Override
     public int listCount(Map map) {
-        return studentMapper.listCount(map);
+        return studentMapper.listCount(QueryUtil.query(map));
     }
 
     @Override
     public List<Student> list(Map map) {
-        if (map.get("page") != null) {
-            int page = Integer.parseInt(map.get("page") + "");
-            int pageSize = Integer.parseInt(map.get("pageSize") + "");
-            map.put("start", (page - 1) * pageSize);
-            map.put("end", pageSize);
-        }
-        return studentMapper.list(map);
+        return studentMapper.list(QueryUtil.query(map));
     }
 
     @Override

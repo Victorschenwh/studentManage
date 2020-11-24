@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.RetardationMapper">
-    <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Retardation">
-        <constructor>
-            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="old_department_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="old_major_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="old_clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="new_department_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="new_major_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="new_clazz_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="save_date" javaType="java.util.Date" jdbcType="DATE"/>
-            <arg column="is_pass" javaType="java.lang.Boolean" jdbcType="BIT"/>
-            <arg column="result" javaType="java.lang.Boolean" jdbcType="BIT"/>
-            <arg column="remarks" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        </constructor>
-    </resultMap>
+
     <insert id="insert" parameterType="com.dbsy.student.pojo.Retardation">
     insert into retardation (id, student_id, old_department_id, 
       old_major_id, old_clazz_id, new_department_id, 
@@ -173,19 +158,22 @@
             <if test="grade != null and grade != 0">
                 and grade=#{grade}
             </if>
-            <if test="search != null">
-                and s.name like CONCAT('%',#{search},'%')
-            </if>
+
             <if test="abbrName != null">
                 and s.abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="search != null">
-                or number=#{search}
+            <if test="number != null">
+                and s.number like CONCAT('%',#{number},'%')
             </if>
+            <if test="name != null">
+                and s.name like CONCAT('%',#{name},'%')
+            </if>
+
+
         </where>
 
-        <if test="start !=null and end != null">
-            limit #{start},#{end}
+        <if test="start !=null and pageSize != null">
+            limit #{start},#{pageSize}
         </if>
     </select>
 
@@ -207,14 +195,15 @@
             <if test="grade != null and grade != 0">
                 and grade=#{grade}
             </if>
-            <if test="search != null">
-                and s.name like CONCAT('%',#{search},'%')
-            </if>
+
             <if test="abbrName != null">
                 and s.abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="search != null">
-                or number=#{search}
+            <if test="number != null">
+                and s.number like CONCAT('%',#{number},'%')
+            </if>
+            <if test="name != null">
+                and s.name like CONCAT('%',#{name},'%')
             </if>
         </where>
     </select>
@@ -227,7 +216,8 @@
         VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=INTEGER}, #{item.oldDepartmentId,jdbcType=BIT},
-            #{item.oldMajorId,jdbcType=VARCHAR}, #{item.oldClazzId,jdbcType=INTEGER}, #{item.newDepartmentId,jdbcType=VARCHAR}
+            #{item.oldMajorId,jdbcType=VARCHAR}, #{item.oldClazzId,jdbcType=INTEGER},
+            #{item.newDepartmentId,jdbcType=VARCHAR}
             #{item.newMajorId,jdbcType=VARCHAR},#{item.newClazzId,jdbcType=VARCHAR},#{item.saveDate,jdbcType=VARCHAR},#{item.isPass,jdbcType=VARCHAR},
             #{item.result,jdbcType=VARCHAR},#{item.remarks,jdbcType=VARCHAR},)
         </foreach>

@@ -1,59 +1,64 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="static :: head">
+<head th:replace="static :: head"></head>
+<style>
+    .select {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .item {
+        flex: 1;
+    }
+</style>
 <body>
 <div class="container-fluid">
     <ol class="breadcrumb">
-        <li>首页</li>
         <li>奖助贷惩</li>
         <li class="active">奖助贷惩</li>
     </ol>
 
-    <div class="form-group">
-        <div class="col-md-3">
-            <select id="departmentId" class="form-control">
-            </select>
-        </div>
-        <div class="col-md-3">
-            <select id="majorId" class="form-control"
-                    required>
-                <option value="">
-                    --请选择专业--
-                </option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <select id="grade" class="form-control">
+    <div id="toolbar" class="btn-group">
+        <button id="btn_download" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载表格
+        </button>
 
-            </select>
-        </div>
-        <div class="col-md-3">
-            <select id="clazzId" class="form-control">
-                <option value="">
-                    --请选择班级--
-                </option>
-            </select>
-        </div>
-    </div>
+        <button id="btn_upload" type="button" class="btn btn-primary" onclick="">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传
+        </button>
 
-    <div class="row">
-        <div id="toolbar" class="btn-group ">
-            <button id="btn_upload" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
-            </button>
+        <div class="select">
+            <div class="item">
+                <select id="departmentId" class="form-control">
+                </select>
+            </div>
+            <div class="item">
+                <select id="majorId" class="form-control"
+                        required>
+                    <option value="">
+                        --请选择专业--
+                    </option>
+                </select>
+            </div>
+            <div class="item">
+                <select id="grade" class="form-control">
 
-            <button id="btn_download" type="button" class="btn btn-danger" onclick="">
-                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
-            </button>
-
-            <input type="text" id="search_key" placeholder="请输入关键字"/>
-
+                </select>
+            </div>
+            <div class="item">
+                <select id="clazzId" class="form-control">
+                    <option value="">
+                        --请选择班级--
+                    </option>
+                </select>
+            </div>
         </div>
     </div>
 
-
-    <table id="table_reward" data-mobile-responsive="true">
-    </table>
+    <div id="table">
+        <table id="table_reward" data-mobile-responsive="true">
+        </table>
+    </div>
 
     <!--模态框-->
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -137,6 +142,23 @@
         }
     });
 
+    let downParams
+
+    $("#table").keydown(function (e) {
+        if (e.keyCode == 13) {
+            let temp = null
+            let contentList = document.getElementsByClassName('search-input')
+            temp = contentList[0].value
+            // console.log(temp)
+            if (temp != null && temp != "") {
+                downParams['search'] = temp
+                downParams.page = 1
+                $('#table_reward').bootstrapTable('refresh', {query: downParams})
+            }
+        }
+
+    });
+
 
     function load() {
         $('#table_reward')
@@ -152,22 +174,29 @@
                 sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
                 pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
                 pageSize: 10,                     //每页的记录行数（*）
-                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-                search: false,                      //是否显示表格搜索
+                pageList: [10, 20, 30],        //可供选择的每页的行数（*）
+                search: true,                      //是否显示表格搜索
+                showSearchButton: true,
                 strictSearch: true,
                 showColumns: true,                  //是否显示所有的列（选择显示的列）
-                showRefresh: true,                  //是否显示刷新按钮
+                showRefresh: false,                  //是否显示刷新按钮
                 minimumCountColumns: 2,             //最少允许的列数
-                clickToSelect: true,                //是否启用点击选中行
+                clickToSelect: false,                //是否启用点击选中行
                 //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
                 uniqueId: "id",                     //每一行的唯一标识，一般为主键列
-                showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
+                showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
                 detailView: false,                  //是否显示父子表
                 //得到查询的参数
                 queryParams: function (params) {
-                    console.log("list:" + params)
-                    //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+                    downParams = {
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        search: params.search,
+                        pageSize: params.limit,
+                    }
                     return {
                         pageSize: params.limit,                         //页面大小
                         page: (params.offset / params.limit) + 1,   //页码
@@ -177,7 +206,7 @@
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
-                        search_key: $("#search_key").val()
+                        search: params.search,
                     };
                 },
                 columns: [{
@@ -190,10 +219,10 @@
                     field: 'name',
                     title: '姓名',
                 }, {
-                    field: 'departmentId',
+                    field: 'department_id',
                     title: '学院',
                     formatter: function (value, row, index) {
-                        var depart = {};
+                        let depart = {};
                         if (value != null) {
                             $.ajax({
                                 //cache: true,
@@ -213,10 +242,10 @@
                     }
 
                 }, {
-                    field: 'majorId',
+                    field: 'major_id',
                     title: '专业',
                     formatter: function (value, row, index) {
-                        var major = {};
+                        let major = {};
                         if (value != null) {
                             $.ajax({
                                 //cache: true,
@@ -235,10 +264,10 @@
                         return major != null ? major.name : "";
                     }
                 }, {
-                    field: 'clazzId',
+                    field: 'clazz_id',
                     title: '班级',
                     formatter: function (value, row, index) {
-                        var clazz = {};
+                        let clazz = {};
                         if (value != null) {
                             $.ajax({
                                 //cache: true,
@@ -257,24 +286,24 @@
                         return clazz != null ? clazz.name : "";
                     }
                 }, {
-                        field: 'synopsis',
-                        title: '奖惩记录'
-                    }, {
-                        field: 'type',
-                        title: '类型'
-                    }, {
-                        title: '操作',
-                        field: 'id',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
-                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
-                                + row.id
-                                + '\')">删除</a> ';
+                    field: 'synopsis',
+                    title: '奖惩记录'
+                }, {
+                    field: 'type',
+                    title: '类型'
+                }, {
+                    title: '操作',
+                    field: 'id',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
+                        var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
+                            + row.id
+                            + '\')">删除</a> ';
 
-                            return e + d;
-                        }
-                    }]
+                        return e + d;
+                    }
+                }]
             });
     }
 

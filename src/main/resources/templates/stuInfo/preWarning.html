@@ -107,12 +107,11 @@
             var contentList=document.getElementsByClassName('search-input')
             temp=contentList[0].value
             // console.log(temp)
-            if(temp != null){
-                downParams['search']=temp
+            if (temp != null && temp != "") {
+                downParams['search'] = temp
+                downParams.page = 1
+                $('#table_warning').bootstrapTable('refresh', {query: downParams})
             }
-
-            $('#table_warning').bootstrapTable('refresh',{query: downParams})
-
         }
 
     });
@@ -152,9 +151,8 @@
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
-                        search_key: $("#search_key").val(),
                         search: params.search,
-                        type: 'student'
+                        pageSize: params.limit,
                     }
                     return {
                         pageSize: params.limit,                         //页面大小
@@ -165,7 +163,6 @@
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
-                        search_key: $("#search_key").val(),
                         search: params.search
                     };
                 },

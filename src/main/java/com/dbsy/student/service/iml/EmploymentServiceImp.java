@@ -5,6 +5,7 @@ import com.dbsy.student.mapper.EmploymentMapper;
 import com.dbsy.student.pojo.Employment;
 import com.dbsy.student.pojo.Student;
 import com.dbsy.student.service.EmploymentService;
+import com.dbsy.student.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,18 +44,12 @@ public class EmploymentServiceImp implements EmploymentService, ExcelSave {
 
     @Override
     public int listCount(Map map) {
-        return employmentMapper.listCount(map);
+        return employmentMapper.listCount(QueryUtil.query(map));
     }
 
     @Override
     public List<Employment> list(Map map) {
-        if (map.get("page") != null) {
-            int page = Integer.parseInt(map.get("page") + "");
-            int pageSize = Integer.parseInt(map.get("pageSize") + "");
-            map.put("start", (page - 1) * pageSize);
-            map.put("end", pageSize);
-        }
-        return employmentMapper.list(map);
+        return employmentMapper.list(QueryUtil.query(map));
     }
 
     @Override

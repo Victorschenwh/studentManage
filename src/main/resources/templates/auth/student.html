@@ -58,8 +58,10 @@
         </div>
     </div>
 
-    <table id="table" data-mobile-responsive="true">
-    </table>
+    <div id="table1">
+        <table id="table" data-mobile-responsive="true">
+        </table>
+    </div>
 
 
     <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -115,16 +117,25 @@
 <script>
 
 
-
     $(document).ready(function () {
         load()
-        window.onkeydown = function (e) {
-            if (e.keyCode == 13) {
-                let search = document.getElementsByClassName("search-input")[0]
-                console.log(search.value)
+    })
+    let downParams
+
+    $("#table1").keydown(function (e) {
+        if (e.keyCode == 13) {
+            let temp = null
+            var contentList = document.getElementsByClassName('search-input')
+            temp = contentList[0].value
+            // console.log(temp)
+            if (temp != null && temp != "") {
+                downParams['search'] = temp
+                downParams.page = 1
+                $('#table').bootstrapTable('refresh', {query: downParams})
             }
         }
-    })
+
+    });
 
     function load() {
         $('#table')
@@ -155,6 +166,14 @@
                 detailView: false,                  //是否显示父子表
                 //得到查询的参数
                 queryParams: function (params) {
+                    downParams = {
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        search: params.search,
+                        pageSize: params.limit,
+                    }
                     return {
                         departmentId: $("#departmentId").val(),
                         majorId: $("#majorId").val(),

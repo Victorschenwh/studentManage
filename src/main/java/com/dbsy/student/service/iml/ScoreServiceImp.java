@@ -134,12 +134,12 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
 
     @Override
     public int countRank(Map map) {
-        return this.scoreMapper.countRank(map);
+        return this.scoreMapper.countRank(QueryUtil.query(map));
     }
 
     @Override
     public int countTotal(Map map) {
-        return this.scoreMapper.countTotal(map);
+        return this.scoreMapper.countTotal(QueryUtil.query(map));
     }
 
     @Override
@@ -182,7 +182,7 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
 
     @Override
     public int preWarmingCount(Map map) {
-        return scoreMapper.preWarmingCount(map);
+        return scoreMapper.preWarmingCount(QueryUtil.query(map));
     }
 
 

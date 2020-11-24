@@ -4,6 +4,7 @@ import com.dbsy.student.annotation.Authority;
 import com.dbsy.student.mapper.AdminMapper;
 import com.dbsy.student.pojo.Admin;
 import com.dbsy.student.service.AdminService;
+import com.dbsy.student.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 @Service("adminServiceImp")
-@Authority({})
 public class AdminServiceImp implements AdminService {
     @Autowired
     AdminMapper adminMapper;
@@ -58,55 +58,39 @@ public class AdminServiceImp implements AdminService {
 
     @Override
     public int findAdminCount(Map map) {
-        return adminMapper.findAdminCount(map);
+        return adminMapper.findAdminCount(QueryUtil.query(map));
     }
 
     @Override
     public int findAssistantCount(Map map) {
-        return adminMapper.findAssistantCount(map);
+        return adminMapper.findAssistantCount(QueryUtil.query(map));
     }
 
     @Override
     public List<Map> findAssistant(Map map) {
-        if (map.get("page") != null) {
-            int page = Integer.parseInt(map.get("page") + "");
-            int pageSize = Integer.parseInt(map.get("pageSize") + "");
-            map.put("start", (page - 1) * pageSize);
-            map.put("pageSize", pageSize);
-        }
-        return adminMapper.findAssistant(map);
+
+        return adminMapper.findAssistant(QueryUtil.query(map));
     }
 
     @Override
     public int findDepartLeaderCount(Map map) {
-        return adminMapper.findDepartLeaderCount(map);
+        return adminMapper.findDepartLeaderCount(QueryUtil.query(map));
     }
 
     @Override
     public List<Map> findDepartLeader(Map map) {
-        if (map.get("page") != null) {
-            int page = Integer.parseInt(map.get("page") + "");
-            int pageSize = Integer.parseInt(map.get("pageSize") + "");
-            map.put("start", (page - 1) * pageSize);
-            map.put("pageSize", pageSize);
-        }
-        return adminMapper.findDepartLeader(map);
+
+        return adminMapper.findDepartLeader(QueryUtil.query(map));
     }
 
     @Override
     public int findSchoolLeaderCount(Map map) {
-        return adminMapper.findSchoolLeaderCount(map);
+        return adminMapper.findSchoolLeaderCount(QueryUtil.query(map));
     }
 
     @Override
     public List<Map> findSchoolLeader(Map map) {
-        if (map.get("page") != null) {
-            int page = Integer.parseInt(map.get("page") + "");
-            int pageSize = Integer.parseInt(map.get("pageSize") + "");
-            map.put("start", (page - 1) * pageSize);
-            map.put("pageSize", pageSize);
-        }
-        return adminMapper.findSchoolLeader(map);
+        return adminMapper.findSchoolLeader(QueryUtil.query(map));
     }
 
     @Override

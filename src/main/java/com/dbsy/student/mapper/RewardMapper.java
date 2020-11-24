@@ -20,7 +20,7 @@ public interface RewardMapper {
 
     int listCount(Map map);
 
-    List<Reward> list(Map map);
+    List<Map> list(Map map);
 
     @Select("select * from reward where id = #{id}")
     Reward get(int id);

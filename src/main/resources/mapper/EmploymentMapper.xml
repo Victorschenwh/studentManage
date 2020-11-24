@@ -107,24 +107,20 @@
                 and s.grade=#{grade}
             </if>
 
-            <if test="search_key != null">
-                and s.name like CONCAT('%',#{search_key},'%')
-            </if>
-
-            <if test="search != null">
-                and s.name like CONCAT('%',#{search},'%')
-            </if>
             <if test="abbrName != null">
                 and s.abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="search != null">
-                or s.number=#{search}
+            <if test="number != null">
+                and s.number like CONCAT('%',#{number},'%')
+            </if>
+            <if test="name != null">
+                and s.name like CONCAT('%',#{name},'%')
             </if>
 
         </where>
 
         <if test="start !=null and end != null">
-            limit #{start},#{end}
+            limit #{start},#{pageSize}
         </if>
     </select>
 
@@ -141,20 +137,20 @@
 
             <if test="clazzId != null and clazzId != 0">
                 and clazz_id=#{clazzId}
-            </if> 
+            </if>
 
             <if test="grade != null and grade != 0">
                 and grade=#{grade}
             </if>
 
-            <if test="search != null">
-                and s.name like CONCAT('%',#{search},'%')
-            </if>
             <if test="abbrName != null">
                 and s.abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="search != null">
-                or s.number=#{search}
+            <if test="number != null">
+                and s.number like CONCAT('%',#{number},'%')
+            </if>
+            <if test="name != null">
+                and s.name like CONCAT('%',#{name},'%')
             </if>
         </where>
     </select>

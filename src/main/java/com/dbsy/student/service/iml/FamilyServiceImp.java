@@ -4,6 +4,7 @@ import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.FamilyMapper;
 import com.dbsy.student.pojo.Family;
 import com.dbsy.student.service.FamilyService;
+import com.dbsy.student.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -40,18 +41,13 @@ public class FamilyServiceImp implements FamilyService, ExcelSave {
 
     @Override
     public int listCount(Map map) {
-        return this.familyMapper.listCount(map);
+        return this.familyMapper.listCount(QueryUtil.query(map));
     }
 
     @Override
     public List<Map> list(Map map) {
-        if (map.get("page") != null) {
-            int page = Integer.parseInt(map.get("page") + "");
-            int pageSize = Integer.parseInt(map.get("pageSize") + "");
-            map.put("start", (page - 1) * pageSize);
-            map.put("end", pageSize);
-        }
-        return this.familyMapper.list(map);
+
+        return this.familyMapper.list(QueryUtil.query(map));
     }
 
     @Override

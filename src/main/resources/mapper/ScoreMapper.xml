@@ -118,14 +118,15 @@
             <if test="clazzId!=null and clazzId!=0">
                 and clazz_id = #{clazzId}
             </if>
-            <if test="search != null">
-                and name like CONCAT('%',#{search},'%')
-            </if>
+
             <if test="abbrName != null">
                 and abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="search != null">
-                or number=#{search}
+            <if test="number != null">
+                and number like CONCAT('%',#{number},'%')
+            </if>
+            <if test="name != null">
+                and name like CONCAT('%',#{name},'%')
             </if>
         </where>
         group by id ,study_term
@@ -151,14 +152,14 @@
                 and study_term = #{studyTerm}
             </if>
 
-            <if test="search != null">
-                and name like CONCAT('%',#{search},'%')
-            </if>
             <if test="abbrName != null">
                 and abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="search != null">
-                or number=#{search}
+            <if test="number != null">
+                and number like CONCAT('%',#{number},'%')
+            </if>
+            <if test="name != null">
+                and name like CONCAT('%',#{name},'%')
             </if>
         </where>
         <if test="start!=null">
@@ -185,15 +186,16 @@
                 and study_term = #{studyTerm}
             </if>
 
-            <if test="search != null">
-                and name like CONCAT('%',#{search},'%')
-            </if>
             <if test="abbrName != null">
                 and abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="search != null">
-                or number=#{search}
+            <if test="number != null">
+                and number like CONCAT('%',#{number},'%')
             </if>
+            <if test="name != null">
+                and name like CONCAT('%',#{name},'%')
+            </if>
+
         </where>
         <if test="start!=null">
             limit #{start},#{pageSize}
@@ -220,14 +222,14 @@
                 and study_term = #{studyTerm}
             </if>
 
-            <if test="search != null">
-                and name like CONCAT('%',#{search},'%')
-            </if>
             <if test="abbrName != null">
                 and abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="search != null">
-                or number=#{search}
+            <if test="number != null">
+                and number like CONCAT('%',#{number},'%')
+            </if>
+            <if test="name != null">
+                and name like CONCAT('%',#{name},'%')
             </if>
         </where>
     </select>
@@ -251,14 +253,14 @@
                 and study_term = #{studyTerm}
             </if>
 
-            <if test="search != null">
-                and name like CONCAT('%',#{search},'%')
-            </if>
             <if test="abbrName != null">
                 and abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="search != null">
-                or number=#{search}
+            <if test="number != null">
+                and number like CONCAT('%',#{number},'%')
+            </if>
+            <if test="name != null">
+                and name like CONCAT('%',#{name},'%')
             </if>
         </where>
     </select>
@@ -300,14 +302,14 @@
                 and study_term = #{studyTerm}
             </if>
 
-            <if test="search != null">
-                and name like CONCAT('%',#{search},'%')
-            </if>
             <if test="abbrName != null">
                 and abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="search != null">
-                or number=#{search}
+            <if test="number != null">
+                and number like CONCAT('%',#{number},'%')
+            </if>
+            <if test="name != null">
+                and name like CONCAT('%',#{name},'%')
             </if>
         </where>
         order by fail desc
@@ -335,14 +337,14 @@
                 and study_term = #{studyTerm}
             </if>
 
-            <if test="search != null">
-                and name like CONCAT('%',#{search},'%')
-            </if>
             <if test="abbrName != null">
                 and abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="search != null">
-                or number=#{search}
+            <if test="number != null">
+                and number like CONCAT('%',#{number},'%')
+            </if>
+            <if test="name != null">
+                and name like CONCAT('%',#{name},'%')
             </if>
         </where>
     </select>

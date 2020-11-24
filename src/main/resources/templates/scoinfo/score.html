@@ -15,7 +15,6 @@
 <div class="container-fluid">
 
     <ol class="breadcrumb">
-        <li>首页</li>
         <li>成绩管理</li>
         <li class="active">智育成绩</li>
     </ol>
@@ -32,7 +31,7 @@
 
         <div class="select">
             <div class="item">
-                <select id="departmentId" class="form-control" >
+                <select id="departmentId" class="form-control">
                     <!--<option value="">&#45;&#45;请选择学院&#45;&#45;</option>-->
                     <!--<option value="" th:each="department : ${session.departments}" th:value="${department.id}" th:text="${department.name}"></option>-->
                 </select>
@@ -186,17 +185,17 @@
     let downParams
 
     $("#table1").keydown(function (e) {
-        if(e.keyCode==13){
-            let temp=null
-            var contentList=document.getElementsByClassName('search-input')
-            temp=contentList[0].value
+        if (e.keyCode == 13) {
+            let temp = null
+            var contentList = document.getElementsByClassName('search-input')
+            temp = contentList[0].value
             // console.log(temp)
-            if(temp != null){
-                downParams['search']=temp
+            // console.log(temp)
+            if (temp != null && temp != "") {
+                downParams['search'] = temp
+                downParams.page = 1
+                $('#table_score').bootstrapTable('refresh', {query: downParams})
             }
-
-            $('#table_score').bootstrapTable('refresh',{query: downParams})
-
         }
 
     });
@@ -236,9 +235,8 @@
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
-                        search_key: $("#search_key").val(),
                         search: params.search,
-                        type: 'student'
+                        pageSize: params.limit,
                     }
                     return {
                         pageSize: params.limit,                         //页面大小

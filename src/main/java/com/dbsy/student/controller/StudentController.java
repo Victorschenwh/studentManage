@@ -1,6 +1,7 @@
 package com.dbsy.student.controller;
 
 import com.dbsy.student.annotation.Authority;
+import com.dbsy.student.annotation.Remarks;
 import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Student;
 import com.dbsy.student.service.StudentService;
@@ -26,18 +27,15 @@ public class StudentController {
     StudentService studentService;
 
     @RequestMapping("")
+    @Remarks("学生信息界面")
     public String student() {
         return "stuInfo/student";
     }
 
     @RequestMapping("/list")
     @ResponseBody
+    @Remarks("学生信息列表")
     public Map list(@RequestParam Map map) {
-        String str= (String) map.get("search");
-        if(str.matches("[a-zA-Z]+")){
-            map.put("abbrName",str);
-            map.put("search","");
-        }
         Map m = new HashMap();
         m.put("total", studentService.listCount(map));
         m.put("rows", studentService.list(map));
@@ -46,6 +44,7 @@ public class StudentController {
 
     @ResponseBody
     @RequestMapping("/get/{id}")
+    @Remarks("单个学生记录")
     public Map get(@PathVariable("id") int id) {
         Student student = studentService.get(id);
         return student != null ? News.success("OK", student) : News.fail("学生不存在");
@@ -54,7 +53,6 @@ public class StudentController {
     @ResponseBody
     @RequestMapping("/getSelf/{id}")
     public Map getSelf(@PathVariable(value = "id") int id) {
-
         return News.success("成功", studentService.getSelf(id));
     }
 

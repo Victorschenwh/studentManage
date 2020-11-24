@@ -1,6 +1,7 @@
 package com.dbsy.student.controller;
 
 import com.dbsy.student.annotation.Authority;
+import com.dbsy.student.annotation.Remarks;
 import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Clazz;
 import com.dbsy.student.service.ClazzService;
@@ -34,6 +35,7 @@ public class ClazzController {
 
     @RequestMapping("/list")
     @ResponseBody
+    @Remarks("获取班级列表")
     public Map list(Map map) {
         Map m = new HashMap();
         m.put("total", clazzService.listCount(map));
@@ -44,6 +46,7 @@ public class ClazzController {
 
     @ResponseBody
     @RequestMapping("/remove/{id}")
+    @Remarks("移除班级")
     public Map remove(@PathVariable("id") int id) {
         if (clazzService.delete(id) > 0) {
             return News.success();
@@ -53,6 +56,7 @@ public class ClazzController {
 
     @ResponseBody
     @RequestMapping("/batchRemove")
+    @Remarks("批量移除班级")
     public Map batchRemove(int[] ids) {
 
         if (clazzService.batchRemove(ids) == ids.length) {
@@ -63,6 +67,7 @@ public class ClazzController {
 
     @ResponseBody
     @RequestMapping("/insert")
+    @Remarks("添加班级")
     public Map insert(Clazz clazz) {
         if (clazzService.insert(clazz) > 0) {
             return News.success();
@@ -72,16 +77,18 @@ public class ClazzController {
 
     @ResponseBody
     @RequestMapping("/update")
+    @Remarks("修改班级")
     public Map update(Clazz clazz) {
         if (clazzService.update(clazz) > 0) {
             return News.success();
         }
-        return News.fail("添加失败");
+        return News.fail("修改失败");
     }
 
 
     @ResponseBody
     @RequestMapping("/get/{id}")
+    @Remarks("获取班级信息")
     public Map get(@PathVariable("id") int id) {
         return News.success("成功", clazzService.get(id));
     }
@@ -89,6 +96,7 @@ public class ClazzController {
 
     @ResponseBody
     @RequestMapping("/getAll")
+    @Remarks("获取全部班级")
     public Map getAll() {
         return News.success("成功", clazzService.getAll());
     }
@@ -96,6 +104,7 @@ public class ClazzController {
 
     @ResponseBody
     @RequestMapping("/getClazzByMajorId/{majorId}")
+    @Remarks("根据专业获取班级列表")
     public Map getClazzBymajorId(@PathVariable("majorId") int majorId) {
         List list = clazzService.getClazzByMajorId(majorId);
         if (list != null) {

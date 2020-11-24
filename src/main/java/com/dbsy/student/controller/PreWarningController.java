@@ -1,6 +1,7 @@
 package com.dbsy.student.controller;
 
 import com.dbsy.student.annotation.Authority;
+import com.dbsy.student.annotation.Remarks;
 import com.dbsy.student.myenum.Role;
 import com.dbsy.student.pojo.Student;
 import com.dbsy.student.service.ScoreService;
@@ -26,6 +27,7 @@ public class PreWarningController {
     ScoreService scoreService;
 
     @RequestMapping("")
+    @Remarks("学业预警页面")
     public String preWarning() {
         return "stuInfo/preWarning";
     }
@@ -33,12 +35,8 @@ public class PreWarningController {
 
     @RequestMapping("/list")
     @ResponseBody
+    @Remarks("学业预警列表")
     public Map list(@RequestParam Map map) {
-        String str= (String) map.get("search");
-        if(str.matches("[a-zA-Z]+")){
-            map.put("abbrName",str);
-            map.put("search","");
-        }
         Map m = new HashMap();
         m.put("total", scoreService.preWarmingCount(map));
         m.put("rows", scoreService.preWarming(map));

@@ -64,6 +64,16 @@
             <if test="clazzId!=null and clazzId!=0">
                 and s.clazz_id = #{clazzId}
             </if>
+
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="number != null">
+                and number like CONCAT('%',#{number},'%')
+            </if>
+            <if test="name != null">
+                and name like CONCAT('%',#{name},'%')
+            </if>
         </where>
         <if test="start!=null">
             limit #{start},#{pageSize}
@@ -85,6 +95,16 @@
             </if>
             <if test="clazzId!=null and clazzId!=0">
                 and s.clazz_id = #{clazzId}
+            </if>
+
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="number != null">
+                and number like CONCAT('%',#{number},'%')
+            </if>
+            <if test="name != null">
+                and name like CONCAT('%',#{name},'%')
             </if>
         </where>
     </select>
