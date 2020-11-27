@@ -2,8 +2,12 @@ package com.dbsy.student.vo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.DateFormatConverter;
+import com.dbsy.student.excel.FloatFormatConverter;
+import com.dbsy.student.excel.NumberFormatConverter;
 import com.dbsy.student.excel.StringToBooleanConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.org.apache.xerces.internal.impl.dv.dtd.NMTOKENDatatypeValidator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -30,10 +34,16 @@ public class ImportStudentInfo {
     @ExcelProperty("学号")
     private String number;
 
+    @ExcelProperty(value = "四级成绩", converter = NumberFormatConverter.class)
+    private Integer cet4;
+
+    @ExcelProperty(value = "六级成绩", converter = NumberFormatConverter.class)
+    private Integer cet6;
+
     @ExcelProperty("姓名")
     private String name;
 
-    @ExcelProperty(value = "性别(0:女,1:男)", converter = StringToBooleanConverter.class)
+    @ExcelProperty(value = "性别", converter = StringToBooleanConverter.class)
     private Boolean gender;
 
     @ExcelProperty("手机号")
@@ -49,28 +59,33 @@ public class ImportStudentInfo {
     private String nativePlace;
 
     @ExcelIgnore
+    private Integer isDel = 0;
+
+    @ExcelIgnore
     private String photo;
 
-    @ExcelProperty("入学日期")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    // @ExcelProperty(value = "入学日期", converter = DateFormatConverter.class)
+    // @JsonFormat(pattern = "yyyyMMdd", timezone = "GMT+8")
+    //  @DateTimeFormat(pattern = "yyyyMMdd")
+    @ExcelIgnore
     private Date admissionDate;
 
-    @ExcelProperty("出生日期")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    //@ExcelProperty(value = "出生日期", converter = DateFormatConverter.class)
+    // @JsonFormat(pattern = "yyyyMMdd", timezone = "GMT+8")
+    // @DateTimeFormat(pattern = "yyyyMMdd")
+    @ExcelIgnore
     private Date birthday;
 
-    @ExcelProperty("高考分数")
+    @ExcelProperty(value = "高考分数", converter = FloatFormatConverter.class)
     private Float score;
 
-    @ExcelProperty("年龄")
+    @ExcelProperty(value = "年龄", converter = NumberFormatConverter.class)
     private Integer age;
 
     @ExcelProperty("民族")
     private String nation;
 
-    @ExcelProperty("地址")
+    @ExcelProperty("家庭住址")
     private String address;
 
     @ExcelProperty("寝室号")
@@ -85,7 +100,7 @@ public class ImportStudentInfo {
     @ExcelProperty("与本人关系1")
     private String f1Relationship;
 
-    @ExcelProperty("年龄1")
+    @ExcelProperty(value = "年龄1", converter = NumberFormatConverter.class)
     private Integer f1Age;
 
     @ExcelProperty("工作单位1")
@@ -100,7 +115,7 @@ public class ImportStudentInfo {
     @ExcelProperty("与本人关系2")
     private String f2Relationship;
 
-    @ExcelProperty("年龄2")
+    @ExcelProperty(value = "年龄2", converter = NumberFormatConverter.class)
     private Integer f2Age;
 
     @ExcelProperty("工作单位2")
@@ -116,7 +131,7 @@ public class ImportStudentInfo {
     @ExcelProperty("与本人关系3")
     private String f3Relationship;
 
-    @ExcelProperty("年龄3")
+    @ExcelProperty(value = "年龄3", converter = NumberFormatConverter.class)
     private Integer f3Age;
 
     @ExcelProperty("工作单位3")
@@ -124,6 +139,30 @@ public class ImportStudentInfo {
 
     @ExcelProperty("联系方式3")
     private String f3Phone;
+
+    public Integer getCet4() {
+        return cet4;
+    }
+
+    public Integer getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Integer isDel) {
+        this.isDel = isDel;
+    }
+
+    public void setCet4(Integer cet4) {
+        this.cet4 = cet4;
+    }
+
+    public Integer getCet6() {
+        return cet6;
+    }
+
+    public void setCet6(Integer cet6) {
+        this.cet6 = cet6;
+    }
 
     public String getDepartment() {
         return department;

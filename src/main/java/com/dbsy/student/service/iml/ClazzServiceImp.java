@@ -30,7 +30,13 @@ public class ClazzServiceImp implements ClazzService, ExcelSave {
     @Override
     @Transactional
     public int insert(Clazz record) {
-        this.clazzMapper.insert(record);
+        Clazz clazz = clazzMapper.getByName(record.getName());
+        if (clazz == null) {
+            this.clazzMapper.insert(record);
+        } else {
+            record.setId(clazz.getId());
+        }
+
         return record.getId();
     }
 
