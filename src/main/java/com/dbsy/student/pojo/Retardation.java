@@ -45,13 +45,15 @@ public class Retardation {
     @ExcelProperty("留级期间是否达到要求(0:否,1:是)")
     private Boolean isPass;
 
-    @ExcelProperty("留级结果(0:退学,1:试读)")
+    @ExcelProperty("留级结果(0:未留级,1:留级)")
     private Boolean result;
+
+    private int newGrader;
 
     @ExcelProperty("备注")
     private String remarks;
 
-    public Retardation(Integer id, Integer studentId, Integer oldDepartmentId, Integer oldMajorId, Integer oldClazzId, Integer newDepartmentId, Integer newMajorId, Integer newClazzId, Date saveDate, Boolean isPass, Boolean result, String remarks) {
+    public Retardation(Integer id, Integer studentId, Integer oldDepartmentId, Integer oldMajorId, Integer oldClazzId, Integer newDepartmentId, Integer newMajorId, Integer newClazzId, Date saveDate, Boolean isPass, Boolean result, String remarks,int newGrader) {
         this.id = id;
         this.studentId = studentId;
         this.oldDepartmentId = oldDepartmentId;
@@ -64,6 +66,7 @@ public class Retardation {
         this.isPass = isPass;
         this.result = result;
         this.remarks = remarks;
+        this.newGrader=newGrader;
     }
 
     public Retardation() {
@@ -164,5 +167,39 @@ public class Retardation {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+    public Boolean getPass() {
+        return isPass;
+    }
+
+    public void setPass(Boolean pass) {
+        isPass = pass;
+    }
+
+    public int getNewGrader() {
+        return newGrader;
+    }
+
+    public void setNewGrader(int newGrader) {
+        this.newGrader = newGrader;
+    }
+
+    @Override
+    public String toString() {
+        return "Retardation{" +
+                "id=" + id +
+                ", studentId=" + studentId +
+                ", oldDepartmentId=" + oldDepartmentId +
+                ", oldMajorId=" + oldMajorId +
+                ", oldClazzId=" + oldClazzId +
+                ", newDepartmentId=" + newDepartmentId +
+                ", newMajorId=" + newMajorId +
+                ", newClazzId=" + newClazzId +
+                ", saveDate=" + saveDate +
+                ", isPass=" + isPass +
+                ", result=" + result +
+                ", remarks='" + remarks + '\'' +
+                '}';
     }
 }

@@ -27,67 +27,186 @@
         <button id="btn_upload" type="button" class="btn btn-primary" onclick="">
             <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传
         </button>
+        <hr/>
         <ul class="nav nav-tabs">
-            <li role="presentation"><a onclick="isPass=null;reLoad();" href="#">未处理</a></li>
-            <li role="presentation"><a onclick="isPass=true;reLoad();" href="#">已同意</a></li>
-            <li role="presentation"><a onclick="isPass=false;reLoad();" href="#">已拒绝</a></li>
-            <!--            <li role="presentation">-->
-            <!--                <a onclick="state='我的申请';reLoad(1);reLoad(2);"-->
-            <!--                   href="#">我的申请</a>-->
-            <!--            </li>-->
+            <li>学生列表</li>
         </ul>
-<!--        <button type="button" class="btn btn-primary" onclick="isPass=null;reLoad()">-->
-<!--            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>未处理-->
-<!--        </button>-->
 
-<!--        <button type="button" class="btn btn-primary" onclick="isPass=true;reLoad();">-->
-<!--            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>已同意-->
-<!--        </button>-->
-
-<!--        <button type="button" class="btn btn-primary" onclick="isPass=false;reLoad();">-->
-<!--            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>已拒绝-->
-<!--        </button>-->
-
-<!--        <div class="select">-->
-<!--            <div class="item">-->
-<!--                <select id="departmentId" class="form-control">-->
-<!--                </select>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <select id="majorId" class="form-control"-->
-<!--                        required>-->
-<!--                    <option value="">-->
-<!--                        &#45;&#45;请选择专业&#45;&#45;-->
-<!--                    </option>-->
-<!--                </select>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <select id="grade" class="form-control">-->
-
-<!--                </select>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <select id="clazzId" class="form-control">-->
-<!--                    <option value="">-->
-<!--                        &#45;&#45;请选择班级&#45;&#45;-->
-<!--                    </option>-->
-<!--                </select>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
 
 
+    <div id="toolbar2" class="btn-group">
+<!--        <button id="btn_download" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">-->
+<!--            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载表格-->
+<!--        </button>-->
+
+<!--        <button id="btn_upload" type="button" class="btn btn-primary" onclick="">-->
+<!--            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传-->
+<!--        </button>-->
+        <ul class="nav nav-tabs">
+        </ul>
+
+    </div>
+
+
+
+
+    <div id="toolbar3" class="btn-group">
+        <ul class="nav nav-tabs">
+        </ul>
+    </div>
+
+
+
+<!--    //isDel==3 留级-->
+
+<!--    before table-->
     <div id="table1">
         <table id="table_retardation" data-mobile-responsive="true">
         </table>
     </div>
 
+    <div>
+        <ul class="nav nav-tabs">
+            <li role="presentation">
+                <a id="collape_btn1" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">待处理</a>
+            </li>
+            <li role="presentation">
+                <a  id="collape_btn2" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">已处理</a>
+            </li>
+        </ul>
+    </div>
 
-    <!--模态框-->
+
+    <!-申请留级模态框-->
+    <div class="modal fade" id="searchContent2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal" id="searchUpdate">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title">
+                            留级信息编辑
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <input id="id5" name="id" class="hidden">
+                        <input id="department_id5" name="oldDepartmentId" class="hidden">
+                        <input id="clazz_id5" name="oldClazzId" class="hidden">
+                        <input id="major_id5" name="oldMajorId" class="hidden">
+                        <div class="form-group">
+                            <label for="number5" class="col-sm-3 control-label">学号：</label>
+                            <div class="col-sm-8">
+
+                                <input name="number" id="number5" class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name5" class="col-sm-3 control-label">姓名：</label>
+                            <div class="col-sm-8">
+
+                                <input name="name" id="name5" class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="dpName5" class="col-sm-3 control-label">原院系：</label>
+                            <div class="col-sm-8">
+                                <input id="dpName5"  class="form-control" type="text" readonly="readonly">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mjName5" class="col-sm-3 control-label">原专业：</label>
+                            <div class="col-sm-8">
+                                <input id="mjName5" class="form-control" type="text" readonly="readonly">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clName5"  class="col-sm-3 control-label">原班级：</label>
+                            <div class="col-sm-8">
+                                <input id="clName5" class="form-control" type="text" readonly="readonly">
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label  for="saveDate" class="col-sm-3 control-label">申请留级日期：</label>
+                            <div class="col-sm-8">
+                                <input name="saveDate" id="saveDate1" placeholder="请选择" class="form-control" type="date"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="remarks5" class="col-sm-3 control-label">备注：</label>
+                            <div class="col-sm-8">
+                                <input name="remarks" id="remarks5" placeholder="请输入" class="form-control" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            留级提交
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+
+
+<!--<hr/>-->
+<!--<hr/>-->
+<!--    after table-->
+    <div class="row">
+        <div class="collapse multi-collapse" id="multiCollapseExample1">
+            <div class="card card-body">
+                <div id="table2">
+                    <table id="table_retardation2" data-mobile-responsive="true">
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="collapse multi-collapse" id="multiCollapseExample2">
+            <div class="card card-body">
+                <div id="table3">
+                    <table id="table_retardation3" data-mobile-responsive="true">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    <div id="table2">-->
+<!--        <table id="table_retardation2" data-mobile-responsive="true">-->
+<!--        </table>-->
+<!--    </div>-->
+
+
+    <!--留级审批模态框-->
     <div class="modal fade" id="message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form class="form-horizontal" >
+                <form class="form-horizontal" id="update" >
                     <div class="modal-header">
 
                         <button type="button" class="close" data-dismiss="modal"
@@ -96,6 +215,80 @@
                         <h4 class="modal-title" id="myModalLabel">
                             留级试读审批
                         </h4>
+                    </div>
+                    <div class="modal-body">
+
+                            <input id="id1" name="id" class="hidden">
+                            <input id="studentId1"  class="hidden" type="text" required>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="name1">姓名：</label>
+                            <div class="col-sm-8">
+                                <input id="name1"  class="form-control" readonly="readonly"   type="text" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="number1">学号：</label>
+                            <div class="col-sm-8">
+                                <input id="number1"  class="form-control" readonly="readonly"   type="text" required>
+                            </div>
+                        </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="dpName1">所在学院：</label>
+                                <div class="col-sm-8">
+                                    <input id="dpName1"  class="form-control" readonly="readonly"   type="text" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="mjName1">所在专业：</label>
+                                <div class="col-sm-8">
+                                    <input id="mjName1" class="form-control" type="text" readonly="readonly" required>
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="oldClName1">原班级：</label>
+                            <div class="col-sm-8">
+                                <input id="oldClName1"  class="form-control" type="text" readonly="readonly" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="oldGrade1">原年级：</label>
+                            <div class="col-sm-8">
+                                <input id="oldGrade1"  class="form-control" type="text" readonly="readonly" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newClazzId1"  class="col-sm-3 control-label">转入班级：</label>
+                            <div class="col-sm-8">
+                                <select name="newClazzId" class="form-control" id="newClazzId1" required>
+                                    <option value="">
+<!--                                        &#45;&#45;请选择&#45;&#45;-->
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newGrader1"  class="col-sm-3 control-label">转入年级：</label>
+                            <div class="col-sm-8">
+                                <select name="newGrader" id="newGrader1" class="form-control"  required>
+                                    <option value="">
+<!--                                        &#45;&#45;请选择&#45;&#45;-->
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">备注：</label>
+                            <div class="col-sm-8">
+                                <input id="remarks1" name="remarks" class="form-control" type="text" required>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="modal-footer">
@@ -115,77 +308,75 @@
     </div><!-- /.modal -->
 
 
-    <!--模态框-->
+    <!--留级确认模态框-->
    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form class="form-horizontal" id="update">
+                <form class="form-horizontal" id="update_last">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"
                                 aria-hidden="true">×
                         </button>
                         <h4 class="modal-title" id="myModalLabel1">
-                            修改
+                            留级确认
                         </h4>
                     </div>
                     <div class="modal-body">
 
                         <input id="id" name="id" class="hidden">
-
-
+                        <input id="studentId" name="studentId" class="hidden" type="text" required>
                         <div class="form-group">
+                            <label class="col-sm-3 control-label">所在学院：</label>
                             <div class="col-sm-8">
-                                <input id="studentId" name="studentId" class="hidden" type="text" required>
+                                <input id="name"  class="form-control" readonly="readonly"   type="text" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">原学院：</label>
+                            <label class="col-sm-3 control-label">所在学院：</label>
                             <div class="col-sm-8">
-                                <input id="oldDepartmentId" name="oldDepartmentId" class="form-control" readonly="true"   type="text" required>
+                                <input id="oldDepartmentId" class="form-control" readonly="readonly"   type="text" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">原专业：</label>
+                            <label class="col-sm-3 control-label">所在专业：</label>
                             <div class="col-sm-8">
-                                <input id="oldMajorId" name="oldMajorId" class="form-control" type="text" readonly="true" required>
+                                <input id="oldMajorId" class="form-control" type="text" readonly="readonly" required>
                             </div>
-                        </div> <div class="form-group">
+                        </div>
+                        <div class="form-group">
                         <label class="col-sm-3 control-label">原班级：</label>
                         <div class="col-sm-8">
-                            <input id="oldClazzId" name="oldClazzId" class="form-control" type="text" readonly="true" required>
-                        </div>
-                    </div> <div class="form-group">
-                        <label class="col-sm-3 control-label">新学院：</label>
-                        <div class="col-sm-8">
-                            <input id="newDepartmentId" name="newDepartmentId" class="form-control" readonly="true" type="text" required>
-                        </div>
-                    </div> <div class="form-group">
-                        <label class="col-sm-3 control-label">新专业：</label>
-                        <div class="col-sm-8">
-                            <input id="newMajorId" name="newMajorId" class="form-control" readonly="true" type="text" required>
-                        </div>
-                    </div> <div class="form-group">
-                        <label class="col-sm-3 control-label">新班级：</label>
-                        <div class="col-sm-8">
-                            <input id="newClazzId" name="newClazzId" class="form-control" type="text" readonly="true" required>
+                            <input id="oldClazzId" class="form-control" type="text" readonly="readonly" required>
                         </div>
                     </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">更改日期：</label>
+                            <label class="col-sm-3 control-label">原年级：</label>
                             <div class="col-sm-8">
-                                <input id="saveDate" name="saveDate" class="form-control" type="text" readonly="true" required>
+                                <input id="oldGrader"  class="form-control" type="text" readonly="readonly" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">留级期间是否达到要求：</label>
+                        <label class="col-sm-3 control-label">新班级：</label>
+                        <div class="col-sm-8">
+                            <input id="newClazzId" class="form-control" type="text" readonly="readonly" required>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">新年级：</label>
                             <div class="col-sm-8">
-                                <select name="isPass" class="form-control" id="isPass" required>
-                                    <option value="true">是</option>
-                                    <option value="false">否</option>
-                                </select>
+                                <input id="newGrader"  class="form-control" type="text" readonly="readonly" required>
                             </div>
                         </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">申请时间：</label>
+                            <div class="col-sm-8">
+                                <input id="saveDate" class="form-control" type="text" readonly="readonly" required>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-sm-3 control-label">留级结果：</label>
                             <div class="col-sm-8">
@@ -217,6 +408,34 @@
     </div>
 
 
+    <!--    退回提示模态框-->
+    <div  class="modal fade" id="delWarning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form class="form-horizontal" id="delUpdate">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">退回确认</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input id="id_warn" name="id" class="hidden">
+
+                        <div align="center"> <strong >将要被退回，请确认。</strong></div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        <button id="delBtn"  type="submit" class="btn btn-danger">确认退回</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 <div th:replace="static :: script"></div>
 </body>
@@ -228,31 +447,16 @@
     var isPass = null;
 
     function yesOrNo(isPass) {
-        let id = $("#id").val()
-        $.ajax({
-            //cache: true,
-            async: false,
-            type: "POST",
-            url: "/retardation/updateSelective/",
-            dataType: "json",
-            data: {"id": id, "isPass": isPass},
-            success: function (res) {
-                if (res.code == 1) {
-                    //操作成功，关闭模态框
-                    $('#message').modal('hide');
-                    reLoad();
-                } else {
-                    // alert("修改失败");
-                    $('#message').modal('hide');
-                }
-            }
-        });
+
+            update(isPass)
     }
 
     $(document).ready(function () {
         department();
         grade();
         load()
+        load2()
+        load3()
     })
 
     let downParams
@@ -272,12 +476,73 @@
         }
 
     });
+    $("#table2").keydown(function (e) {
+        if(e.keyCode==13){
+            let temp=null
+            var contentList=document.getElementsByClassName('search-input')
+            temp=contentList[1].value
+            // console.log(temp)
+            if(temp != null){
+                downParams['search']=temp
+            }
 
-    $("#update").validate({
+            $('#table_retardation2').bootstrapTable('refresh',{query: downParams})
+
+        }
+
+    });
+
+    $("#table3").keydown(function (e) {
+        if(e.keyCode==13){
+            let temp=null
+            var contentList=document.getElementsByClassName('search-input')
+            temp=contentList[2].value
+            // console.log(temp)
+            if(temp != null){
+                downParams['search']=temp
+            }
+
+            $('#table_retardation3').bootstrapTable('refresh',{query: downParams})
+
+        }
+
+    });
+
+
+
+
+    $("#update_last").validate({
         rules: {},
         messages: {},
         submitHandler: function (form) {
-            update();
+            // console.log(form)
+            update_last();
+        }
+    });
+    $("#searchUpdate").validate({
+        rules: {},
+        messages: {},
+        submitHandler: function (form) {
+            updateSearch();
+        }
+    });
+
+    $('#multiCollapseExample1').collapse('show')
+
+    $('#collape_btn2').click(function () {
+
+        $('#multiCollapseExample1').collapse('hide')
+    })
+    $('#collape_btn1').click(function () {
+
+        $('#multiCollapseExample2').collapse('hide')
+    });
+    $("#delUpdate").validate({
+        rules: {},
+        messages: {},
+        submitHandler: function (form) {
+            remove();
+            // delSelf();
         }
     });
 
@@ -293,9 +558,192 @@
     function load() {
         $('#table_retardation')
             .bootstrapTable({
-                url: "/retardation/list",                      //请求后台的URL（*）
+                url: "/retardation/listStu",                      //请求后台的URL（*）
                 method: 'GET',                      //请求方式（*）
                 toolbar: '#toolbar',              //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+                pageSize: 10,                     //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                      //是否显示表格搜索
+                showSearchButton: true,
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列（选择显示的列）
+                showRefresh: false,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                height: 400,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+                showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,         //是否显示父子表
+                //得到查询的参数
+                queryParams: function (params) {
+                    //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+                    downParams = {
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        // search_key: $("#search_key").val(),
+                        search: params.search,
+                        type: 'student'
+                    }
+                    return {
+                        pageSize: params.limit,                         //页面大小
+                        page: (params.offset / params.limit) + 1,   //页码
+                        //sort: params.sort,      //排序列名
+                        //sortOrder: params.order //排位命令（desc，asc）
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        // search_key: $("#search_key").val(),
+                        // isPass: isPass,
+                        // search_key: $("#search_key").val(),
+                        search: params.search
+                    };
+                },
+                columns: [{
+                    checkbox: true,
+                    visible: true   //是否显示复选框
+                 }, {
+                        field: 'id',
+                        title: '序号',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false,
+                    },
+                    {
+                        field: 'number',
+                        title: '学号',
+                        valign: 'middle',
+                        align: 'center',
+                    }, {
+                        field: 'name',
+                        title: '姓名',
+                        valign: 'middle',
+                        align: 'center',
+                    },
+                    {
+                        field: 'departmentId',
+                        title: '学院',
+                        valign: 'middle',
+                        visible: false,
+                        formatter: function (value, row, index) {
+                            var department = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/department/get/" + value,
+                                    dataType: "json",
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            department = data.data;
+                                        }
+                                    }
+                                });
+                            }
+                            return department != null ? department.name : "";
+                        }
+                    },
+                    {
+                        field: 'majorId',
+                        title: '专业',
+                        valign: 'middle',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var major = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/major/get/" + value,
+                                    dataType: "json",
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            major = data.data;
+                                        }
+                                    }
+                                });
+                            }
+                            return major != null ? major.name : "";
+                        }
+                    }, {
+                        field: 'clazzId',
+                        title: '班级',
+                        valign: 'middle',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var clazz = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/clazz/get/" + value,
+                                    dataType: "json",
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            clazz = data.data;
+                                        }
+                                    }
+                                });
+                            }
+                            return clazz != null ? clazz.name : "";
+                        }
+                    },
+                    {
+                        field: 'admissionDate',
+                        title: '入学年份',
+                        valign: 'middle',
+                        align: 'center',
+                    },
+                    {
+                        field: 'nativePlace',
+                        title: '生源地',
+                        valign: 'middle',
+                        align: 'center',
+                    }, {
+                        field: 'phoneNumber',
+                        title: '联系电话',
+                        valign: 'middle',
+                        align: 'center',
+                    },
+                    {
+                        title: '操作',
+                        field: 'id',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var e = '<a class="btn btn-warning btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#searchContent2" title="休学申请" onclick="getSelfStu(' + row.id + ',' + 5 + ')">留级申请</a> ';
+                            return e ;
+                           }
+                        }],
+                formatSearch: function () {
+                    return '姓名(汉字/拼音)或学号';
+                },
+
+            });
+    }
+
+  // after table loading
+    function load2() {
+        $('#table_retardation2')
+            .bootstrapTable({
+                url: "/retardation/list",                      //请求后台的URL（*）
+                method: 'GET',                      //请求方式（*）
+                toolbar: '#toolbar2',              //工具按钮用哪个容器
                 striped: true,                      //是否显示行间隔色
                 cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
                 pagination: true,                   //是否显示分页（*）
@@ -325,7 +773,7 @@
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
-                        search_key: $("#search_key").val(),
+                        // search_key: $("#search_key").val(),
                         search: params.search,
                         type: 'student'
                     }
@@ -338,20 +786,24 @@
                         majorId: $("#majorId").val(),
                         grade: $("#grade").val(),
                         clazzId: $("#clazzId").val(),
-                        search_key: $("#search_key").val(),
-                        isPass: isPass,
-                        search_key: $("#search_key").val(),
+                        // search_key: $("#search_key").val(),
+                        // isPass: isPass,
+                        // search_key: $("#search_key").val(),
                         search: params.search
                     };
                 },
                 columns: [{
                     checkbox: true,
                     visible: true   //是否显示复选框
-                 }, {
-                //     field: 'id',
-                //     title: '序号',
-                //     align: 'center',
-                // }, {
+                }, {
+                        field: 'id',
+                        title: '序号',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false,
+                    },
+
+                    {
                     field: 'number',
                     title: '学号',
                     align: 'center',
@@ -359,117 +811,250 @@
                     field: 's_name',
                     title: '姓名',
                     align: 'center',
+                },
+
+                    {
+                    field: 'old_department_id',
+                    title: '所在学院',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var department = {};
+                        $.ajax({
+                            url: "/department/get/" + value,
+                            async: false,
+                            type: "GET",
+                            success: function (res) {
+                                if (res.code == 1) {
+                                    department = res.data
+                                }
+                            }
+                        })
+                        return department != null ? department.name : "";
+                    }
+                }, {
+                    field: 'old_major_id',
+                    title: '所在专业',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var major = {};
+                        $.ajax({
+                            url: "/major/get/" + value,
+                            async: false,
+                            type: "GET",
+                            success: function (res) {
+                                if (res.code == 1) {
+                                    major = res.data
+                                }
+                            }
+                        })
+                        return major != null ? major.name : "";
+                    }
+                }, {
+                    field: 'old_clazz_id',
+                    title: '原班级',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var clazz = {};
+                        $.ajax({
+                            url: "/clazz/get/" + value,
+                            async: false,
+                            type: "GET",
+                            success: function (res) {
+                                if (res.code == 1) {
+                                    clazz = res.data
+                                }
+                            }
+                        })
+                        return clazz != null ? clazz.name : "";
+                    }
+                },
+
+                    {
+                    field: 'new_clazz_id',
+                    title: '新班级',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var clazz = {};
+                        $.ajax({
+                            url: "/clazz/get/" + value,
+                            async: false,
+                            type: "GET",
+                            success: function (res) {
+                                if (res.code == 1) {
+                                    clazz = res.data
+                                }
+                            }
+                        })
+                        return clazz != null ? clazz.name : "";
+                    }
+                },
+                    {
+                    field: 'save_date',
+                    title: '更改日期',
+                    align: 'center',
+                }, {
+                    field: 'is_pass',
+                    title: '审批进度',
+                    formatter: function (value, row, index) {
+                        if (value == null) {
+                            return "<button onclick='getSelf( " + row.id + " , " + row.studentId + ")' data-toggle=\"modal\" data-target=\"#message\">等待审批</button>";
+                        }
+                        return value ? "同意留级" : "拒绝留级";
+                    }
+                },
+                    {
+                    field: 'remarks',
+                    title: '备注',
+                    align: 'center',
                 },{
-                //     field: 'departmentId',
-                //     title: '学院',
-                //     align: 'center',
-                //     formatter: function (value, row, index) {
-                //         var department = {};
-                //         $.ajax({
-                //             url: "/department/get/" + value,
-                //             async: false,
-                //             type: "GET",
-                //             success: function (res) {
-                //                 if (res.code == 1) {
-                //                     department = res.data
-                //                 }
-                //             }
-                //         })
-                //         return department != null ? department.name : "";
-                //     }
-                // }
-                //
-                //     , {
-                        field: 'old_department_id',
-                        title: '原学院',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            var department = {};
-                            $.ajax({
-                                url: "/department/get/" + value,
-                                async: false,
-                                type: "GET",
-                                success: function (res) {
-                                    if (res.code == 1) {
-                                        department = res.data
-                                    }
+                    title: '操作',
+                    field: 'id',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var e = '<a class="btn btn-primary btn-sm " href="#"   data-toggle="modal" data-target="#edit" title="留级结果" onclick="get(' + row.id + ')">留级确认</a> ';
+                        var d = '<a class="btn btn-warning btn-sm " title="退回"  data-toggle="modal" data-target="#delWarning"   onclick="input_id(' + row.id + ')">退回</a> ';
+
+
+                        return e + d;
+                    }
+                }],
+                formatSearch: function () {
+                    return '姓名(汉字/拼音)或学号';
+                },
+
+            });
+    }
+
+
+
+
+    function load3() {
+        $('#table_retardation3')
+            .bootstrapTable({
+                url: "/retardation/list3",                      //请求后台的URL（*）
+                method: 'GET',                      //请求方式（*）
+                toolbar: '#toolbar3',              //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+                pageSize: 10,                     //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                      //是否显示表格搜索
+                showSearchButton: true,
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列（选择显示的列）
+                showRefresh: false,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+                showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,         //是否显示父子表
+                //得到查询的参数
+                queryParams: function (params) {
+                    //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+                    downParams = {
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        // search_key: $("#search_key").val(),
+                        search: params.search,
+                        type: 'student'
+                    }
+                    return {
+                        pageSize: params.limit,                         //页面大小
+                        page: (params.offset / params.limit) + 1,   //页码
+                        //sort: params.sort,      //排序列名
+                        //sortOrder: params.order //排位命令（desc，asc）
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        // search_key: $("#search_key").val(),
+                        // isPass: isPass,
+                        // search_key: $("#search_key").val(),
+                        search: params.search
+                    };
+                },
+                columns: [{
+                    checkbox: true,
+                    visible: true   //是否显示复选框
+                }, {
+                    //     field: 'id',
+                    //     title: '序号',
+                    //     align: 'center',
+                    // }, {
+                    field: 'number',
+                    title: '学号',
+                    align: 'center',
+                }, {
+                    field: 's_name',
+                    title: '姓名',
+                    align: 'center',
+                },
+                    {
+                    field: 'old_department_id',
+                    title: '所在学院',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var department = {};
+                        $.ajax({
+                            url: "/department/get/" + value,
+                            async: false,
+                            type: "GET",
+                            success: function (res) {
+                                if (res.code == 1) {
+                                    department = res.data
                                 }
-                            })
-                            return department != null ? department.name : "";
-                        }
-                    }, {
-                        field: 'old_major_id',
-                        title: '原专业',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            var major = {};
-                            $.ajax({
-                                url: "/major/get/" + value,
-                                async: false,
-                                type: "GET",
-                                success: function (res) {
-                                    if (res.code == 1) {
-                                        major = res.data
-                                    }
+                            }
+                        })
+                        return department != null ? department.name : "";
+                    }
+                }, {
+                    field: 'old_major_id',
+                    title: '所在专业',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var major = {};
+                        $.ajax({
+                            url: "/major/get/" + value,
+                            async: false,
+                            type: "GET",
+                            success: function (res) {
+                                if (res.code == 1) {
+                                    major = res.data
                                 }
-                            })
-                            return major != null ? major.name : "";
-                        }
-                    }, {
-                        field: 'old_clazz_id',
-                        title: '原班级',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            var clazz = {};
-                            $.ajax({
-                                url: "/clazz/get/" + value,
-                                async: false,
-                                type: "GET",
-                                success: function (res) {
-                                    if (res.code == 1) {
-                                        clazz = res.data
-                                    }
+                            }
+                        })
+                        return major != null ? major.name : "";
+                    }
+                }, {
+                    field: 'old_clazz_id',
+                    title: '原班级',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var clazz = {};
+                        $.ajax({
+                            url: "/clazz/get/" + value,
+                            async: false,
+                            type: "GET",
+                            success: function (res) {
+                                if (res.code == 1) {
+                                    clazz = res.data
                                 }
-                            })
-                            return clazz != null ? clazz.name : "";
-                        }
-                    }, {
-                        field: 'new_department_id',
-                        title: '新学院',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            var department = {};
-                            $.ajax({
-                                url: "/department/get/" + value,
-                                async: false,
-                                type: "GET",
-                                success: function (res) {
-                                    if (res.code == 1) {
-                                        department = res.data
-                                    }
-                                }
-                            })
-                            return department != null ? department.name : "";
-                        }
-                    }, {
-                        field: 'new_major_id',
-                        title: '新专业',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            var major = {};
-                            $.ajax({
-                                url: "/major/get/" + value,
-                                async: false,
-                                type: "GET",
-                                success: function (res) {
-                                    if (res.code == 1) {
-                                        major = res.data
-                                    }
-                                }
-                            })
-                            return major != null ? major.name : "";
-                        }
-                    }, {
+                            }
+                        })
+                        return clazz != null ? clazz.name : "";
+                    }
+                },
+
+                    {
                         field: 'new_clazz_id',
                         title: '新班级',
                         align: 'center',
@@ -487,27 +1072,38 @@
                             })
                             return clazz != null ? clazz.name : "";
                         }
-                    }, {
+                    },
+                    {
+                        field: 'newGrader',
+                        title: '转入年级',
+                        align: 'center',
+                    },
+                    {
                         field: 'save_date',
-                        title: '更改日期',
+                        title: '申请日期',
                         align: 'center',
                     }, {
                         field: 'is_pass',
                         title: '审批进度',
                         formatter: function (value, row, index) {
                             if (value == null) {
-                                return "<button onclick=get(" + row.id + ") data-toggle=\"modal\" data-target=\"#message\">等待审批</button>";
+                                return "<button onclick='getSelf( " + row.id + " , " + row.studentId + ")' data-toggle=\"modal\" data-target=\"#message\">等待审批</button>";
                             }
-                            return value ? "同意留级" : "拒绝留级";
+                            return value ? "同意试读" : "拒绝试读";
                         }
-                    }, {
+                    },
+                        {
                         field: 'result',
                         title: '留级结果',
                         formatter: function (value, row, index) {
+                            if(value == null){
+                                return '试读中'
+                            }
                             return value ? "同意留级" : "拒绝留级";
                         },
                         align: 'center',
-                    }, {
+                    },
+                    {
                         field: 'remarks',
                         title: '备注',
                         align: 'center',
@@ -516,14 +1112,14 @@
                         field: 'id',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="编辑" onclick="get(' + row.id + ')">编辑</a> ';
-                            var d = '<a class="btn btn-warning btn-sm " href="#" title="删除"  mce_href="#" onclick="remove(\''
-                                + row.id
-                                + '\')">删除</a> ';
-
-                            return e + d;
-                           }
-                        }],
+                            // var e = '<a class="btn btn-primary btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="留级结果" onclick="get(' + row.id + ')">留级确认</a> ';
+                            // var d = '<a class="btn btn-warning btn-sm " href="#" title="退回"  mce_href="#" onclick="remove(\''
+                            //     + row.id
+                            //     + '\')">退回</a> ';
+                            var d = '<a class="btn btn-warning btn-sm " title="退回"  data-toggle="modal" data-target="#delWarning"   onclick="input_id(' + row.id + ')">退回</a> ';
+                            return d;
+                        }
+                    }],
                 formatSearch: function () {
                     return '姓名(汉字/拼音)或学号';
                 },
@@ -531,9 +1127,57 @@
             });
     }
 
-    function reLoad() {
-        $('#table_retardation').bootstrapTable('refresh');
+
+
+    function input_id(id) {
+        $('#id_warn').val(id)
     }
+
+
+    function reLoad() {
+        // $('#table_retardation').bootstrapTable('refresh');
+        $('#table_retardation2').bootstrapTable('refresh');
+    }
+    function reLoad3() {
+        // $('#table_retardation').bootstrapTable('refresh');
+        $('#table_retardation3').bootstrapTable('refresh');
+    }
+    function reLoad23() {
+        // $('#table_retardation').bootstrapTable('refresh');
+        $('#table_retardation2').bootstrapTable('refresh');
+        $('#table_retardation3').bootstrapTable('refresh');
+    }
+    function reLoadAll() {
+        $('#table_retardation').bootstrapTable('refresh');
+        $('#table_retardation2').bootstrapTable('refresh');
+    }
+
+
+
+    function update_last() {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/retardation/updateLast",
+            data: $('#update_last').serialize(),
+            success: function (data) {
+                if (data.code == 1) {
+                    //操作成功，关闭模态框
+                    $('#edit').modal('hide');
+                    reLoad23();
+                    //alert("修改成功");
+                } else {
+                    alert("修改失败");
+                }
+            }
+        });
+    }
+
+
+
+
+
+
     function get(id) {
         console.log("id" + id)
         $.ajax({
@@ -547,33 +1191,134 @@
                     console.log(res.data)
                     let retardation = res.data;
                     for (let key in retardation) {
-                        if (key != "newClazzId")
+                        if (key != "saveDate"){
                             $("#" + key).val(retardation[key]);
+                        }
 
                         else {
-                            let clazzes = retardation[key];
-                            clazzes.forEach(function (element) {
-                                $("#newClazzId").append("<option value='" + element.id + "'>" + element.name + "</option>")
-                            })
+                            var time=new Date(retardation['saveDate']).toLocaleDateString()
+                            $("#" + key).val(time);
+                        }
+                        // else {
+                        //     let clazzes = retardation[key];
+                        //     clazzes.forEach(function (element) {
+                        //         $("#newClazzId").append("<option value='" + element.id + "'>" + element.name + "</option>")
+                        //     })
+                        // }
+                    }
+                }
+            }
+        });
+    }
+    function getSelf(id,stuId) {
+        // console.log("id=== "+ id)
+        // console.log("stuID=== "+ stuId)
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/retardation/getSelf/" + id +'/'+stuId,
+            data: {},
+            success: function (data) {
+                if (data.code == 1) {
+                    var clNameList=data.data.clNameList;
+                    var suspension = data.data.stuInfo;
+                    let gradeList= data.data.gradeList
+                    for (var key in suspension) {
+                        $("#" + key + 1).val(suspension[key]);
+
+                    }
+
+                    $("#newClazzId1").empty();
+                    $("#newClazzId1").append("<option value=''>--请选择转入班级--</option>");
+                    if(clNameList.length>0){
+                        for(let index in clNameList){
+                            let option = "<option value='" + clNameList[index].id + "'>" + clNameList[index].clName + "</option>";
+                            $("#newClazzId1").append(option);
                         }
                     }
+
+                    $("#newGrader1").empty();
+                    $("#newGrader1").append("<option value=''>--请选择转入年级--</option>");
+                    if(gradeList.length>0){
+                        for(let index in gradeList){
+                            let option = "<option value='" + gradeList[index].grade + "'>" + gradeList[index].grade + "</option>";
+                            $("#newGrader1").append(option);
+                        }
+                    }
+
+                }
+                else {
+                    alert(data.msg);
+                }
+            }
+        });
+
+    }
+
+
+    function getSelfStu(id,index) {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/student/getSelf/" + id,
+            data: {},
+            success: function (data) {
+                if (data.code == 1) {
+                    var student = data.data;
+                    for (var key in student) {
+                        if(key==='gender') {
+                            if(student[key]==1){
+                                $("#" + key + index).val('男');
+                            }
+                            if(student[key]==0){
+                                $("#" + key + index).val('女');
+                            }
+
+                        }
+                        else{
+                            $("#" + key + index).val(student[key]);
+                        }
+
+                    }
+                }
+            }
+        });
+
+    }
+
+    //未留级，留级模态框 修改数据提交
+    function updateSearch() {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/retardation/updateRetardation",
+            data: $('#searchUpdate').serialize(),
+            success: function (data) {
+                // console.log(data)
+                if (data.code == 1) {
+                    //操作成功，关闭模态框
+                    $('#searchContent2').modal('hide');
+                    reLoadAll();
+                    //alert("添加成功");
+                } else {
+                    alert(data.msg);
                 }
             }
         });
     }
 
 
-    function update() {
+    function update(isPass) {
         $.ajax({
             //cache: true,
             type: "POST",
-            url: "/retardation/update",
+            url: "/retardation/update" + '/' + isPass,
             data: $('#update').serialize(),
             success: function (data) {
                 if (data.code == 1) {
                     //操作成功，关闭模态框
-                    $('#edit').modal('hide');
-                    reLoad();
+                    $('#message').modal('hide');
+                    reLoad23();
                     //alert("修改成功");
                 } else {
                     alert("修改失败");
@@ -604,15 +1349,16 @@
         });
     }
 
-    function remove(id) {
+    function remove() {
         $.ajax({
             type: 'POST',
-            data: {},
-            url: "/retardation/remove/" + id,
+            data: $('#delUpdate').serialize(),
+            url: "/retardation/remove/" ,
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
-                    reLoad()
+                    $('#delWarning').modal('hide');
+                    reLoad3()
                     //alert("删除成功");
                 } else {
                     alert("删除失败");

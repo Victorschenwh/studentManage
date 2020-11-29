@@ -70,9 +70,10 @@ public interface SuspensionMapper {
     int update(Suspension suspension);
 
 
-//    1==休学 ；0==正常
+//  3==留级；  2==退学；1==休学 ；0==正常
     @Update("update student set isDel= 1 where id=#{id}")
     int updateLogicStu(Suspension suspension);
+
 
     @Update("insert into  suspension set suspension_date=#{suspensionDate},resumption_date=#{resumptionDate},duration=#{duration},reason=#{reason},remarks=#{remarks} ,student_id=#{id}")
     int updateLogicSuspen(Suspension suspension);
