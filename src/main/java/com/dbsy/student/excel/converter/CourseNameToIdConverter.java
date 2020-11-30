@@ -1,14 +1,18 @@
-package com.dbsy.student.excel;
+package com.dbsy.student.excel.converter;
 
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.enums.CellDataTypeEnum;
 import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
+import com.dbsy.student.excel.SpringContext;
+import com.dbsy.student.service.ClazzService;
+import com.dbsy.student.service.CourseService;
+import com.dbsy.student.service.iml.CourseServiceImp;
 
-import java.util.Date;
+public class CourseNameToIdConverter implements Converter<Integer> {
+    CourseService courseService = (CourseService) SpringContext.getApplicationContext().getBean("courseServiceImp");
 
-public class NumberFormatConverter implements Converter<Integer> {
     @Override
     public Class supportJavaTypeKey() {
         return Integer.class;
@@ -21,15 +25,15 @@ public class NumberFormatConverter implements Converter<Integer> {
 
     @Override
     public Integer convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        if (cellData != null && !"".equals(cellData.toString()) && cellData.toString().matches("\\d+"))
-            return Integer.parseInt(cellData.toString()) > 0 ? Integer.parseInt(cellData.toString()) : null;
-        else {
-            return null;
-        }
+        if (cellData != null && cellData.getStringValue() != null)
+            return courseService.getCourseByName(cellData.getStringValue().trim()).getId();
+        return null;
     }
 
     @Override
     public CellData convertToExcelData(Integer integer, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+        if (integer != null)
+            return new CellData(courseService.get(integer).getName());
         return null;
     }
 }

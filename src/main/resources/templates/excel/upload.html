@@ -7,171 +7,236 @@
     }
 </style>
 <body>
-<div class="container-fluid">
+<div class="container">
 
     <ol class="breadcrumb">
         <li>上传</li>
     </ol>
 
+
+    <!--  <div class="left col-md-2">
+          <ul class="menu nav nav-pills nav-stacked">
+              <li role="presentation"><a href="javascript:window.history.go(-1)">返回</a></li>
+              <li role="presentation"><a href="#student">学生</a></li>
+              <li role="presentation"><a href="#course">课程</a></li>
+              <li role="presentation"><a href="#employment">就业</a></li>
+              <li role="presentation"><a href="#transfer">转专业</a></li>
+              <li role="presentation"><a href="#suspension">退休学</a></li>
+              <li role="presentation"><a href="#retardation">留级</a></li>
+              <li role="presentation"><a href="#reward">奖惩</a></li>
+              <li role="presentation"><a href="#score">分数</a></li>
+          </ul>
+      </div>-->
+    <!--  <div class="main col-md-10">
+      </div>-->
     <div class="row">
-        <div class="left col-md-2">
-            <ul class="menu nav nav-pills nav-stacked">
-                <li role="presentation"><a href="javascript:window.history.go(-1)">返回</a></li>
-                <li role="presentation"><a href="#student">学生</a></li>
-                <li role="presentation"><a href="#course">课程</a></li>
-                <li role="presentation"><a href="#employment">就业</a></li>
-                <li role="presentation"><a href="#transfer">转专业</a></li>
-                <li role="presentation"><a href="#suspension">退休学</a></li>
-                <li role="presentation"><a href="#retardation">留级</a></li>
-                <li role="presentation"><a href="#reward">奖惩</a></li>
-                <li role="presentation"><a href="#score">分数</a></li>
-            </ul>
-        </div>
-        <div class="main col-md-10">
-            <div class="row">
 
 
-                <div id="student" class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">学生</div>
-                        <div class="panel-body">
-                            <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>上传</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <input name="type" type="text" class="hidden" value="student">
-                                <input type="submit" value="上传" class="btn btn-default">
-                                <a href="/excel/downloadExcel/学生基本信息表模板.xlsx">学生基本信息表模板,点击下载</a>
-                            </form>
+        <div id="student" class="col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">学生</div>
+                <div class="panel-body">
+                    <form action="/excel/upload" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>上传</label>
+                            <input type="file" name="file">
                         </div>
-                    </div>
+                        <input name="type" type="text" class="hidden" value="student">
+                        <input type="submit" value="上传" class="btn btn-default">
+                        <a href="/excel/downloadExcel/学生基本信息表模板.xlsx">学生基本信息表模板,点击下载</a>
+                    </form>
                 </div>
-
-                <div id="course" class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">课程</div>
-                        <div class="panel-body">
-                            <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>上传</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <input name="type" type="text" class="hidden" value="course">
-                                <input type="submit" value="上传" class="btn btn-default">
-                                <a href="/excel/downloadExcel/课程表模板.xlsx">课程表模板,点击下载</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="employment" class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">就业</div>
-                        <div class="panel-body">
-                            <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>上传</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <input name="type" type="text" class="hidden" value="employment">
-                                <input type="submit" value="上传" class="btn btn-default">
-                                <a href="/excel/downloadExcel/就业情况表模板.xlsx">就业情况表模板,点击下载</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="reward" class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">奖惩</div>
-                        <div class="panel-body">
-                            <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>上传</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <input name="type" type="text" class="hidden" value="reward">
-                                <input type="submit" value="上传" class="btn btn-default">
-                                <a href="/excel/downloadExcel/奖惩表.xlsx">奖惩表模板,点击下载</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="score" class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">成绩</div>
-                        <div class="panel-body">
-                            <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>上传</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <input name="type" type="text" class="hidden" value="score">
-                                <input type="submit" value="上传" class="btn btn-default">
-                                <a href="/excel/downloadExcel/成绩模板表.xlsx">成绩模板表,点击下载</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="retardation" class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">成绩</div>
-                        <div class="panel-body">
-                            <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>上传</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <input name="type" type="text" class="hidden" value="retardation">
-                                <input type="submit" value="上传" class="btn btn-default">
-                                <a href="/excel/downloadExcel/留级表.xlsx">留级表模板,点击下载</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="transfer" class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">转专业</div>
-                        <div class="panel-body">
-                            <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>上传</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <input name="type" type="text" class="hidden" value="transfer">
-                                <input type="submit" value="上传" class="btn btn-default">
-                                <a href="/excel/downloadExcel/转专业表模板.xlsx">转专业表模板,点击下载</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="suspension" class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">退休学</div>
-                        <div class="panel-body">
-                            <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>上传</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <input name="type" type="text" class="hidden" value="suspension">
-                                <input type="submit" value="上传" class="btn btn-default">
-                                <a href="/excel/downloadExcel/退休学模板表.xlsx">退休学模板表,点击下载</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
-
         </div>
+
+        <!-- <div id="course" class="col-sm-6">
+             <div class="panel panel-info">
+                 <div class="panel-heading">课程</div>
+                 <div class="panel-body">
+                     <form action="/excel/upload" method="post" enctype="multipart/form-data">
+                         <div class="form-group">
+                             <label>上传</label>
+                             <input type="file" name="file">
+                         </div>
+                         <input name="type" type="text" class="hidden" value="course">
+                         <input type="submit" value="上传" class="btn btn-default">
+                         <a href="/excel/downloadExcel/课程表模板.xlsx">课程表模板,点击下载</a>
+                     </form>
+                 </div>
+             </div>
+         </div>-->
+
+        <div id="employment" class="col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">就业</div>
+                <div class="panel-body">
+                    <form action="/excel/upload" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>上传</label>
+                            <input type="file" name="file">
+                        </div>
+                        <input name="type" type="text" class="hidden" value="employment">
+                        <input type="submit" value="上传" class="btn btn-default">
+                        <a href="/excel/downloadExcel/就业情况表模板.xlsx">就业情况表模板,点击下载</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="reward" class="col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">奖惩</div>
+                <div class="panel-body">
+                    <form action="/excel/upload" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>上传</label>
+                            <input type="file" name="file">
+                        </div>
+                        <input name="type" type="text" class="hidden" value="reward">
+                        <input type="submit" value="上传" class="btn btn-default">
+                        <a href="/excel/downloadExcel/奖惩表.xlsx">奖惩表模板,点击下载</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="score" class="col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">成绩</div>
+                <div class="panel-body">
+                    <form action="/excel/upload" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>上传</label>
+                            <input type="file" name="file">
+                        </div>
+                        <input name="type" type="text" class="hidden" value="score">
+                        <input type="submit" value="上传" class="btn btn-default">
+                        <a href="/excel/downloadExcel/成绩模板表.xlsx">成绩模板表,点击下载</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="teacher" class="col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">老师</div>
+                <div class="panel-body">
+                    <form action="/excel/upload" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>上传</label>
+                            <input type="file" name="file">
+                        </div>
+                        <input name="type" type="text" class="hidden" value="teacher">
+                        <input type="submit" value="上传" class="btn btn-default">
+                        <a href="/excel/downloadExcel/老师表.xlsx">老师表,点击下载</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--
+                    <div id="retardation" class="col-sm-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">留级表</div>
+                            <div class="panel-body">
+                                <form action="/excel/upload" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label>上传</label>
+                                        <input type="file" name="file">
+                                    </div>
+                                    <input name="type" type="text" class="hidden" value="retardation">
+                                    <input type="submit" value="上传" class="btn btn-default">
+                                    <a href="/excel/downloadExcel/留级表.xlsx">留级表模板,点击下载</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="transfer" class="col-sm-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">转专业</div>
+                            <div class="panel-body">
+                                <form action="/excel/upload" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label>上传</label>
+                                        <input type="file" name="file">
+                                    </div>
+                                    <input name="type" type="text" class="hidden" value="transfer">
+                                    <input type="submit" value="上传" class="btn btn-default">
+                                    <a href="/excel/downloadExcel/转专业表模板.xlsx">转专业表模板,点击下载</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="suspension" class="col-sm-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">退休学</div>
+                            <div class="panel-body">
+                                <form action="/excel/upload" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label>上传</label>
+                                        <input type="file" name="file">
+                                    </div>
+                                    <input name="type" type="text" class="hidden" value="suspension">
+                                    <input type="submit" value="上传" class="btn btn-default">
+                                    <a href="/excel/downloadExcel/退休学模板表.xlsx">退休学模板表,点击下载</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>-->
     </div>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">数据上传须知</h4>
+                </div>
+                <div class="modal-body">
+                    <h1 class="text-center text-danger">注意事项</h1>
+
+                    <ol>
+                        <li class="text-danger lead">
+                            <p>按照表格示例格式进行填写；</p>
+                        </li>
+                        <li class="text-danger lead">
+                            <p>如果没有相关信息就空，不要填“无”；</p>
+                        </li>
+                        <li class="text-danger lead">
+                            <p>表格内容务必准确，不能填写无效数据；</p>
+                        </li>
+                        <li class="text-danger lead">
+                            <p> 填写过后检查无误后再进行上传，否则会上传失败；</p>
+                        </li>
+                        <li class="text-danger lead">
+                            <p>表格上传速度较慢，请耐心等待。</p>
+                        </li>
+                        <li class="text-danger lead">
+                            <p>请先将学生信息上传，学生信息上传完毕后才可以传入其他信息</p>
+                        </li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">已阅读</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+
 </div>
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#myModal').modal('show')
+    })
+
+</script>
 </body>
 </html>

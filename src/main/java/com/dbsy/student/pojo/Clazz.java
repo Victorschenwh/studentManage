@@ -2,8 +2,8 @@ package com.dbsy.student.pojo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.dbsy.student.excel.DepartmentNameToIdConverter;
-import com.dbsy.student.excel.MajorNameToIdConverter;
+import com.dbsy.student.excel.converter.DepartmentNameToIdConverter;
+import com.dbsy.student.excel.converter.MajorNameToIdConverter;
 
 public class Clazz {
     @ExcelIgnore

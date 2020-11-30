@@ -61,6 +61,7 @@ public class AdminController {
         m.put("rows", adminService.findAdmin(map));
         return m;
     }
+
     @Remarks("权限管理/管理员账号列表")
     @RequestMapping("/assistantList")
     @ResponseBody
@@ -188,7 +189,15 @@ public class AdminController {
             Student student = studentService.get(upUser.getForeignId());
             Admin admin = new Admin();
             admin.setId(id);
-            admin.setPassword(student.getIdCard().substring(student.getIdCard().length() - 6));
+            String password = null;
+
+            if (student.getIdCard() != null) {
+                password = student.getIdCard().substring(student.getIdCard().length() - 6);
+            }
+            if (password == null) {
+                password = student.getNumber().substring(student.getNumber().length() - 6);
+            }
+            admin.setPassword(password);
             // 修改的是校领导或管理员
             if (loginUser.getRole() <= 10) {
                 adminService.update(admin);
@@ -205,7 +214,14 @@ public class AdminController {
             Teacher teacher = teacherService.get(upUser.getForeignId());
             Admin admin = new Admin();
             admin.setId(id);
-            admin.setPassword(teacher.getPhoneNumber().substring(teacher.getPhoneNumber().length() - 6));
+            String password = null;
+            if (teacher.getPhoneNumber() != null) {
+                password = teacher.getPhoneNumber().substring(teacher.getPhoneNumber().length() - 6);
+            }
+            if (password == null) {
+                password = teacher.getUsername().substring(teacher.getUsername().length() - 6);
+            }
+            admin.setPassword(password);
             if (upUser.getRole() > 2000 && loginUser.getRole() == 20) {
                 if (loginUser.getDepartmentId() == upUser.getDepartmentId())
                     if (adminService.update(admin) > 0)

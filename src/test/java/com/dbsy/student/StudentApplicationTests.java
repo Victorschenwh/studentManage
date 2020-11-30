@@ -6,6 +6,7 @@ import com.dbsy.student.service.CourseService;
 import com.dbsy.student.service.ScoreService;
 import com.dbsy.student.service.StudentService;
 import com.dbsy.student.slip.Slip;
+import com.dbsy.student.util.EncryptionUtil;
 import com.dbsy.student.util.PinYinUtil;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ class StudentApplicationTests {
 
     @Test
     void test() {
-        log.info(scoreMapper.slip(new HashMap()) + "");
+        log.info(EncryptionUtil.sha1("123"));
     }
 
     @Test

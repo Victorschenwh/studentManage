@@ -1,19 +1,32 @@
-package com.dbsy.student.pojo;
+package com.dbsy.student.excel.vo;
 
-import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.converter.ClazzNameToIdConverter;
 import com.dbsy.student.excel.converter.CourseNameToIdConverter;
-import com.dbsy.student.excel.converter.StudentNumberToIdConverter;
+import com.dbsy.student.excel.converter.DepartmentNameToIdConverter;
+import com.dbsy.student.excel.converter.MajorNameToIdConverter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class Score {
-    @ExcelIgnore
-    private Integer id;
+public class ScoreEo {
+    @ExcelProperty("学号")
+    private String number;
 
-    @ExcelProperty(value = "学号", converter = StudentNumberToIdConverter.class)
-    private Integer studentId;
+    @ExcelProperty("姓名")
+    private String name;
+
+    @ExcelProperty(value = "班级名", converter = ClazzNameToIdConverter.class)
+    private Integer clazzId;
+
+    @ExcelProperty(value = "专业名", converter = MajorNameToIdConverter.class)
+    private Integer majorId;
+
+    @ExcelProperty(value = "学院名", converter = DepartmentNameToIdConverter.class)
+    private Integer departmentId;
+
+    @ExcelProperty("年级")
+    private Integer grade;
 
     @ExcelProperty(value = "课程名", converter = CourseNameToIdConverter.class)
     private Integer courseId;
@@ -40,37 +53,52 @@ public class Score {
     @ExcelProperty("考试时间")
     private Date testTime;
 
-    public Score(Integer id, Integer studentId, Integer courseId, Double score, Double credit, Integer studyTerm, Integer totalHours, Integer theoryHours, Integer experimentHours, Date testTime) {
-        this.id = id;
-        this.studentId = studentId;
-        this.courseId = courseId;
-        this.score = score;
-        this.credit = credit;
-        this.studyTerm = studyTerm;
-        this.totalHours = totalHours;
-        this.theoryHours = theoryHours;
-        this.experimentHours = experimentHours;
-        this.testTime = testTime;
+    public String getNumber() {
+        return number;
     }
 
-    public Score() {
-        super();
+    public void setNumber(String number) {
+        this.number = number;
     }
 
-    public Integer getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getStudentId() {
-        return studentId;
+    public Integer getClazzId() {
+        return clazzId;
     }
 
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
+    public void setClazzId(Integer clazzId) {
+        this.clazzId = clazzId;
+    }
+
+    public Integer getMajorId() {
+        return majorId;
+    }
+
+    public void setMajorId(Integer majorId) {
+        this.majorId = majorId;
+    }
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
     }
 
     public Integer getCourseId() {
@@ -135,21 +163,5 @@ public class Score {
 
     public void setTestTime(Date testTime) {
         this.testTime = testTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Score{" +
-                "id=" + id +
-                ", studentId=" + studentId +
-                ", courseId=" + courseId +
-                ", score=" + score +
-                ", credit=" + credit +
-                ", studyTerm=" + studyTerm +
-                ", totalHours=" + totalHours +
-                ", theoryHours=" + theoryHours +
-                ", experimentHours=" + experimentHours +
-                ", testTime=" + testTime +
-                '}';
     }
 }

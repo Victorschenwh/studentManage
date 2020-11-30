@@ -1,6 +1,8 @@
 package com.dbsy.student.mapper;
 
 
+import com.dbsy.student.excel.vo.AcademiScoreEo;
+import com.dbsy.student.excel.vo.TotalScoreEo;
 import com.dbsy.student.pojo.Score;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -65,4 +67,7 @@ public interface ScoreMapper {
 
     int preWarmingCount(Map map);
 
+    List<TotalScoreEo> listTotalExport(Map map);
+
+    List<AcademiScoreEo> listAcademiExport(Map map);
 }

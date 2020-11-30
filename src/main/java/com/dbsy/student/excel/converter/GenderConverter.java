@@ -1,4 +1,4 @@
-package com.dbsy.student.excel;
+package com.dbsy.student.excel.converter;
 
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.enums.CellDataTypeEnum;
@@ -6,7 +6,7 @@ import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 
-public class StringToBooleanConverter implements Converter<Boolean> {
+public class GenderConverter implements Converter<Boolean> {
     @Override
     public Class supportJavaTypeKey() {
         return Boolean.class;
@@ -19,16 +19,19 @@ public class StringToBooleanConverter implements Converter<Boolean> {
 
     @Override
     public Boolean convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        if (cellData != null && cellData.getNumberValue() != null)
-            return cellData.getNumberValue().equals(1) ? true : false;
-        return null;
-
+        if (cellData == null || "".equals(cellData.toString().trim())) {
+            return null;
+        }
+        if ("男".equals(cellData.toString().trim())) {
+            return true;
+        } else if ("女".equals(cellData.toString().trim())) {
+            return false;
+        } else
+            return null;
     }
 
     @Override
     public CellData convertToExcelData(Boolean aBoolean, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        if (aBoolean != null)
-            return new CellData(aBoolean ? "1" : "0");
-        return null;
+        return aBoolean ? new CellData("男") : new CellData("女");
     }
 }

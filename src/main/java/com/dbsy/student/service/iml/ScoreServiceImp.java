@@ -1,6 +1,8 @@
 package com.dbsy.student.service.iml;
 
 import com.dbsy.student.excel.ExcelSave;
+import com.dbsy.student.excel.vo.AcademiScoreEo;
+import com.dbsy.student.excel.vo.TotalScoreEo;
 import com.dbsy.student.mapper.ScoreMapper;
 import com.dbsy.student.pojo.Score;
 import com.dbsy.student.service.ScoreService;
@@ -185,5 +187,13 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
         return scoreMapper.preWarmingCount(QueryUtil.query(map));
     }
 
+    @Override
+    public List<TotalScoreEo> listTotalExport(Map map) {
+        return this.scoreMapper.listTotalExport(QueryUtil.query(map));
+    }
 
+    @Override
+    public List<AcademiScoreEo> listAcademiExport(Map map) {
+        return this.scoreMapper.listAcademiExport(QueryUtil.query(map));
+    }
 }

@@ -5,7 +5,7 @@ import com.dbsy.student.pojo.*;
 import java.util.List;
 import java.util.Map;
 
-public class ExportStudentInfo {
+public class ProfileVo {
     public Student student;
     public Department department;
     public Major major;
@@ -17,7 +17,7 @@ public class ExportStudentInfo {
     public int fail;//挂科
 
 
-    public ExportStudentInfo() {
+    public ProfileVo() {
 
     }
 

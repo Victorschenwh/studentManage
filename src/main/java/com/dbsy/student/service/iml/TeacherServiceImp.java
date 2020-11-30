@@ -1,6 +1,9 @@
 package com.dbsy.student.service.iml;
 
+import com.dbsy.student.excel.ExcelSave;
+import com.dbsy.student.mapper.AdminMapper;
 import com.dbsy.student.mapper.TeacherMapper;
+import com.dbsy.student.pojo.Admin;
 import com.dbsy.student.pojo.Teacher;
 import com.dbsy.student.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +20,12 @@ import java.util.Map;
 
 @Service("teacherServiceImp")
 @CacheConfig(cacheNames = "teacher")
-public class TeacherServiceImp implements TeacherService {
+public class TeacherServiceImp implements TeacherService, ExcelSave {
     @Autowired
     TeacherMapper teacherMapper;
+
+    @Autowired
+    AdminMapper adminMapper;
 
     @Autowired
     RedisTemplate redisTemplate;
@@ -103,5 +109,19 @@ public class TeacherServiceImp implements TeacherService {
     @Override
     public int changePWByUsername(Teacher teacher) {
         return this.teacherMapper.changePWByUsername(teacher);
+    }
+
+    @Override
+    public int excelBatchInsert(List list) {
+        if (list != null && list.size() > 0)
+            for (Object obj : list) {
+                Teacher teacher = (Teacher) obj;
+                if (teacherMapper.selectByUsername(teacher.getUsername()) == null) {
+                    teacherMapper.insert(teacher);
+                    adminMapper.insert(Admin.teacher(teacher));
+                }
+
+            }
+        return list.size();
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExportStudentInfoService {
+public class ProfileVoService {
 
     @Autowired
     StudentServiceImp studentServiceImp;
@@ -26,8 +26,8 @@ public class ExportStudentInfoService {
     @Autowired
     ScoreService scoreService;
 
-    public ExportStudentInfo get(int id) {
-        ExportStudentInfo exportStudentInfo = new ExportStudentInfo();
+    public ProfileVo get(int id) {
+        ProfileVo exportStudentInfo = new ProfileVo();
         exportStudentInfo.student = studentServiceImp.get(id);
         exportStudentInfo.department = departmentServiceImp.get(exportStudentInfo.student.getDepartmentId());
         exportStudentInfo.major = majorServiceImp.get(exportStudentInfo.student.getMajorId());

@@ -2,7 +2,7 @@ package com.dbsy.student.pojo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.dbsy.student.excel.StudentNumberToIdConverter;
+import com.dbsy.student.excel.converter.StudentNumberToIdConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 

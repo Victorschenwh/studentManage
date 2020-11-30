@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.TeacherMapper">
 
-    <insert id="insert" parameterType="com.dbsy.student.pojo.Teacher">
+    <insert id="insert" parameterType="com.dbsy.student.pojo.Teacher" useGeneratedKeys="true"
+            keyProperty="id">
     insert into teacher (id, username, password, 
       name, gender, birthday, title_id, 
       department_id, post,phone_number, email,
@@ -12,7 +13,8 @@
       #{departmentId,jdbcType=INTEGER}, #{post,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
       #{isLock,jdbcType=BIT},#{remarks},#{level})
   </insert>
-    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Teacher">
+    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Teacher" useGeneratedKeys="true"
+            keyProperty="id">
         insert into teacher
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

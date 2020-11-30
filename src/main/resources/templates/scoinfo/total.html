@@ -20,12 +20,8 @@
     </ol>
 
     <div id="toolbar" class="btn-group">
-        <button id="btn_download" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载表格
-        </button>
-
-        <button id="btn_upload" type="button" class="btn btn-primary" onclick="">
-            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传
+        <button id="btn_download" type="button" class="btn btn-primary" onclick="download()">
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
         </button>
 
         <div class="select">
@@ -112,6 +108,16 @@
 
     });
 
+    function download() {
+        let url = ""
+        for (let k in downParams) {
+            let value = downParams[k] != undefined ? downParams[k] : ''
+            url += `&${k}=${encodeURIComponent(value)}`
+        }
+
+        window.open("/excel/download?" + (url ? url.substring(1) : ''))
+    }
+
     function load() {
         $('#table_score')
             .bootstrapTable({
@@ -149,6 +155,7 @@
                         clazzId: $("#clazzId").val(),
                         search: params.search,
                         pageSize: params.limit,
+                        type: "total"
                     }
                     return {
                         pageSize: params.limit,                         //页面大小

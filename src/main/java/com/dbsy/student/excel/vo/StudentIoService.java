@@ -1,17 +1,17 @@
-package com.dbsy.student.vo;
+package com.dbsy.student.excel.vo;
 
 import com.dbsy.student.excel.ExcelSave;
+import com.dbsy.student.excel.vo.StudentIo;
 import com.dbsy.student.pojo.*;
 import com.dbsy.student.service.iml.*;
 import com.dbsy.student.util.PinYinUtil;
-import com.dbsy.student.vo.ImportStudentInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ImportStudentInfoService implements ExcelSave {
+public class StudentIoService implements ExcelSave {
     @Autowired
     FamilyServiceImp familyServiceImp;
 
@@ -34,7 +34,7 @@ public class ImportStudentInfoService implements ExcelSave {
     public int excelBatchInsert(List list) {
         if (list != null && list.size() > 0) {
             for (Object o : list) {
-                ImportStudentInfo importStudentInfo = (ImportStudentInfo) o;
+                StudentIo importStudentInfo = (StudentIo) o;
                 Department department = departmentServiceImp.getByName(importStudentInfo.getDepartment());
                 if (department == null) {
                     department = new Department();
@@ -81,7 +81,6 @@ public class ImportStudentInfoService implements ExcelSave {
                 }
 
                 // List<Family> families = familyServiceImp.getFamilyByStudentId(student.getId());
-                System.out.println(importStudentInfo.getF1Name());
                 if (importStudentInfo.getF1Name() != null && !"".equals(importStudentInfo.getF1Name().trim())) {
                     Family family1 = new Family();
                     family1.setName(importStudentInfo.getF1Name().trim());

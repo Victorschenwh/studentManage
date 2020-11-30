@@ -1,41 +1,49 @@
 package com.dbsy.student.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.dbsy.student.excel.converter.DepartmentNameToIdConverter;
+import com.dbsy.student.excel.converter.GenderConverter;
+import com.dbsy.student.excel.converter.LevelConverter;
 
 import java.util.Date;
 
 public class Teacher {
+    @ExcelIgnore
     private Integer id;
 
+    @ExcelProperty("工号")
     private String username;
 
+    @ExcelIgnore
     private String password;
 
+    @ExcelProperty("姓名")
     private String name;
 
+    @ExcelProperty(value = "性别", converter = GenderConverter.class)
     private Boolean gender;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")// 前台字符串->后台Date()
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")// 后台Date()->前台字符串
+    // @DateTimeFormat(pattern = "yyyy-MM-dd")// 前台字符串->后台Date()
+    //@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")// 后台Date()->前台字符串
+    @ExcelIgnore
     private Date birthday;
-
+    @ExcelIgnore
     private Integer titleId;
-
+    @ExcelProperty(value = "学院", converter = DepartmentNameToIdConverter.class)
     private Integer departmentId;
-
+    @ExcelIgnore
     private String post;
-
+    @ExcelProperty("电话号码")
     private String phoneNumber;
-
+    @ExcelIgnore
     private String email;
-
+    @ExcelIgnore
     private Boolean isLock;
-
+    @ExcelProperty(value = "级别(院级,校级,2018级)", converter = LevelConverter.class)
     private Integer level;
     // role
-
-
+    @ExcelProperty("备注")
     private String remarks;
 
     public Boolean getLock() {

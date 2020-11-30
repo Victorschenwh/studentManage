@@ -1,6 +1,7 @@
 package com.dbsy.student.service.iml;
 
 import com.dbsy.student.excel.ExcelSave;
+import com.dbsy.student.excel.vo.RewardEo;
 import com.dbsy.student.mapper.RewardMapper;
 import com.dbsy.student.pojo.Reward;
 import com.dbsy.student.service.RewardService;
@@ -94,5 +95,10 @@ public class RewardServiceImp implements RewardService, ExcelSave {
     @Override
     public List<Reward> getRewardsByStudentIdAndStudyTerm(int studentId, int studyTerm) {
         return rewardMapper.getRewardsByStudentIdAndStudyTerm(studentId, studyTerm);
+    }
+
+    @Override
+    public List<RewardEo> listExport(Map map) {
+        return rewardMapper.listExport(QueryUtil.query(map));
     }
 }

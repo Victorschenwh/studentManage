@@ -18,12 +18,14 @@ public class PinYinUtil {
 //        System.out.println(PinYinUtil.chineseToPinyin("你好(hello),世界(world)"));
 //
 //    }
+
     /**
      * 获取字符串拼音的第一个字母
+     *
      * @param chinese
      * @return
      */
-    public static String toFirstChar(String chinese){
+    public static String toFirstChar(String chinese) {
         String pinyinStr = "";
         char[] newChar = chinese.toCharArray();  //转为单个字符
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
@@ -36,7 +38,7 @@ public class PinYinUtil {
                 } catch (BadHanyuPinyinOutputFormatCombination e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 pinyinStr += newChar[i];
             }
         }
@@ -45,10 +47,11 @@ public class PinYinUtil {
 
     /**
      * 汉字转为拼音
+     *
      * @param chinese
      * @return
      */
-    public static String toPinyin(String chinese){
+    public static String toPinyin(String chinese) {
         String pinyinStr = "";
         char[] newChar = chinese.toCharArray();
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
@@ -61,7 +64,7 @@ public class PinYinUtil {
                 } catch (BadHanyuPinyinOutputFormatCombination e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 pinyinStr += newChar[i];
             }
         }
@@ -90,9 +93,6 @@ public class PinYinUtil {
         }
         return pinyinStr.toString();
     }
-
-
-
 
 
 }

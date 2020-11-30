@@ -1,5 +1,7 @@
 package com.dbsy.student.service;
 
+import com.dbsy.student.excel.vo.AcademiScoreEo;
+import com.dbsy.student.excel.vo.TotalScoreEo;
 import com.dbsy.student.pojo.Score;
 
 
@@ -45,5 +47,9 @@ public interface ScoreService {
     int preWarmingCount(Map map);
 
     List<Map> slip(Map map);
+
+    List<TotalScoreEo> listTotalExport(Map map);
+
+    List<AcademiScoreEo> listAcademiExport(Map map);
 
 }

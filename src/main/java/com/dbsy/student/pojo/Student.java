@@ -3,10 +3,13 @@ package com.dbsy.student.pojo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.dbsy.student.excel.ClazzNameToIdConverter;
-import com.dbsy.student.excel.DepartmentNameToIdConverter;
-import com.dbsy.student.excel.MajorNameToIdConverter;
-import com.dbsy.student.excel.StringToBooleanConverter;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.alibaba.excel.annotation.write.style.ContentRowHeight;
+import com.alibaba.excel.annotation.write.style.HeadRowHeight;
+import com.dbsy.student.excel.converter.ClazzNameToIdConverter;
+import com.dbsy.student.excel.converter.DepartmentNameToIdConverter;
+import com.dbsy.student.excel.converter.GenderConverter;
+import com.dbsy.student.excel.converter.MajorNameToIdConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,6 +17,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 @JsonIgnoreProperties(value = {"password"})
+@ContentRowHeight(10)
+@HeadRowHeight(20)
+@ColumnWidth(25)
 public class Student {
     @ExcelIgnore
     private Integer id;
@@ -24,7 +30,7 @@ public class Student {
     @ExcelProperty("姓名")
     private String name;
 
-    @ExcelProperty(value = "性别(0:女,1:男)", converter = StringToBooleanConverter.class)
+    @ExcelProperty(value = "性别", converter = GenderConverter.class)
     private Boolean gender;
 
     @ExcelProperty("手机号")
@@ -67,7 +73,7 @@ public class Student {
     @ExcelProperty(value = "学院名", converter = DepartmentNameToIdConverter.class)
     private Integer departmentId;
 
-    @ExcelProperty("年级(1:大一,2:大二,3:大三,4:大四)")
+    @ExcelProperty("年级")
     private Integer grade;
 
     @ExcelProperty("年龄")

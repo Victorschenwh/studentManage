@@ -3,10 +3,8 @@ package com.dbsy.student.controller;
 import com.dbsy.student.annotation.Authority;
 import com.dbsy.student.annotation.Remarks;
 import com.dbsy.student.myenum.Role;
-import com.dbsy.student.pojo.Student;
-import com.dbsy.student.vo.ExportStudentInfoService;
+import com.dbsy.student.vo.ProfileVoService;
 import com.dbsy.student.service.StudentService;
-import com.dbsy.student.util.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -30,7 +28,7 @@ public class MonitoringController {
     StudentService studentService;
 
     @Autowired
-    ExportStudentInfoService exportStudentInfoService;
+    ProfileVoService exportStudentInfoService;
 
     @RequestMapping("")
     @Remarks("学业监控页面")

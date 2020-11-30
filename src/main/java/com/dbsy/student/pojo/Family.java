@@ -2,8 +2,8 @@ package com.dbsy.student.pojo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.dbsy.student.excel.StringToBooleanConverter;
-import com.dbsy.student.excel.StudentNumberToIdConverter;
+import com.dbsy.student.excel.converter.StringToBooleanConverter;
+import com.dbsy.student.excel.converter.StudentNumberToIdConverter;
 
 public class Family {
     @ExcelIgnore

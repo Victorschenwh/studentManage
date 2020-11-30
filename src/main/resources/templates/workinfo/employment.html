@@ -14,16 +14,11 @@
 <body>
 <div class="container-fluid">
     <ol class="breadcrumb">
-        <li>首页</li>
-        <li class="active">就业情况</li>
+        <li class="active">就业</li>
     </ol>
     <div id="toolbar" class="btn-group">
-        <button id="btn_download" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载表格
-        </button>
-
-        <button id="btn_upload" type="button" class="btn btn-primary" onclick="">
-            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传
+        <button id="btn_download" type="button" class="btn btn-primary" onclick="download()">
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
         </button>
 
         <div class="select">
@@ -157,6 +152,16 @@
 
     });
 
+    function download() {
+        let url = ""
+        for (let k in downParams) {
+            let value = downParams[k] != undefined ? downParams[k] : ''
+            url += `&${k}=${encodeURIComponent(value)}`
+        }
+
+        window.open("/excel/download?" + (url ? url.substring(1) : ''))
+    }
+
     $("#update").validate({
         rules: {},
         messages: {},
@@ -211,6 +216,7 @@
                         clazzId: $("#clazzId").val(),
                         search: params.search,
                         pageSize: params.limit,
+                        type: "employment"
                     }
                     return {
                         pageSize: params.limit,  //页面大小
@@ -283,6 +289,10 @@
                         return major != null ? major.name : "";
                     }
                 }, {
+                    field: "grade",
+                    title: "年级",
+                    align: 'center',
+                }, {
                     field: 'clazzId',
                     title: '班级',
                     align: 'center',
@@ -305,27 +315,50 @@
                         }
                         return clazz != null ? clazz.name : "";
                     }
-                },
-                    {
-                        field: 'isSign',
-                        title: '是否就业/签订第三方协议',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            return value ? "已就业/已签订" : "未就业/未签订";
+                }, {
+                    field: 'company',
+                    title: '就业单位',
+                    align: 'center',
+                }, {
+                    field: 'phoneNumber',
+                    title: '联系方式',
+                    align: 'center',
+                }, {
+                    field: 'remarks',
+                    title: '备注',
+                    align: 'center',
+                }, {
+                    field: 'registrationTo',
+                    title: '报到证签往单位名称',
+                    align: 'center',
+                }, {
+                    field: 'state',
+                    title: '毕业去向',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        switch (value) {
+                            case 0:
+                                return "不就业拟升学";
+                            case 1:
+                                return "待就业、拟参加公招考试";
+                            case 2:
+                                return "待就业、签约中";
+                            case 3:
+                                return "待就业、求职中";
+                            case 4:
+                                return "其他暂不就业";
+                            case 5:
+                                return "签就业协议形式就业";
+                            case 6:
+                                return "签劳动合同形式就业";
+                            case 7:
+                                return "升学";
                         }
-                    }, {
-                        field: 'company',
-                        title: '就业单位',
-                        align: 'center',
-                    }, {
-                        field: 'phoneNumber',
-                        title: '联系方式',
-                        align: 'center',
-                    }, {
-                        field: 'remarks',
-                        title: '备注',
-                        align: 'center',
-                    }, {
+                        return null;
+                    }
+                },
+
+                    {
                         title: '操作',
                         field: 'id',
                         align: 'center',

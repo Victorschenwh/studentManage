@@ -39,7 +39,19 @@ public interface StudentMapper {
             "photo=#{photo},admission_date=#{admissionDate},birthday=#{birthday}," +
             "password=#{password},score=#{score},clazz_id=#{clazzId},major_id=#{majorId},department_id=#{departmentId}," +
             "grade=#{grade},age=#{age},nation=#{nation},address=#{address},room=#{room},status=#{status} where id=#{id}")
-    int update (Student student);
+    int update(Student student);
+
+    @Select("select count(*) from student")
+    int selectAllStudentsCount();
+
+    @Select("select d.name,count(*) as nums  from  student s left join department d on s.department_id = d.id  where cet4 > 424 group by s.department_id")
+    List<Map> selectPassCET4CountGroupByDepartment();
+
+    @Select("select d.name,count(*) as nums  from  student s left join department d on s.department_id = d.id  where cet6 > 424 group by s.department_id")
+    List<Map> selectPassCET6CountGroupByDepartment();
+
+    @Select("select nation , count(*) as nums from student  group by nation")
+    List<Map> selectGroupByNation();
 
 
 }

@@ -1,20 +1,18 @@
-package com.dbsy.student.excel;
+package com.dbsy.student.excel.converter;
 
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.enums.CellDataTypeEnum;
 import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
-import com.dbsy.student.service.DepartmentService;
-import com.dbsy.student.service.iml.DepartmentServiceImp;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import com.dbsy.student.excel.SpringContext;
+import com.dbsy.student.service.ClazzService;
+import com.dbsy.student.service.iml.ClazzServiceImp;
+
+public class ClazzNameToIdConverter implements Converter<Integer> {
 
 
-public class DepartmentNameToIdConverter implements Converter<Integer> {
-
-    DepartmentService departmentService = (DepartmentService) SpringContext.getApplicationContext().getBean("departmentServiceImp");
+    ClazzService clazzService = (ClazzService) SpringContext.getApplicationContext().getBean("clazzServiceImp");
 
     @Override
     public Class supportJavaTypeKey() {
@@ -29,14 +27,15 @@ public class DepartmentNameToIdConverter implements Converter<Integer> {
     @Override
     public Integer convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
         if (cellData != null && cellData.getStringValue() != null)
-            return departmentService.getByName(cellData.getStringValue().trim()).getId();
+            return clazzService.getByName(cellData.getStringValue()).getId();
         return null;
     }
 
     @Override
     public CellData convertToExcelData(Integer integer, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+        //System.out.println("------------------------" + integer + "---------------------------");
         if (integer != null)
-            return new CellData(departmentService.get(integer).getName());
+            return new CellData(clazzService.get(integer).getName());
         return null;
     }
 }

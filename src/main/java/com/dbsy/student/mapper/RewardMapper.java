@@ -1,6 +1,7 @@
 package com.dbsy.student.mapper;
 
 
+import com.dbsy.student.excel.vo.RewardEo;
 import com.dbsy.student.pojo.Family;
 import com.dbsy.student.pojo.Reward;
 import com.dbsy.student.pojo.Score;
@@ -43,4 +44,6 @@ public interface RewardMapper {
 
     @Select("select * from reward where student_id=#{studentId} and study_term = #{studyTerm}")
     List<Reward> getRewardsByStudentIdAndStudyTerm(int studentId, int studyTerm);
+
+    List<RewardEo> listExport(Map map);
 }

@@ -1,5 +1,6 @@
 package com.dbsy.student.service;
 
+import com.dbsy.student.excel.vo.RewardEo;
 import com.dbsy.student.pojo.Reward;
 
 import java.util.List;
@@ -29,5 +30,7 @@ public interface RewardService {
     List<Reward> getRewardByStudentId(int studentId);
 
     List<Reward> getRewardsByStudentIdAndStudyTerm(int studentId, int studyTerm);
+
+    List<RewardEo> listExport(Map map);
 
 }

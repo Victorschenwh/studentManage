@@ -2,8 +2,14 @@ package com.dbsy.student.pojo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.dbsy.student.excel.StudentNumberToIdConverter;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.alibaba.excel.annotation.write.style.ContentRowHeight;
+import com.alibaba.excel.annotation.write.style.HeadRowHeight;
+import com.dbsy.student.excel.converter.StudentNumberToIdConverter;
 
+@ContentRowHeight(10)
+@HeadRowHeight(20)
+@ColumnWidth(25)
 public class Reward {
     @ExcelIgnore
     private Integer id;
@@ -11,10 +17,10 @@ public class Reward {
     @ExcelProperty(value = "学号", converter = StudentNumberToIdConverter.class)
     private Integer studentId;
 
-    @ExcelProperty("获奖介绍")
+    @ExcelProperty("奖惩细则")
     private String synopsis;
 
-    @ExcelProperty("加分")
+    @ExcelProperty("分值（减分的话是负数）")
     private Integer score;
 
     @ExcelProperty("学期")

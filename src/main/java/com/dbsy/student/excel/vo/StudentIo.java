@@ -1,18 +1,12 @@
-package com.dbsy.student.vo;
+package com.dbsy.student.excel.vo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.dbsy.student.excel.DateFormatConverter;
-import com.dbsy.student.excel.FloatFormatConverter;
-import com.dbsy.student.excel.NumberFormatConverter;
-import com.dbsy.student.excel.StringToBooleanConverter;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.org.apache.xerces.internal.impl.dv.dtd.NMTOKENDatatypeValidator;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.dbsy.student.excel.converter.*;
 
 import java.util.Date;
 
-public class ImportStudentInfo {
+public class StudentIo {
     @ExcelProperty("学院")
     private String department;
 
@@ -43,13 +37,13 @@ public class ImportStudentInfo {
     @ExcelProperty("姓名")
     private String name;
 
-    @ExcelProperty(value = "性别", converter = StringToBooleanConverter.class)
+    @ExcelProperty(value = "性别", converter = GenderConverter.class)
     private Boolean gender;
 
-    @ExcelProperty("手机号")
+    @ExcelProperty(value = "联系方式", converter = PhoneCheckConverter.class)
     private String phoneNumber;
 
-    @ExcelProperty("邮箱")
+    @ExcelProperty(value = "邮箱", converter = EmailCheckConverter.class)
     private String email;
 
     @ExcelProperty("身份证号")
@@ -64,13 +58,13 @@ public class ImportStudentInfo {
     @ExcelIgnore
     private String photo;
 
-    // @ExcelProperty(value = "入学日期", converter = DateFormatConverter.class)
+    @ExcelProperty(value = "入学日期", converter = DateFormatConverter.class)
     // @JsonFormat(pattern = "yyyyMMdd", timezone = "GMT+8")
     //  @DateTimeFormat(pattern = "yyyyMMdd")
     @ExcelIgnore
     private Date admissionDate;
 
-    //@ExcelProperty(value = "出生日期", converter = DateFormatConverter.class)
+    @ExcelProperty(value = "出生日期", converter = DateFormatConverter.class)
     // @JsonFormat(pattern = "yyyyMMdd", timezone = "GMT+8")
     // @DateTimeFormat(pattern = "yyyyMMdd")
     @ExcelIgnore
@@ -85,13 +79,13 @@ public class ImportStudentInfo {
     @ExcelProperty("民族")
     private String nation;
 
-    @ExcelProperty("家庭住址")
+    @ExcelProperty("家庭住址（详细到社区（村））")
     private String address;
 
     @ExcelProperty("寝室号")
     private String room;
 
-    @ExcelProperty("政治面貌")
+    @ExcelProperty("政治面貌(中共党员/中共预备党员/共青团员/群众)")
     private String status;
 
     @ExcelProperty("家庭成员1")

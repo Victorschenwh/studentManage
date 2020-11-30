@@ -6,10 +6,7 @@ import com.dbsy.student.pojo.Admin;
 import com.dbsy.student.pojo.Teacher;
 import com.dbsy.student.service.AdminService;
 import com.dbsy.student.service.TeacherService;
-import com.dbsy.student.util.Check;
-import com.dbsy.student.util.JWTUtils;
-import com.dbsy.student.util.News;
-import com.dbsy.student.util.SendEmail;
+import com.dbsy.student.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -61,7 +58,7 @@ public class LoginController {
         Admin admin = null;
 
         if (username != null) {
-            admin = adminService.selectByUsernameAndPassword(username, password);
+            admin = adminService.selectByUsernameAndPassword(username, EncryptionUtil.sha1(password));
 
         }
 
@@ -148,7 +145,7 @@ public class LoginController {
     @ResponseBody
     public Map changePassword(String password, String newPassword, HttpSession session) {
         Admin admin = (Admin) session.getAttribute("user");
-        if (admin.getPassword().equals(password) && newPassword != null && !"".equals(newPassword)) {
+        if (admin.getPassword().equals(EncryptionUtil.sha1(password)) && newPassword != null && !"".equals(newPassword)) {
             admin.setPassword(newPassword);
             adminService.update(admin);
             session.removeAttribute("user");

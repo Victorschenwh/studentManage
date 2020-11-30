@@ -1,5 +1,7 @@
 package com.dbsy.student.pojo;
 
+import com.dbsy.student.util.EncryptionUtil;
+
 public class Admin {
     private Integer id;
 
@@ -28,7 +30,14 @@ public class Admin {
      * @return
      */
     public static Admin student(Student student) {
-        return new Admin(null, student.getNumber(), student.getIdCard().substring(student.getIdCard().length() - 6), student.getName(),
+        String password = null;
+        if (student.getIdCard() != null) {
+            password = student.getIdCard().substring(student.getIdCard().length() - 6);
+        }
+        if (password == null) {
+            password = student.getNumber().substring(student.getNumber().length() - 6);
+        }
+        return new Admin(null, student.getNumber(), EncryptionUtil.sha1(password), student.getName(),
                 student.getPhoneNumber(), student.getEmail(), false, 40, student.getId(), null);
     }
 
@@ -39,7 +48,14 @@ public class Admin {
      * @return
      */
     public static Admin teacher(Teacher teacher) {
-        return new Admin(null, teacher.getUsername(), teacher.getPhoneNumber().substring(teacher.getPhoneNumber().length() - 6),
+        String password = null;
+        if (teacher.getPhoneNumber() != null) {
+            password = teacher.getPhoneNumber().substring(teacher.getPhoneNumber().length() - 6);
+        }
+        if (password == null) {
+            password = teacher.getUsername().substring(teacher.getUsername().length() - 6);
+        }
+        return new Admin(null, teacher.getUsername(), EncryptionUtil.sha1(password),
                 teacher.getName(), teacher.getPhoneNumber(), teacher.getEmail(), false, teacher.getLevel(), teacher.getId(), teacher.getDepartmentId());
     }
 
@@ -115,7 +131,7 @@ public class Admin {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password == null ? null : EncryptionUtil.sha1(password);
     }
 
     public String getNickname() {

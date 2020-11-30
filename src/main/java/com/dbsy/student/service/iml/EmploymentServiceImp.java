@@ -1,6 +1,7 @@
 package com.dbsy.student.service.iml;
 
 import com.dbsy.student.excel.ExcelSave;
+import com.dbsy.student.excel.vo.EmploymentEo;
 import com.dbsy.student.mapper.EmploymentMapper;
 import com.dbsy.student.pojo.Employment;
 import com.dbsy.student.pojo.Student;
@@ -65,6 +66,11 @@ public class EmploymentServiceImp implements EmploymentService, ExcelSave {
     @Override
     public int update(Employment employment) {
         return employmentMapper.update(employment);
+    }
+
+    @Override
+    public List<EmploymentEo> listExport(Map map) {
+        return this.employmentMapper.listExport(QueryUtil.query(map));
     }
 
     @Override

@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.EmploymentMapper">
-    <resultMap id="BaseResultMap" type="com.dbsy.student.pojo.Employment">
-        <constructor>
-            <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="is_sign" javaType="java.lang.Boolean" jdbcType="BIT"/>
-            <arg column="company" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="phone_number" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="remarks" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        </constructor>
-    </resultMap>
     <insert id="insert" parameterType="com.dbsy.student.pojo.Employment">
     insert into employment (id, student_id, is_sign, 
-      company, phone_number, remarks
+      company, phone_number, remarks,state,registration_to
       )
     values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{isSign,jdbcType=BIT}, 
-      #{company,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      #{company,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR},
+      #{state},#{registrationTo}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Employment">
@@ -40,6 +31,13 @@
             <if test="remarks != null">
                 remarks,
             </if>
+
+            <if test="state != null">
+                state,
+            </if>
+            <if test="registration_to != null">
+                registration_to,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -60,18 +58,25 @@
             <if test="remarks != null">
                 #{remarks,jdbcType=VARCHAR},
             </if>
+            <if test="state != null">
+                #{state},
+            </if>
+            <if test="registration_to != null">
+                #{registrationTo},
+            </if>
         </trim>
     </insert>
 
     <!--批量增加-->
     <insert id="batchInsert" parameterType="java.util.List">
         insert into employment (id, student_id, is_sign,
-        company, phone_number, remarks
+        company, phone_number, remarks,state,registration_to
         )
         VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.id,jdbcType=INTEGER}, #{item.studentId,jdbcType=INTEGER}, #{item.isSign,jdbcType=BIT},
-            #{item.company,jdbcType=VARCHAR}, #{item.phoneNumber,jdbcType=VARCHAR}, #{item.remarks,jdbcType=VARCHAR}
+            #{item.company,jdbcType=VARCHAR}, #{item.phoneNumber,jdbcType=VARCHAR}, #{item.remarks,jdbcType=VARCHAR},
+            #{item.state},#{item.registrationTo}
             )
         </foreach>
     </insert>
@@ -86,8 +91,8 @@
 
     <select id="list" resultType="HashMap">
         select e.id as id, e.student_id as studentId,e.is_sign as isSign,e.company as company,
-        e.phone_number as phoneNumber,e.remarks as remarks,
-        s.name as name,s.number as number,s.department_id as departmentId ,s.major_id as majorId,
+        e.phone_number as phoneNumber,e.remarks as remarks,e.state as state,e.registration_to as registrationTo,
+        s.name as name,s.number as number,s.department_id as departmentId ,s.major_id as majorId,s.grade,
         s.clazz_id as clazzId
         from employment e left outer join student s on s.id = e.student_id
         <where>
@@ -152,6 +157,42 @@
             <if test="name != null">
                 and s.name like CONCAT('%',#{name},'%')
             </if>
+        </where>
+    </select>
+
+    <select id="listExport" resultType="com.dbsy.student.excel.vo.EmploymentEo" parameterType="Map">
+        select s.name as name,s.number as number,s.department_id as departmentId ,s.major_id as majorId,s.grade as
+        grade,
+        s.clazz_id as clazzId,e.company as company, e.phone_number as phoneNumber,e.state as state,e.registration_to as
+        registrationTo
+        from employment e left outer join student s on s.id = e.student_id
+        <where>
+            <if test="departmentId != null and departmentId != 0">
+                and s.department_id=#{departmentId}
+            </if>
+
+            <if test="majorId != null and majorId != 0">
+                and s.major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and s.clazz_id=#{clazzId}
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and s.grade=#{grade}
+            </if>
+
+            <if test="abbrName != null">
+                and s.abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="number != null">
+                and s.number like CONCAT('%',#{number},'%')
+            </if>
+            <if test="name != null">
+                and s.name like CONCAT('%',#{name},'%')
+            </if>
+
         </where>
     </select>
 

@@ -1,5 +1,6 @@
 package com.dbsy.student.mapper;
 
+import com.dbsy.student.excel.vo.EmploymentEo;
 import com.dbsy.student.pojo.Employment;
 import com.dbsy.student.pojo.Student;
 import org.apache.ibatis.annotations.Delete;
@@ -35,4 +36,9 @@ public interface EmploymentMapper {
 
     @Update("update employment set student_id=#{studentId},is_sign=#{isSign},phone_number=#{phoneNumber},remarks=#{remarks}  where id=#{id}")
     int update(Employment employment);
+
+    List<EmploymentEo> listExport(Map map);
+
+    @Select("select state,count(*) as nums from employment group by state")
+    List<Map> selectGroupByTo();
 }

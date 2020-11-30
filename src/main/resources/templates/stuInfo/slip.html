@@ -15,18 +15,11 @@
 <div class="container-fluid">
 
     <ol class="breadcrumb">
-        <li>学生信息</li>
-        <li class="active">排名下滑</li>
+        <li>学业预警</li>
+        <li class="active">下滑预警</li>
     </ol>
 
     <div id="toolbar" class="btn-group">
-        <button id="btn_download" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载表格
-        </button>
-
-        <button id="btn_upload" type="button" class="btn btn-primary" onclick="">
-            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传
-        </button>
 
         <div class="select">
             <div class="item">
@@ -169,38 +162,31 @@
                 columns: [{
                     checkbox: true,
                     visible: true                  //是否显示复选框
-                }, {
-                    field: 'number',
-                    title: '学号',
-                    align: 'center',
-                }, {
-                    field: 'name',
-                    title: '姓名',
-                    align: 'center',
-                }, {
-                    field: 'department_id',
-                    title: '学院',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        var department = {};
-                        if (value != null) {
-                            $.ajax({
-                                //cache: true,
-                                async: false,
-                                type: "POST",
-                                url: "/department/get/" + value,
-                                dataType: "json",
-                                data: {},
-                                success: function (data) {
-                                    if (data.code == 1) {
-                                        department = data.data;
-                                    }
-                                }
-                            });
-                        }
-                        return department != null ? department.name : "";
-                    }
                 },
+                    {
+                        field: 'department_id',
+                        title: '学院',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var department = {};
+                            if (value != null) {
+                                $.ajax({
+                                    //cache: true,
+                                    async: false,
+                                    type: "POST",
+                                    url: "/department/get/" + value,
+                                    dataType: "json",
+                                    data: {},
+                                    success: function (data) {
+                                        if (data.code == 1) {
+                                            department = data.data;
+                                        }
+                                    }
+                                });
+                            }
+                            return department != null ? department.name : "";
+                        }
+                    },
                     {
                         field: 'major_id',
                         title: '专业',
@@ -224,7 +210,13 @@
                             }
                             return major != null ? major.name : "";
                         }
-                    }, {
+                    },
+                    {
+                        field: "grade",
+                        title: "年级",
+                        align: 'center',
+                    },
+                    {
                         field: 'clazz_id',
                         title: '班级',
                         align: 'center',
@@ -249,6 +241,15 @@
                         }
                     },
 
+                    {
+                        field: 'number',
+                        title: '学号',
+                        align: 'center',
+                    }, {
+                        field: 'name',
+                        title: '姓名',
+                        align: 'center',
+                    },
                     {
                         field: 'slip',
                         title: '下滑名次',

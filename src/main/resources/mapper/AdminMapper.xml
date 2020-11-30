@@ -143,7 +143,8 @@
         where id=#{id}
     </update>
 
-    <insert id="insert" parameterType="com.dbsy.student.pojo.Admin">
+    <insert id="insert" parameterType="com.dbsy.student.pojo.Admin" useGeneratedKeys="true"
+            keyProperty="id">
     insert into admin (id, username, password, 
       nickname, phone_number, email, 
       is_lock,foreign_id,role,department_id)
@@ -151,7 +152,8 @@
       #{nickname,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{isLock,jdbcType=BIT},#{foreignId},#{role},#{departmentId})
   </insert>
-    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Admin">
+    <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Admin" useGeneratedKeys="true"
+            keyProperty="id">
         insert into admin
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

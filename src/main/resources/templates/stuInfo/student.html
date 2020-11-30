@@ -21,11 +21,7 @@
 
     <div id="toolbar" class="btn-group">
         <button id="btn_download" type="button" class="btn btn-primary" onclick="download()">
-            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载表格
-        </button>
-
-        <button id="btn_upload" type="button" class="btn btn-primary" onclick="location.href='/excel/up'">
-            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>批量上传
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
         </button>
 
         <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
@@ -503,6 +499,7 @@
         window.open("/excel/download?" + (url ? url.substring(1) : ''))
     }
 
+
     $("#updata").validate({
         rules: {},
         messages: {},
@@ -556,6 +553,7 @@
                         clazzId: $("#clazzId").val(),
                         search: params.search,
                         pageSize: params.limit,
+                        type: "student"
                     }
                     return {
                         pageSize: params.limit,  //页面大小
@@ -578,24 +576,6 @@
                         title: '序号',
                         align: 'center',
                         visible: false,
-                    },
-                    {
-                        field: 'number',
-                        title: '学号',
-                        align: 'center',
-                    }, {
-                        field: 'name',
-                        title: '姓名',
-                        align: 'center',
-                    }, {
-                        field: 'nation',
-                        title: '民族',
-                        align: 'center',
-                    },
-                    {
-                        field: 'idCard',
-                        title: '身份证号',
-                        align: 'center',
                     },
                     {
                         field: 'departmentId',
@@ -644,7 +624,14 @@
                             }
                             return major != null ? major.name : "";
                         }
-                    }, {
+                    },
+
+                    {
+                        field: "grade",
+                        title: "年级",
+                        align: 'center',
+                    },
+                    {
                         field: 'clazzId',
                         title: '班级',
                         align: 'center',
@@ -668,6 +655,25 @@
                             return clazz != null ? clazz.name : "";
                         }
                     },
+                    {
+                        field: 'number',
+                        title: '学号',
+                        align: 'center',
+                    }, {
+                        field: 'name',
+                        title: '姓名',
+                        align: 'center',
+                    }, {
+                        field: 'nation',
+                        title: '民族',
+                        align: 'center',
+                    },
+                    {
+                        field: 'idCard',
+                        title: '身份证号',
+                        align: 'center',
+                    },
+
                     {
                         field: 'admissionDate',
                         title: '入学年份',
@@ -706,6 +712,19 @@
             });
 
     }
+
+    /* function exportData() {
+         $('#table_student').tableExport({
+             type: 'excel',
+             exportDataType: "all",
+             ignoreColumn: [0],//忽略某一列的索引
+             fileName: '学生表',//下载文件名称
+             onCellHtmlData: function (cell, row, col, data) {//处理导出内容,自定义某一行、某一列、某个单元格的内容
+                 console.info(data);
+                 return data;
+             },
+         });
+     }*/
 
     function reLoad() {
         $('#table_student').bootstrapTable('refresh');
