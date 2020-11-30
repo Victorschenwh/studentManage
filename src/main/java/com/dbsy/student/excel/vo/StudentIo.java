@@ -10,7 +10,7 @@ public class StudentIo {
     @ExcelProperty("学院")
     private String department;
 
-    @ExcelProperty("介绍")
+    @ExcelProperty("学院介绍")
     private String deSys;
 
     @ExcelProperty("专业")
@@ -28,41 +28,23 @@ public class StudentIo {
     @ExcelProperty("学号")
     private String number;
 
-    @ExcelProperty(value = "四级成绩", converter = NumberFormatConverter.class)
-    private Integer cet4;
-
-    @ExcelProperty(value = "六级成绩", converter = NumberFormatConverter.class)
-    private Integer cet6;
-
     @ExcelProperty("姓名")
     private String name;
 
     @ExcelProperty(value = "性别", converter = GenderConverter.class)
     private Boolean gender;
 
-    @ExcelProperty(value = "联系方式", converter = PhoneCheckConverter.class)
-    private String phoneNumber;
+    @ExcelProperty("民族")
+    private String nation;
 
-    @ExcelProperty(value = "邮箱", converter = EmailCheckConverter.class)
-    private String email;
+    @ExcelProperty("政治面貌（中共党员/中共预备党员/共青团员/群众）")
+    private String status;
+
+    @ExcelProperty(value = "年龄", converter = NumberFormatConverter.class)
+    private Integer age;
 
     @ExcelProperty("身份证号")
     private String idCard;
-
-    @ExcelProperty("籍贯（省市）")
-    private String nativePlace;
-
-    @ExcelIgnore
-    private Integer isDel = 0;
-
-    @ExcelIgnore
-    private String photo;
-
-    @ExcelProperty(value = "入学日期", converter = DateFormatConverter.class)
-    // @JsonFormat(pattern = "yyyyMMdd", timezone = "GMT+8")
-    //  @DateTimeFormat(pattern = "yyyyMMdd")
-    @ExcelIgnore
-    private Date admissionDate;
 
     @ExcelProperty(value = "出生日期", converter = DateFormatConverter.class)
     // @JsonFormat(pattern = "yyyyMMdd", timezone = "GMT+8")
@@ -70,23 +52,41 @@ public class StudentIo {
     @ExcelIgnore
     private Date birthday;
 
-    @ExcelProperty(value = "高考分数", converter = FloatFormatConverter.class)
-    private Float score;
-
-    @ExcelProperty(value = "年龄", converter = NumberFormatConverter.class)
-    private Integer age;
-
-    @ExcelProperty("民族")
-    private String nation;
+    @ExcelProperty("籍贯（省市）")
+    private String nativePlace;
 
     @ExcelProperty("家庭住址（详细到社区（村））")
     private String address;
 
+    @ExcelProperty(value = "联系方式", converter = PhoneCheckConverter.class)
+    private String phoneNumber;
+
+    @ExcelProperty(value = "邮箱", converter = EmailCheckConverter.class)
+    private String email;
+
+    @ExcelProperty(value = "高考分数", converter = FloatFormatConverter.class)
+    private Float score;
+
+    @ExcelProperty(value = "入学日期", converter = DateFormatConverter.class)
+    // @JsonFormat(pattern = "yyyyMMdd", timezone = "GMT+8")
+    //  @DateTimeFormat(pattern = "yyyyMMdd")
+    @ExcelIgnore
+    private Date admissionDate;
+
     @ExcelProperty("寝室号")
     private String room;
 
-    @ExcelProperty("政治面貌(中共党员/中共预备党员/共青团员/群众)")
-    private String status;
+    @ExcelProperty(value = "四级成绩", converter = NumberFormatConverter.class)
+    private Integer cet4;
+
+    @ExcelProperty(value = "六级成绩", converter = NumberFormatConverter.class)
+    private Integer cet6;
+
+    @ExcelIgnore
+    private Integer isDel = 0;
+
+    @ExcelIgnore
+    private String photo;
 
     @ExcelProperty("家庭成员1")
     private String f1Name;
@@ -120,7 +120,6 @@ public class StudentIo {
 
     @ExcelProperty("家庭成员3")
     private String f3Name;
-
 
     @ExcelProperty("与本人关系3")
     private String f3Relationship;

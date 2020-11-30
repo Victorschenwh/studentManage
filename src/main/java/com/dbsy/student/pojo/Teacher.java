@@ -34,13 +34,13 @@ public class Teacher {
     private Integer departmentId;
     @ExcelIgnore
     private String post;
-    @ExcelProperty("电话号码")
+    @ExcelProperty("联系方式")
     private String phoneNumber;
     @ExcelIgnore
     private String email;
     @ExcelIgnore
     private Boolean isLock;
-    @ExcelProperty(value = "级别(院级,校级,2018级)", converter = LevelConverter.class)
+    @ExcelProperty(value = "级别（校级、院级、2018级）", converter = LevelConverter.class)
     private Integer level;
     // role
     @ExcelProperty("备注")
