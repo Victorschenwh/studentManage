@@ -3,6 +3,7 @@ package com.dbsy.student.service.iml;
 import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.mapper.*;
 import com.dbsy.student.pojo.Retardation;
+import com.dbsy.student.pojo.Student;
 import com.dbsy.student.pojo.Transfer;
 import com.dbsy.student.service.RetardationService;
 import com.dbsy.student.util.QueryUtil;
@@ -62,41 +63,124 @@ public class RetardationServiceImp implements RetardationService, ExcelSave {
 
     @Override
     public int listCount(Map map) {
-        return this.retardationMapper.listCount(QueryUtil.query(map));
-    }
 
+        return this.retardationMapper.listCount(map);
+    }
     @Override
     public List<Map> list(Map map) {
-        return this.retardationMapper.list(QueryUtil.query(map));
+
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("end", pageSize);
+        }
+        return this.retardationMapper.list(map);
+
+//        return this.retardationMapper.list(QueryUtil.query(map));
+    }
+
+
+    @Override
+    public List<Student> listStu(Map map) {
+
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("end", pageSize);
+        }
+        return this.retardationMapper.listStu(map);
     }
 
     @Override
-    @Cacheable(key = "#id", unless = "#result == null")
+    public int listCountStu(Map map) {
+        return this.retardationMapper.listCountStu(map);
+    }
+
+    @Override
+    public List<Map> listDropSchool(Map map) {
+        return null;
+    }
+
+    @Override
+    public int listCountDrop(Map map) {
+        return 0;
+    }
+
+    @Override
+//    @Cacheable(key = "#id", unless = "#result == null")
+    public Map getSelf(int id) {
+        return this.retardationMapper.getSelf(id);
+    }
+
+    @Override
+    public List<Map> listClName(int stuId) {
+        return this.retardationMapper.listClName(stuId);
+    }
+
+    @Override
+    public List<Map> listGrade() {
+        return this.retardationMapper.listGrade();
+    }
+
+    @Override
+    public int updateLogic(Retardation retardation) {
+
+        this.retardationMapper.updateLogic(retardation);
+
+        return this.retardationMapper.updateLogicStu(retardation);
+
+    }
+
+
+
+    @Override
+    public List<Map> list3(Map map) {
+
+        if (map.get("page") != null) {
+            int page = Integer.parseInt(map.get("page") + "");
+            int pageSize = Integer.parseInt(map.get("pageSize") + "");
+            map.put("start", (page - 1) * pageSize);
+            map.put("end", pageSize);
+        }
+
+        return this.retardationMapper.list3(map);
+    }
+
+    @Override
+    public int listCount3(Map map) {
+        return this.retardationMapper.listCount3(map);
+    }
+
+    @Override
+//    @Cacheable(key = "#id", unless = "#result == null")
     public Retardation get(int id) {
         return this.retardationMapper.get(id);
     }
 
     @Override
     public Map getOpposite(int id) {
+
         Retardation retardation = this.get(id);
+        System.out.println("retardation = " + retardation);
         Map map = new HashMap();
-        map.put("newDepartmentId", departmentMapper.get(retardation.getNewDepartmentId()).getName());
-        map.put("newMajorId", majorMapper.get(retardation.getNewMajorId()).getName());
+
+        if(retardation.getNewClazzId() != null){
+            map.put("newClazzId", clazzMapper.get(retardation.getNewClazzId()).getName());
+        }
+
+        map.put("newGrader", retardation.getNewGrader());
         map.put("oldClazzId", clazzMapper.get(retardation.getOldClazzId()).getName());
         map.put("oldDepartmentId", departmentMapper.get(retardation.getOldDepartmentId()).getName());
         map.put("oldMajorId", majorMapper.get(retardation.getOldMajorId()).getName());
         map.put("id", retardation.getId());
-        map.put("studentId", studentMapper.get(retardation.getStudentId()).getName());
+        map.put("studentId", retardation.getStudentId());
+        map.put("name", studentMapper.get(retardation.getStudentId()).getName());
+        map.put("oldGrader",studentMapper.get(retardation.getStudentId()).getGrade());
+        map.put("saveDate",retardation.getSaveDate());
+        map.put("remarks",retardation.getRemarks());
 
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        if (retardation.getOldOutDate() != null)
-//            map.put("oldOutDate", simpleDateFormat.format(retardation.getOldOutDate()));
-//        if (retardation.getNewInDate() != null)
-//            map.put("newInDate", simpleDateFormat.format(retardation.getNewInDate()));
-//        Map map2 = new HashMap();
-//        map2.put("departmentId", retardation.getNewDepartmentId());
-//        map2.put("majorId", retardation.getNewMajorId());
-//        map.put("newClazzId", clazzMapper.getByFOREIGN_KEY(map2));
 
         return map;
     }
@@ -105,6 +189,8 @@ public class RetardationServiceImp implements RetardationService, ExcelSave {
     @Transactional
     @CacheEvict(key = "#id")
     public int delete(int id) {
+        Integer studentId = retardationMapper.get(id).getStudentId();
+        retardationMapper.updateLogicStu3(studentId);
         return this.retardationMapper.delete(id);
     }
 
@@ -113,6 +199,14 @@ public class RetardationServiceImp implements RetardationService, ExcelSave {
     @CachePut(key = "#retardation.id", unless = "#retardation == null")
     public int update(Retardation retardation) {
         return this.retardationMapper.update(retardation);
+    }
+
+    @Override
+    public int updateLast(Retardation retardation) {
+
+        this.retardationMapper.updateLast(retardation);
+
+        return this.retardationMapper.updateLast_stu_grade(retardation);
     }
 
     @Override

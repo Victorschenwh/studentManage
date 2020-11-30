@@ -1,6 +1,7 @@
 package com.dbsy.student.service;
 
 import com.dbsy.student.pojo.Retardation;
+import com.dbsy.student.pojo.Student;
 import com.dbsy.student.pojo.Transfer;
 
 import java.util.List;
@@ -14,9 +15,29 @@ public interface RetardationService {
 
     int listCount(Map map);
 
+    List<Student> listStu(Map map);
+    int listCountStu(Map map);
+
+
+    List<Map> listDropSchool(Map map);
+    int listCountDrop(Map map);
+
+    Map getSelf(int id);
+
+
+    List<Map> listClName(int stuId);
+
+    List<Map> listGrade();
+
+    int updateLogic(Retardation retardation);
+
     int batchInsert(List<Retardation> list);
 
     List<Map> list(Map map);
+
+    List<Map>  list3(Map map);
+
+    int listCount3(Map map);
 
     Retardation get(int id);
 
@@ -25,6 +46,7 @@ public interface RetardationService {
     int delete(int id);
 
     int update(Retardation retardation);
+    int updateLast(Retardation retardation);
 
     int batchRemove(int[] ids);
 

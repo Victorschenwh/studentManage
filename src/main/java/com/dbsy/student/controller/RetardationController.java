@@ -11,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,21 +31,75 @@ public class RetardationController {
         return "stuInfo/retardation";
     }
 
+    @RequestMapping("/listStu")
+    @ResponseBody
+    public Map listStu(@RequestParam Map map) {
+
+        String str= (String) map.get("search");
+        if(str.matches("[a-zA-Z]+")){
+            map.put("abbrName",str);
+            map.put("search","");
+        }
+        Map m = new HashMap();
+        m.put("total", retardationService.listCountStu(map));
+        m.put("rows", retardationService.listStu(map));
+        return m;
+    }
+
+    @ResponseBody
+    @RequestMapping("/updateRetardation")
+    public  Map updateRetardation(Retardation retardation){
+//        System.out.println("retardation = " + retardation);
+        if (retardationService.updateLogic(retardation) > 0) {
+            return News.success("成功");
+        }
+        return News.fail("添加失败");
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping("/getSelf/{id}/{stuId}")
+    public Map getSelf(@PathVariable(value = "id",required = false) int id,@PathVariable(value="stuId" ,required = false) int stuId) {
+
+        Map map= new HashMap<>();
+        map.put("stuInfo",retardationService.getSelf(id));
+        if(stuId != 0){
+            map.put("clNameList",retardationService.listClName(stuId));
+        }
+        else{
+            map.put("clNameList",null);
+        }
+
+        map.put("gradeList",retardationService.listGrade());
+
+        return News.success("成功",map) ;
+    }
+
+
 
     @RequestMapping("/list")
     @ResponseBody
     public Map list(@RequestParam Map map) {
         // log.info(map.toString());
-        String isPass = map.get("isPass") + "";
-        if ("".equals(isPass)) {
-            map.remove("isPass");
+
+        String str= (String) map.get("search");
+        if(str.matches("[a-zA-Z]+")){
+            map.put("abbrName",str);
+            map.put("search","");
         }
-        if ("true".equals(isPass)) {
-            map.put("isPass", true);
-        }
-        if ("false".equals(isPass)) {
-            map.put("isPass", false);
-        }
+
+
+//        String isPass = map.get("isPass") + "";
+//        if ("".equals(isPass)) {
+//            map.remove("isPass");
+//        }
+//        if ("true".equals(isPass)) {
+//            map.put("isPass", true);
+//        }
+//        if ("false".equals(isPass)) {
+//            map.put("isPass", false);
+//        }
 
         Map m = new HashMap();
         m.put("total", retardationService.listCount(map));
@@ -56,11 +107,34 @@ public class RetardationController {
 
         return m;
     }
+    @RequestMapping("/list3")
+    @ResponseBody
+    public Map list3(@RequestParam Map map) {
+        // log.info(map.toString());
+
+        String str= (String) map.get("search");
+        if(str.matches("[a-zA-Z]+")){
+            map.put("abbrName",str);
+            map.put("search","");
+        }
+
+
+        Map m = new HashMap();
+        m.put("total", retardationService.listCount3(map));
+        m.put("rows", retardationService.list3(map));
+
+        return m;
+    }
+
+
+
+
 
     @ResponseBody
-    @RequestMapping("/remove/{id}")
-    public Map remove(@PathVariable("id") int id) {
-        if (retardationService.delete(id) > 0) {
+    @RequestMapping("/remove")
+    public Map remove(String id) {
+
+        if (retardationService.delete(Integer.parseInt(id)) > 0) {
             return News.success();
         }
         return News.fail("删除失败");
@@ -86,9 +160,17 @@ public class RetardationController {
     }
 
     @ResponseBody
-    @RequestMapping("/update")
-    public Map update(Retardation retardation) {
+    @RequestMapping("/update/{isPass}")
+    public Map update(@PathVariable(value = "isPass") Boolean isPasss, Retardation retardation) {
         if (retardationService.update(retardation) > 0) {
+            return News.success();
+        }
+        return News.fail("添加失败");
+    }
+    @ResponseBody
+    @RequestMapping("/updateLast")
+    public Map updateLast(Retardation retardation) {
+        if (retardationService.updateLast(retardation) > 0) {
             return News.success();
         }
         return News.fail("添加失败");
@@ -193,7 +275,9 @@ public class RetardationController {
     @ResponseBody
     @RequestMapping("/getOpposite/{id}")
     public Map getOpposite(@PathVariable("id") int id) {
+
         Map opposite = retardationService.getOpposite(id);
+//        System.out.println("opposite.toString() = " + opposite.toString());
         if (opposite != null)
             return News.success("成功", opposite);
         else

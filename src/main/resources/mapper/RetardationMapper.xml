@@ -133,16 +133,164 @@
         where id=#{id}
     </update>
 
+    <select id="listStu" resultType="com.dbsy.student.pojo.Student">
+        select * from student
+        <where>
+            isDel=0
+            <if test="departmentId != null and departmentId != 0">
+                and department_id= #{departmentId}
+            </if>
+            <if test="majorId != null and majorId != 0">
+                and major_id= #{majorId}
+            </if>
+            <if test="grade != null and grade != 0">
+                and grade= #{grade}
+            </if>
+            <if test="clazzId != null and clazzId != 0">
+                and clazz_id= #{clazzId}
+            </if>
+
+            <if test="search != null">
+                and name like CONCAT('%',#{search},'%')
+            </if>
+
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+
+            <if test="search != null">
+                or number =#{search}
+            </if>
+
+        </where>
+        <if test="start !=null and end != null">
+            limit #{start},#{end}
+        </if>
+
+    </select>
+
+    <select id="listCountStu" resultType="int">
+        select count(*) from student
+        <where>
+            isDel = 0
+            <if test="departmentId != null and departmentId != 0">
+                and department_id=#{departmentId}
+            </if>
+
+            <if test="majorId != null and majorId != 0">
+                and major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and clazz_id=#{clazzId}
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and grade=#{grade}
+            </if>
+
+            <if test="search != null">
+                and name like CONCAT('%',#{search},'%')
+            </if>
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or number=#{search}
+            </if>
+        </where>
+    </select>
+
+
+
+    <select id="getSelf" resultType="HashMap">
+    SELECT  r.id id, r.remarks remarks,stu.`name` name,stu.number number,stu.id studentId,stu.grade oldGrade, dp.`name` dpName,mj.`name` mjName,cl.`name` oldClName FROM retardation r LEFT JOIN student  stu ON stu.id=r.student_id LEFT JOIN department dp ON  stu.department_id=dp.id LEFT JOIN major mj ON mj.id=stu.major_id LEFT JOIN clazz cl ON cl.id=stu.clazz_id where r.id=#{id}
+    </select>
 
     <select id="list" resultType="HashMap">
-        select r.id as id, s.number as number, r.old_department_id as old_department_id,s.name as s_name,
-        s.department_id as departmentId,
+        select r.id as id,r.student_id as studentId, s.number as number, r.old_department_id as old_department_id,s.name as s_name,
+        s.department_id as departmentId, r.new_grader as newGrader,
+        r.old_major_id as old_major_id, r.old_clazz_id as old_clazz_id, r.new_department_id as new_department_id,
+        r.new_major_id as new_major_id, r.new_clazz_id as new_clazz_id, r.save_date as save_date,
+        r.is_pass as is_pass, r.result as result, r.remarks as remarks
+        from retardation r join student s on s.id = r.student_id and s.isDel=3
+        <where>
+            r.is_pass is NULL
+            <if test="departmentId != null and departmentId != 0">
+                and department_id=#{departmentId}
+            </if>
+
+            <if test="majorId != null and majorId != 0">
+                and major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and clazz_id=#{clazzId}
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and grade=#{grade}
+            </if>
+
+            <if test="search != null">
+                and s.name like CONCAT('%',#{search},'%')
+            </if>
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or s.number=#{search}
+            </if>
+
+        </where>
+        <if test="start !=null and pageSize != null">
+            limit #{start},#{end}
+        </if>
+    </select>
+
+    <select id="listCount" resultType="int">
+        select count(*) from retardation r join student s on s.id =r.student_id and s.isDel=3
+        <where>
+             (r.is_pass is NULL or (r.is_pass is not NULL AND r.result is NULL))
+            <if test="departmentId != null and departmentId != 0">
+                and department_id=#{departmentId}
+            </if>
+
+            <if test="majorId != null and majorId != 0">
+                and major_id=#{majorId}
+            </if>
+
+            <if test="clazzId != null and clazzId != 0">
+                and clazz_id=#{clazzId}
+            </if>
+
+            <if test="grade != null and grade != 0">
+                and grade=#{grade}
+            </if>
+
+            <if test="search != null">
+                and s.name like CONCAT('%',#{search},'%')
+            </if>
+            <if test="abbrName != null">
+                and abbr_name like CONCAT('%',#{abbrName},'%')
+            </if>
+            <if test="search != null">
+                or s.number=#{search}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="list3" resultType="HashMap">
+        select r.id as id,r.student_id as studentId, s.number as number, r.old_department_id as old_department_id,s.name as s_name,
+        s.department_id as departmentId, r.new_grader as newGrader,
         r.old_major_id as old_major_id, r.old_clazz_id as old_clazz_id, r.new_department_id as new_department_id,
         r.new_major_id as new_major_id, r.new_clazz_id as new_clazz_id, r.save_date as save_date,
         r.is_pass as is_pass, r.result as result, r.remarks as remarks
         from retardation r join student s on s.id = r.student_id
 
         <where>
+            s.isDel=3 and r.is_pass is not NULL
             <if test="departmentId != null and departmentId != 0">
                 and department_id=#{departmentId}
             </if>
@@ -159,27 +307,28 @@
                 and grade=#{grade}
             </if>
 
+            <if test="search != null">
+                and s.name like CONCAT('%',#{search},'%')
+            </if>
             <if test="abbrName != null">
-                and s.abbr_name like CONCAT('%',#{abbrName},'%')
+                and abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="number != null">
-                and s.number like CONCAT('%',#{number},'%')
-            </if>
-            <if test="name != null">
-                and s.name like CONCAT('%',#{name},'%')
+            <if test="search != null">
+                or s.number=#{search}
             </if>
 
 
         </where>
 
         <if test="start !=null and pageSize != null">
-            limit #{start},#{pageSize}
+            limit #{start},#{end}
         </if>
     </select>
 
-    <select id="listCount" resultType="int">
+    <select id="listCount3" resultType="int">
         select count(*) from retardation r join student s on s.id =r.student_id
         <where>
+            and s.isDel=3 and  r.is_pass is not NULL
             <if test="departmentId != null and departmentId != 0">
                 and department_id=#{departmentId}
             </if>
@@ -196,17 +345,23 @@
                 and grade=#{grade}
             </if>
 
+            <if test="search != null">
+                and s.name like CONCAT('%',#{search},'%')
+            </if>
             <if test="abbrName != null">
-                and s.abbr_name like CONCAT('%',#{abbrName},'%')
+                and abbr_name like CONCAT('%',#{abbrName},'%')
             </if>
-            <if test="number != null">
-                and s.number like CONCAT('%',#{number},'%')
-            </if>
-            <if test="name != null">
-                and s.name like CONCAT('%',#{name},'%')
+            <if test="search != null">
+                or s.number=#{search}
             </if>
         </where>
     </select>
+
+
+
+
+
+
 
     <!--批量增加-->
     <insert id="batchInsert" parameterType="java.util.List">
