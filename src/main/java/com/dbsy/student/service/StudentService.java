@@ -27,4 +27,6 @@ public interface StudentService {
     Student selectByNumber(String number);
 
     int update (Student student);
+
+    int getMajorCountByMajorId(int majorId);
 }

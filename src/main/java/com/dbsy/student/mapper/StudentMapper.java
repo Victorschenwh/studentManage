@@ -53,5 +53,8 @@ public interface StudentMapper {
     @Select("select nation , count(*) as nums from student  group by nation")
     List<Map> selectGroupByNation();
 
+    @Select("select count(*) from  student  where major_id = #{majorId}")
+    int getMajorCountByMajorId(int majorId);
+
 
 }

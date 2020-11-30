@@ -9,16 +9,6 @@
     </ol>
 
     <div class="row">
-
-        <div class="col-md-3 btn-group">
-            <button type="button" class="btn btn-primary ">
-                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>上传
-            </button>
-            <button type="button" class="btn btn-primary">
-                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
-            </button>
-        </div>
-
         <div class="form-group col-md-2">
             <label class="sr-only">搜索</label>
             <input type="text" id="search_key" placeholder="搜索学号" class="form-control"/>
@@ -257,7 +247,6 @@
                 detailView: false,                  //是否显示父子表
                 //得到查询的参数
                 queryParams: function (params) {
-                    //console.log("list:" + params)
                     //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
                     return {
                         pageSize: params.limit,                         //页面大小

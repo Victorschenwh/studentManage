@@ -56,11 +56,13 @@
             <div v-if="isLogin">
                 <p>
                     <i class="icon icon-user"></i>
-                    <input type="text" placeholder="请输入工号" id="inputEmail3" v-model:value="username">
+                    <input type="text" placeholder="请输入工号" id="inputEmail3" v-model:value="username"
+                           @keyup.enter="login">
                 </p>
                 <p>
                     <i class="icon icon-pass"></i>
-                    <input type="password" placeholder="请输入密码" id="inputPassword3" v-model:value="password" @keyup.enter="login">
+                    <input type="password" placeholder="请输入密码" id="inputPassword3" v-model:value="password"
+                           @keyup.enter="login">
                     <!--<a href="javascript:;" class="aui-forget">忘记密码？</a>-->
                 </p>
             </div>
@@ -84,16 +86,19 @@
 
             <div>
                 <a href="#" @click="isShow=true">忘记密码</a>
-                <span style="color: #2F80ED;font-size:15px;font-family: 'microsoft yahei';display: inline-block;width: 100px;" v-if="isShow">请联系管理员</span>
+                <span style="color: #2F80ED;font-size:15px;font-family: 'microsoft yahei';display: inline-block;width: 100px;"
+                      v-if="isShow">请联系管理员</span>
             </div>
-            <button type="button" class="aui-button-go" style="margin-top: 25px;border-radius:8px 8px 8px 8px" @click="login">登录</button>
+            <button type="button" class="aui-button-go" style="margin-top: 25px;border-radius:8px 8px 8px 8px"
+                    @click="login">登录
+            </button>
 
         </form>
     </div>
     <div class="container">
         <div class="navbar-fixed-bottom hidden-xs hidden-sm">
             <p class="text-center" style="color:#d7d7d7;font-size: 10px">
-                2020 东北石油大学版权所有  Copyright©2020 Northeast Petroleum University. All Right Reserved
+                2020 东北石油大学版权所有 Copyright©2020 Northeast Petroleum University. All Right Reserved
 
             </p>
         </div>
@@ -109,8 +114,8 @@
         data: {
             isShow: false,
             isLogin: true,
-            password: "123",
-            username: "mao",
+            password: "",
+            username: "",
             captcha: null,
             email: null
         },

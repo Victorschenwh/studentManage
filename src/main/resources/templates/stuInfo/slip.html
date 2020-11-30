@@ -253,7 +253,18 @@
                     {
                         field: 'slip',
                         title: '下滑名次',
-                        align: 'center'
+                        align: 'center',
+                    },
+                    {
+                        field: 'slipPercentage',
+                        title: '下滑百分比',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            // return value != null ? value.toFixed(3) * 100 + "%" : "";
+                            if (value == null) return ""
+                            value = value * 100
+                            return value.toFixed(1) + "%"
+                        }
                     },
                 ],
                 formatSearch: function () {

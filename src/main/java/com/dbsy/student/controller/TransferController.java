@@ -40,9 +40,9 @@ public class TransferController {
     @RequestMapping("")
     public String transfer(Model model, HttpSession session) {
         Admin admin = (Admin) session.getAttribute("user");
-        if (admin.getRole() == 0)
+       /* if (admin.getRole() == 0)
             return "stuInfo/leaderTransfer";
-        else
+        else*/
             return "stuInfo/transfer";
     }
 

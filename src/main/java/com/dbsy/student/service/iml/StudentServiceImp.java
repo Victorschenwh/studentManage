@@ -78,6 +78,11 @@ public class StudentServiceImp implements StudentService, ExcelSave {
     }
 
     @Override
+    public int getMajorCountByMajorId(int majorId) {
+        return this.studentMapper.getMajorCountByMajorId(majorId);
+    }
+
+    @Override
     public int excelBatchInsert(List list) {
         return studentMapper.batchInsert(list);
     }
