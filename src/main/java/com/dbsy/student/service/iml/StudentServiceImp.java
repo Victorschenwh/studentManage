@@ -6,12 +6,15 @@ import com.dbsy.student.pojo.Student;
 import com.dbsy.student.service.StudentService;
 import com.dbsy.student.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
 @Service("studentServiceImp")
+@CacheConfig(cacheNames = "student")
 public class StudentServiceImp implements StudentService, ExcelSave {
     @Autowired
     StudentMapper studentMapper;
@@ -78,8 +81,15 @@ public class StudentServiceImp implements StudentService, ExcelSave {
     }
 
     @Override
+    @Cacheable(key = "#root.methodName + #majorId", unless = "#result == null ")
     public int getMajorCountByMajorId(int majorId) {
         return this.studentMapper.getMajorCountByMajorId(majorId);
+    }
+
+    @Override
+    @Cacheable(key = "#methodName", unless = "#result == null ")
+    public List<Map> getMajorCount() {
+        return studentMapper.getMajorCount();
     }
 
     @Override

@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Slip {
-    List<Map> list = new ArrayList<>();
+    public List<Map> list = new ArrayList<>();
 
-    // StudentServiceImp studentServiceImp = (StudentServiceImp) SpringContext.getApplicationContext().getBean("studentServiceImp");
+    public StudentServiceImp studentServiceImp = (StudentServiceImp) SpringContext.getApplicationContext().getBean("studentServiceImp");
 
     public List<Map> getList() {
         return list;
@@ -22,6 +22,7 @@ public class Slip {
     }
 
     public Slip(List<Map> list) {
+
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 Map map = list.get(i);
@@ -32,8 +33,9 @@ public class Slip {
                         double preRank = Integer.parseInt(this.list.get(this.list.size() - 1).get("major_rank") + "");
                         double nowRank = Integer.parseInt(map.get("major_rank") + "");
                         if (nowRank - preRank > 0) {
+                            int count = studentServiceImp.getMajorCountByMajorId(Integer.parseInt(map.get("major_id") + ""));
                             map.put("slip", nowRank - preRank);
-                            map.put("slipPercentage", (nowRank - preRank) / preRank);
+                            map.put("slipPercentage", (nowRank - preRank) / count);
                             this.list.remove(this.list.size() - 1);
                             this.list.add(map);
                         } else {

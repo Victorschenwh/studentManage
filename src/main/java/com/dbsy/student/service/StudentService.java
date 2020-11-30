@@ -29,4 +29,6 @@ public interface StudentService {
     int update (Student student);
 
     int getMajorCountByMajorId(int majorId);
+
+    List<Map> getMajorCount();
 }
