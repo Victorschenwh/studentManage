@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -65,31 +66,34 @@ public class AdminController {
     @Remarks("权限管理/管理员账号列表")
     @RequestMapping("/assistantList")
     @ResponseBody
-    public Map assList(@RequestParam Map map) {
-        Map m = new HashMap();
+    public List<Map> assList(@RequestParam Map map) {
+      /*  Map m = new HashMap();
         m.put("total", adminService.findAssistantCount(map));
         m.put("rows", adminService.findAssistant(map));
-        return m;
+        return m;*/
+      return adminService.findAssistant(map);
     }
 
     @RequestMapping("/departList")
     @Remarks("权限管理/院领导账号列表")
     @ResponseBody
-    public Map deList(@RequestParam Map map) {
-        Map m = new HashMap();
+    public List<Map> deList(@RequestParam Map map) {
+      /*  Map m = new HashMap();
         m.put("total", adminService.findDepartLeaderCount(map));
         m.put("rows", adminService.findDepartLeader(map));
-        return m;
+        return m;*/
+      return adminService.findDepartLeader(map);
     }
 
     @RequestMapping("/schList")
     @Remarks("权限管理/校领导账号列表")
     @ResponseBody
-    public Map scList(@RequestParam Map map) {
-        Map m = new HashMap();
+    public List<Map> scList(@RequestParam Map map) {
+      /*  Map m = new HashMap();
         m.put("total", adminService.findSchoolLeaderCount(map));
         m.put("rows", adminService.findSchoolLeader(map));
-        return m;
+        return m;*/
+      return adminService.findSchoolLeader(map);
     }
 
     @Autowired

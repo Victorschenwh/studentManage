@@ -163,16 +163,6 @@
                     visible: true   //是否显示复选框
                 },
                     {
-                        field: 'number',
-                        title: '学号',
-                        align: 'center',
-                    },
-                    {
-                        field: 'name',
-                        title: '姓名',
-                        align: 'center',
-
-                    }, {
                         field: 'department_id',
                         title: '学院',
                         align: 'center',
@@ -241,6 +231,17 @@
                         }
                     },
                     {
+                        field: 'number',
+                        title: '学号',
+                        align: 'center',
+                    },
+                    {
+                        field: 'name',
+                        title: '姓名',
+                        align: 'center',
+
+                    },
+                    {
                         field: 'fail',
                         title: '预警次数',
                         align: 'center',
@@ -256,14 +257,14 @@
                         align: 'center',
                         formatter: function (value, row, index) {
                             if (row.fail > 4) {
-                                return "<span style='color: #f00000'>红色</span>"
+                                return "<span style='color: red'>红色</span>"
                             }
 
                             if (row.fail > 2) {
-                                return "<span style='color: #F2C94C'>黄色</span>"
+                                return "<span style='color: orange'>橙色</span>"
                             }
 
-                            return "<span style='color: #45B649'>绿色</span>"
+                            return "<span style='color: yellow'>黄色</span>"
                         }
                     }
                 ],

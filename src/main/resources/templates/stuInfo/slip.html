@@ -263,6 +263,13 @@
                             // return value != null ? value.toFixed(3) * 100 + "%" : "";
                             if (value == null) return ""
                             value = value * 100
+                            if (value < 10) {
+                                return "<span style='color: yellow'>" + value.toFixed(1) + "%" + "</span>"
+                            } else if (value >= 10 && value <= 20) {
+                                return "<span style='color: orange'>" + value.toFixed(1) + "%" + "</span>"
+                            } else if (value > 20)
+                                return "<span style='color: red'>" + value.toFixed(1) + "%" + "</span>"
+
                             return value.toFixed(1) + "%"
                         }
                     },

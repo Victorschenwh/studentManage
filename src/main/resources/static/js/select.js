@@ -1,4 +1,5 @@
 var department = function () {
+    $("#departmentId").append("<option value=''>--请选择学院--</option>");
     $.ajax({
         async: false,
         cache: false,
@@ -11,7 +12,7 @@ var department = function () {
                 var list = [];
                 list = list.concat(data.data);
                 $("#departmentId").empty();
-                $("#departmentId").append("<option value=''>--请选择院系--</option>");
+                $("#departmentId").append("<option value=''>--请选择学院--</option>");
                 if (list.length > 0) {
                     for (var i = 0; i < list.length; i++) {
                         var option = "<option value='" + list[i].id + "'>" + list[i].name + "</option>";

@@ -2,7 +2,11 @@ server:
   port: 80
 
 
+
+
 spring:
+  application:
+    name: ROOT
   # 热部署
   devtools:
     restart:

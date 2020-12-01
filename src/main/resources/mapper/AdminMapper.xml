@@ -18,9 +18,9 @@
                 and department_id = #{departmentId}
             </if>
         </where>
-        <if test="start!=null">
-            limit #{start},#{pageSize}
-        </if>
+        <!--<if test="start!=null">-->
+            <!--limit #{start},#{pageSize}-->
+        <!--</if>-->
     </select>
 
 
@@ -30,9 +30,9 @@
 
     <select id="findDepartLeader" parameterType="Map" resultType="Map">
         select * from admin where role = 20
-        <if test="start!=null">
-            limit #{start},#{pageSize}
-        </if>
+        <!--<if test="start!=null">-->
+            <!--limit #{start},#{pageSize}-->
+        <!--</if>-->
     </select>
 
 
@@ -42,9 +42,9 @@
 
     <select id="findSchoolLeader" parameterType="Map" resultType="Map">
         select * from admin where role = 10
-        <if test="start!=null">
-            limit #{start},#{pageSize}
-        </if>
+        <!--<if test="start!=null">-->
+            <!--limit #{start},#{pageSize}-->
+        <!--</if>-->
     </select>
 
 

@@ -164,6 +164,9 @@
                 showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
                 detailView: false,                  //是否显示父子表
+                formatSearch: function () {
+                    return '姓名(汉字/拼音)或学号';
+                },
                 //得到查询的参数
                 queryParams: function (params) {
                     downParams = {
