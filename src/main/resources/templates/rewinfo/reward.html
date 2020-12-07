@@ -23,7 +23,6 @@
             <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
         </button>
 
-
         <div class="select">
             <div class="item">
                 <select id="departmentId" class="form-control">
@@ -73,7 +72,6 @@
                     <div class="modal-body">
 
                         <input id="id" name="id" class="hidden">
-
 
                         <div class="form-group">
                             <div class="col-sm-8">
@@ -222,8 +220,10 @@
                     visible: true                  //是否显示复选框
                 },
                     {
+                        align: 'center',
                         field: 'department_id',
                         title: '学院',
+                        align: 'center',
                         formatter: function (value, row, index) {
                             let depart = {};
                             if (value != null) {
@@ -245,6 +245,7 @@
                         }
 
                     }, {
+                        align: 'center',
                         field: 'major_id',
                         title: '专业',
                         formatter: function (value, row, index) {
@@ -267,6 +268,7 @@
                             return major != null ? major.name : "";
                         }
                     }, {
+                        align: 'center',
                         field: 'clazz_id',
                         title: '班级',
                         formatter: function (value, row, index) {
@@ -289,17 +291,17 @@
                             return clazz != null ? clazz.name : "";
                         }
                     }, {
+                        align: 'center',
                         field: 'number',
                         title: '学号',
                     }, {
+                        align: 'center',
                         field: 'name',
                         title: '姓名',
                     }, {
+                        align: 'center',
                         field: 'synopsis',
                         title: '奖惩记录'
-                    }, {
-                        field: 'type',
-                        title: '类型'
                     }, {
                         title: '操作',
                         field: 'id',
