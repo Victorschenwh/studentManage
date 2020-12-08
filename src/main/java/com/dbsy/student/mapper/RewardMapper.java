@@ -5,6 +5,7 @@ import com.dbsy.student.excel.vo.RewardEo;
 import com.dbsy.student.pojo.Family;
 import com.dbsy.student.pojo.Reward;
 import com.dbsy.student.pojo.Score;
+import com.dbsy.student.pojo.Suspension;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -31,6 +32,12 @@ public interface RewardMapper {
 
     @Update("update reward set student_id=#{studentId},synopsis=#{synopsis},score=#{score},study_term=#{studyTerm} where id=#{id}")
     int update(Reward reward);
+
+
+    @Update("insert into  reward set student_id=#{studentId},synopsis=#{synopsis},score=#{score},study_term=#{studyTerm}")
+    int addSingle(Map map);
+
+
 
     int batchInsert(List list);
 

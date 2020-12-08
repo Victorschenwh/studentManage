@@ -37,6 +37,9 @@ public interface EmploymentMapper {
     @Update("update employment set student_id=#{studentId},is_sign=#{isSign},phone_number=#{phoneNumber},remarks=#{remarks}  where id=#{id}")
     int update(Employment employment);
 
+    @Update("insert into  employment set student_id=#{studentId},is_sign=#{isSign},phone_number=#{phoneNumber}, state=#{state},company=#{company},registration_to=#{registrationTo},remarks=#{remarks}")
+    int addSingle(Map map);
+
     List<EmploymentEo> listExport(Map map);
 
     @Select("select state,count(*) as nums from employment group by state")

@@ -22,6 +22,9 @@
         <button id="btn_download" type="button" class="btn btn-primary" onclick="download()">
             <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
         </button>
+        <button id="btn_add" type="button" class="btn btn-warning" data-toggle="modal" data-target="#add" title="添加单条记录" >
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </button>
 
         <div class="select">
             <div class="item">
@@ -56,6 +59,83 @@
         </table>
     </div>
 
+    <!--增加单个记录模态框-->
+    <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal" id="add_data">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title" id="addModalLabel">
+                            添加
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <input id="id1" class="hidden">
+                        <p align="center"> <strong>为了您的操作安全性，请先查找学生后，再进行其他操作</strong></p>
+                        <hr/>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="search_stu">查找学生：</label>
+                            <div class="col-sm-8">
+                                <input  id="search_stu"  type="text" placeholder="输入学生姓名或者学号" >
+                                <a  id="search_btn" href="#" role="button" class="btn btn-primary" title="查找">查找</a>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stu"  class="col-sm-3 control-label">学生：</label>
+                            <div class="col-sm-8">
+                                <!--                                <input id="clName1" class="form-control" type="text" required>-->
+                                <select name="studentId" id="stu" class="form-control"  required>
+                                    <option value="">
+                                        --请选择学生--
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="synopsis1">奖惩记录：</label>
+                            <div class="col-sm-8">
+                                <input id="synopsis1" name="synopsis" class="form-control" type="text" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="score">学分：</label>
+                            <div class="col-sm-8">
+                                <input id="score" name="score" class="form-control" type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studyTerm">学期：</label>
+                            <div class="col-sm-8">
+                                <input id="studyTerm" name="studyTerm" class="form-control" type="text" placeholder="2019" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            确定
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+
+
     <!--模态框-->
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -72,6 +152,7 @@
                     <div class="modal-body">
 
                         <input id="id" name="id" class="hidden">
+
 
                         <div class="form-group">
                             <div class="col-sm-8">
@@ -129,6 +210,8 @@
         }
     });
 
+
+
     $("#insert").validate({
         rules: {},
         messages: {},
@@ -137,8 +220,49 @@
         }
     });
 
+    $("#add_data").validate({
+        rules: {},
+        messages: {},
+        submitHandler: function (form) {
+            add_single();
+        }
+    });
+
     let downParams
 
+
+    $("#search_btn").click(function () {
+
+        var stuInfo = $("#search_stu").val()
+        // console.log("stuInfo>>>"+stuInfo)
+        $.ajax({
+            type: 'POST',
+            url: "/reward/search/"+ stuInfo,
+            // dataType: "json",
+            success: function (data) {
+                if (data.code == 1) {
+                    var stus=data.data.total
+                    // console.log(data)
+                    // console.log("stus>>"+stus)
+                    if(stus.length>0){
+                        $("#stu").empty();
+                        $("#stu").append("<option value=''>--请选择学生--</option>");
+                        for(var index in stus){
+
+                            let option = "<option value='" + stus[index].id + "'>" + stus[index].number + ' :: ' + stus[index].name + "</option>";
+                            $("#stu").append(option);
+                        }
+
+
+                    }
+                    // reLoad()
+                    //alert("删除成功");
+                } else {
+                    alert("查找失败");
+                }
+            }
+        });
+    })
     $("#table").keydown(function (e) {
         if (e.keyCode == 13) {
             let temp = null
@@ -162,6 +286,28 @@
         }
 
         window.open("/excel/download?" + (url ? url.substring(1) : ''))
+    }
+
+    function add_single() {
+
+
+        $.ajax({
+            type: 'POST',
+            url: "/reward/addSingle",
+            dataType: "json",
+            data: $('#add_data').serialize(),
+            success: function (data) {
+                if (data.code == 1) {
+                    $('#add').modal('hide');
+                    reLoad()
+                    //alert("删除成功");
+                } else {
+                    alert("添加失败");
+                }
+            }
+        });
+
+
     }
 
 
@@ -223,7 +369,6 @@
                         align: 'center',
                         field: 'department_id',
                         title: '学院',
-                        align: 'center',
                         formatter: function (value, row, index) {
                             let depart = {};
                             if (value != null) {

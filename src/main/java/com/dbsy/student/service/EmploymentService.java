@@ -24,6 +24,9 @@ public interface EmploymentService {
 
     List<Employment> list(Map map);
 
+
+    int addSingle(Map map);
+
     int delete(int id);
 
     int batchRemove(int[] ids);

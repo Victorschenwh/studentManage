@@ -7,6 +7,7 @@ import com.dbsy.student.pojo.Reward;
 import com.dbsy.student.pojo.Score;
 import com.dbsy.student.service.RewardService;
 import com.dbsy.student.service.ScoreService;
+import com.dbsy.student.service.SuspensionService;
 import com.dbsy.student.util.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,12 +31,61 @@ public class RewardController {
     RewardService rewardService;
 
 
+    @Autowired
+    SuspensionService suspensionService;
+
+
     @RequestMapping("")
     @Remarks("奖惩界面")
     public String reward() {
         return "rewinfo/reward";
     }
 
+    @RequestMapping("/addSingle")
+    @ResponseBody
+    public Map add(@RequestParam Map map){
+
+        System.out.println("map = " + map);
+        int result = rewardService.addSingle(map);
+        if(result == -1){
+
+            return News.fail();
+        }
+        else{
+            return News.success();
+        }
+
+
+    }
+    //先查找学生
+    @RequestMapping("/search/{stuInfo}")
+    @ResponseBody
+    public Map search(@PathVariable(value = "stuInfo" ,required = false) String stu) {
+
+//        System.out.println("map = " + map);
+//        System.out.println("stu =>>>>>>>>>> " + stu);
+        if(StringUtils.isEmpty(stu)){
+            return null;
+        }
+        Map map_in = new HashMap<>();
+        if(stu.matches("[a-zA-Z]+")){
+            map_in.put("abbrName",stu);
+            map_in.put("search","");
+        }
+        Map m = new HashMap();
+        try{
+            m.put("total", suspensionService.listStu(map_in));
+            m.put("rows", suspensionService.listCountStu(map_in));
+//            System.out.println("m =>>>>>>>>>>>>>>> " + m);
+            return News.success("成功",m);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return News.fail();
+
+    }
 
     @RequestMapping("/list")
     @ResponseBody

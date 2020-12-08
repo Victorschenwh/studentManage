@@ -20,6 +20,9 @@
         <button id="btn_download" type="button" class="btn btn-primary" onclick="download()">
             <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
         </button>
+        <button id="btn_add" type="button" class="btn btn-warning" data-toggle="modal" data-target="#add" title="添加单条记录" >
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </button>
 
         <div class="select">
             <div class="item">
@@ -53,6 +56,131 @@
         <table id="table_employ" data-mobile-responsive="true">
         </table>
     </div>
+
+    <!--增加单个记录模态框-->
+    <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form class="form-horizontal" id="add_data">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title" id="addModalLabel">
+                            添加
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <input id="id1" class="hidden">
+                        <p align="center"> <strong>为了您的操作安全性，请先查找学生后，再进行其他操作</strong></p>
+                        <hr/>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="search_stu">查找学生：</label>
+                            <div class="col-sm-8">
+                                <input  id="search_stu"  type="text" placeholder="输入学生姓名或者学号" >
+                                <a  id="search_btn" href="#" role="button" class="btn btn-primary" title="查找">查找</a>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stu"  class="col-sm-3 control-label">学生：</label>
+                            <div class="col-sm-8">
+                                <!--                                <input id="clName1" class="form-control" type="text" required>-->
+                                <select name="studentId" id="stu" class="form-control"  required>
+                                    <option value="">
+                                        --请选择学生--
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" >是否就业/签订第三方协议：</label>
+                            <div class="col-sm-8">
+                                <input id='is' type="radio" name="isSign" value="false" checked >
+                                <label for="is">否</label>
+                                <input id="no" type="radio" name="isSign" value="true" >
+                                <label for="no">是</label>
+<!--                                <input id="isSign1" name="isSign" class="form-control" type="text" required>-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="company1">就业单位：</label>
+                            <div class="col-sm-8">
+                                <input id="company1" name="company" class="form-control" placeholder="如未签约，可填'无' " type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="phoneNumber1">联系方式：</label>
+                            <div class="col-sm-8">
+                                <input id="phoneNumber1" name="phoneNumber" class="form-control" type="text"  required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="remarks1">毕业去向：</label>
+                            <div class="col-sm-8">
+
+                                <input id="0" type="radio" name="state" value="0" checked >
+                                <label for="0">不就业拟升学</label>
+                                <input id="1" type="radio" name="state" value="1">
+                                <label for="1"> 待就业、拟参加公招考试</label>
+                                <br/>
+
+                                <input id="2" type="radio" name="state" value="2">
+                                <label for="2">待就业、签约中</label>
+                                <input id="3" type="radio" name="state" value="3">
+                                <label for="3">待就业、求职中</label>
+                                <input id="4" type="radio" name="state" value="4">
+                                <label for="4">其他暂不就业</label>
+                                <br/>
+                                <input id="5" type="radio" name="state" value="5">
+                                <label for="5">签就业协议形式就业</label>
+                                <input id="6" type="radio" name="state" value="6">
+                                <label for="6">签劳动合同形式就业</label>
+                                <input id="7" type="radio" name="state" value="7">
+                                <label for="7">升学</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="registrationTo1">报到证签往单位名称：</label>
+                            <div class="col-sm-8">
+                                <input id="registrationTo1" name="registrationTo" class="form-control" type="text" required>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="remarks1">备注：</label>
+                            <div class="col-sm-8">
+                                <input id="remarks1" name="remarks" class="form-control" type="text" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            确定
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+
+
+
+
 
     <!--模态框-->
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -102,6 +230,13 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="col-sm-3 control-label" for="registrationTo">报到证签往单位名称：</label>
+                            <div class="col-sm-8">
+                                <input id="registrationTo" name="registrationTo" class="form-control" type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="col-sm-3 control-label">备注：</label>
                             <div class="col-sm-8">
                                 <input id="remarks" name="remarks" class="form-control" type="text" required>
@@ -134,6 +269,14 @@
         load()
     })
 
+    $("#add_data").validate({
+        rules: {},
+        messages: {},
+        submitHandler: function (form) {
+            add_single();
+        }
+    });
+
     let downParams
 
     $("#table1").keydown(function (e) {
@@ -161,6 +304,42 @@
 
         window.open("/excel/download?" + (url ? url.substring(1) : ''))
     }
+
+
+
+    $("#search_btn").click(function () {
+
+        var stuInfo = $("#search_stu").val()
+        // console.log("stuInfo>>>"+stuInfo)
+        $.ajax({
+            type: 'POST',
+            url: "/reward/search/"+ stuInfo,
+            // dataType: "json",
+            success: function (data) {
+                if (data.code == 1) {
+                    var stus=data.data.total
+                    // console.log(data)
+                    // console.log("stus>>"+stus)
+                    if(stus.length>0){
+                        $("#stu").empty();
+                        $("#stu").append("<option value=''>--请选择学生--</option>");
+                        for(var index in stus){
+
+                            let option = "<option value='" + stus[index].id + "'>" + stus[index].number + ' :: ' + stus[index].name + "</option>";
+                            $("#stu").append(option);
+                        }
+
+
+                    }
+                    // reLoad()
+                    //alert("删除成功");
+                } else {
+                    alert("查找失败");
+                }
+            }
+        });
+    });
+
 
     $("#update").validate({
         rules: {},
@@ -381,6 +560,27 @@
         $('#table_employ').bootstrapTable('refresh');
     }
 
+    function add_single() {
+
+
+        $.ajax({
+            type: 'POST',
+            url: "/employment/addSingle",
+            dataType: "json",
+            data: $('#add_data').serialize(),
+            success: function (data) {
+                if (data.code == 1) {
+                    $('#add').modal('hide');
+                    reLoad()
+                    //alert("删除成功");
+                } else {
+                    alert("添加失败");
+                }
+            }
+        });
+
+
+    }
     function get(id) {
         $.ajax({
             //cache: true,

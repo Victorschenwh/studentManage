@@ -3,7 +3,9 @@ package com.dbsy.student.service.iml;
 import com.dbsy.student.excel.ExcelSave;
 import com.dbsy.student.excel.vo.RewardEo;
 import com.dbsy.student.mapper.RewardMapper;
+import com.dbsy.student.mapper.SuspensionMapper;
 import com.dbsy.student.pojo.Reward;
+import com.dbsy.student.pojo.Student;
 import com.dbsy.student.service.RewardService;
 import com.dbsy.student.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class RewardServiceImp implements RewardService, ExcelSave {
 
     @Autowired
     RewardMapper rewardMapper;
+
+
 
 //    @Autowired
 //    RedisTemplate redisTemplate;
@@ -45,6 +49,7 @@ public class RewardServiceImp implements RewardService, ExcelSave {
         return rewardMapper.listCount(QueryUtil.query(map));
     }
 
+
     @Override
     public List<Map> list(Map map) {
         return rewardMapper.list(QueryUtil.query(map));
@@ -66,6 +71,17 @@ public class RewardServiceImp implements RewardService, ExcelSave {
 //    @CacheEvict(key = "#id")
     public int delete(int id) {
         return rewardMapper.delete(id);
+    }
+
+    @Override
+    public int addSingle(Map map) {
+        try{
+            return this.rewardMapper.addSingle(map);
+        }catch (Exception e){
+
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     @Override

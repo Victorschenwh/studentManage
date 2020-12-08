@@ -42,6 +42,29 @@ public class EmployController {
         return m;
     }
 
+
+
+    @RequestMapping("/addSingle")
+    @ResponseBody
+    public Map add(@RequestParam Map map){
+
+        System.out.println("map = " + map);
+
+        map.put("isSign",Boolean.parseBoolean((String)map.get("isSign")));
+
+        System.out.println("map >>= " + map);
+        int result = employmentService.addSingle(map);
+        if(result == -1){
+
+            return News.fail();
+        }
+        else{
+            return News.success();
+        }
+
+
+    }
+
     @ResponseBody
     @RequestMapping("/get/{id}")
     @Remarks("获取个人就业信息")

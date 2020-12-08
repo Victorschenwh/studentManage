@@ -13,6 +13,7 @@ public interface RewardService {
 
     int listCount(Map map);
 
+
     List<Map> list(Map map);
 
     int batchInsert(List list);
@@ -20,6 +21,9 @@ public interface RewardService {
     Reward get(int id);
 
     int delete(int id);
+
+
+    int addSingle(Map map);
 
     int update(Reward reward);
 

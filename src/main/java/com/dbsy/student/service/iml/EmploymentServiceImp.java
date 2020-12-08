@@ -54,6 +54,17 @@ public class EmploymentServiceImp implements EmploymentService, ExcelSave {
     }
 
     @Override
+    public int addSingle(Map map) {
+        try{
+            return this.employmentMapper.addSingle(map);
+        }catch (Exception e){
+
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
     public int delete(int id) {
         return employmentMapper.delete(id);
     }
