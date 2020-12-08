@@ -36,15 +36,16 @@
             <div class="panel panel-info">
                 <div class="panel-heading">学生</div>
                 <div class="panel-body">
-                    <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label>上传</label>
-                            <input type="file" name="file">
-                        </div>
-                        <input name="type" type="text" class="hidden" value="student">
-                        <input type="submit" value="上传" class="btn btn-default">
-                        <a href="/excel/downloadExcel/学生基本信息表模板.xlsx">学生基本信息表模板,点击下载</a>
-                    </form>
+                    <!--<form action="/excel/upload" method="post" enctype="multipart/form-data">-->
+                    <div class="form-group">
+                        <label>上传</label>
+                        <input type="file" name="file" id="file_stu">
+                    </div>
+                    <input name="type" type="text" class="hidden" value="student">
+                    <input type="button" value="上传" class="btn btn-default"
+                           onclick="upload('/excel/upload' ,'student','file_stu')">
+                    <a href="/excel/downloadExcel/学生基本信息表模板.xlsx">学生基本信息表模板,点击下载</a>
+                    <!--</form>-->
                 </div>
             </div>
         </div>
@@ -70,15 +71,16 @@
             <div class="panel panel-info">
                 <div class="panel-heading">就业</div>
                 <div class="panel-body">
-                    <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label>上传</label>
-                            <input type="file" name="file">
-                        </div>
-                        <input name="type" type="text" class="hidden" value="employment">
-                        <input type="submit" value="上传" class="btn btn-default">
-                        <a href="/excel/downloadExcel/就业表模板.xlsx">就业情况表模板,点击下载</a>
-                    </form>
+                    <!--<form action="/excel/upload" method="post" enctype="multipart/form-data">-->
+                    <div class="form-group">
+                        <label>上传</label>
+                        <input type="file" name="file" id="file_emp">
+                    </div>
+                    <input name="type" type="text" class="hidden" value="employment">
+                    <input type="button" value="上传" class="btn btn-default"
+                           onclick="upload('/excel/upload' ,'employment','file_emp')">
+                    <a href="/excel/downloadExcel/就业表模板.xlsx">就业情况表模板,点击下载</a>
+                    <!--</form>-->
                 </div>
             </div>
         </div>
@@ -87,15 +89,16 @@
             <div class="panel panel-info">
                 <div class="panel-heading">奖惩</div>
                 <div class="panel-body">
-                    <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label>上传</label>
-                            <input type="file" name="file">
-                        </div>
-                        <input name="type" type="text" class="hidden" value="reward">
-                        <input type="submit" value="上传" class="btn btn-default">
-                        <a href="/excel/downloadExcel/奖惩表.xlsx">奖惩表模板,点击下载</a>
-                    </form>
+                    <!--<form action="/excel/upload" method="post" enctype="multipart/form-data">-->
+                    <div class="form-group">
+                        <label>上传</label>
+                        <input type="file" name="file" id="file_rew">
+                    </div>
+                    <input name="type" type="text" class="hidden" value="reward">
+                    <input type="button" value="上传" class="btn btn-default"
+                           onclick="upload('/excel/upload' ,'reward','file_rew')">
+                    <a href="/excel/downloadExcel/奖惩表.xlsx">奖惩表模板,点击下载</a>
+                    <!--</form>-->
                 </div>
             </div>
         </div>
@@ -104,15 +107,16 @@
             <div class="panel panel-info">
                 <div class="panel-heading">成绩</div>
                 <div class="panel-body">
-                    <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label>上传</label>
-                            <input type="file" name="file">
-                        </div>
-                        <input name="type" type="text" class="hidden" value="score">
-                        <input type="submit" value="上传" class="btn btn-default">
-                        <a href="/excel/downloadExcel/成绩模板表.xls">成绩表模板,点击下载</a>
-                    </form>
+                    <!--<form action="/excel/upload" method="post" enctype="multipart/form-data">-->
+                    <div class="form-group">
+                        <label>上传</label>
+                        <input type="file" name="file" id="file_sco">
+                    </div>
+                    <input name="type" type="text" class="hidden" value="score">
+                    <input type="button" value="上传" class="btn btn-default"
+                           onclick="upload('/excel/upload' ,'score','file_sco')">
+                    <a href="/excel/downloadExcel/成绩模板表.xls">成绩表模板,点击下载</a>
+                    <!--</form>-->
                 </div>
             </div>
         </div>
@@ -122,15 +126,16 @@
             <div class="panel panel-info">
                 <div class="panel-heading">老师</div>
                 <div class="panel-body">
-                    <form action="/excel/upload" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label>上传</label>
-                            <input type="file" name="file">
-                        </div>
-                        <input name="type" type="text" class="hidden" value="teacher">
-                        <input type="submit" value="上传" class="btn btn-default">
-                        <a href="/excel/downloadExcel/教工表.xlsx">教工表模板,点击下载</a>
-                    </form>
+                    <!--<form action="/excel/upload" method="post" enctype="multipart/form-data">-->
+                    <div class="form-group">
+                        <label>上传</label>
+                        <input type="file" name="file" id="file_tea">
+                    </div>
+                    <input name="type" type="text" class="hidden" value="teacher">
+                    <input type="button" value="上传" class="btn btn-default"
+                           onclick="upload('/excel/upload' ,'teacher','file_tea')">
+                    <a href="/excel/downloadExcel/教工表.xlsx">教工表模板,点击下载</a>
+                    <!--</form>-->
                 </div>
             </div>
         </div>
@@ -188,6 +193,20 @@
     </div>
 
 
+    <div class="modal fade" id="onStep" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="">进度</h4>
+                </div>
+                <div class="modal-body" style="color: red;">
+                    正在上传中,请稍后...
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -224,8 +243,6 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
-
-
 </div>
 <script src="/js/jquery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
@@ -234,6 +251,31 @@
     $(document).ready(function () {
         $('#myModal').modal('show')
     })
+
+    function upload(url, type, fileId) {
+        $('#onStep').modal('show')
+        let formData = new FormData();
+        // formData.append("file", $("#img")[0].files[0]);//生成一对表单属性
+        // var files = $("#files")[0].files;
+        let file = $("#" + fileId);
+        formData.append('file', file.files[0]);
+        formData.append("type", type);
+        $.ajax({
+            type: "POST",//因为是传输文件，所以必须是post
+            url: url,//对应的后台处理类的地址
+            data: formData,
+            processData: false,
+            contentType: false,
+            //enctype: 'multipart/form-data',
+            success: function (data) {
+                if (data.code > 0) {
+                    alert("上传成功")
+                } else {
+                    alert("上传失败")
+                }
+            }
+        });
+    }
 
 </script>
 </body>

@@ -192,7 +192,7 @@ public class ExcelController {
                     }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             return News.fail("数据导入有误，请按规则填写数据");
         }
 
@@ -324,7 +324,7 @@ public class ExcelController {
                 }
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
     }
 }
