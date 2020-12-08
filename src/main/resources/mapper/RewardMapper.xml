@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbsy.student.mapper.RewardMapper">
     <insert id="insert" parameterType="com.dbsy.student.pojo.Reward">
-    insert into reward (id, student_id, synopsis, 
+    insert into reward (id, student_id, synopsis,
       score,study_term)
-    values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{synopsis,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{synopsis,jdbcType=VARCHAR},
       #{score},#{studyTerm})
   </insert>
     <insert id="insertSelective" parameterType="com.dbsy.student.pojo.Reward">
