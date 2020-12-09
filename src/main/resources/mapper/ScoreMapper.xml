@@ -103,6 +103,11 @@
         </foreach>
     </delete>
 
+    <select id="getCourses"  parameterType="int" resultType="Map">
+        SELECT s.id as id,s.student_id as studentId,c.id courseId,c.`name` as name ,s.score as score  FROM score s LEFT JOIN course c on s.course_id=c.id where s.student_id=#{id} and s.study_term=#{term}
+    </select>
+
+
     <select id="slip" parameterType="Map" resultType="Map">
         select * from view_student_score_reward_mrank
         <where>

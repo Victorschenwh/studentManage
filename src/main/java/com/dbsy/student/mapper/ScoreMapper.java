@@ -32,6 +32,11 @@ public interface ScoreMapper {
             "experiment_hours=#{experiment_hours},test_time=#{test_time}  where id=#{id}")
     int update(Score score);
 
+    @Update("update score set score=#{score} where student_id=#{id} and study_term=#{term} and course_id=#{course}" )
+    int updateSelf(int id , int term, int course, double score);
+
+    List<Map>getCourses(int id,int term);
+
     int batchInsert(List list);
 
     int batchRemove(int[] ids);

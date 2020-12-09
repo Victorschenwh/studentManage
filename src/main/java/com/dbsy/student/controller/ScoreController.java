@@ -9,6 +9,7 @@ import com.dbsy.student.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -56,6 +57,27 @@ public class ScoreController {
     public String gradePoint() {
         return "scoinfo/gradePoint";
     }
+
+
+    @RequestMapping("/perSubject")
+    public String perSubject() {
+        return "scoinfo/per";
+    }
+
+
+
+    @RequestMapping("/getCourses/{id}/{term}")
+    @ResponseBody
+    public Map getCourses(@PathVariable("id") int id,@PathVariable("term") int term ){
+
+//        System.out.println("id = " + id + "term>>" +term);
+        if (ObjectUtils.isEmpty(id) || ObjectUtils.isEmpty(term)){
+            return  News.fail();
+        }
+//        System.out.println("scoreService.getCourses(id) = " + scoreService.getCourses(id,term));
+        return News.success("成功",scoreService.getCourses(id,term));
+    }
+
 
     //   @Authority({Role.Teacher})
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -113,6 +135,18 @@ public class ScoreController {
         }
         return News.fail("添加失败");
     }
+
+    @ResponseBody
+    @RequestMapping("/updateSelf")
+    public Map updateSelf(@RequestParam Map map) {
+
+        System.out.println("map = " + map);
+        if (scoreService.updateSelf(map) != -1) {
+            return News.success();
+        }
+        return News.fail("修改失败");
+    }
+
 
     @ResponseBody
     @RequestMapping("/update")

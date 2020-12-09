@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="static :: head"></head>
+<style>
+    .select {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .item {
+        flex: 1;
+    }
+</style>
+<body>
+<div class="container-fluid">
+
+    <ol class="breadcrumb">
+        <li>成绩管理</li>
+        <li class="active">各科成绩</li>
+    </ol>
+
+
+    <div id="toolbar" class="btn-group">
+        <button id="btn_download" type="button" class="btn btn-primary" onclick="download()">
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>下载
+        </button>
+
+
+        <div class="select">
+            <div class="item">
+                <select id="departmentId" class="form-control">
+                    <!--<option value="">&#45;&#45;请选择学院&#45;&#45;</option>-->
+                    <!--<option value="" th:each="department : ${session.departments}" th:value="${department.id}" th:text="${department.name}"></option>-->
+                </select>
+            </div>
+            <div class="item">
+                <select id="majorId" class="form-control"
+                        required>
+                    <option value="">
+                        --请选择专业--
+                    </option>
+                </select>
+            </div>
+            <div class="item">
+                <select id="grade" class="form-control">
+
+                </select>
+            </div>
+            <div class="item">
+                <select id="clazzId" class="form-control">
+                    <option value="">
+                        --请选择班级--
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="table1">
+        <table id="table_score" data-mobile-responsive="true">
+        </table>
+    </div>
+
+    <!--模态框-->
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal" id="update">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title">
+                            各科成绩详情
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <input id="id" name="id" class="hidden">
+<!--                        <input id="studyTerm" name="studyTerm" class="hidden">-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="term">学期：</label>
+                            <div class="col-sm-8">
+                                <input  id="term" name="studyTerm" class="form-control"  readonly="readonly" type="text" >
+                            </div>
+                        </div>
+
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-sm-3 control-label">姓名：</label>-->
+<!--                            <div class="col-sm-8">-->
+<!--                                <input name="name" id="name" class="form-control" type="text" readonly="readonly">-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+
+                        <div class="form-group" id="course_score">
+                        </div>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            确定
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+</div>
+<div th:replace="static :: script"></div>
+</body>
+<script src="/js/select.js"></script>
+<script>
+    $(document).ready(function () {
+        department();
+        grade();
+    })
+</script>
+<div th:if="${session.user!=null && session.user.departmentId != null}">
+    <script>
+        $(document).ready(function () {
+            $("#departmentId").val([[${session.user.departmentId}]])
+            $('#departmentId').attr("disabled", true);
+            major()
+        })
+    </script>
+</div>
+<div th:if="${session.user!=null && session.user.role > 1000 }">
+    <script>
+        $(document).ready(function () {
+            $("#grade").val([[${session.user.role}]])
+            $('#grade').attr("disabled", true);
+        })
+    </script>
+</div>
+<script>
+    $(document).ready(function () {
+        load()
+    });
+
+    $("#update").validate({
+        rules: {},
+        messages: {},
+        submitHandler: function (form) {
+            update();
+            // delSelf();
+        }
+    });
+
+
+    let downParams
+
+
+    $("#table1").keydown(function (e) {
+        if (e.keyCode == 13) {
+            let temp = null
+            var contentList = document.getElementsByClassName('search-input')
+            temp = contentList[0].value
+            // console.log(temp)
+            // console.log(temp)
+            if (temp != null && temp != "") {
+                downParams['search'] = temp
+                downParams.page = 1
+                $('#table_score').bootstrapTable('refresh', {query: downParams})
+            }
+        }
+
+    });
+
+    function download() {
+        let url = ""
+        for (let k in downParams) {
+            let value = downParams[k] != undefined ? downParams[k] : ''
+            url += `&${k}=${encodeURIComponent(value)}`
+        }
+
+        window.open("/excel/download?" + (url ? url.substring(1) : ''))
+    }
+
+    function update() {
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/score/updateSelf",
+            data: $('#update').serialize(),
+            success: function (data) {
+                if (data.code == 1) {
+                    //操作成功，关闭模态框
+                    $('#edit').modal('hide');
+                    reLoad();
+                    //alert("修改成功");
+                } else {
+                    alert("修改失败");
+                }
+            }
+        });
+    }
+
+    function load() {
+        $('#table_score')
+            .bootstrapTable({
+                url: "/score/list",                      //请求后台的URL（*）
+                method: 'GET',                      //请求方式（*）
+                toolbar: '#toolbar',              //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+                pageSize: 10,                     //每页的记录行数（*）
+                pageList: [10, 20, 30],        //可供选择的每页的行数（*）
+                search: true,                      //是否显示表格搜索
+                showSearchButton: true,
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列（选择显示的列）
+                showRefresh: false,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: false,                //是否启用点击选中行
+                //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+                showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                  //是否显示父子表
+                //得到查询的参数
+                queryParams: function (params) {
+                    //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+                    downParams = {
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        search: params.search,
+                        pageSize: params.limit,
+                        type:"academi"
+                    }
+                    return {
+                        pageSize: params.limit,                         //页面大小
+                        page: (params.offset / params.limit) + 1,   //页码
+                        //sort: params.sort,      //排序列名
+                        //sortOrder: params.order //排位命令（desc，asc）
+                        departmentId: $("#departmentId").val(),
+                        majorId: $("#majorId").val(),
+                        grade: $("#grade").val(),
+                        clazzId: $("#clazzId").val(),
+                        search: params.search
+                    };
+                },
+                onSearch: function (text) {
+                    // alert(text)
+                },
+                onPreBody: function (data) {
+                },
+
+                columns: [{
+                    checkbox: true,
+                    visible: true                  //是否显示复选框
+                }, {
+                        field: 'id',
+                        title: '序号',
+                        align: 'center',
+                        visible: false,
+                    }
+                ,  {
+                        field: 'name',
+                        title: '姓名',
+                        align: 'center',
+                    },
+                    {
+                    field: 'number',
+                    title: '学号',
+                    align: 'center',
+                },
+                {
+                        field: 'study_term',
+                        title: '学期',
+                        align: 'center',
+                },
+                //     {
+                //     field: 'department_id',
+                //     title: '学院',
+                //     align: 'center',
+                //     formatter: function (value, row, index) {
+                //         let department = {};
+                //         if (value != null) {
+                //             $.ajax({
+                //                 async: false,
+                //                 type: "GET",
+                //                 url: "/department/get/" + value,
+                //                 dataType: "json",
+                //                 data: {},
+                //                 success: function (data) {
+                //                     if (data.code == 1) {
+                //                         department = data.data;
+                //                     }
+                //                 }
+                //             });
+                //         }
+                //         return department != null ? department.name : "";
+                //     }
+                // },
+                    {
+                        title: '操作',
+                        field: 'id',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var e = '<a class="btn btn-info btn-sm " href="#" mce_href="#"  data-toggle="modal" data-target="#edit" title="查看成绩详情" onclick="get(' + row.id + ',' + row.study_term + ')">成绩详情</a> ';
+                            // var d = '<a class="btn btn-warning btn-sm " href="#" title="退回"  mce_href="#" onclick="remove(\''
+                            //     + row.id
+                            //     + '\')">退回</a> ';
+                            // var d = '<a class="btn btn-warning btn-sm " title="退回"  data-toggle="modal" data-target="#delWarning"   onclick="input_id(' + row.id + ')">详情</a> ';
+                            return e;
+                        }
+                    }
+                ],
+                formatSearch: function () {
+                    return '姓名(汉字/拼音)或学号';
+                },
+
+                // onClickRow: function (row,$element,$field) {
+                //     // row:本行具体数据
+                //     $('#table_score').bootstrapTable('expandRow', 279);
+                //     console.log('row>name>' + row.name)
+                //     console.log('$element>' + $element.$el)
+                //     console.log('$field>' + $field)
+                    // InitSubTable(index,row,$detail)
+
+                    // formatter: function (value, row, index) {
+                    //     if (value == null) {
+                    //         return "<button onclick='getSelf( " + row.id + " , " + row.studentId + ")' data-toggle=\"modal\" data-target=\"#message\">等待审批</button>";
+                    //     }
+                    //     return value ? "同意试读" : "拒绝试读";
+                // }
+                // }
+            });
+    }
+
+    function reLoad() {
+        $('#table_score').bootstrapTable('refresh');
+    }
+    function get(id,term) {
+        // console.log("id=== "+ id)
+        // console.log("term>>"+term)
+
+        // console.log("stuID=== "+ stuId)
+        $('#term').val(term)
+        $.ajax({
+            //cache: true,
+            type: "POST",
+            url: "/score/getCourses/" + id +'/'+ term,
+            data: {},
+            success: function (data) {
+                if (data.code == 1) {
+                    var List=data.data;
+
+                    // for (var key in suspension) {
+                    //     $("#" + key + 1).val(suspension[key]);
+                    //
+                    // }
+                    $("#course_score").empty();
+                    if(List.length>0){
+                        for(let index in List){
+
+                             $('#id').val(List[index].studentId);
+                              let element0='<label class="col-sm-3 control-label"' + 'id=' +  List[index].id  + '>' + '</label>'
+
+                              let element1='<div class="col-sm-8">'
+                              let element2= '<input  name='+   List[index].courseId   + ' id=' + List[index].courseId +' class="form-control" ' + 'type="text" required >'
+                              let element3= '</div>'
+                              $("#course_score").append(element0+element1+element2+element3);
+
+                              $('#'+List[index].id).text(List[index].name + ' :');
+                              // console.log('score>>'+List[index].score)
+                              $('#'+List[index].courseId).val(List[index].score);
+                        }
+                    }
+
+
+                    // <div class="col-sm-8">
+                    //     <input name="name" id="name2" class="form-control" type="text" required>
+                    // </div>
+
+                }
+                else {
+                    alert(data.msg);
+                }
+            }
+        });
+
+    }
+
+    //初始化子表格(无线循环)
+    InitSubTable = function (index, row, $detail) {
+        var parentid = row.MENU_ID;
+        var cur_table = $detail.html('<table></table>').find('table');
+        $(cur_table).bootstrapTable({
+            url: '/score/list',
+            method: 'get',
+            // queryParams: { strParentID: parentid },
+            // ajaxOptions: { strParentID: parentid },
+            clickToSelect: false,
+            detailView: true,//父子表
+            uniqueId: "id",
+            pageSize: 10,
+            pageList: [10, 25],
+            columns: [{
+                checkbox: true
+            },{
+                field: 'id',
+                title: '序号',
+                align: 'center',
+                visible: false,
+            }
+                , {
+                    field: 'number',
+                    title: '学号',
+                    align: 'center',
+                }, {
+                    field: 'name',
+                    title: '姓名',
+                    align: 'center',
+                },
+            ],
+            //无线循环取子表，直到子表里面没有记录
+            // onExpandRow: function (index, row, $Subdetail) {
+            //     InitSubTable(index, row, $Subdetail);
+            // }
+        });
+    };
+
+</script>
+</html>

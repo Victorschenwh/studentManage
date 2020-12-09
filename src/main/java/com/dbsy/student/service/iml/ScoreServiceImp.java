@@ -11,9 +11,9 @@ import com.dbsy.student.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("scoreServiceImp")
 //@CacheConfig(cacheNames = "score")
@@ -98,6 +98,12 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
     }
 
     @Override
+    public List<Map> getCourses(int id,int term) {
+
+        return this.scoreMapper.getCourses(id,term);
+    }
+
+    @Override
     public int excelBatchInsert(List list) {
         return scoreMapper.batchInsert(list);
     }
@@ -114,6 +120,39 @@ public class ScoreServiceImp implements ScoreService, ExcelSave {
 //    @CachePut(key = "#score.id", unless = "#score == null")
     public int update(Score score) {
         return scoreMapper.update(score);
+    }
+
+    @Override
+    public int updateSelf(Map map) {
+
+        try{
+            map.forEach((key,value)->{
+
+                if(!key.equals("id") && !key.equals("studyTerm")){
+
+//                    System.out.println(">>>>>>");
+//                    System.out.println(map.get("id").getClass());
+                    int id=Integer.parseInt((String) map.get("id"));
+                    int term=Integer.parseInt((String) map.get("studyTerm"));
+//                    String course = (String) key;
+//                    String score=(String) value;
+
+                    int course=Integer.parseInt((String) key);
+                    double score=Double.parseDouble((String) value);
+
+                    scoreMapper.updateSelf(id,term,course,score);
+//                    System.out.println(key + " : " + value);
+                }
+
+            });
+        }
+        catch (Exception e){
+
+            e.printStackTrace();
+            return -1;
+        }
+
+        return 1;
     }
 
     @Override

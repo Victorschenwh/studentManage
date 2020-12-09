@@ -19,9 +19,13 @@ public interface ScoreService {
 
     Score get(int id);
 
+    List<Map> getCourses(int id,int term);
+
     int delete(int id);
 
     int update(Score score);
+
+    int updateSelf(Map map);
 
     int batchRemove(int[] ids);
 
