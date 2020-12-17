@@ -25,7 +25,8 @@
             <td>姓名</td>
             <td th:if="${exportStudentInfo}" th:text="${exportStudentInfo.student.name}"></td>
             <td>性别</td>
-            <td th:text="${exportStudentInfo.student.gender ? '男': '女'}"></td>
+            <td th:text="${exportStudentInfo.student.gender != null ?(exportStudentInfo.student.gender ? '男': '女'):''}"
+            ></td>
             <td>民族</td>
             <td th:text="${exportStudentInfo.student.nation}"></td>
             <td colspan="4" rowspan="4">
@@ -39,7 +40,7 @@
             <td>身份证号</td>
             <td th:text="${exportStudentInfo.student.idCard}">&nbsp;</td>
             <td>入学时间</td>
-            <td th:text="${#dates.format(exportStudentInfo.student.admissionDate,'yyyy-MM-dd')}"></td>
+            <td th:text="${exportStudentInfo.student.admissionDate != null ?(#dates.format(exportStudentInfo.student.admissionDate,'yyyy-MM-dd')):''}"></td>
             <td>学号</td>
             <td th:text="${exportStudentInfo.student.number}"></td>
         </tr>
@@ -62,7 +63,7 @@
         <tr>
             <td colspan="10" class="text-info text-center">家庭状况</td>
         </tr>
-        <tr th:if="${exportStudentInfo.families.size()>0}">
+        <tr th:if="${exportStudentInfo.families!=null && exportStudentInfo.families.size()>0}">
             <td>家庭成员</td>
             <td>姓名</td>
             <td colspan="4">工作单位</td>

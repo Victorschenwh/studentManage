@@ -90,13 +90,15 @@ public class Student {
 
     @ExcelProperty("政治面貌")
     private String status;
-
+    @ExcelIgnore
     private Integer isdel;
-
+    @ExcelIgnore
     private String abbrName;
 
+    @ExcelProperty("四级成绩")
     private Integer cet4;
 
+    @ExcelProperty("六级成绩")
     private Integer cet6;
 
     public Integer getIsdel() {
