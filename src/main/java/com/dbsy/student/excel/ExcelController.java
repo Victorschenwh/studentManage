@@ -79,7 +79,9 @@ public class ExcelController {
     @PostMapping("/upload")
     @ResponseBody
     public Map upload(@RequestParam("file") MultipartFile file, @RequestParam("type") String type) {
-
+        if (file == null || type == null) {
+            return News.fail("数据导入有误，请按规则填写数据");
+        }
         try {
             switch (type) {
                 case "employment":

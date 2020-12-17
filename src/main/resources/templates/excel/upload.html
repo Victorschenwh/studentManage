@@ -258,7 +258,11 @@
         // formData.append("file", $("#img")[0].files[0]);//生成一对表单属性
         // var files = $("#files")[0].files;
         let file = $("#" + fileId);
-        formData.append('file', file.files[0]);
+        if (file == null) {
+            alert("请选择文件")
+            return
+        }
+        formData.append('file', file[0].files[0]);
         formData.append("type", type);
         $.ajax({
             type: "POST",//因为是传输文件，所以必须是post
@@ -268,6 +272,7 @@
             contentType: false,
             //enctype: 'multipart/form-data',
             success: function (data) {
+                $('#onStep').modal('hide')
                 if (data.code > 0) {
                     alert("上传成功")
                 } else {
