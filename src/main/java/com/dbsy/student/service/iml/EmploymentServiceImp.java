@@ -29,7 +29,8 @@ public class EmploymentServiceImp implements EmploymentService, ExcelSave {
     }
 
     @Override
-    public int batchInsert(List<Student> list) {
+    public int batchInsert(List<Employment> list) {
+
         return employmentMapper.batchInsert(list);
     }
 
@@ -55,9 +56,9 @@ public class EmploymentServiceImp implements EmploymentService, ExcelSave {
 
     @Override
     public int addSingle(Map map) {
-        try{
+        try {
             return this.employmentMapper.addSingle(map);
-        }catch (Exception e){
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
@@ -86,6 +87,7 @@ public class EmploymentServiceImp implements EmploymentService, ExcelSave {
 
     @Override
     public int excelBatchInsert(List list) {
-        return employmentMapper.batchInsert(list);
+        System.out.println(list);
+        return this.batchInsert(list);
     }
 }

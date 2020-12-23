@@ -14,7 +14,7 @@ public interface EmploymentService {
 
     int insertSelective(Employment record);
 
-    int batchInsert(List<Student> list);
+    int batchInsert(List<Employment> list);
 
     Employment get(int id);
 

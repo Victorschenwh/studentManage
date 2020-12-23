@@ -197,7 +197,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" data-dismiss="onStep" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="">进度</h4>
                 </div>
                 <div class="modal-body" style="color: red;">
@@ -273,11 +273,14 @@
             //enctype: 'multipart/form-data',
             success: function (data) {
                 $('#onStep').modal('hide')
-                if (data.code > 0) {
-                    alert("上传成功")
-                } else {
-                    alert("上传失败")
-                }
+                setTimeout(function () {
+                    if (data.code > 0) {
+                        alert("上传成功")
+                    } else {
+                        alert(data.msg)
+                    }
+                }, 1000)
+
             }
         });
     }

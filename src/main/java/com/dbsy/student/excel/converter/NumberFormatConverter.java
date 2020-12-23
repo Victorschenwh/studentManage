@@ -21,11 +21,18 @@ public class NumberFormatConverter implements Converter<Integer> {
 
     @Override
     public Integer convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        if (cellData != null && !"".equals(cellData.toString()) && cellData.toString().matches("\\d+"))
-            return Integer.parseInt(cellData.toString()) > 0 ? Integer.parseInt(cellData.toString()) : null;
-        else {
-            return null;
+
+        try {
+            if (cellData != null && !"".equals(cellData.toString()) && cellData.toString().matches("\\d+"))
+                return Integer.parseInt(cellData.toString()) > 0 ? Integer.parseInt(cellData.toString()) : null;
+            else {
+                return null;
+            }
+        } catch (Exception e) {
+
         }
+        return null;
+
     }
 
     @Override

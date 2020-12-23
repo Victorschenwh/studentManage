@@ -16,7 +16,7 @@ spring:
   # 数据库连接配置
   datasource:
     username: root
-    password: root
+    password: 32864maofeng
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://121.40.115.18:3306/stu_manage?useunicode=true&characterEncoding=utf8&serverTimezone=UTC
 

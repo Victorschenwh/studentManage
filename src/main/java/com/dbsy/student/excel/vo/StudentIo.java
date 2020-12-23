@@ -37,7 +37,7 @@ public class StudentIo {
     @ExcelProperty("民族")
     private String nation;
 
-    @ExcelProperty("政治面貌（中共党员/中共预备党员/共青团员/群众）")
+    @ExcelProperty("政治面貌(中共党员/中共预备党员/群众)")
     private String status;
 
     @ExcelProperty(value = "年龄", converter = NumberFormatConverter.class)
@@ -47,10 +47,8 @@ public class StudentIo {
     private String idCard;
 
     @ExcelProperty(value = "出生日期", converter = DateFormatConverter.class)
-    // @JsonFormat(pattern = "yyyyMMdd", timezone = "GMT+8")
-    // @DateTimeFormat(pattern = "yyyyMMdd")
-    @ExcelIgnore
     private Date birthday;
+
 
     @ExcelProperty("籍贯（省市）")
     private String nativePlace;
@@ -68,9 +66,6 @@ public class StudentIo {
     private Float score;
 
     @ExcelProperty(value = "入学日期", converter = DateFormatConverter.class)
-    // @JsonFormat(pattern = "yyyyMMdd", timezone = "GMT+8")
-    //  @DateTimeFormat(pattern = "yyyyMMdd")
-    @ExcelIgnore
     private Date admissionDate;
 
     @ExcelProperty("寝室号")

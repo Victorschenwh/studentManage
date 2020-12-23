@@ -17,7 +17,7 @@ public interface EmploymentMapper {
 
     int insertSelective(Employment record);
 
-    int batchInsert(List<Student> list);
+    int batchInsert(List<Employment> list);
 
     @Select("select * from employment where id = #{id}")
     Employment get(int id);

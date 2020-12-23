@@ -71,46 +71,53 @@ public class StudentIoService implements ExcelSave {
                             null, importStudentInfo.getScore(), clazz.getId(), major.getId(), department.getId(), clazz.getGrade(),
                             importStudentInfo.getAge(), importStudentInfo.getNation(), importStudentInfo.getAddress(), importStudentInfo.getRoom(),
                             importStudentInfo.getStatus());
-                    student.setAbbrName(PinYinUtil.chineseToPinyin(student.getName().replaceAll("·", "").replaceAll("•", ""))
-                            + PinYinUtil.toFirstChar(student.getName().replaceAll("·", "").replaceAll("•", "")));
+                    // 外国人名字太奇葩,容易抛异常
+                    try {
+                        student.setAbbrName(PinYinUtil.chineseToPinyin(student.getName().replaceAll("·", "").replaceAll("•", ""))
+                                + PinYinUtil.toFirstChar(student.getName().replaceAll("·", "").replaceAll("•", "")));
+                    } catch (Exception e) {
+                        student.setAbbrName(null);
+                    }
                     student.setCet4(importStudentInfo.getCet4());
                     student.setCet6(importStudentInfo.getCet6());
                     student.setIsdel(importStudentInfo.getIsDel());
                     studentServiceImp.insert(student);
                     adminServiceImp.insert(Admin.student(student));
+
+                    // List<Family> families = familyServiceImp.getFamilyByStudentId(student.getId());
+                    if (importStudentInfo.getF1Name() != null && !"".equals(importStudentInfo.getF1Name().trim())) {
+                        Family family1 = new Family();
+                        family1.setName(importStudentInfo.getF1Name().trim());
+                        family1.setAge(importStudentInfo.getF1Age());
+                        family1.setWork(importStudentInfo.getF1Work());
+                        family1.setPhoneNumber(importStudentInfo.getF1Phone());
+                        family1.setRelationship(importStudentInfo.getF1Relationship());
+                        family1.setStudentId(student.getId());
+                        familyServiceImp.insert(family1);
+                    }
+                    if (importStudentInfo.getF2Name() != null && !"".equals(importStudentInfo.getF2Name().trim())) {
+                        Family family2 = new Family();
+                        family2.setName(importStudentInfo.getF2Name().trim());
+                        family2.setAge(importStudentInfo.getF2Age());
+                        family2.setWork(importStudentInfo.getF2Work());
+                        family2.setPhoneNumber(importStudentInfo.getF2Phone());
+                        family2.setStudentId(student.getId());
+                        family2.setRelationship(importStudentInfo.getF2Relationship());
+                        familyServiceImp.insert(family2);
+                    }
+                    if (importStudentInfo.getF3Name() != null && !"".equals(importStudentInfo.getF3Name().trim())) {
+                        Family family3 = new Family();
+                        family3.setName(importStudentInfo.getF3Name());
+                        family3.setAge(importStudentInfo.getF3Age());
+                        family3.setWork(importStudentInfo.getF3Work());
+                        family3.setStudentId(student.getId());
+                        family3.setPhoneNumber(importStudentInfo.getF3Phone());
+                        family3.setRelationship(importStudentInfo.getF3Relationship());
+                        familyServiceImp.insert(family3);
+                    }
                 }
 
-                // List<Family> families = familyServiceImp.getFamilyByStudentId(student.getId());
-                if (importStudentInfo.getF1Name() != null && !"".equals(importStudentInfo.getF1Name().trim())) {
-                    Family family1 = new Family();
-                    family1.setName(importStudentInfo.getF1Name().trim());
-                    family1.setAge(importStudentInfo.getF1Age());
-                    family1.setWork(importStudentInfo.getF1Work());
-                    family1.setPhoneNumber(importStudentInfo.getF1Phone());
-                    family1.setRelationship(importStudentInfo.getF1Relationship());
-                    family1.setStudentId(student.getId());
-                    familyServiceImp.insert(family1);
-                }
-                if (importStudentInfo.getF2Name() != null && !"".equals(importStudentInfo.getF2Name().trim())) {
-                    Family family2 = new Family();
-                    family2.setName(importStudentInfo.getF2Name().trim());
-                    family2.setAge(importStudentInfo.getF2Age());
-                    family2.setWork(importStudentInfo.getF2Work());
-                    family2.setPhoneNumber(importStudentInfo.getF2Phone());
-                    family2.setStudentId(student.getId());
-                    family2.setRelationship(importStudentInfo.getF2Relationship());
-                    familyServiceImp.insert(family2);
-                }
-                if (importStudentInfo.getF3Name() != null && !"".equals(importStudentInfo.getF3Name().trim())) {
-                    Family family3 = new Family();
-                    family3.setName(importStudentInfo.getF3Name());
-                    family3.setAge(importStudentInfo.getF3Age());
-                    family3.setWork(importStudentInfo.getF3Work());
-                    family3.setStudentId(student.getId());
-                    family3.setPhoneNumber(importStudentInfo.getF3Phone());
-                    family3.setRelationship(importStudentInfo.getF3Relationship());
-                    familyServiceImp.insert(family3);
-                }
+
             }
         }
         return 0;

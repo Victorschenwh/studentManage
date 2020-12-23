@@ -35,7 +35,7 @@ public class DataListener extends AnalysisEventListener {
      */
     @Override
     public void invoke(Object data, AnalysisContext context) {
-
+        System.out.println("employ:" + data.toString());
         list.add(data);
         // 达到BATCH_COUNT了，需要去存储一次数据库，防止数据几万条数据在内存，容易OOM
         if (list.size() >= BATC_COUNT) {

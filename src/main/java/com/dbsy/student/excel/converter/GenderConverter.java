@@ -19,15 +19,25 @@ public class GenderConverter implements Converter<Boolean> {
 
     @Override
     public Boolean convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        if (cellData == null || "".equals(cellData.toString().trim())) {
-            return null;
+
+        try {
+            if (cellData == null || "".equals(cellData.toString().trim())) {
+                return null;
+            }
+            if ("男".equals(cellData.toString().trim())) {
+                return true;
+            } else if ("女".equals(cellData.toString().trim())) {
+                return false;
+            } else if ("0".equals(cellData.toString().trim())) {
+                return false;
+            } else if ("1".equals(cellData.toString().trim())) {
+                return true;
+            } else
+                return null;
+        } catch (Exception e) {
+
         }
-        if ("男".equals(cellData.toString().trim())) {
-            return true;
-        } else if ("女".equals(cellData.toString().trim())) {
-            return false;
-        } else
-            return null;
+        return null;
     }
 
     @Override

@@ -20,7 +20,13 @@ public class PhoneCheckConverter implements Converter<String> {
 
     @Override
     public String convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return Check.isEmail(cellData.toString()) ? cellData.toString() : null;
+        try {
+            if (cellData != null)
+                return Check.isPhone(cellData.toString()) ? cellData.toString() : null;
+        } catch (Exception e) {
+
+        }
+        return null;
     }
 
     @Override

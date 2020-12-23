@@ -35,6 +35,16 @@ public class StudentServiceImp implements StudentService, ExcelSave {
         return 0;
     }
 
+    public int importInsert(Student record) {
+        Student student = studentMapper.selectByNumber(record.getNumber());
+        if (student == null) {
+            record.setId(0);
+            return record.getId();
+        } else
+            record.setId(student.getId());
+        return 0;
+    }
+
     @Override
     public int batchInsert(List<Student> list) {
         return studentMapper.batchInsert(list);
